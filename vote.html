@@ -1,1246 +1,899 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Vote — VOTERA</title>
-
-  <meta
-    name="description"
-    content="Vote on VOTERA and see what people think."
-  >
-
-  <style>
-
-    :root {
-      --primary: #6c5ce7;
-      --primary-dark: #5848d6;
-      --bg: #f7f7fb;
-      --card: #ffffff;
-      --text: #17171c;
-      --muted: #777783;
-      --border: #e8e8ef;
-      --green: #20bf6b;
-      --danger: #e74c3c;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding-bottom: 50px;
-    }
-
-    button {
-      font-family: inherit;
-      cursor: pointer;
-      border: none;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    header {
-      height: 68px;
-      background: rgba(255,255,255,0.95);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(12px);
-    }
-
-    .nav {
-      width: 100%;
-      max-width: 1000px;
-      margin: auto;
-      padding: 0 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 25px;
-      font-weight: 900;
-      letter-spacing: -1px;
-    }
-
-    .logo span {
-      color: var(--primary);
-    }
-
-    .back {
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 850px;
-      margin: auto;
-      padding: 35px 18px;
-    }
-
-    .vote-header {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-
-    .category {
-      display: inline-block;
-      background: #ece9ff;
-      color: var(--primary);
-      padding: 7px 13px;
-      border-radius: 30px;
-      font-size: 12px;
-      font-weight: 800;
-      margin-bottom: 15px;
-    }
-
-    .vote-header h1 {
-      font-size: clamp(26px, 7vw, 42px);
-      line-height: 1.15;
-      letter-spacing: -1px;
-      margin-bottom: 12px;
-    }
-
-    .vote-header p {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .options {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      position: relative;
-    }
-
-    .option-card {
-      position: relative;
-      background: var(--card);
-      border: 2px solid var(--border);
-      border-radius: 22px;
-      overflow: hidden;
-      transition: 0.2s;
-    }
-
-    .option-card:hover {
-      transform: translateY(-3px);
-      border-color: #c9c4f8;
-    }
-
-    .option-image {
-      height: 210px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 55px;
-      background: linear-gradient(
-        135deg,
-        #ded9ff,
-        #f5f3ff
-      );
-      overflow: hidden;
-    }
-
-    .option-card:nth-child(2) .option-image {
-      background: linear-gradient(
-        135deg,
-        #ffe0ec,
-        #fff3f7
-      );
-    }
-
-    .option-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .option-info {
-      padding: 16px;
-    }
-
-    .option-label {
-      color: var(--primary);
-      font-size: 11px;
-      font-weight: 900;
-      margin-bottom: 5px;
-    }
-
-    .option-name {
-      font-size: 18px;
-      font-weight: 900;
-      margin-bottom: 5px;
-    }
-
-    .option-description {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    .vote-button {
-      width: 100%;
-      padding: 14px;
-      margin-top: 14px;
-      background: var(--primary);
-      color: white;
-      border-radius: 12px;
-      font-weight: 900;
-      font-size: 14px;
-      transition: 0.2s;
-    }
-
-    .vote-button:hover {
-      background: var(--primary-dark);
-      transform: translateY(-1px);
-    }
-
-    .vote-button:disabled {
-      background: #bdb9d9;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .vs {
-      display: none;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--text);
-      color: white;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      z-index: 5;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    }
-
-    /* RESULTS */
-
-    #results {
-      display: none;
-      margin-top: 25px;
-      animation: fadeUp 0.4s ease;
-    }
-
-    @keyframes fadeUp {
-
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-    }
-
-    .result-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 20px;
-    }
-
-    .result-title {
-      text-align: center;
-      font-size: 20px;
-      font-weight: 900;
-      margin-bottom: 20px;
-    }
-
-    .result-row {
-      margin-bottom: 18px;
-    }
-
-    .result-top {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 7px;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .percentage {
-      color: var(--primary);
-    }
-
-    .bar {
-      height: 12px;
-      background: #eeeeF4;
-      border-radius: 30px;
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      width: 0;
-      height: 100%;
-      background: var(--primary);
-      border-radius: 30px;
-      transition: width 1s ease;
-    }
-
-    .total {
-      text-align: center;
-      color: var(--muted);
-      font-size: 13px;
-      margin-top: 20px;
-    }
-
-    .winner {
-      text-align: center;
-      margin-top: 18px;
-      padding: 15px;
-      background: #f0fff7;
-      color: #159957;
-      border-radius: 14px;
-      font-weight: 900;
-    }
-
-    /* SHARE */
-
-    .share-section {
-      margin-top: 20px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .share-section h2 {
-      font-size: 18px;
-      margin-bottom: 7px;
-    }
-
-    .share-section p {
-      color: var(--muted);
-      font-size: 12px;
-      margin-bottom: 15px;
-    }
-
-    .share-buttons {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-
-    .share {
-      padding: 11px 5px;
-      border-radius: 11px;
-      background: #f3f3f7;
-      font-size: 12px;
-      font-weight: 800;
-      transition: 0.2s;
-    }
-
-    .share:hover {
-      background: #e9e8f5;
-      transform: translateY(-1px);
-    }
-
-    .create-own {
-      display: block;
-      width: 100%;
-      margin-top: 14px;
-      padding: 15px;
-      background: var(--primary);
-      color: white;
-      border-radius: 13px;
-      font-weight: 900;
-    }
-
-    .create-own:hover {
-      background: var(--primary-dark);
-    }
-
-    /* ERROR */
-
-    .error {
-      display: none;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 35px 20px;
-      text-align: center;
-    }
-
-    .error-icon {
-      font-size: 45px;
-      margin-bottom: 15px;
-    }
-
-    .error h2 {
-      margin-bottom: 10px;
-    }
-
-    .error p {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-
-    .error a {
-      display: inline-block;
-      background: var(--primary);
-      color: white;
-      padding: 13px 20px;
-      border-radius: 12px;
-      font-weight: 800;
-    }
-
-    @media (min-width: 650px) {
-
-      .options {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .vs {
-        display: flex;
-        top: 180px;
-      }
-
-      .option-image {
-        height: 250px;
-      }
-
-      .share-buttons {
-        grid-template-columns: repeat(5, 1fr);
-      }
-
-    }
-
-  </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Vote — VOTERA</title>
+
+<style>
+:root {
+  --primary: #6c5ce7;
+  --primary-dark: #5848d6;
+  --bg: #f7f7fb;
+  --card: #ffffff;
+  --text: #17171c;
+  --muted: #777783;
+  --border: #e8e8ef;
+  --green: #20bf6b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header {
+  height: 68px;
+  background: rgba(255,255,255,0.95);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+
+.nav {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  padding: 0 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.logo span {
+  color: var(--primary);
+}
+
+.back {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.container {
+  width: 100%;
+  max-width: 850px;
+  margin: auto;
+  padding: 35px 18px;
+}
+
+.vote-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.category {
+  display: inline-block;
+  background: #ece9ff;
+  color: var(--primary);
+  padding: 7px 13px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.vote-header h1 {
+  font-size: clamp(26px, 7vw, 42px);
+  line-height: 1.15;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+
+.vote-header p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.option-card {
+  position: relative;
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.option-card:hover {
+  transform: translateY(-3px);
+  border-color: #c9c4f8;
+}
+
+.option-image {
+  height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 55px;
+  background: linear-gradient(135deg,#ded9ff,#f5f3ff);
+  overflow: hidden;
+}
+
+.option-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.option-info {
+  padding: 16px;
+}
+
+.option-label {
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.option-name {
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.option-description {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.vote-button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 14px;
+  background: var(--primary);
+  color: white;
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.vote-button:hover {
+  background: var(--primary-dark);
+}
+
+.vote-button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+.vs {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  z-index: 5;
+}
+
+/* RESULTS */
+
+#results {
+  display: none;
+  margin-top: 25px;
+}
+
+.result-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 20px;
+}
+
+.result-title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.result-row {
+  margin-bottom: 18px;
+}
+
+.result-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.percentage {
+  color: var(--primary);
+}
+
+.bar {
+  height: 12px;
+  background: #eeeeF4;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  width: 0;
+  height: 100%;
+  background: var(--primary);
+  border-radius: 30px;
+  transition: width 1s ease;
+}
+
+.total {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+.winner {
+  text-align: center;
+  margin-top: 18px;
+  padding: 15px;
+  background: #f0fff7;
+  color: #159957;
+  border-radius: 14px;
+  font-weight: 900;
+}
+
+/* SHARE */
+
+.share-section {
+  margin-top: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 20px;
+  text-align: center;
+}
+
+.share-section h2 {
+  font-size: 18px;
+  margin-bottom: 7px;
+}
+
+.share-section p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.share-buttons {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 8px;
+}
+
+.share {
+  padding: 11px 5px;
+  border-radius: 11px;
+  background: #f3f3f7;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.share:hover {
+  background: #e9e8f5;
+}
+
+.create-own {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  padding: 15px;
+  background: var(--primary);
+  color: white;
+  border-radius: 13px;
+  font-weight: 900;
+}
+
+.create-own:hover {
+  background: var(--primary-dark);
+}
+
+.error {
+  display: none;
+  text-align: center;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 30px 20px;
+}
+
+.error h2 {
+  margin-bottom: 10px;
+}
+
+.error p {
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+@media (min-width:650px) {
+
+  .options {
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+
+  .vs {
+    display: flex;
+    top: 180px;
+  }
+
+  .option-image {
+    height: 250px;
+  }
+
+  .share-buttons {
+    grid-template-columns: repeat(5,1fr);
+  }
+}
+</style>
 </head>
 
 <body>
 
-
 <header>
 
-  <nav class="nav">
+<nav class="nav">
 
-    <a
-      href="index.html"
-      class="logo"
-    >
-      VOTE<span>RA</span>
-    </a>
+<a href="index.html" class="logo">
+VOTE<span>RA</span>
+</a>
 
-    <a
-      href="index.html"
-      class="back"
-    >
-      ← Home
-    </a>
+<a href="index.html" class="back">
+← Home
+</a>
 
-  </nav>
+</nav>
 
 </header>
 
 
 <main class="container">
 
+<section class="vote-header">
 
-  <!-- VOTE HEADER -->
+<div class="category">
+🔥 VOTERA
+</div>
 
-  <section
-    class="vote-header"
-    id="voteHeader"
-  >
+<h1 id="question">
+Loading vote...
+</h1>
 
-    <div class="category">
-      🔥 VOTERA
-    </div>
+<p>
+Cast your vote and see what everyone thinks.
+</p>
 
-    <h1 id="question">
-      Loading...
-    </h1>
-
-    <p>
-      Cast your vote and see what everyone thinks.
-    </p>
-
-  </section>
+</section>
 
 
-  <!-- ERROR -->
+<div id="error" class="error">
 
-  <section
-    class="error"
-    id="error"
-  >
+<h2>
+😕 Vote not found
+</h2>
 
-    <div class="error-icon">
-      😕
-    </div>
+<p>
+This vote does not exist or the link is incorrect.
+</p>
 
-    <h2>
-      Vote not found
-    </h2>
+<a href="index.html" class="create-own">
+Go to VOTERA
+</a>
 
-    <p>
-      This vote does not exist on this device.
-      Create a new vote and share it with your friends.
-    </p>
-
-    <a href="create.html">
-      🔥 Create a Vote
-    </a>
-
-  </section>
+</div>
 
 
-  <!-- OPTIONS -->
+<section class="options" id="options">
 
-  <section
-    class="options"
-    id="optionsContainer"
-  >
+<div class="vs">
+VS
+</div>
 
-    <div class="vs">
-      VS
-    </div>
-
-  </section>
+</section>
 
 
-  <!-- RESULTS -->
+<section id="results">
 
-  <section id="results">
+<div class="result-card">
 
-    <div class="result-card">
+<div class="result-title">
+📊 Results
+</div>
 
-      <div class="result-title">
-        📊 Results
-      </div>
+<div id="resultRows"></div>
 
-      <div id="resultRows">
-      </div>
+<div class="total">
+🔥 <span id="totalVotes">0</span> people voted
+</div>
 
-      <div class="total">
+<div class="winner" id="winner">
+🏆 Winner
+</div>
 
-        🔥
-        <span id="totalVotes">
-          0
-        </span>
-
-        people voted
-
-      </div>
-
-      <div
-        class="winner"
-        id="winner"
-      >
-        🏆 Winner
-      </div>
-
-    </div>
+</div>
 
 
-    <!-- SHARE -->
+<div class="share-section">
 
-    <div class="share-section">
+<h2>
+🔗 Share Results
+</h2>
 
-      <h2>
-        🔗 Share Results
-      </h2>
+<p>
+Let your friends vote and discover what they think.
+</p>
 
-      <p>
-        Let your friends vote and discover what they think.
-      </p>
+<div class="share-buttons">
 
-      <div class="share-buttons">
+<button class="share" onclick="shareWhatsApp()">
+💬 WhatsApp
+</button>
 
-        <button
-          class="share"
-          onclick="shareWhatsApp()"
-        >
-          💬 WhatsApp
-        </button>
+<button class="share" onclick="shareFacebook()">
+📘 Facebook
+</button>
 
-        <button
-          class="share"
-          onclick="shareFacebook()"
-        >
-          📘 Facebook
-        </button>
+<button class="share" onclick="shareX()">
+𝕏 X
+</button>
 
-        <button
-          class="share"
-          onclick="shareX()"
-        >
-          𝕏 X
-        </button>
+<button class="share" onclick="copyLink()">
+🔗 Copy Link
+</button>
 
-        <button
-          class="share"
-          onclick="copyLink()"
-        >
-          🔗 Copy Link
-        </button>
+<button class="share" onclick="nativeShare()">
+📤 Share
+</button>
 
-        <button
-          class="share"
-          onclick="nativeShare()"
-        >
-          📤 Share
-        </button>
+</div>
 
-      </div>
+<a href="create.html" class="create-own">
+🔥 Create Your Own Vote
+</a>
 
-      <a
-        href="create.html"
-        class="create-own"
-      >
-        🔥 Create Your Own Vote
-      </a>
+</div>
 
-    </div>
-
-  </section>
-
+</section>
 
 </main>
 
 
 <script>
 
-  let voteData = null;
+let voteData = null;
 
-  let voteId = null;
+let alreadyVoted = false;
 
-  let alreadyVoted = false;
 
+/* GET VOTE ID */
 
-  /* GET VOTE ID */
+const params = new URLSearchParams(window.location.search);
 
-  function getVoteId() {
+const voteId = params.get("id");
 
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
 
-    return params.get("id");
+/* LOAD VOTE */
 
-  }
+function loadVote() {
 
+if (!voteId) {
 
-  /* LOAD VOTE */
+showError();
 
-  function loadVote() {
+return;
 
-    voteId =
-      getVoteId();
+}
 
+const savedVote =
+localStorage.getItem("votera_vote_" + voteId);
 
-    if (!voteId) {
+if (!savedVote) {
 
-      showError();
+showError();
 
-      return;
+return;
 
-    }
+}
 
+try {
 
-    const saved =
-      localStorage.getItem(
-        "votera_vote_" + voteId
-      );
+voteData = JSON.parse(savedVote);
 
+renderVote();
 
-    if (!saved) {
+}
 
-      showError();
+catch(error) {
 
-      return;
+showError();
 
-    }
+}
 
+}
 
-    try {
 
-      voteData =
-        JSON.parse(saved);
+/* ERROR */
 
-    } catch (error) {
+function showError() {
 
-      showError();
+document.getElementById("question")
+.textContent = "Vote not found";
 
-      return;
+document.getElementById("options")
+.style.display = "none";
 
-    }
+document.getElementById("error")
+.style.display = "block";
 
+}
 
-    renderVote();
 
-    checkAlreadyVoted();
+/* DISPLAY VOTE */
 
-  }
+function renderVote() {
 
+document.getElementById("question")
+.textContent = voteData.question;
 
-  /* SHOW ERROR */
+const optionsContainer =
+document.getElementById("options");
 
-  function showError() {
+optionsContainer.innerHTML =
+'<div class="vs">VS</div>';
 
-    document
-      .getElementById("voteHeader")
-      .style.display = "none";
 
-    document
-      .getElementById("optionsContainer")
-      .style.display = "none";
+voteData.options.forEach(function(option,index) {
 
-    document
-      .getElementById("error")
-      .style.display = "block";
+const card =
+document.createElement("article");
 
-  }
+card.className = "option-card";
 
 
-  /* RENDER VOTE */
+let imageHTML = "🖼️";
 
-  function renderVote() {
+if (option.image) {
 
-    document
-      .getElementById("question")
-      .textContent =
-      voteData.question;
+imageHTML =
+'<img src="' +
+option.image +
+'" alt="' +
+escapeHTML(option.name) +
+'">';
 
+}
 
-    const container =
-      document.getElementById(
-        "optionsContainer"
-      );
 
+card.innerHTML = `
 
-    container.innerHTML =
-      '<div class="vs">VS</div>';
+<div class="option-image">
+${imageHTML}
+</div>
 
+<div class="option-info">
 
-    voteData.options.forEach(
-      function(option, index) {
+<div class="option-label">
+OPTION ${String.fromCharCode(65 + index)}
+</div>
 
-        const card =
-          document.createElement(
-            "article"
-          );
+<div class="option-name">
+${escapeHTML(option.name)}
+</div>
 
+<div class="option-description">
+${escapeHTML(option.description || "")}
+</div>
 
-        card.className =
-          "option-card";
+<button
+class="vote-button"
+onclick="vote(${index})"
+>
+Vote ${String.fromCharCode(65 + index)}
+</button>
 
+</div>
 
-        let imageHTML =
-          "🖼️";
+`;
 
+optionsContainer.appendChild(card);
 
-        if (option.image) {
+});
 
-          imageHTML =
-            '<img src="' +
-            option.image +
-            '" alt="' +
-            escapeHTML(option.name) +
-            '">';
+}
 
-        }
 
+/* SAFE TEXT */
 
-        const letter =
-          String.fromCharCode(
-            65 + index
-          );
+function escapeHTML(text) {
 
+const div = document.createElement("div");
 
-        card.innerHTML = `
+div.textContent = text;
 
-          <div class="option-image">
+return div.innerHTML;
 
-            ${imageHTML}
+}
 
-          </div>
 
+/* VOTE */
 
-          <div class="option-info">
+function vote(index) {
 
-            <div class="option-label">
+if (alreadyVoted) {
 
-              OPTION ${letter}
+alert("You have already voted.");
 
-            </div>
+return;
 
+}
 
-            <div class="option-name">
+if (!voteData) {
 
-              ${escapeHTML(option.name)}
+return;
 
-            </div>
+}
 
+alreadyVoted = true;
 
-            <div class="option-description">
+voteData.options[index].votes++;
 
-              ${escapeHTML(
-                option.description || ""
-              )}
+localStorage.setItem(
+"votera_vote_" + voteId,
+JSON.stringify(voteData)
+);
 
-            </div>
+showResults();
 
+}
 
-            <button
-              class="vote-button"
-              onclick="vote(${index})"
-            >
 
-              Vote ${letter}
+/* RESULTS */
 
-            </button>
+function showResults() {
 
-          </div>
+const total =
+voteData.options.reduce(
+function(sum,option) {
+return sum + option.votes;
+},
+0
+);
 
-        `;
+const resultRows =
+document.getElementById("resultRows");
 
+resultRows.innerHTML = "";
 
-        container.appendChild(card);
 
-      }
-    );
+let winnerIndex = 0;
 
-  }
+let highestVotes = -1;
 
 
-  /* ESCAPE TEXT */
+voteData.options.forEach(
+function(option,index) {
 
-  function escapeHTML(text) {
+if (option.votes > highestVotes) {
 
-    return String(text)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+highestVotes = option.votes;
 
-  }
+winnerIndex = index;
 
+}
 
-  /* CHECK VOTED */
+const percentage =
+total === 0
+? 0
+: Math.round(
+(option.votes / total) * 100
+);
 
-  function checkAlreadyVoted() {
 
-    const key =
-      "votera_voted_" + voteId;
+const row =
+document.createElement("div");
 
+row.className = "result-row";
 
-    alreadyVoted =
-      localStorage.getItem(key) === "true";
+row.innerHTML = `
 
+<div class="result-top">
 
-    if (alreadyVoted) {
+<span>
+${escapeHTML(option.name)}
+</span>
 
-      showResults();
+<span class="percentage">
+${percentage}%
+</span>
 
-    }
+</div>
 
-  }
+<div class="bar">
 
+<div
+class="bar-fill"
+style="width:${percentage}%"
+></div>
 
-  /* VOTE */
+</div>
 
-  function vote(index) {
+`;
 
-    if (!voteData) {
-      return;
-    }
+resultRows.appendChild(row);
 
+});
 
-    if (alreadyVoted) {
 
-      return;
+document.getElementById("totalVotes")
+.textContent =
+total.toLocaleString();
 
-    }
 
+document.getElementById("winner")
+.textContent =
+"🏆 Winner: " +
+voteData.options[winnerIndex].name;
 
-    if (
-      !voteData.options[index]
-    ) {
 
-      return;
+document.getElementById("results")
+.style.display = "block";
 
-    }
 
+document.getElementById("results")
+.scrollIntoView({
+behavior:"smooth"
+});
 
-    voteData.options[index].votes =
-      Number(
-        voteData.options[index].votes || 0
-      ) + 1;
+}
 
 
-    localStorage.setItem(
-      "votera_vote_" + voteId,
-      JSON.stringify(voteData)
-    );
+/* COPY */
 
+function copyLink() {
 
-    localStorage.setItem(
-      "votera_voted_" + voteId,
-      "true"
-    );
+navigator.clipboard
+.writeText(window.location.href)
+.then(function() {
 
+alert("Vote link copied!");
 
-    alreadyVoted = true;
+})
+.catch(function() {
 
+alert("Copy the link from your browser.");
 
-    showResults();
+});
 
-  }
+}
 
 
-  /* SHOW RESULTS */
+/* WHATSAPP */
 
-  function showResults() {
+function shareWhatsApp() {
 
-    if (!voteData) {
-      return;
-    }
+const text =
+"🔥 Vote on VOTERA: " +
+voteData.question;
 
+const url =
+"https://wa.me/?text=" +
+encodeURIComponent(
+text + " " + window.location.href
+);
 
-    const options =
-      voteData.options;
+window.open(url,"_blank");
 
+}
 
-    let total = 0;
 
+/* FACEBOOK */
 
-    options.forEach(
-      function(option) {
+function shareFacebook() {
 
-        total +=
-          Number(option.votes || 0);
+const url =
+"https://www.facebook.com/sharer/sharer.php?u=" +
+encodeURIComponent(window.location.href);
 
-      }
-    );
+window.open(url,"_blank");
 
+}
 
-    const resultRows =
-      document.getElementById(
-        "resultRows"
-      );
 
+/* X */
 
-    resultRows.innerHTML = "";
+function shareX() {
 
+const text =
+"🔥 Vote on VOTERA: " +
+voteData.question;
 
-    options.forEach(
-      function(option, index) {
+const url =
+"https://twitter.com/intent/tweet?text=" +
+encodeURIComponent(text) +
+"&url=" +
+encodeURIComponent(window.location.href);
 
-        const votes =
-          Number(option.votes || 0);
+window.open(url,"_blank");
 
+}
 
-        const percentage =
-          total === 0
-            ? 0
-            : Math.round(
-                (votes / total) * 100
-              );
 
+/* NATIVE SHARE */
 
-        const letter =
-          String.fromCharCode(
-            65 + index
-          );
+function nativeShare() {
 
+if (navigator.share) {
 
-        const row =
-          document.createElement(
-            "div"
-          );
+navigator.share({
 
+title:"VOTERA",
 
-        row.className =
-          "result-row";
+text:
+"🔥 Vote on VOTERA: " +
+voteData.question,
 
+url:window.location.href
 
-        row.innerHTML = `
+});
 
-          <div class="result-top">
+}
 
-            <span>
+else {
 
-              OPTION ${letter} —
-              ${escapeHTML(option.name)}
+copyLink();
 
-            </span>
+}
 
-            <span class="percentage">
+}
 
-              ${percentage}%
 
-            </span>
+/* START */
 
-          </div>
-
-
-          <div class="bar">
-
-            <div
-              class="bar-fill"
-              style="width:${percentage}%"
-            ></div>
-
-          </div>
-
-        `;
-
-
-        resultRows.appendChild(row);
-
-      }
-    );
-
-
-    document
-      .getElementById("totalVotes")
-      .textContent =
-      total.toLocaleString();
-
-
-    let winnerText =
-      "🏆 Winner: ";
-
-
-    if (total === 0) {
-
-      winnerText +=
-        "No votes yet";
-
-    } else {
-
-      let winnerIndex = 0;
-
-      options.forEach(
-        function(option, index) {
-
-          if (
-            Number(option.votes || 0) >
-            Number(
-              options[winnerIndex].votes || 0
-            )
-          ) {
-
-            winnerIndex = index;
-
-          }
-
-        }
-      );
-
-
-      winnerText +=
-        options[winnerIndex].name;
-
-    }
-
-
-    document
-      .getElementById("winner")
-      .textContent =
-      winnerText;
-
-
-    document
-      .getElementById("results")
-      .style.display =
-      "block";
-
-
-    document
-      .getElementById("results")
-      .scrollIntoView({
-        behavior: "smooth"
-      });
-
-  }
-
-
-  /* COPY LINK */
-
-  function copyLink() {
-
-    if (
-      navigator.clipboard
-    ) {
-
-      navigator.clipboard
-        .writeText(
-          window.location.href
-        )
-        .then(
-          function() {
-
-            alert(
-              "🔗 Vote link copied!"
-            );
-
-          }
-        )
-        .catch(
-          function() {
-
-            alert(
-              "Copy the link from your browser."
-            );
-
-          }
-        );
-
-    } else {
-
-      alert(
-        "Copy the link from your browser."
-      );
-
-    }
-
-  }
-
-
-  /* WHATSAPP */
-
-  function shareWhatsApp() {
-
-    const text =
-      "🔥 Vote on VOTERA!\n\n" +
-      voteData.question;
-
-
-    const url =
-      "https://wa.me/?text=" +
-      encodeURIComponent(
-        text +
-        "\n\n" +
-        window.location.href
-      );
-
-
-    window.open(
-      url,
-      "_blank"
-    );
-
-  }
-
-
-  /* FACEBOOK */
-
-  function shareFacebook() {
-
-    const url =
-      "https://www.facebook.com/sharer/sharer.php?u=" +
-      encodeURIComponent(
-        window.location.href
-      );
-
-
-    window.open(
-      url,
-      "_blank"
-    );
-
-  }
-
-
-  /* X */
-
-  function shareX() {
-
-    const text =
-      "🔥 Vote on VOTERA!\n\n" +
-      voteData.question;
-
-
-    const url =
-      "https://twitter.com/intent/tweet?text=" +
-      encodeURIComponent(text) +
-      "&url=" +
-      encodeURIComponent(
-        window.location.href
-      );
-
-
-    window.open(
-      url,
-      "_blank"
-    );
-
-  }
-
-
-  /* NATIVE SHARE */
-
-  function nativeShare() {
-
-    if (
-      navigator.share
-    ) {
-
-      navigator.share({
-
-        title:
-          "VOTERA — " +
-          voteData.question,
-
-        text:
-          "🔥 Vote on VOTERA!",
-
-        url:
-          window.location.href
-
-      });
-
-    } else {
-
-      copyLink();
-
-    }
-
-  }
-
-
-  /* START */
-
-  loadVote();
+loadVote();
 
 </script>
 
