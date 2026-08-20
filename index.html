@@ -43,8 +43,6 @@
       color: inherit;
     }
 
-    /* HEADER */
-
     header {
       position: sticky;
       top: 0;
@@ -93,8 +91,6 @@
       border-radius: 12px;
       font-weight: 700;
     }
-
-    /* HERO */
 
     .hero {
       max-width: 900px;
@@ -150,10 +146,12 @@
 
     .btn-primary,
     .btn-secondary {
+      display: block;
       padding: 15px 22px;
       border-radius: 14px;
       font-size: 16px;
       font-weight: 800;
+      text-align: center;
     }
 
     .btn-primary {
@@ -171,8 +169,6 @@
       background: white;
       border: 1px solid var(--border);
     }
-
-    /* TRENDING */
 
     .section {
       max-width: 1100px;
@@ -286,8 +282,6 @@
       font-weight: 800;
     }
 
-    /* MOBILE NAV */
-
     .mobile-nav {
       position: fixed;
       bottom: 0;
@@ -362,18 +356,41 @@
 <body>
 
 <header>
+
   <nav class="nav">
-    <a href="#" class="logo">VOTE<span>RA</span></a>
+
+    <a href="index.html" class="logo">
+      VOTE<span>RA</span>
+    </a>
 
     <div class="desktop-nav">
-      <a href="#">Home</a>
-      <a href="#">Explore</a>
-      <a href="#">Leaderboard</a>
-      <a href="#">Profile</a>
-      <button class="create-small">➕ Create Vote</button>
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="vote.html">
+        Explore
+      </a>
+
+      <a href="create.html" class="create-small">
+        ➕ Create Vote
+      </a>
+
+      <a href="vote.html">
+        Leaderboard
+      </a>
+
+      <a href="create.html">
+        Profile
+      </a>
+
     </div>
+
   </nav>
+
 </header>
+
 
 <main>
 
@@ -383,7 +400,9 @@
       🔥 The social voting platform
     </div>
 
-    <h1>VOTE<span>RA</span></h1>
+    <h1>
+      VOTE<span>RA</span>
+    </h1>
 
     <div class="tagline">
       Ask. Vote. Discover.
@@ -395,82 +414,195 @@
     </p>
 
     <div class="hero-buttons">
-      <button class="btn-primary">
-        🔥 Create a Vote
-      </button>
 
-      <button class="btn-secondary">
+      <a
+        href="create.html"
+        class="btn-primary"
+      >
+        🔥 Create a Vote
+      </a>
+
+      <a
+        href="vote.html"
+        class="btn-secondary"
+      >
         Explore Votes
-      </button>
+      </a>
+
     </div>
 
   </section>
 
+
   <section class="section">
 
     <div class="section-title">
-      <h2>🔥 Trending Votes</h2>
-      <a href="#">View all →</a>
+
+      <h2>
+        🔥 Trending Votes
+      </h2>
+
+      <a href="vote.html">
+        View all →
+      </a>
+
     </div>
 
+
     <div class="categories">
-      <div class="category active">🔥 Trending</div>
-      <div class="category">🆕 New</div>
-      <div class="category">🎮 Gaming</div>
-      <div class="category">👗 Fashion</div>
-      <div class="category">🍔 Food</div>
-      <div class="category">📱 Technology</div>
-      <div class="category">⚽ Sports</div>
-      <div class="category">🎬 Movies</div>
-      <div class="category">🎵 Music</div>
-      <div class="category">😂 Fun</div>
-      <div class="category">💼 Business</div>
-      <div class="category">❤️ Relationships</div>
+
+      <div class="category active">
+        🔥 Trending
+      </div>
+
+      <div class="category">
+        🆕 New
+      </div>
+
+      <div class="category">
+        🎮 Gaming
+      </div>
+
+      <div class="category">
+        👗 Fashion
+      </div>
+
+      <div class="category">
+        🍔 Food
+      </div>
+
+      <div class="category">
+        📱 Technology
+      </div>
+
+      <div class="category">
+        ⚽ Sports
+      </div>
+
+      <div class="category">
+        🎬 Movies
+      </div>
+
+      <div class="category">
+        🎵 Music
+      </div>
+
+      <div class="category">
+        😂 Fun
+      </div>
+
+      <div class="category">
+        💼 Business
+      </div>
+
+      <div class="category">
+        ❤️ Relationships
+      </div>
+
     </div>
+
 
     <div class="votes-grid">
 
+
       <article class="vote-card">
-        <h3>Which design looks better?</h3>
+
+        <h3>
+          Which design looks better?
+        </h3>
 
         <div class="options">
-          <div class="option">Design A</div>
-          <div class="option">Design B</div>
+
+          <a href="vote.html" class="option">
+            Design A
+          </a>
+
+          <a href="vote.html" class="option">
+            Design B
+          </a>
+
         </div>
 
         <div class="vote-meta">
-          <span>🔥 1,284 votes</span>
-          <span class="share-btn">↗ Share</span>
+
+          <span>
+            🔥 1,284 votes
+          </span>
+
+          <a href="vote.html" class="share-btn">
+            ↗ Share
+          </a>
+
         </div>
+
       </article>
 
+
       <article class="vote-card">
-        <h3>Which phone would you choose?</h3>
+
+        <h3>
+          Which phone would you choose?
+        </h3>
 
         <div class="options">
-          <div class="option">📱 Phone A</div>
-          <div class="option">📱 Phone B</div>
+
+          <a href="vote.html" class="option">
+            📱 Phone A
+          </a>
+
+          <a href="vote.html" class="option">
+            📱 Phone B
+          </a>
+
         </div>
 
         <div class="vote-meta">
-          <span>🔥 3,421 votes</span>
-          <span class="share-btn">↗ Share</span>
+
+          <span>
+            🔥 3,421 votes
+          </span>
+
+          <a href="vote.html" class="share-btn">
+            ↗ Share
+          </a>
+
         </div>
+
       </article>
 
+
       <article class="vote-card">
-        <h3>Which outfit is better?</h3>
+
+        <h3>
+          Which outfit is better?
+        </h3>
 
         <div class="options">
-          <div class="option">👕 Outfit A</div>
-          <div class="option">👔 Outfit B</div>
+
+          <a href="vote.html" class="option">
+            👕 Outfit A
+          </a>
+
+          <a href="vote.html" class="option">
+            👔 Outfit B
+          </a>
+
         </div>
 
         <div class="vote-meta">
-          <span>🔥 2,108 votes</span>
-          <span class="share-btn">↗ Share</span>
+
+          <span>
+            🔥 2,108 votes
+          </span>
+
+          <a href="vote.html" class="share-btn">
+            ↗ Share
+          </a>
+
         </div>
+
       </article>
+
 
     </div>
 
@@ -478,32 +610,65 @@
 
 </main>
 
+
 <nav class="mobile-nav">
-  <a href="#">
-    <span class="nav-icon">🏠</span>
+
+  <a href="index.html">
+
+    <span class="nav-icon">
+      🏠
+    </span>
+
     Home
+
   </a>
 
-  <a href="#">
-    <span class="nav-icon">🔥</span>
+
+  <a href="vote.html">
+
+    <span class="nav-icon">
+      🔥
+    </span>
+
     Explore
+
   </a>
 
-  <a href="#">
-    <span class="nav-icon">➕</span>
+
+  <a href="create.html">
+
+    <span class="nav-icon">
+      ➕
+    </span>
+
     Create
+
   </a>
 
-  <a href="#">
-    <span class="nav-icon">🏆</span>
+
+  <a href="vote.html">
+
+    <span class="nav-icon">
+      🏆
+    </span>
+
     Ranking
+
   </a>
 
-  <a href="#">
-    <span class="nav-icon">👤</span>
+
+  <a href="create.html">
+
+    <span class="nav-icon">
+      👤
+    </span>
+
     Profile
+
   </a>
+
 </nav>
+
 
 </body>
 </html>
