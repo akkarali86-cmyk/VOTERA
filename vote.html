@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Vote — VOTERA</title>
 
+  <meta
+    name="description"
+    content="Vote on VOTERA and see what people think."
+  >
+
   <style>
+
     :root {
       --primary: #6c5ce7;
       --primary-dark: #5848d6;
@@ -16,6 +27,7 @@
       --muted: #777783;
       --border: #e8e8ef;
       --green: #20bf6b;
+      --danger: #e74c3c;
     }
 
     * {
@@ -29,7 +41,7 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding-bottom: 40px;
+      padding-bottom: 50px;
     }
 
     button {
@@ -49,6 +61,10 @@
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
     }
 
     .nav {
@@ -116,6 +132,7 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 16px;
+      position: relative;
     }
 
     .option-card {
@@ -138,11 +155,27 @@
       align-items: center;
       justify-content: center;
       font-size: 55px;
-      background: linear-gradient(135deg, #ded9ff, #f5f3ff);
+      background: linear-gradient(
+        135deg,
+        #ded9ff,
+        #f5f3ff
+      );
+      overflow: hidden;
     }
 
     .option-card:nth-child(2) .option-image {
-      background: linear-gradient(135deg, #ffe0ec, #fff3f7);
+      background: linear-gradient(
+        135deg,
+        #ffe0ec,
+        #fff3f7
+      );
+    }
+
+    .option-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .option-info {
@@ -177,10 +210,18 @@
       border-radius: 12px;
       font-weight: 900;
       font-size: 14px;
+      transition: 0.2s;
     }
 
     .vote-button:hover {
       background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .vote-button:disabled {
+      background: #bdb9d9;
+      cursor: not-allowed;
+      transform: none;
     }
 
     .vs {
@@ -197,6 +238,7 @@
       justify-content: center;
       font-weight: 900;
       z-index: 5;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     }
 
     /* RESULTS */
@@ -204,6 +246,21 @@
     #results {
       display: none;
       margin-top: 25px;
+      animation: fadeUp 0.4s ease;
+    }
+
+    @keyframes fadeUp {
+
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
     }
 
     .result-card {
@@ -251,10 +308,6 @@
       transition: width 1s ease;
     }
 
-    .result-row:nth-child(3) .bar-fill {
-      background: #ff6b9d;
-    }
-
     .total {
       text-align: center;
       color: var(--muted);
@@ -296,7 +349,7 @@
 
     .share-buttons {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 8px;
     }
 
@@ -306,10 +359,12 @@
       background: #f3f3f7;
       font-size: 12px;
       font-weight: 800;
+      transition: 0.2s;
     }
 
     .share:hover {
       background: #e9e8f5;
+      transform: translateY(-1px);
     }
 
     .create-own {
@@ -327,11 +382,45 @@
       background: var(--primary-dark);
     }
 
+    /* ERROR */
+
+    .error {
+      display: none;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    .error-icon {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .error h2 {
+      margin-bottom: 10px;
+    }
+
+    .error p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .error a {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 13px 20px;
+      border-radius: 12px;
+      font-weight: 800;
+    }
+
     @media (min-width: 650px) {
 
       .options {
-        grid-template-columns: 1fr 1fr;
-        position: relative;
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .vs {
@@ -344,23 +433,33 @@
       }
 
       .share-buttons {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(5, 1fr);
       }
+
     }
+
   </style>
+
 </head>
 
 <body>
+
 
 <header>
 
   <nav class="nav">
 
-    <a href="index.html" class="logo">
+    <a
+      href="index.html"
+      class="logo"
+    >
       VOTE<span>RA</span>
     </a>
 
-    <a href="index.html" class="back">
+    <a
+      href="index.html"
+      class="back"
+    >
       ← Home
     </a>
 
@@ -371,14 +470,20 @@
 
 <main class="container">
 
-  <section class="vote-header">
+
+  <!-- VOTE HEADER -->
+
+  <section
+    class="vote-header"
+    id="voteHeader"
+  >
 
     <div class="category">
-      🔥 TRENDING
+      🔥 VOTERA
     </div>
 
     <h1 id="question">
-      Which design looks better?
+      Loading...
     </h1>
 
     <p>
@@ -388,79 +493,43 @@
   </section>
 
 
-  <section class="options">
+  <!-- ERROR -->
+
+  <section
+    class="error"
+    id="error"
+  >
+
+    <div class="error-icon">
+      😕
+    </div>
+
+    <h2>
+      Vote not found
+    </h2>
+
+    <p>
+      This vote does not exist on this device.
+      Create a new vote and share it with your friends.
+    </p>
+
+    <a href="create.html">
+      🔥 Create a Vote
+    </a>
+
+  </section>
+
+
+  <!-- OPTIONS -->
+
+  <section
+    class="options"
+    id="optionsContainer"
+  >
 
     <div class="vs">
       VS
     </div>
-
-
-    <!-- OPTION A -->
-
-    <article class="option-card">
-
-      <div class="option-image">
-        🎨
-      </div>
-
-      <div class="option-info">
-
-        <div class="option-label">
-          OPTION A
-        </div>
-
-        <div class="option-name">
-          Design A
-        </div>
-
-        <div class="option-description">
-          Clean and modern design.
-        </div>
-
-        <button
-          class="vote-button"
-          onclick="vote(0)"
-        >
-          Vote A
-        </button>
-
-      </div>
-
-    </article>
-
-
-    <!-- OPTION B -->
-
-    <article class="option-card">
-
-      <div class="option-image">
-        ✨
-      </div>
-
-      <div class="option-info">
-
-        <div class="option-label">
-          OPTION B
-        </div>
-
-        <div class="option-name">
-          Design B
-        </div>
-
-        <div class="option-description">
-          Bold and creative design.
-        </div>
-
-        <button
-          class="vote-button"
-          onclick="vote(1)"
-        >
-          Vote B
-        </button>
-
-      </div>
-
-    </article>
 
   </section>
 
@@ -475,78 +544,25 @@
         📊 Results
       </div>
 
-
-      <div class="result-row">
-
-        <div class="result-top">
-
-          <span>
-            Design A
-          </span>
-
-          <span
-            class="percentage"
-            id="percentA"
-          >
-            0%
-          </span>
-
-        </div>
-
-        <div class="bar">
-
-          <div
-            class="bar-fill"
-            id="barA"
-          ></div>
-
-        </div>
-
+      <div id="resultRows">
       </div>
-
-
-      <div class="result-row">
-
-        <div class="result-top">
-
-          <span>
-            Design B
-          </span>
-
-          <span
-            class="percentage"
-            id="percentB"
-          >
-            0%
-          </span>
-
-        </div>
-
-        <div class="bar">
-
-          <div
-            class="bar-fill"
-            id="barB"
-          ></div>
-
-        </div>
-
-      </div>
-
 
       <div class="total">
 
-        🔥 <span id="totalVotes">2,438</span>
+        🔥
+        <span id="totalVotes">
+          0
+        </span>
+
         people voted
 
       </div>
-
 
       <div
         class="winner"
         id="winner"
       >
-        🏆 Winner: Design A
+        🏆 Winner
       </div>
 
     </div>
@@ -563,7 +579,6 @@
       <p>
         Let your friends vote and discover what they think.
       </p>
-
 
       <div class="share-buttons">
 
@@ -604,7 +619,6 @@
 
       </div>
 
-
       <a
         href="create.html"
         class="create-own"
@@ -616,17 +630,259 @@
 
   </section>
 
+
 </main>
 
 
 <script>
 
-  let votes = [1658, 780];
+  let voteData = null;
+
+  let voteId = null;
 
   let alreadyVoted = false;
 
 
+  /* GET VOTE ID */
+
+  function getVoteId() {
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    return params.get("id");
+
+  }
+
+
+  /* LOAD VOTE */
+
+  function loadVote() {
+
+    voteId =
+      getVoteId();
+
+
+    if (!voteId) {
+
+      showError();
+
+      return;
+
+    }
+
+
+    const saved =
+      localStorage.getItem(
+        "votera_vote_" + voteId
+      );
+
+
+    if (!saved) {
+
+      showError();
+
+      return;
+
+    }
+
+
+    try {
+
+      voteData =
+        JSON.parse(saved);
+
+    } catch (error) {
+
+      showError();
+
+      return;
+
+    }
+
+
+    renderVote();
+
+    checkAlreadyVoted();
+
+  }
+
+
+  /* SHOW ERROR */
+
+  function showError() {
+
+    document
+      .getElementById("voteHeader")
+      .style.display = "none";
+
+    document
+      .getElementById("optionsContainer")
+      .style.display = "none";
+
+    document
+      .getElementById("error")
+      .style.display = "block";
+
+  }
+
+
+  /* RENDER VOTE */
+
+  function renderVote() {
+
+    document
+      .getElementById("question")
+      .textContent =
+      voteData.question;
+
+
+    const container =
+      document.getElementById(
+        "optionsContainer"
+      );
+
+
+    container.innerHTML =
+      '<div class="vs">VS</div>';
+
+
+    voteData.options.forEach(
+      function(option, index) {
+
+        const card =
+          document.createElement(
+            "article"
+          );
+
+
+        card.className =
+          "option-card";
+
+
+        let imageHTML =
+          "🖼️";
+
+
+        if (option.image) {
+
+          imageHTML =
+            '<img src="' +
+            option.image +
+            '" alt="' +
+            escapeHTML(option.name) +
+            '">';
+
+        }
+
+
+        const letter =
+          String.fromCharCode(
+            65 + index
+          );
+
+
+        card.innerHTML = `
+
+          <div class="option-image">
+
+            ${imageHTML}
+
+          </div>
+
+
+          <div class="option-info">
+
+            <div class="option-label">
+
+              OPTION ${letter}
+
+            </div>
+
+
+            <div class="option-name">
+
+              ${escapeHTML(option.name)}
+
+            </div>
+
+
+            <div class="option-description">
+
+              ${escapeHTML(
+                option.description || ""
+              )}
+
+            </div>
+
+
+            <button
+              class="vote-button"
+              onclick="vote(${index})"
+            >
+
+              Vote ${letter}
+
+            </button>
+
+          </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+      }
+    );
+
+  }
+
+
+  /* ESCAPE TEXT */
+
+  function escapeHTML(text) {
+
+    return String(text)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  /* CHECK VOTED */
+
+  function checkAlreadyVoted() {
+
+    const key =
+      "votera_voted_" + voteId;
+
+
+    alreadyVoted =
+      localStorage.getItem(key) === "true";
+
+
+    if (alreadyVoted) {
+
+      showResults();
+
+    }
+
+  }
+
+
+  /* VOTE */
+
   function vote(index) {
+
+    if (!voteData) {
+      return;
+    }
+
 
     if (alreadyVoted) {
 
@@ -634,62 +890,203 @@
 
     }
 
+
+    if (
+      !voteData.options[index]
+    ) {
+
+      return;
+
+    }
+
+
+    voteData.options[index].votes =
+      Number(
+        voteData.options[index].votes || 0
+      ) + 1;
+
+
+    localStorage.setItem(
+      "votera_vote_" + voteId,
+      JSON.stringify(voteData)
+    );
+
+
+    localStorage.setItem(
+      "votera_voted_" + voteId,
+      "true"
+    );
+
+
     alreadyVoted = true;
 
-    votes[index]++;
 
     showResults();
 
   }
 
 
+  /* SHOW RESULTS */
+
   function showResults() {
 
-    const total =
-      votes[0] + votes[1];
-
-    const percentA =
-      Math.round((votes[0] / total) * 100);
-
-    const percentB =
-      Math.round((votes[1] / total) * 100);
+    if (!voteData) {
+      return;
+    }
 
 
-    document.getElementById("percentA")
-      .textContent = percentA + "%";
-
-    document.getElementById("percentB")
-      .textContent = percentB + "%";
+    const options =
+      voteData.options;
 
 
-    document.getElementById("barA")
-      .style.width = percentA + "%";
-
-    document.getElementById("barB")
-      .style.width = percentB + "%";
+    let total = 0;
 
 
-    document.getElementById("totalVotes")
+    options.forEach(
+      function(option) {
+
+        total +=
+          Number(option.votes || 0);
+
+      }
+    );
+
+
+    const resultRows =
+      document.getElementById(
+        "resultRows"
+      );
+
+
+    resultRows.innerHTML = "";
+
+
+    options.forEach(
+      function(option, index) {
+
+        const votes =
+          Number(option.votes || 0);
+
+
+        const percentage =
+          total === 0
+            ? 0
+            : Math.round(
+                (votes / total) * 100
+              );
+
+
+        const letter =
+          String.fromCharCode(
+            65 + index
+          );
+
+
+        const row =
+          document.createElement(
+            "div"
+          );
+
+
+        row.className =
+          "result-row";
+
+
+        row.innerHTML = `
+
+          <div class="result-top">
+
+            <span>
+
+              OPTION ${letter} —
+              ${escapeHTML(option.name)}
+
+            </span>
+
+            <span class="percentage">
+
+              ${percentage}%
+
+            </span>
+
+          </div>
+
+
+          <div class="bar">
+
+            <div
+              class="bar-fill"
+              style="width:${percentage}%"
+            ></div>
+
+          </div>
+
+        `;
+
+
+        resultRows.appendChild(row);
+
+      }
+    );
+
+
+    document
+      .getElementById("totalVotes")
       .textContent =
       total.toLocaleString();
 
 
-    const winner =
-      percentA >= percentB
-        ? "Design A"
-        : "Design B";
+    let winnerText =
+      "🏆 Winner: ";
 
 
-    document.getElementById("winner")
+    if (total === 0) {
+
+      winnerText +=
+        "No votes yet";
+
+    } else {
+
+      let winnerIndex = 0;
+
+      options.forEach(
+        function(option, index) {
+
+          if (
+            Number(option.votes || 0) >
+            Number(
+              options[winnerIndex].votes || 0
+            )
+          ) {
+
+            winnerIndex = index;
+
+          }
+
+        }
+      );
+
+
+      winnerText +=
+        options[winnerIndex].name;
+
+    }
+
+
+    document
+      .getElementById("winner")
       .textContent =
-      "🏆 Winner: " + winner;
+      winnerText;
 
 
-    document.getElementById("results")
-      .style.display = "block";
+    document
+      .getElementById("results")
+      .style.display =
+      "block";
 
 
-    document.getElementById("results")
+    document
+      .getElementById("results")
       .scrollIntoView({
         behavior: "smooth"
       });
@@ -697,39 +1094,75 @@
   }
 
 
+  /* COPY LINK */
+
   function copyLink() {
 
-    navigator.clipboard
-      .writeText(window.location.href)
-      .then(() => {
+    if (
+      navigator.clipboard
+    ) {
 
-        alert("Vote link copied!");
+      navigator.clipboard
+        .writeText(
+          window.location.href
+        )
+        .then(
+          function() {
 
-      })
-      .catch(() => {
+            alert(
+              "🔗 Vote link copied!"
+            );
 
-        alert("Copy the link from your browser.");
+          }
+        )
+        .catch(
+          function() {
 
-      });
+            alert(
+              "Copy the link from your browser."
+            );
+
+          }
+        );
+
+    } else {
+
+      alert(
+        "Copy the link from your browser."
+      );
+
+    }
 
   }
 
+
+  /* WHATSAPP */
 
   function shareWhatsApp() {
 
     const text =
-      "🔥 Which design looks better? Vote on VOTERA!";
+      "🔥 Vote on VOTERA!\n\n" +
+      voteData.question;
+
 
     const url =
       "https://wa.me/?text=" +
       encodeURIComponent(
-        text + " " + window.location.href
+        text +
+        "\n\n" +
+        window.location.href
       );
 
-    window.open(url, "_blank");
+
+    window.open(
+      url,
+      "_blank"
+    );
 
   }
 
+
+  /* FACEBOOK */
 
   function shareFacebook() {
 
@@ -739,15 +1172,23 @@
         window.location.href
       );
 
-    window.open(url, "_blank");
+
+    window.open(
+      url,
+      "_blank"
+    );
 
   }
 
 
+  /* X */
+
   function shareX() {
 
     const text =
-      "🔥 Which design looks better? Vote on VOTERA!";
+      "🔥 Vote on VOTERA!\n\n" +
+      voteData.question;
+
 
     const url =
       "https://twitter.com/intent/tweet?text=" +
@@ -757,20 +1198,34 @@
         window.location.href
       );
 
-    window.open(url, "_blank");
+
+    window.open(
+      url,
+      "_blank"
+    );
 
   }
 
 
+  /* NATIVE SHARE */
+
   function nativeShare() {
 
-    if (navigator.share) {
+    if (
+      navigator.share
+    ) {
 
       navigator.share({
 
-        title: "VOTERA",
-        text: "🔥 Vote on VOTERA!",
-        url: window.location.href
+        title:
+          "VOTERA — " +
+          voteData.question,
+
+        text:
+          "🔥 Vote on VOTERA!",
+
+        url:
+          window.location.href
 
       });
 
@@ -781,6 +1236,11 @@
     }
 
   }
+
+
+  /* START */
+
+  loadVote();
 
 </script>
 
