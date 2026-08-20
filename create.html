@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Create Vote — VOTERA</title>
+
+  <style>
+    :root {
+      --primary: #6c5ce7;
+      --primary-dark: #5848d6;
+      --bg: #f7f7fb;
+      --card: #ffffff;
+      --text: #17171c;
+      --muted: #777783;
+      --border: #e8e8ef;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 90px;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+    }
+
+    header {
+      height: 68px;
+      background: rgba(255,255,255,0.95);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav {
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .back {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 720px;
+      margin: auto;
+      padding: 35px 18px;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .title h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      letter-spacing: -1px;
+    }
+
+    .title p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    textarea,
+    input,
+    select {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fafafd;
+      border-radius: 13px;
+      padding: 14px;
+      outline: none;
+      color: var(--text);
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    textarea:focus,
+    input:focus,
+    select:focus {
+      border-color: var(--primary);
+      background: white;
+    }
+
+    .counter {
+      text-align: right;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 6px;
+    }
+
+    .option {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 15px;
+      margin-bottom: 12px;
+      background: #fafafd;
+    }
+
+    .option-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .option-number {
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .remove-option {
+      background: transparent;
+      color: #e74c3c;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .image-upload {
+      border: 2px dashed #dcdce8;
+      border-radius: 14px;
+      min-height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .image-upload:hover {
+      border-color: var(--primary);
+    }
+
+    .image-upload span {
+      font-size: 30px;
+    }
+
+    .image-upload p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .image-upload input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .preview {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      display: none;
+    }
+
+    .add-option {
+      width: 100%;
+      padding: 13px;
+      background: #f0eeff;
+      color: var(--primary);
+      border-radius: 13px;
+      font-weight: 800;
+    }
+
+    .settings-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .settings-row:last-child {
+      border-bottom: none;
+    }
+
+    .setting-text strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .setting-text span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .switch {
+      position: relative;
+      width: 48px;
+      height: 27px;
+    }
+
+    .switch input {
+      display: none;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #dcdce5;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .slider:before {
+      content: "";
+      position: absolute;
+      width: 21px;
+      height: 21px;
+      left: 3px;
+      top: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+
+    .switch input:checked + .slider {
+      background: var(--primary);
+    }
+
+    .switch input:checked + .slider:before {
+      transform: translateX(21px);
+    }
+
+    .publish {
+      width: 100%;
+      padding: 17px;
+      border-radius: 15px;
+      background: var(--primary);
+      color: white;
+      font-size: 17px;
+      font-weight: 900;
+      box-shadow: 0 10px 25px rgba(108,92,231,0.25);
+    }
+
+    .publish:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .bottom-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 700px) {
+      .container {
+        padding-top: 55px;
+      }
+
+      .title h1 {
+        font-size: 40px;
+      }
+
+      .card {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="index.html" class="logo">
+      VOTE<span>RA</span>
+    </a>
+
+    <a href="index.html" class="back">
+      ← Back
+    </a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <div class="title">
+    <h1>🔥 Create a Vote</h1>
+    <p>
+      Ask a question, add your options and let people decide.
+    </p>
+  </div>
+
+  <!-- QUESTION -->
+
+  <section class="card">
+
+    <div class="card-title">
+      1. Your Question
+    </div>
+
+    <label for="question">
+      Question
+    </label>
+
+    <textarea
+      id="question"
+      maxlength="150"
+      placeholder="Example: Which logo should I use?"
+    ></textarea>
+
+    <div class="counter">
+      0 / 150
+    </div>
+
+  </section>
+
+  <!-- OPTIONS -->
+
+  <section class="card">
+
+    <div class="card-title">
+      2. Add Options
+    </div>
+
+    <div id="options">
+
+      <div class="option">
+
+        <div class="option-header">
+          <span class="option-number">OPTION A</span>
+        </div>
+
+        <div class="image-upload">
+
+          <span>🖼️</span>
+
+          <p>Tap to upload an image</p>
+
+          <input
+            type="file"
+            accept="image/*"
+            onchange="previewImage(this)"
+          >
+
+          <img class="preview">
+
+        </div>
+
+        <label>Option name</label>
+
+        <input
+          type="text"
+          placeholder="Example: Logo A"
+        >
+
+        <br><br>
+
+        <label>Description</label>
+
+        <input
+          type="text"
+          placeholder="Optional description"
+        >
+
+      </div>
+
+      <div class="option">
+
+        <div class="option-header">
+          <span class="option-number">OPTION B</span>
+        </div>
+
+        <div class="image-upload">
+
+          <span>🖼️</span>
+
+          <p>Tap to upload an image</p>
+
+          <input
+            type="file"
+            accept="image/*"
+            onchange="previewImage(this)"
+          >
+
+          <img class="preview">
+
+        </div>
+
+        <label>Option name</label>
+
+        <input
+          type="text"
+          placeholder="Example: Logo B"
+        >
+
+        <br><br>
+
+        <label>Description</label>
+
+        <input
+          type="text"
+          placeholder="Optional description"
+        >
+
+      </div>
+
+    </div>
+
+    <button
+      class="add-option"
+      onclick="addOption()"
+    >
+      ➕ Add another option
+    </button>
+
+  </section>
+
+  <!-- SETTINGS -->
+
+  <section class="card">
+
+    <div class="card-title">
+      3. Vote Settings
+    </div>
+
+    <div class="settings-row">
+
+      <div class="setting-text">
+        <strong>Public Vote</strong>
+        <span>Anyone can discover your vote</span>
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span class="slider"></span>
+      </label>
+
+    </div>
+
+    <div class="settings-row">
+
+      <div class="setting-text">
+        <strong>Allow Comments</strong>
+        <span>Let voters discuss the question</span>
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span class="slider"></span>
+      </label>
+
+    </div>
+
+    <div class="settings-row">
+
+      <div class="setting-text">
+        <strong>One Vote Per User</strong>
+        <span>Prevent repeated voting</span>
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span class="slider"></span>
+      </label>
+
+    </div>
+
+    <div class="settings-row">
+
+      <div class="setting-text">
+        <strong>Voting Duration</strong>
+        <span>Choose when voting ends</span>
+      </div>
+
+      <select style="width:150px;">
+        <option>Forever</option>
+        <option>24 Hours</option>
+        <option>3 Days</option>
+        <option>7 Days</option>
+        <option>30 Days</option>
+      </select>
+
+    </div>
+
+  </section>
+
+  <button
+    class="publish"
+    onclick="publishVote()"
+  >
+    🚀 Publish Vote
+  </button>
+
+  <div class="bottom-note">
+    By publishing, you agree to VOTERA's Terms of Service and
+    Community Guidelines.
+  </div>
+
+</main>
+
+<script>
+
+  let optionCount = 2;
+
+  function previewImage(input) {
+
+    const preview =
+      input.parentElement.querySelector(".preview");
+
+    const icon =
+      input.parentElement.querySelector("span");
+
+    const text =
+      input.parentElement.querySelector("p");
+
+    if (input.files && input.files[0]) {
+
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+
+        preview.src = e.target.result;
+
+        preview.style.display = "block";
+
+        icon.style.display = "none";
+
+        text.style.display = "none";
+
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+
+  function addOption() {
+
+    if (optionCount >= 4) {
+
+      alert("You can add a maximum of 4 options.");
+
+      return;
+    }
+
+    optionCount++;
+
+    const letter =
+      String.fromCharCode(64 + optionCount);
+
+    const option =
+      document.createElement("div");
+
+    option.className = "option";
+
+    option.innerHTML = `
+
+      <div class="option-header">
+
+        <span class="option-number">
+          OPTION ${letter}
+        </span>
+
+        <button
+          class="remove-option"
+          onclick="removeOption(this)"
+        >
+          Remove
+        </button>
+
+      </div>
+
+      <div class="image-upload">
+
+        <span>🖼️</span>
+
+        <p>Tap to upload an image</p>
+
+        <input
+          type="file"
+          accept="image/*"
+          onchange="previewImage(this)"
+        >
+
+        <img class="preview">
+
+      </div>
+
+      <label>Option name</label>
+
+      <input
+        type="text"
+        placeholder="Example: Option ${letter}"
+      >
+
+      <br><br>
+
+      <label>Description</label>
+
+      <input
+        type="text"
+        placeholder="Optional description"
+      >
+
+    `;
+
+    document
+      .getElementById("options")
+      .appendChild(option);
+
+    updateOptionLetters();
+  }
+
+
+  function removeOption(button) {
+
+    if (optionCount <= 2) {
+
+      alert("You need at least 2 options.");
+
+      return;
+    }
+
+    button
+      .closest(".option")
+      .remove();
+
+    optionCount--;
+
+    updateOptionLetters();
+  }
+
+
+  function updateOptionLetters() {
+
+    const options =
+      document.querySelectorAll(".option");
+
+    options.forEach((option, index) => {
+
+      const letter =
+        String.fromCharCode(65 + index);
+
+      const title =
+        option.querySelector(".option-number");
+
+      title.textContent =
+        "OPTION " + letter;
+
+    });
+  }
+
+
+  function publishVote() {
+
+    const question =
+      document.getElementById("question").value.trim();
+
+    if (!question) {
+
+      alert("Please enter your question.");
+
+      document
+        .getElementById("question")
+        .focus();
+
+      return;
+    }
+
+    const names =
+      document.querySelectorAll(
+        "#options .option input[type='text']"
+      );
+
+    let validOptions = 0;
+
+    names.forEach((input) => {
+
+      if (input.value.trim() !== "") {
+        validOptions++;
+      }
+
+    });
+
+    if (validOptions < 2) {
+
+      alert("Please enter at least 2 option names.");
+
+      return;
+    }
+
+    const id =
+      Math.random()
+        .toString(36)
+        .substring(2, 8);
+
+    alert(
+      "Your vote is ready!\\n\\nVote ID: " + id
+    );
+
+  }
+
+</script>
+
+</body>
+</html>
