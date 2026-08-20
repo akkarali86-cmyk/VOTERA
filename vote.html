@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Vote — VOTERA</title>
+
+  <style>
+    :root {
+      --primary: #6c5ce7;
+      --primary-dark: #5848d6;
+      --bg: #f7f7fb;
+      --card: #ffffff;
+      --text: #17171c;
+      --muted: #777783;
+      --border: #e8e8ef;
+      --green: #20bf6b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      height: 68px;
+      background: rgba(255,255,255,0.95);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav {
+      width: 100%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 0 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .back {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 850px;
+      margin: auto;
+      padding: 35px 18px;
+    }
+
+    .vote-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .category {
+      display: inline-block;
+      background: #ece9ff;
+      color: var(--primary);
+      padding: 7px 13px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    .vote-header h1 {
+      font-size: clamp(26px, 7vw, 42px);
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .vote-header p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .option-card {
+      position: relative;
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      transition: 0.2s;
+    }
+
+    .option-card:hover {
+      transform: translateY(-3px);
+      border-color: #c9c4f8;
+    }
+
+    .option-image {
+      height: 210px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 55px;
+      background: linear-gradient(135deg, #ded9ff, #f5f3ff);
+    }
+
+    .option-card:nth-child(2) .option-image {
+      background: linear-gradient(135deg, #ffe0ec, #fff3f7);
+    }
+
+    .option-info {
+      padding: 16px;
+    }
+
+    .option-label {
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+
+    .option-name {
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+
+    .option-description {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .vote-button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 14px;
+      background: var(--primary);
+      color: white;
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .vote-button:hover {
+      background: var(--primary-dark);
+    }
+
+    .vs {
+      display: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text);
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      z-index: 5;
+    }
+
+    /* RESULTS */
+
+    #results {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .result-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 20px;
+    }
+
+    .result-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 20px;
+    }
+
+    .result-row {
+      margin-bottom: 18px;
+    }
+
+    .result-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .percentage {
+      color: var(--primary);
+    }
+
+    .bar {
+      height: 12px;
+      background: #eeeeF4;
+      border-radius: 30px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      width: 0;
+      height: 100%;
+      background: var(--primary);
+      border-radius: 30px;
+      transition: width 1s ease;
+    }
+
+    .result-row:nth-child(3) .bar-fill {
+      background: #ff6b9d;
+    }
+
+    .total {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
+    .winner {
+      text-align: center;
+      margin-top: 18px;
+      padding: 15px;
+      background: #f0fff7;
+      color: #159957;
+      border-radius: 14px;
+      font-weight: 900;
+    }
+
+    /* SHARE */
+
+    .share-section {
+      margin-top: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .share-section h2 {
+      font-size: 18px;
+      margin-bottom: 7px;
+    }
+
+    .share-section p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+
+    .share-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .share {
+      padding: 11px 5px;
+      border-radius: 11px;
+      background: #f3f3f7;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .share:hover {
+      background: #e9e8f5;
+    }
+
+    .create-own {
+      display: block;
+      width: 100%;
+      margin-top: 14px;
+      padding: 15px;
+      background: var(--primary);
+      color: white;
+      border-radius: 13px;
+      font-weight: 900;
+    }
+
+    .create-own:hover {
+      background: var(--primary-dark);
+    }
+
+    @media (min-width: 650px) {
+
+      .options {
+        grid-template-columns: 1fr 1fr;
+        position: relative;
+      }
+
+      .vs {
+        display: flex;
+        top: 180px;
+      }
+
+      .option-image {
+        height: 250px;
+      }
+
+      .share-buttons {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <nav class="nav">
+
+    <a href="index.html" class="logo">
+      VOTE<span>RA</span>
+    </a>
+
+    <a href="index.html" class="back">
+      ← Home
+    </a>
+
+  </nav>
+
+</header>
+
+
+<main class="container">
+
+  <section class="vote-header">
+
+    <div class="category">
+      🔥 TRENDING
+    </div>
+
+    <h1 id="question">
+      Which design looks better?
+    </h1>
+
+    <p>
+      Cast your vote and see what everyone thinks.
+    </p>
+
+  </section>
+
+
+  <section class="options">
+
+    <div class="vs">
+      VS
+    </div>
+
+
+    <!-- OPTION A -->
+
+    <article class="option-card">
+
+      <div class="option-image">
+        🎨
+      </div>
+
+      <div class="option-info">
+
+        <div class="option-label">
+          OPTION A
+        </div>
+
+        <div class="option-name">
+          Design A
+        </div>
+
+        <div class="option-description">
+          Clean and modern design.
+        </div>
+
+        <button
+          class="vote-button"
+          onclick="vote(0)"
+        >
+          Vote A
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <!-- OPTION B -->
+
+    <article class="option-card">
+
+      <div class="option-image">
+        ✨
+      </div>
+
+      <div class="option-info">
+
+        <div class="option-label">
+          OPTION B
+        </div>
+
+        <div class="option-name">
+          Design B
+        </div>
+
+        <div class="option-description">
+          Bold and creative design.
+        </div>
+
+        <button
+          class="vote-button"
+          onclick="vote(1)"
+        >
+          Vote B
+        </button>
+
+      </div>
+
+    </article>
+
+  </section>
+
+
+  <!-- RESULTS -->
+
+  <section id="results">
+
+    <div class="result-card">
+
+      <div class="result-title">
+        📊 Results
+      </div>
+
+
+      <div class="result-row">
+
+        <div class="result-top">
+
+          <span>
+            Design A
+          </span>
+
+          <span
+            class="percentage"
+            id="percentA"
+          >
+            0%
+          </span>
+
+        </div>
+
+        <div class="bar">
+
+          <div
+            class="bar-fill"
+            id="barA"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="result-row">
+
+        <div class="result-top">
+
+          <span>
+            Design B
+          </span>
+
+          <span
+            class="percentage"
+            id="percentB"
+          >
+            0%
+          </span>
+
+        </div>
+
+        <div class="bar">
+
+          <div
+            class="bar-fill"
+            id="barB"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="total">
+
+        🔥 <span id="totalVotes">2,438</span>
+        people voted
+
+      </div>
+
+
+      <div
+        class="winner"
+        id="winner"
+      >
+        🏆 Winner: Design A
+      </div>
+
+    </div>
+
+
+    <!-- SHARE -->
+
+    <div class="share-section">
+
+      <h2>
+        🔗 Share Results
+      </h2>
+
+      <p>
+        Let your friends vote and discover what they think.
+      </p>
+
+
+      <div class="share-buttons">
+
+        <button
+          class="share"
+          onclick="shareWhatsApp()"
+        >
+          💬 WhatsApp
+        </button>
+
+        <button
+          class="share"
+          onclick="shareFacebook()"
+        >
+          📘 Facebook
+        </button>
+
+        <button
+          class="share"
+          onclick="shareX()"
+        >
+          𝕏 X
+        </button>
+
+        <button
+          class="share"
+          onclick="copyLink()"
+        >
+          🔗 Copy Link
+        </button>
+
+        <button
+          class="share"
+          onclick="nativeShare()"
+        >
+          📤 Share
+        </button>
+
+      </div>
+
+
+      <a
+        href="create.html"
+        class="create-own"
+      >
+        🔥 Create Your Own Vote
+      </a>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<script>
+
+  let votes = [1658, 780];
+
+  let alreadyVoted = false;
+
+
+  function vote(index) {
+
+    if (alreadyVoted) {
+
+      return;
+
+    }
+
+    alreadyVoted = true;
+
+    votes[index]++;
+
+    showResults();
+
+  }
+
+
+  function showResults() {
+
+    const total =
+      votes[0] + votes[1];
+
+    const percentA =
+      Math.round((votes[0] / total) * 100);
+
+    const percentB =
+      Math.round((votes[1] / total) * 100);
+
+
+    document.getElementById("percentA")
+      .textContent = percentA + "%";
+
+    document.getElementById("percentB")
+      .textContent = percentB + "%";
+
+
+    document.getElementById("barA")
+      .style.width = percentA + "%";
+
+    document.getElementById("barB")
+      .style.width = percentB + "%";
+
+
+    document.getElementById("totalVotes")
+      .textContent =
+      total.toLocaleString();
+
+
+    const winner =
+      percentA >= percentB
+        ? "Design A"
+        : "Design B";
+
+
+    document.getElementById("winner")
+      .textContent =
+      "🏆 Winner: " + winner;
+
+
+    document.getElementById("results")
+      .style.display = "block";
+
+
+    document.getElementById("results")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+
+  }
+
+
+  function copyLink() {
+
+    navigator.clipboard
+      .writeText(window.location.href)
+      .then(() => {
+
+        alert("Vote link copied!");
+
+      })
+      .catch(() => {
+
+        alert("Copy the link from your browser.");
+
+      });
+
+  }
+
+
+  function shareWhatsApp() {
+
+    const text =
+      "🔥 Which design looks better? Vote on VOTERA!";
+
+    const url =
+      "https://wa.me/?text=" +
+      encodeURIComponent(
+        text + " " + window.location.href
+      );
+
+    window.open(url, "_blank");
+
+  }
+
+
+  function shareFacebook() {
+
+    const url =
+      "https://www.facebook.com/sharer/sharer.php?u=" +
+      encodeURIComponent(
+        window.location.href
+      );
+
+    window.open(url, "_blank");
+
+  }
+
+
+  function shareX() {
+
+    const text =
+      "🔥 Which design looks better? Vote on VOTERA!";
+
+    const url =
+      "https://twitter.com/intent/tweet?text=" +
+      encodeURIComponent(text) +
+      "&url=" +
+      encodeURIComponent(
+        window.location.href
+      );
+
+    window.open(url, "_blank");
+
+  }
+
+
+  function nativeShare() {
+
+    if (navigator.share) {
+
+      navigator.share({
+
+        title: "VOTERA",
+        text: "🔥 Vote on VOTERA!",
+        url: window.location.href
+
+      });
+
+    } else {
+
+      copyLink();
+
+    }
+
+  }
+
+</script>
+
+</body>
+</html>
