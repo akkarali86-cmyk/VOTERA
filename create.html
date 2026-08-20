@@ -240,10 +240,15 @@
       align-items: center;
       padding: 14px 0;
       border-bottom: 1px solid var(--border);
+      gap: 15px;
     }
 
     .settings-row:last-child {
       border-bottom: none;
+    }
+
+    .setting-text {
+      flex: 1;
     }
 
     .setting-text strong {
@@ -261,6 +266,7 @@
       position: relative;
       width: 48px;
       height: 27px;
+      flex-shrink: 0;
     }
 
     .switch input {
@@ -339,7 +345,9 @@
 <body>
 
 <header>
+
   <nav class="nav">
+
     <a href="index.html" class="logo">
       VOTE<span>RA</span>
     </a>
@@ -347,17 +355,26 @@
     <a href="index.html" class="back">
       ← Back
     </a>
+
   </nav>
+
 </header>
+
 
 <main class="container">
 
   <div class="title">
-    <h1>🔥 Create a Vote</h1>
+
+    <h1>
+      🔥 Create a Vote
+    </h1>
+
     <p>
       Ask a question, add your options and let people decide.
     </p>
+
   </div>
+
 
   <!-- QUESTION -->
 
@@ -375,13 +392,15 @@
       id="question"
       maxlength="150"
       placeholder="Example: Which logo should I use?"
+      oninput="updateCounter()"
     ></textarea>
 
-    <div class="counter">
+    <div class="counter" id="counter">
       0 / 150
     </div>
 
   </section>
+
 
   <!-- OPTIONS -->
 
@@ -393,17 +412,25 @@
 
     <div id="options">
 
+      <!-- OPTION A -->
+
       <div class="option">
 
         <div class="option-header">
-          <span class="option-number">OPTION A</span>
+
+          <span class="option-number">
+            OPTION A
+          </span>
+
         </div>
 
         <div class="image-upload">
 
           <span>🖼️</span>
 
-          <p>Tap to upload an image</p>
+          <p>
+            Tap to upload an image
+          </p>
 
           <input
             type="file"
@@ -415,35 +442,50 @@
 
         </div>
 
-        <label>Option name</label>
+        <label>
+          Option name
+        </label>
 
         <input
           type="text"
+          class="option-name"
           placeholder="Example: Logo A"
         >
 
         <br><br>
 
-        <label>Description</label>
+        <label>
+          Description
+        </label>
 
         <input
           type="text"
+          class="option-description"
           placeholder="Optional description"
         >
 
       </div>
 
+
+      <!-- OPTION B -->
+
       <div class="option">
 
         <div class="option-header">
-          <span class="option-number">OPTION B</span>
+
+          <span class="option-number">
+            OPTION B
+          </span>
+
         </div>
 
         <div class="image-upload">
 
           <span>🖼️</span>
 
-          <p>Tap to upload an image</p>
+          <p>
+            Tap to upload an image
+          </p>
 
           <input
             type="file"
@@ -455,25 +497,32 @@
 
         </div>
 
-        <label>Option name</label>
+        <label>
+          Option name
+        </label>
 
         <input
           type="text"
+          class="option-name"
           placeholder="Example: Logo B"
         >
 
         <br><br>
 
-        <label>Description</label>
+        <label>
+          Description
+        </label>
 
         <input
           type="text"
+          class="option-description"
           placeholder="Optional description"
         >
 
       </div>
 
     </div>
+
 
     <button
       class="add-option"
@@ -484,6 +533,7 @@
 
   </section>
 
+
   <!-- SETTINGS -->
 
   <section class="card">
@@ -492,66 +542,141 @@
       3. Vote Settings
     </div>
 
+
     <div class="settings-row">
 
       <div class="setting-text">
-        <strong>Public Vote</strong>
-        <span>Anyone can discover your vote</span>
+
+        <strong>
+          Public Vote
+        </strong>
+
+        <span>
+          Anyone can discover your vote
+        </span>
+
       </div>
 
       <label class="switch">
-        <input type="checkbox" checked>
+
+        <input
+          type="checkbox"
+          id="publicVote"
+          checked
+        >
+
         <span class="slider"></span>
+
       </label>
 
     </div>
 
+
     <div class="settings-row">
 
       <div class="setting-text">
-        <strong>Allow Comments</strong>
-        <span>Let voters discuss the question</span>
+
+        <strong>
+          Allow Comments
+        </strong>
+
+        <span>
+          Let voters discuss the question
+        </span>
+
       </div>
 
       <label class="switch">
-        <input type="checkbox" checked>
+
+        <input
+          type="checkbox"
+          id="allowComments"
+          checked
+        >
+
         <span class="slider"></span>
+
       </label>
 
     </div>
 
+
     <div class="settings-row">
 
       <div class="setting-text">
-        <strong>One Vote Per User</strong>
-        <span>Prevent repeated voting</span>
+
+        <strong>
+          One Vote Per User
+        </strong>
+
+        <span>
+          Prevent repeated voting
+        </span>
+
       </div>
 
       <label class="switch">
-        <input type="checkbox" checked>
+
+        <input
+          type="checkbox"
+          id="oneVote"
+          checked
+        >
+
         <span class="slider"></span>
+
       </label>
 
     </div>
 
+
     <div class="settings-row">
 
       <div class="setting-text">
-        <strong>Voting Duration</strong>
-        <span>Choose when voting ends</span>
+
+        <strong>
+          Voting Duration
+        </strong>
+
+        <span>
+          Choose when voting ends
+        </span>
+
       </div>
 
-      <select style="width:150px;">
-        <option>Forever</option>
-        <option>24 Hours</option>
-        <option>3 Days</option>
-        <option>7 Days</option>
-        <option>30 Days</option>
+      <select
+        id="duration"
+        style="width:150px;"
+      >
+
+        <option>
+          Forever
+        </option>
+
+        <option>
+          24 Hours
+        </option>
+
+        <option>
+          3 Days
+        </option>
+
+        <option>
+          7 Days
+        </option>
+
+        <option>
+          30 Days
+        </option>
+
       </select>
 
     </div>
 
   </section>
+
+
+  <!-- PUBLISH -->
 
   <button
     class="publish"
@@ -560,67 +685,120 @@
     🚀 Publish Vote
   </button>
 
+
   <div class="bottom-note">
-    By publishing, you agree to VOTERA's Terms of Service and
-    Community Guidelines.
+
+    By publishing, you agree to VOTERA's
+    Terms of Service and Community Guidelines.
+
   </div>
 
 </main>
+
 
 <script>
 
   let optionCount = 2;
 
-  function previewImage(input) {
 
-    const preview =
-      input.parentElement.querySelector(".preview");
+  /* QUESTION COUNTER */
 
-    const icon =
-      input.parentElement.querySelector("span");
+  function updateCounter() {
 
-    const text =
-      input.parentElement.querySelector("p");
+    const question =
+      document.getElementById("question").value;
 
-    if (input.files && input.files[0]) {
+    document.getElementById("counter")
+      .textContent =
+      question.length + " / 150";
 
-      const reader = new FileReader();
-
-      reader.onload = function(e) {
-
-        preview.src = e.target.result;
-
-        preview.style.display = "block";
-
-        icon.style.display = "none";
-
-        text.style.display = "none";
-
-      };
-
-      reader.readAsDataURL(input.files[0]);
-    }
   }
 
+
+  /* IMAGE PREVIEW */
+
+  function previewImage(input) {
+
+    const container =
+      input.parentElement;
+
+    const preview =
+      container.querySelector(".preview");
+
+    const icon =
+      container.querySelector("span");
+
+    const text =
+      container.querySelector("p");
+
+
+    if (
+      input.files &&
+      input.files[0]
+    ) {
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function(event) {
+
+          preview.src =
+            event.target.result;
+
+          preview.style.display =
+            "block";
+
+          icon.style.display =
+            "none";
+
+          text.style.display =
+            "none";
+
+        };
+
+
+      reader.readAsDataURL(
+        input.files[0]
+      );
+
+    }
+
+  }
+
+
+  /* ADD OPTION */
 
   function addOption() {
 
     if (optionCount >= 4) {
 
-      alert("You can add a maximum of 4 options.");
+      alert(
+        "You can add a maximum of 4 options."
+      );
 
       return;
+
     }
+
 
     optionCount++;
 
+
     const letter =
-      String.fromCharCode(64 + optionCount);
+      String.fromCharCode(
+        64 + optionCount
+      );
+
 
     const option =
       document.createElement("div");
 
-    option.className = "option";
+
+    option.className =
+      "option";
+
 
     option.innerHTML = `
 
@@ -639,11 +817,14 @@
 
       </div>
 
+
       <div class="image-upload">
 
         <span>🖼️</span>
 
-        <p>Tap to upload an image</p>
+        <p>
+          Tap to upload an image
+        </p>
 
         <input
           type="file"
@@ -655,117 +836,302 @@
 
       </div>
 
-      <label>Option name</label>
+
+      <label>
+        Option name
+      </label>
 
       <input
         type="text"
+        class="option-name"
         placeholder="Example: Option ${letter}"
       >
 
+
       <br><br>
 
-      <label>Description</label>
+
+      <label>
+        Description
+      </label>
 
       <input
         type="text"
+        class="option-description"
         placeholder="Optional description"
       >
 
     `;
 
+
     document
       .getElementById("options")
       .appendChild(option);
 
+
     updateOptionLetters();
+
   }
 
+
+  /* REMOVE OPTION */
 
   function removeOption(button) {
 
     if (optionCount <= 2) {
 
-      alert("You need at least 2 options.");
+      alert(
+        "You need at least 2 options."
+      );
 
       return;
+
     }
+
 
     button
       .closest(".option")
       .remove();
 
+
     optionCount--;
 
+
     updateOptionLetters();
+
   }
 
+
+  /* UPDATE OPTION LETTERS */
 
   function updateOptionLetters() {
 
     const options =
-      document.querySelectorAll(".option");
+      document.querySelectorAll(
+        "#options .option"
+      );
 
-    options.forEach((option, index) => {
 
-      const letter =
-        String.fromCharCode(65 + index);
+    options.forEach(
+      function(option, index) {
 
-      const title =
-        option.querySelector(".option-number");
+        const letter =
+          String.fromCharCode(
+            65 + index
+          );
 
-      title.textContent =
-        "OPTION " + letter;
 
-    });
+        option
+          .querySelector(
+            ".option-number"
+          )
+          .textContent =
+          "OPTION " + letter;
+
+      }
+    );
+
   }
 
+
+  /* READ IMAGE */
+
+  function getImageData(option) {
+
+    const preview =
+      option.querySelector(".preview");
+
+    if (
+      preview &&
+      preview.src &&
+      preview.style.display !== "none"
+    ) {
+
+      return preview.src;
+
+    }
+
+    return "";
+
+  }
+
+
+  /* PUBLISH VOTE */
 
   function publishVote() {
 
     const question =
-      document.getElementById("question").value.trim();
+      document
+        .getElementById("question")
+        .value
+        .trim();
+
 
     if (!question) {
 
-      alert("Please enter your question.");
+      alert(
+        "Please enter your question."
+      );
 
       document
         .getElementById("question")
         .focus();
 
       return;
+
     }
 
-    const names =
+
+    const optionElements =
       document.querySelectorAll(
-        "#options .option input[type='text']"
+        "#options .option"
       );
 
-    let validOptions = 0;
 
-    names.forEach((input) => {
+    const options = [];
 
-      if (input.value.trim() !== "") {
-        validOptions++;
+
+    optionElements.forEach(
+      function(option) {
+
+        const name =
+          option
+            .querySelector(
+              ".option-name"
+            )
+            .value
+            .trim();
+
+
+        const description =
+          option
+            .querySelector(
+              ".option-description"
+            )
+            .value
+            .trim();
+
+
+        if (name) {
+
+          options.push({
+
+            name: name,
+
+            description:
+              description,
+
+            image:
+              getImageData(option),
+
+            votes: 0
+
+          });
+
+        }
+
       }
+    );
 
-    });
 
-    if (validOptions < 2) {
+    if (options.length < 2) {
 
-      alert("Please enter at least 2 option names.");
+      alert(
+        "Please enter at least 2 option names."
+      );
 
       return;
+
     }
+
+
+    if (options.length > 4) {
+
+      alert(
+        "You can have a maximum of 4 options."
+      );
+
+      return;
+
+    }
+
+
+    /* CREATE UNIQUE ID */
 
     const id =
       Math.random()
         .toString(36)
         .substring(2, 8);
 
-    alert(
-      "Your vote is ready!\\n\\nVote ID: " + id
-    );
+
+    /* CREATE VOTE DATA */
+
+    const voteData = {
+
+      id: id,
+
+      question: question,
+
+      options: options,
+
+      publicVote:
+        document
+          .getElementById(
+            "publicVote"
+          )
+          .checked,
+
+      allowComments:
+        document
+          .getElementById(
+            "allowComments"
+          )
+          .checked,
+
+      oneVote:
+        document
+          .getElementById(
+            "oneVote"
+          )
+          .checked,
+
+      duration:
+        document
+          .getElementById(
+            "duration"
+          )
+          .value,
+
+      createdAt:
+        new Date().toISOString()
+
+    };
+
+
+    /* SAVE TO BROWSER */
+
+    try {
+
+      localStorage.setItem(
+        "votera_vote_" + id,
+        JSON.stringify(voteData)
+      );
+
+    } catch (error) {
+
+      alert(
+        "The images are too large. Please use smaller images."
+      );
+
+      return;
+
+    }
+
+
+    /* REDIRECT */
+
+    window.location.href =
+      "vote.html?id=" + id;
 
   }
 
