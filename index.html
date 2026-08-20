@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>VOTERA — Ask. Vote. Discover.</title>
+
+  <meta name="description" content="Create a question. Let the world decide.">
+
+  <style>
+    :root {
+      --primary: #6c5ce7;
+      --primary-dark: #5848d6;
+      --bg: #f7f7fb;
+      --card: #ffffff;
+      --text: #17171c;
+      --muted: #777783;
+      --border: #e8e8ef;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      height: 68px;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .desktop-nav {
+      display: none;
+      gap: 24px;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .desktop-nav a:hover {
+      color: var(--primary);
+    }
+
+    .create-small {
+      background: var(--primary);
+      color: white;
+      padding: 11px 17px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    /* HERO */
+
+    .hero {
+      max-width: 900px;
+      margin: auto;
+      padding: 75px 20px 55px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: #ece9ff;
+      color: var(--primary);
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(45px, 12vw, 82px);
+      line-height: 0.95;
+      letter-spacing: -4px;
+      font-weight: 950;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .tagline {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 520px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 360px;
+      margin: auto;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 15px 22px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 10px 25px rgba(108,92,231,0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: white;
+      border: 1px solid var(--border);
+    }
+
+    /* TRENDING */
+
+    .section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 25px 18px 110px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .section-title h2 {
+      font-size: 22px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-title a {
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .categories {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      scrollbar-width: none;
+      margin-bottom: 20px;
+    }
+
+    .categories::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category {
+      white-space: nowrap;
+      padding: 9px 13px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .category.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .votes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .vote-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    }
+
+    .vote-card h3 {
+      font-size: 17px;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .option {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      background: #f0f0f5;
+      min-height: 130px;
+      display: flex;
+      align-items: flex-end;
+      padding: 12px;
+      font-weight: 800;
+    }
+
+    .option:first-child {
+      background: linear-gradient(135deg, #dcd7ff, #f2f0ff);
+    }
+
+    .option:last-child {
+      background: linear-gradient(135deg, #ffe0ec, #fff1f6);
+    }
+
+    .vote-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .share-btn {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    /* MOBILE NAV */
+
+    .mobile-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      height: 72px;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .mobile-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .mobile-nav a:first-child {
+      color: var(--primary);
+    }
+
+    .nav-icon {
+      font-size: 20px;
+    }
+
+    @media (min-width: 768px) {
+
+      .desktop-nav {
+        display: flex;
+      }
+
+      .mobile-nav {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 100px;
+      }
+
+      .hero-buttons {
+        flex-direction: row;
+        max-width: 500px;
+        justify-content: center;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        min-width: 190px;
+      }
+
+      .votes-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1000px) {
+      .votes-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="#" class="logo">VOTE<span>RA</span></a>
+
+    <div class="desktop-nav">
+      <a href="#">Home</a>
+      <a href="#">Explore</a>
+      <a href="#">Leaderboard</a>
+      <a href="#">Profile</a>
+      <button class="create-small">➕ Create Vote</button>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero">
+
+    <div class="hero-badge">
+      🔥 The social voting platform
+    </div>
+
+    <h1>VOTE<span>RA</span></h1>
+
+    <div class="tagline">
+      Ask. Vote. Discover.
+    </div>
+
+    <p>
+      Create a question. Let the world decide.
+      Share your vote with friends and discover what people really think.
+    </p>
+
+    <div class="hero-buttons">
+      <button class="btn-primary">
+        🔥 Create a Vote
+      </button>
+
+      <button class="btn-secondary">
+        Explore Votes
+      </button>
+    </div>
+
+  </section>
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>🔥 Trending Votes</h2>
+      <a href="#">View all →</a>
+    </div>
+
+    <div class="categories">
+      <div class="category active">🔥 Trending</div>
+      <div class="category">🆕 New</div>
+      <div class="category">🎮 Gaming</div>
+      <div class="category">👗 Fashion</div>
+      <div class="category">🍔 Food</div>
+      <div class="category">📱 Technology</div>
+      <div class="category">⚽ Sports</div>
+      <div class="category">🎬 Movies</div>
+      <div class="category">🎵 Music</div>
+      <div class="category">😂 Fun</div>
+      <div class="category">💼 Business</div>
+      <div class="category">❤️ Relationships</div>
+    </div>
+
+    <div class="votes-grid">
+
+      <article class="vote-card">
+        <h3>Which design looks better?</h3>
+
+        <div class="options">
+          <div class="option">Design A</div>
+          <div class="option">Design B</div>
+        </div>
+
+        <div class="vote-meta">
+          <span>🔥 1,284 votes</span>
+          <span class="share-btn">↗ Share</span>
+        </div>
+      </article>
+
+      <article class="vote-card">
+        <h3>Which phone would you choose?</h3>
+
+        <div class="options">
+          <div class="option">📱 Phone A</div>
+          <div class="option">📱 Phone B</div>
+        </div>
+
+        <div class="vote-meta">
+          <span>🔥 3,421 votes</span>
+          <span class="share-btn">↗ Share</span>
+        </div>
+      </article>
+
+      <article class="vote-card">
+        <h3>Which outfit is better?</h3>
+
+        <div class="options">
+          <div class="option">👕 Outfit A</div>
+          <div class="option">👔 Outfit B</div>
+        </div>
+
+        <div class="vote-meta">
+          <span>🔥 2,108 votes</span>
+          <span class="share-btn">↗ Share</span>
+        </div>
+      </article>
+
+    </div>
+
+  </section>
+
+</main>
+
+<nav class="mobile-nav">
+  <a href="#">
+    <span class="nav-icon">🏠</span>
+    Home
+  </a>
+
+  <a href="#">
+    <span class="nav-icon">🔥</span>
+    Explore
+  </a>
+
+  <a href="#">
+    <span class="nav-icon">➕</span>
+    Create
+  </a>
+
+  <a href="#">
+    <span class="nav-icon">🏆</span>
+    Ranking
+  </a>
+
+  <a href="#">
+    <span class="nav-icon">👤</span>
+    Profile
+  </a>
+</nav>
+
+</body>
+</html>
