@@ -6,6 +6,9 @@
 
   <title>Create Vote — VOTERA</title>
 
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
     :root {
       --primary: #6c5ce7;
@@ -318,6 +321,12 @@
       transform: translateY(-1px);
     }
 
+    .publish:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .bottom-note {
       text-align: center;
       color: var(--muted);
@@ -345,7 +354,6 @@
 <body>
 
 <header>
-
   <nav class="nav">
 
     <a href="index.html" class="logo">
@@ -357,24 +365,17 @@
     </a>
 
   </nav>
-
 </header>
-
 
 <main class="container">
 
   <div class="title">
-
-    <h1>
-      🔥 Create a Vote
-    </h1>
+    <h1>🔥 Create a Vote</h1>
 
     <p>
       Ask a question, add your options and let people decide.
     </p>
-
   </div>
-
 
   <!-- QUESTION -->
 
@@ -401,7 +402,6 @@
 
   </section>
 
-
   <!-- OPTIONS -->
 
   <section class="card">
@@ -417,11 +417,9 @@
       <div class="option">
 
         <div class="option-header">
-
           <span class="option-number">
             OPTION A
           </span>
-
         </div>
 
         <div class="image-upload">
@@ -466,17 +464,14 @@
 
       </div>
 
-
       <!-- OPTION B -->
 
       <div class="option">
 
         <div class="option-header">
-
           <span class="option-number">
             OPTION B
           </span>
-
         </div>
 
         <div class="image-upload">
@@ -523,7 +518,6 @@
 
     </div>
 
-
     <button
       class="add-option"
       onclick="addOption()"
@@ -533,7 +527,6 @@
 
   </section>
 
-
   <!-- SETTINGS -->
 
   <section class="card">
@@ -542,19 +535,14 @@
       3. Vote Settings
     </div>
 
-
     <div class="settings-row">
 
       <div class="setting-text">
-
-        <strong>
-          Public Vote
-        </strong>
+        <strong>Public Vote</strong>
 
         <span>
           Anyone can discover your vote
         </span>
-
       </div>
 
       <label class="switch">
@@ -571,19 +559,14 @@
 
     </div>
 
-
     <div class="settings-row">
 
       <div class="setting-text">
-
-        <strong>
-          Allow Comments
-        </strong>
+        <strong>Allow Comments</strong>
 
         <span>
           Let voters discuss the question
         </span>
-
       </div>
 
       <label class="switch">
@@ -600,19 +583,14 @@
 
     </div>
 
-
     <div class="settings-row">
 
       <div class="setting-text">
-
-        <strong>
-          One Vote Per User
-        </strong>
+        <strong>One Vote Per User</strong>
 
         <span>
           Prevent repeated voting
         </span>
-
       </div>
 
       <label class="switch">
@@ -629,7 +607,6 @@
 
     </div>
 
-
     <div class="settings-row">
 
       <div class="setting-text">
@@ -644,30 +621,13 @@
 
       </div>
 
-      <select
-        id="duration"
-        style="width:150px;"
-      >
+      <select id="duration" style="width:150px;">
 
-        <option>
-          Forever
-        </option>
-
-        <option>
-          24 Hours
-        </option>
-
-        <option>
-          3 Days
-        </option>
-
-        <option>
-          7 Days
-        </option>
-
-        <option>
-          30 Days
-        </option>
+        <option>Forever</option>
+        <option>24 Hours</option>
+        <option>3 Days</option>
+        <option>7 Days</option>
+        <option>30 Days</option>
 
       </select>
 
@@ -675,33 +635,52 @@
 
   </section>
 
-
   <!-- PUBLISH -->
 
   <button
     class="publish"
+    id="publishButton"
     onclick="publishVote()"
   >
     🚀 Publish Vote
   </button>
 
-
   <div class="bottom-note">
-
     By publishing, you agree to VOTERA's
     Terms of Service and Community Guidelines.
-
   </div>
 
 </main>
 
-
 <script>
+
+  /* =========================================
+     SUPABASE CONNECTION
+  ========================================= */
+
+  const SUPABASE_URL =
+    "https://vatlwkuagxyrvwclttfz.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+
+  /* =========================================
+     OPTIONS
+  ========================================= */
 
   let optionCount = 2;
 
 
-  /* QUESTION COUNTER */
+  /* =========================================
+     QUESTION COUNTER
+  ========================================= */
 
   function updateCounter() {
 
@@ -715,7 +694,9 @@
   }
 
 
-  /* IMAGE PREVIEW */
+  /* =========================================
+     IMAGE PREVIEW
+  ========================================= */
 
   function previewImage(input) {
 
@@ -740,7 +721,6 @@
       const reader =
         new FileReader();
 
-
       reader.onload =
         function(event) {
 
@@ -758,7 +738,6 @@
 
         };
 
-
       reader.readAsDataURL(
         input.files[0]
       );
@@ -768,7 +747,9 @@
   }
 
 
-  /* ADD OPTION */
+  /* =========================================
+     ADD OPTION
+  ========================================= */
 
   function addOption() {
 
@@ -782,23 +763,18 @@
 
     }
 
-
     optionCount++;
-
 
     const letter =
       String.fromCharCode(
         64 + optionCount
       );
 
-
     const option =
       document.createElement("div");
 
-
     option.className =
       "option";
-
 
     option.innerHTML = `
 
@@ -816,7 +792,6 @@
         </button>
 
       </div>
-
 
       <div class="image-upload">
 
@@ -836,7 +811,6 @@
 
       </div>
 
-
       <label>
         Option name
       </label>
@@ -847,9 +821,7 @@
         placeholder="Example: Option ${letter}"
       >
 
-
       <br><br>
-
 
       <label>
         Description
@@ -863,18 +835,18 @@
 
     `;
 
-
     document
       .getElementById("options")
       .appendChild(option);
-
 
     updateOptionLetters();
 
   }
 
 
-  /* REMOVE OPTION */
+  /* =========================================
+     REMOVE OPTION
+  ========================================= */
 
   function removeOption(button) {
 
@@ -888,21 +860,20 @@
 
     }
 
-
     button
       .closest(".option")
       .remove();
 
-
     optionCount--;
-
 
     updateOptionLetters();
 
   }
 
 
-  /* UPDATE OPTION LETTERS */
+  /* =========================================
+     UPDATE OPTION LETTERS
+  ========================================= */
 
   function updateOptionLetters() {
 
@@ -911,7 +882,6 @@
         "#options .option"
       );
 
-
     options.forEach(
       function(option, index) {
 
@@ -919,7 +889,6 @@
           String.fromCharCode(
             65 + index
           );
-
 
         option
           .querySelector(
@@ -934,7 +903,9 @@
   }
 
 
-  /* READ IMAGE */
+  /* =========================================
+     READ IMAGE
+  ========================================= */
 
   function getImageData(option) {
 
@@ -956,9 +927,16 @@
   }
 
 
-  /* PUBLISH VOTE */
+  /* =========================================
+     PUBLISH VOTE
+  ========================================= */
 
-  function publishVote() {
+  async function publishVote() {
+
+    const button =
+      document.getElementById(
+        "publishButton"
+      );
 
     const question =
       document
@@ -966,6 +944,8 @@
         .value
         .trim();
 
+
+    /* CHECK QUESTION */
 
     if (!question) {
 
@@ -982,11 +962,12 @@
     }
 
 
+    /* GET OPTIONS */
+
     const optionElements =
       document.querySelectorAll(
         "#options .option"
       );
-
 
     const options = [];
 
@@ -1002,7 +983,6 @@
             .value
             .trim();
 
-
         const description =
           option
             .querySelector(
@@ -1010,7 +990,6 @@
             )
             .value
             .trim();
-
 
         if (name) {
 
@@ -1034,6 +1013,8 @@
     );
 
 
+    /* CHECK OPTIONS */
+
     if (options.length < 2) {
 
       alert(
@@ -1056,15 +1037,15 @@
     }
 
 
-    /* CREATE UNIQUE ID */
+    /* CREATE ID */
 
     const id =
       Math.random()
         .toString(36)
-        .substring(2, 8);
+        .substring(2, 10);
 
 
-    /* CREATE VOTE DATA */
+    /* CREATE DATA */
 
     const voteData = {
 
@@ -1074,21 +1055,21 @@
 
       options: options,
 
-      publicVote:
+      public_vote:
         document
           .getElementById(
             "publicVote"
           )
           .checked,
 
-      allowComments:
+      allow_comments:
         document
           .getElementById(
             "allowComments"
           )
           .checked,
 
-      oneVote:
+      one_vote:
         document
           .getElementById(
             "oneVote"
@@ -1100,38 +1081,79 @@
           .getElementById(
             "duration"
           )
-          .value,
-
-      createdAt:
-        new Date().toISOString()
+          .value
 
     };
 
 
-    /* SAVE TO BROWSER */
+    /* BUTTON LOADING */
+
+    button.disabled = true;
+
+    button.textContent =
+      "⏳ Publishing...";
+
 
     try {
 
-      localStorage.setItem(
-        "votera_vote_" + id,
-        JSON.stringify(voteData)
-      );
+      /* SAVE TO SUPABASE */
 
-    } catch (error) {
+      const { data, error } =
+        await supabaseClient
+          .from("votes")
+          .insert([voteData])
+          .select();
+
+
+      /* CHECK ERROR */
+
+      if (error) {
+
+        console.error(error);
+
+        alert(
+          "حدث خطأ أثناء نشر التصويت:\n\n" +
+          error.message
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+          "🚀 Publish Vote";
+
+        return;
+
+      }
+
+
+      /* SUCCESS */
 
       alert(
-        "The images are too large. Please use smaller images."
+        "تم نشر التصويت بنجاح! 🎉"
       );
 
-      return;
+
+      /* GO TO VOTE PAGE */
+
+      window.location.href =
+        "vote.html?id=" + id;
 
     }
 
+    catch (error) {
 
-    /* REDIRECT */
+      console.error(error);
 
-    window.location.href =
-      "vote.html?id=" + id;
+      alert(
+        "حدث خطأ في الاتصال بقاعدة البيانات."
+      );
+
+      button.disabled = false;
+
+      button.textContent =
+        "🚀 Publish Vote";
+
+    }
 
   }
 
