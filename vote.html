@@ -15,7 +15,6 @@
   --text:#17171c;
   --muted:#777783;
   --border:#e8e8ef;
-  --green:#20bf6b;
 }
 
 *{
@@ -29,13 +28,13 @@ body{
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
-  padding-bottom:40px;
+  padding-bottom:50px;
 }
 
 button{
   font-family:inherit;
   cursor:pointer;
-  border:none;
+  border:0;
 }
 
 a{
@@ -47,7 +46,7 @@ a{
 
 header{
   height:68px;
-  background:rgba(255,255,255,.95);
+  background:rgba(255,255,255,.96);
   border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
@@ -79,7 +78,7 @@ header{
   font-weight:700;
 }
 
-/* MAIN */
+/* CONTAINER */
 
 .container{
   width:100%;
@@ -87,6 +86,8 @@ header{
   margin:auto;
   padding:35px 18px;
 }
+
+/* HEADER */
 
 .vote-header{
   text-align:center;
@@ -107,7 +108,6 @@ header{
 .vote-header h1{
   font-size:clamp(26px,7vw,42px);
   line-height:1.15;
-  letter-spacing:-1px;
   margin-bottom:12px;
 }
 
@@ -133,8 +133,7 @@ header{
 }
 
 .option-card:hover{
-  transform:translateY(-3px);
-  border-color:#c9c4f8;
+  transform:translateY(-2px);
 }
 
 .option-image{
@@ -203,7 +202,9 @@ header{
   margin-top:25px;
 }
 
-.result-card{
+.result-card,
+.share-section,
+.error{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:22px;
@@ -235,13 +236,12 @@ header{
 
 .bar{
   height:12px;
-  background:#eeeeF4;
+  background:#eeeef4;
   border-radius:30px;
   overflow:hidden;
 }
 
 .bar-fill{
-  width:0;
   height:100%;
   background:var(--primary);
   border-radius:30px;
@@ -269,10 +269,6 @@ header{
 
 .share-section{
   margin-top:20px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:20px;
   text-align:center;
 }
 
@@ -294,16 +290,28 @@ header{
 }
 
 .share{
-  padding:11px 5px;
+  padding:12px 5px;
   border-radius:11px;
   background:#f3f3f7;
   font-size:12px;
   font-weight:800;
+  transition:.2s;
 }
 
 .share:hover{
-  background:#e9e8f5;
+  background:#e9e7f5;
+  transform:translateY(-1px);
 }
+
+.copy-success{
+  display:none;
+  margin-top:12px;
+  color:#159957;
+  font-size:12px;
+  font-weight:800;
+}
+
+/* CREATE */
 
 .create-own{
   display:block;
@@ -314,6 +322,11 @@ header{
   color:white;
   border-radius:13px;
   font-weight:900;
+  text-align:center;
+}
+
+.create-own:hover{
+  background:var(--primary-dark);
 }
 
 /* ERROR */
@@ -321,10 +334,6 @@ header{
 .error{
   display:none;
   text-align:center;
-  background:white;
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:30px 20px;
 }
 
 .error h2{
@@ -340,11 +349,8 @@ header{
 
 .loading{
   text-align:center;
-  padding:30px;
+  padding:40px;
   color:var(--muted);
-  background:white;
-  border:1px solid var(--border);
-  border-radius:20px;
 }
 
 /* DESKTOP */
@@ -353,7 +359,6 @@ header{
 
   .options{
     grid-template-columns:1fr 1fr;
-    position:relative;
   }
 
   .option-image{
@@ -363,9 +368,7 @@ header{
   .share-buttons{
     grid-template-columns:repeat(5,1fr);
   }
-
 }
-
 </style>
 </head>
 
@@ -424,13 +427,12 @@ Go to VOTERA
 </div>
 
 
-<section class="options" id="options">
-
-<div class="loading">
-⏳ Loading vote...
+<div id="loading" class="loading">
+Loading vote...
 </div>
 
-</section>
+
+<section class="options" id="options"></section>
 
 
 <section id="results">
@@ -438,7 +440,7 @@ Go to VOTERA
 <div class="result-card">
 
 <div class="result-title">
-📊 Live Results
+📊 Results
 </div>
 
 <div id="resultRows"></div>
@@ -457,12 +459,13 @@ Go to VOTERA
 <div class="share-section">
 
 <h2>
-🔗 Share Results
+🔗 Share This Vote
 </h2>
 
 <p>
-Let your friends vote and discover what they think.
+Invite your friends and let them vote.
 </p>
+
 
 <div class="share-buttons">
 
@@ -488,6 +491,12 @@ Let your friends vote and discover what they think.
 
 </div>
 
+
+<div id="copySuccess" class="copy-success">
+✅ Vote link copied successfully!
+</div>
+
+
 <a href="create.html" class="create-own">
 🔥 Create Your Own Vote
 </a>
@@ -501,9 +510,9 @@ Let your friends vote and discover what they think.
 
 <script>
 
-/* =========================================
-   SUPABASE
-========================================= */
+/* =================================
+   SUPABASE SETTINGS
+================================= */
 
 const SUPABASE_URL =
 "https://vatlwkuagxyrvwclttfz.supabase.co";
@@ -512,9 +521,9 @@ const SUPABASE_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
 
 
-/* =========================================
-   VOTE ID
-========================================= */
+/* =================================
+   GET VOTE ID
+================================= */
 
 const params =
 new URLSearchParams(window.location.search);
@@ -522,851 +531,811 @@ new URLSearchParams(window.location.search);
 const voteId =
 params.get("id");
 
-
 let voteData = null;
-
 let alreadyVoted = false;
 
 
-/* =========================================
+/* =================================
    LOAD VOTE
-========================================= */
+================================= */
 
 async function loadVote(){
 
-  if(!voteId){
+if(!voteId){
 
-    showError(
-      "No vote ID was found in the link."
-    );
+showError(
+"No vote ID was found in the link."
+);
 
-    return;
-
-  }
-
-
-  try{
-
-    const response =
-      await fetch(
-        SUPABASE_URL +
-        "/rest/v1/votes?id=eq." +
-        encodeURIComponent(voteId) +
-        "&select=*",
-        {
-          method:"GET",
-          headers:{
-            "apikey":SUPABASE_KEY,
-            "Authorization":
-              "Bearer " + SUPABASE_KEY
-          }
-        }
-      );
-
-
-    if(!response.ok){
-
-      const errorText =
-        await response.text();
-
-      console.error(
-        "Supabase error:",
-        errorText
-      );
-
-      showError(
-        "Could not load the vote."
-      );
-
-      return;
-
-    }
-
-
-    const data =
-      await response.json();
-
-
-    if(!data || data.length === 0){
-
-      showError(
-        "This vote does not exist."
-      );
-
-      return;
-
-    }
-
-
-    voteData =
-      data[0];
-
-
-    /* Convert options to array */
-
-    if(typeof voteData.options === "string"){
-
-      try{
-
-        voteData.options =
-          JSON.parse(voteData.options);
-
-      }
-      catch(error){
-
-        voteData.options = [];
-
-      }
-
-    }
-
-
-    if(!Array.isArray(voteData.options)){
-
-      voteData.options = [];
-
-    }
-
-
-    renderVote();
-
-  }
-  catch(error){
-
-    console.error(error);
-
-    showError(
-      "Could not connect to the database."
-    );
-
-  }
+return;
 
 }
 
 
-/* =========================================
+try{
+
+const response =
+await fetch(
+SUPABASE_URL +
+"/rest/v1/votes?id=eq." +
+encodeURIComponent(voteId) +
+"&select=*",
+{
+method:"GET",
+
+headers:{
+"apikey":SUPABASE_KEY,
+"Authorization":
+"Bearer " + SUPABASE_KEY
+}
+}
+);
+
+
+if(!response.ok){
+
+const errorText =
+await response.text();
+
+console.error(errorText);
+
+showError(
+"Could not connect to the database."
+);
+
+return;
+
+}
+
+
+const data =
+await response.json();
+
+
+if(!data || data.length === 0){
+
+showError(
+"This vote does not exist."
+);
+
+return;
+
+}
+
+
+voteData =
+data[0];
+
+
+/* Convert options if Supabase returns text */
+
+if(typeof voteData.options === "string"){
+
+try{
+
+voteData.options =
+JSON.parse(voteData.options);
+
+}catch(error){
+
+voteData.options = [];
+
+}
+
+}
+
+
+if(!Array.isArray(voteData.options)){
+
+voteData.options = [];
+
+}
+
+
+document
+.getElementById("loading")
+.style.display = "none";
+
+
+renderVote();
+
+
+}catch(error){
+
+console.error(error);
+
+showError(
+"An unexpected error occurred."
+);
+
+}
+
+}
+
+
+/* =================================
    ERROR
-========================================= */
+================================= */
 
 function showError(message){
 
-  document.getElementById("question")
-    .textContent =
-    "Vote not found";
+document
+.getElementById("loading")
+.style.display = "none";
 
+document
+.getElementById("question")
+.textContent =
+"Vote not found";
 
-  document.getElementById("options")
-    .style.display =
-    "none";
+document
+.getElementById("options")
+.style.display =
+"none";
 
+document
+.getElementById("error")
+.style.display =
+"block";
 
-  document.getElementById("error")
-    .style.display =
-    "block";
-
-
-  document.getElementById("errorMessage")
-    .textContent =
-    message;
+document
+.getElementById("errorMessage")
+.textContent =
+message;
 
 }
 
 
-/* =========================================
+/* =================================
    RENDER VOTE
-========================================= */
+================================= */
 
 function renderVote(){
 
-  document.getElementById("question")
-    .textContent =
-    voteData.question ||
-    "Untitled Vote";
+document
+.getElementById("question")
+.textContent =
+voteData.question ||
+"Untitled vote";
 
 
-  const container =
-    document.getElementById("options");
+const container =
+document.getElementById("options");
 
 
-  container.innerHTML = "";
+container.innerHTML = "";
 
 
-  if(!voteData.options.length){
+if(!voteData.options.length){
 
-    showError(
-      "This vote has no options."
-    );
+showError(
+"This vote has no options."
+);
 
-    return;
-
-  }
-
-
-  voteData.options.forEach(
-    function(option,index){
-
-      const card =
-        document.createElement("article");
-
-
-      card.className =
-        "option-card";
-
-
-      let imageHTML =
-        "🖼️";
-
-
-      if(option.image){
-
-        imageHTML =
-          '<img src="' +
-          escapeHTML(option.image) +
-          '" alt="' +
-          escapeHTML(option.name) +
-          '">';
-
-      }
-
-
-      card.innerHTML = `
-
-        <div class="option-image">
-          ${imageHTML}
-        </div>
-
-        <div class="option-info">
-
-          <div class="option-label">
-            OPTION ${String.fromCharCode(65 + index)}
-          </div>
-
-          <div class="option-name">
-            ${escapeHTML(option.name)}
-          </div>
-
-          <div class="option-description">
-            ${escapeHTML(option.description || "")}
-          </div>
-
-          <button
-            class="vote-button"
-            onclick="vote(${index})"
-          >
-            Vote ${String.fromCharCode(65 + index)}
-          </button>
-
-        </div>
-
-      `;
-
-
-      container.appendChild(card);
-
-    }
-  );
+return;
 
 }
 
 
-/* =========================================
-   ESCAPE HTML
-========================================= */
+voteData.options.forEach(
+function(option,index){
 
-function escapeHTML(text){
+const card =
+document.createElement("article");
 
-  const div =
-    document.createElement("div");
-
-  div.textContent =
-    String(text ?? "");
-
-  return div.innerHTML;
-
-}
+card.className =
+"option-card";
 
 
-/* =========================================
-   CHECK LOCAL VOTE
-========================================= */
-
-function checkAlreadyVoted(){
-
-  if(!voteId){
-    return false;
-  }
+let imageHTML =
+"🖼️";
 
 
-  return localStorage.getItem(
-    "votera_voted_" + voteId
-  ) === "true";
+if(option.image){
+
+imageHTML =
+"<img src=\"" +
+escapeAttribute(option.image) +
+"\" alt=\"" +
+escapeAttribute(option.name) +
+"\">";
 
 }
 
 
-/* =========================================
-   SAVE LOCAL VOTE
-========================================= */
+card.innerHTML = `
 
-function saveLocalVote(){
+<div class="option-image">
+${imageHTML}
+</div>
 
-  if(!voteId){
-    return;
-  }
+<div class="option-info">
+
+<div class="option-label">
+OPTION ${String.fromCharCode(65 + index)}
+</div>
+
+<div class="option-name">
+${escapeHTML(option.name)}
+</div>
+
+<div class="option-description">
+${escapeHTML(option.description || "")}
+</div>
+
+<button
+class="vote-button"
+onclick="vote(${index})"
+>
+Vote ${String.fromCharCode(65 + index)}
+</button>
+
+</div>
+
+`;
 
 
-  localStorage.setItem(
-    "votera_voted_" + voteId,
-    "true"
-  );
+container.appendChild(card);
+
+}
+);
 
 }
 
 
-/* =========================================
+/* =================================
    VOTE
-========================================= */
+================================= */
 
 async function vote(index){
 
-  if(alreadyVoted){
+if(alreadyVoted){
 
-    alert(
-      "You have already voted."
-    );
+alert(
+"You have already voted."
+);
 
-    return;
-
-  }
-
-
-  if(checkAlreadyVoted()){
-
-    alreadyVoted = true;
-
-    alert(
-      "You have already voted on this device."
-    );
-
-    showResults();
-
-    return;
-
-  }
-
-
-  if(!voteData){
-
-    return;
-
-  }
-
-
-  if(!voteData.options[index]){
-
-    return;
-
-  }
-
-
-  const buttons =
-    document.querySelectorAll(
-      ".vote-button"
-    );
-
-
-  buttons.forEach(function(button){
-
-    button.disabled = true;
-
-  });
-
-
-  try{
-
-    /*
-      First get the newest version
-      from Supabase.
-    */
-
-    const latestResponse =
-      await fetch(
-        SUPABASE_URL +
-        "/rest/v1/votes?id=eq." +
-        encodeURIComponent(voteId) +
-        "&select=*",
-        {
-          method:"GET",
-          headers:{
-            "apikey":SUPABASE_KEY,
-            "Authorization":
-              "Bearer " + SUPABASE_KEY
-          }
-        }
-      );
-
-
-    if(!latestResponse.ok){
-
-      throw new Error(
-        "Could not refresh vote."
-      );
-
-    }
-
-
-    const latestData =
-      await latestResponse.json();
-
-
-    if(!latestData || !latestData.length){
-
-      throw new Error(
-        "Vote no longer exists."
-      );
-
-    }
-
-
-    let latestVote =
-      latestData[0];
-
-
-    if(typeof latestVote.options === "string"){
-
-      latestVote.options =
-        JSON.parse(latestVote.options);
-
-    }
-
-
-    if(!Array.isArray(latestVote.options)){
-
-      throw new Error(
-        "Invalid vote options."
-      );
-
-    }
-
-
-    if(!latestVote.options[index]){
-
-      throw new Error(
-        "Selected option not found."
-      );
-
-    }
-
-
-    /*
-      Increase selected option.
-    */
-
-    latestVote.options[index].votes =
-      Number(
-        latestVote.options[index].votes || 0
-      ) + 1;
-
-
-    /*
-      Update Supabase.
-    */
-
-    const updateResponse =
-      await fetch(
-        SUPABASE_URL +
-        "/rest/v1/votes?id=eq." +
-        encodeURIComponent(voteId),
-        {
-          method:"PATCH",
-
-          headers:{
-            "apikey":SUPABASE_KEY,
-            "Authorization":
-              "Bearer " + SUPABASE_KEY,
-            "Content-Type":
-              "application/json",
-            "Prefer":
-              "return=representation"
-          },
-
-          body:
-            JSON.stringify({
-              options:
-                latestVote.options
-            })
-
-        }
-      );
-
-
-    if(!updateResponse.ok){
-
-      const errorText =
-        await updateResponse.text();
-
-      console.error(
-        "Update error:",
-        errorText
-      );
-
-      throw new Error(
-        "Failed to save your vote."
-      );
-
-    }
-
-
-    /*
-      Success.
-    */
-
-    voteData =
-      latestVote;
-
-
-    alreadyVoted = true;
-
-
-    saveLocalVote();
-
-
-    showResults();
-
-
-  }
-  catch(error){
-
-    console.error(error);
-
-    alert(
-      "❌ " +
-      error.message
-    );
-
-
-    buttons.forEach(function(button){
-
-      button.disabled = false;
-
-    });
-
-  }
+return;
 
 }
 
 
-/* =========================================
+if(!voteData ||
+!voteData.options[index]){
+
+return;
+
+}
+
+
+alreadyVoted = true;
+
+
+if(!voteData.options[index].votes){
+
+voteData.options[index].votes = 0;
+
+}
+
+
+voteData.options[index].votes++;
+
+
+document
+.querySelectorAll(".vote-button")
+.forEach(function(button){
+
+button.disabled = true;
+
+});
+
+
+try{
+
+const response =
+await fetch(
+SUPABASE_URL +
+"/rest/v1/votes?id=eq." +
+encodeURIComponent(voteId),
+{
+method:"PATCH",
+
+headers:{
+"apikey":SUPABASE_KEY,
+"Authorization":
+"Bearer " + SUPABASE_KEY,
+"Content-Type":
+"application/json",
+"Prefer":
+"return=representation"
+},
+
+body:JSON.stringify({
+
+options:
+voteData.options
+
+})
+
+}
+);
+
+
+if(!response.ok){
+
+const errorText =
+await response.text();
+
+console.error(errorText);
+
+alreadyVoted = false;
+
+voteData.options[index].votes--;
+
+
+document
+.querySelectorAll(".vote-button")
+.forEach(function(button){
+
+button.disabled = false;
+
+});
+
+
+alert(
+"Failed to save your vote. Please try again."
+);
+
+return;
+
+}
+
+
+/* Save local vote status */
+
+localStorage.setItem(
+"voted_" + voteId,
+"true"
+);
+
+
+showResults();
+
+
+}catch(error){
+
+console.error(error);
+
+alreadyVoted = false;
+
+voteData.options[index].votes--;
+
+
+document
+.querySelectorAll(".vote-button")
+.forEach(function(button){
+
+button.disabled = false;
+
+});
+
+
+alert(
+"Could not connect to the database."
+);
+
+}
+
+}
+
+
+/* =================================
    RESULTS
-========================================= */
+================================= */
 
 function showResults(){
 
-  if(!voteData ||
-     !Array.isArray(voteData.options)){
+const total =
+voteData.options.reduce(
+function(sum,option){
 
-    return;
+return sum +
+Number(option.votes || 0);
 
-  }
-
-
-  const total =
-    voteData.options.reduce(
-      function(sum,option){
-
-        return sum +
-          Number(option.votes || 0);
-
-      },
-      0
-    );
+},
+0
+);
 
 
-  const resultRows =
-    document.getElementById(
-      "resultRows"
-    );
+const resultRows =
+document.getElementById("resultRows");
 
 
-  resultRows.innerHTML = "";
+resultRows.innerHTML = "";
 
 
-  let winnerIndex = 0;
+let winnerIndex = 0;
 
-  let highestVotes = -1;
-
-
-  voteData.options.forEach(
-    function(option,index){
-
-      const votes =
-        Number(option.votes || 0);
+let highestVotes = -1;
 
 
-      if(votes > highestVotes){
+voteData.options.forEach(
+function(option,index){
 
-        highestVotes =
-          votes;
-
-        winnerIndex =
-          index;
-
-      }
+const votes =
+Number(option.votes || 0);
 
 
-      const percentage =
-        total === 0
-        ? 0
-        : Math.round(
-            (votes / total) * 100
-          );
+if(votes > highestVotes){
 
+highestVotes = votes;
 
-      const row =
-        document.createElement("div");
-
-
-      row.className =
-        "result-row";
-
-
-      row.innerHTML = `
-
-        <div class="result-top">
-
-          <span>
-            ${escapeHTML(option.name)}
-          </span>
-
-          <span class="percentage">
-            ${percentage}%
-          </span>
-
-        </div>
-
-        <div class="bar">
-
-          <div
-            class="bar-fill"
-            style="width:${percentage}%"
-          ></div>
-
-        </div>
-
-      `;
-
-
-      resultRows.appendChild(row);
-
-    }
-  );
-
-
-  document.getElementById(
-    "totalVotes"
-  ).textContent =
-    total.toLocaleString();
-
-
-  if(total === 0){
-
-    document.getElementById(
-      "winner"
-    ).textContent =
-      "🏆 No votes yet";
-
-  }
-  else{
-
-    document.getElementById(
-      "winner"
-    ).textContent =
-      "🏆 Winner: " +
-      voteData.options[winnerIndex].name;
-
-  }
-
-
-  document.getElementById(
-    "results"
-  ).style.display =
-    "block";
-
-
-  document.getElementById(
-    "results"
-  ).scrollIntoView({
-    behavior:"smooth"
-  });
+winnerIndex = index;
 
 }
 
 
-/* =========================================
+const percentage =
+total === 0
+? 0
+: Math.round(
+(votes / total) * 100
+);
+
+
+const row =
+document.createElement("div");
+
+row.className =
+"result-row";
+
+
+row.innerHTML = `
+
+<div class="result-top">
+
+<span>
+${escapeHTML(option.name)}
+</span>
+
+<span class="percentage">
+${percentage}%
+</span>
+
+</div>
+
+<div class="bar">
+
+<div
+class="bar-fill"
+style="width:${percentage}%"
+></div>
+
+</div>
+
+`;
+
+
+resultRows.appendChild(row);
+
+}
+);
+
+
+document
+.getElementById("totalVotes")
+.textContent =
+total.toLocaleString();
+
+
+document
+.getElementById("winner")
+.textContent =
+"🏆 Winner: " +
+(
+voteData.options[winnerIndex].name ||
+"Unknown"
+);
+
+
+document
+.getElementById("results")
+.style.display =
+"block";
+
+
+document
+.getElementById("results")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+/* =================================
    COPY LINK
-========================================= */
+================================= */
 
-function copyLink(){
+async function copyLink(){
 
-  if(navigator.clipboard){
+const link =
+window.location.href;
 
-    navigator.clipboard
-      .writeText(
-        window.location.href
-      )
-      .then(function(){
 
-        alert(
-          "✅ Vote link copied!"
-        );
+try{
 
-      })
-      .catch(function(){
+if(navigator.clipboard){
 
-        alert(
-          "Copy the link from your browser."
-        );
+await navigator.clipboard.writeText(link);
 
-      });
+}else{
 
-  }
-  else{
-
-    alert(
-      "Copy the link from your browser."
-    );
-
-  }
+fallbackCopy(link);
 
 }
 
 
-/* =========================================
+document
+.getElementById("copySuccess")
+.style.display =
+"block";
+
+
+setTimeout(function(){
+
+document
+.getElementById("copySuccess")
+.style.display =
+"none";
+
+},3000);
+
+
+}catch(error){
+
+fallbackCopy(link);
+
+}
+
+}
+
+
+/* =================================
+   FALLBACK COPY
+================================= */
+
+function fallbackCopy(text){
+
+const textarea =
+document.createElement("textarea");
+
+textarea.value =
+text;
+
+textarea.style.position =
+"fixed";
+
+textarea.style.opacity =
+"0";
+
+document.body.appendChild(
+textarea
+);
+
+textarea.select();
+
+document.execCommand("copy");
+
+document.body.removeChild(
+textarea
+);
+
+}
+
+
+/* =================================
    WHATSAPP
-========================================= */
+================================= */
 
 function shareWhatsApp(){
 
-  if(!voteData){
-    return;
-  }
+if(!voteData){
 
-
-  const text =
-    "🔥 Vote on VOTERA: " +
-    voteData.question;
-
-
-  const url =
-    "https://wa.me/?text=" +
-    encodeURIComponent(
-      text +
-      " " +
-      window.location.href
-    );
-
-
-  window.open(
-    url,
-    "_blank"
-  );
+return;
 
 }
 
 
-/* =========================================
+const text =
+"🔥 Vote on VOTERA!\n\n" +
+voteData.question +
+"\n\nVote here: " +
+window.location.href;
+
+
+const url =
+"https://wa.me/?text=" +
+encodeURIComponent(text);
+
+
+window.open(
+url,
+"_blank"
+);
+
+}
+
+
+/* =================================
    FACEBOOK
-========================================= */
+================================= */
 
 function shareFacebook(){
 
-  const url =
-    "https://www.facebook.com/sharer/sharer.php?u=" +
-    encodeURIComponent(
-      window.location.href
-    );
+const url =
+"https://www.facebook.com/sharer/sharer.php?u=" +
+encodeURIComponent(
+window.location.href
+);
 
 
-  window.open(
-    url,
-    "_blank"
-  );
+window.open(
+url,
+"_blank"
+);
 
 }
 
 
-/* =========================================
+/* =================================
    X
-========================================= */
+================================= */
 
 function shareX(){
 
-  if(!voteData){
-    return;
-  }
+if(!voteData){
 
-
-  const text =
-    "🔥 Vote on VOTERA: " +
-    voteData.question;
-
-
-  const url =
-    "https://twitter.com/intent/tweet?text=" +
-    encodeURIComponent(text) +
-    "&url=" +
-    encodeURIComponent(
-      window.location.href
-    );
-
-
-  window.open(
-    url,
-    "_blank"
-  );
+return;
 
 }
 
 
-/* =========================================
+const text =
+"🔥 Vote on VOTERA: " +
+voteData.question;
+
+
+const url =
+"https://twitter.com/intent/tweet?text=" +
+encodeURIComponent(text) +
+"&url=" +
+encodeURIComponent(
+window.location.href
+);
+
+
+window.open(
+url,
+"_blank"
+);
+
+}
+
+
+/* =================================
    NATIVE SHARE
-========================================= */
+================================= */
 
-function nativeShare(){
+async function nativeShare(){
 
-  if(!voteData){
-    return;
-  }
+if(!voteData){
 
-
-  if(navigator.share){
-
-    navigator.share({
-
-      title:"VOTERA",
-
-      text:
-        "🔥 Vote on VOTERA: " +
-        voteData.question,
-
-      url:
-        window.location.href
-
-    });
-
-  }
-  else{
-
-    copyLink();
-
-  }
+return;
 
 }
 
 
-/* =========================================
+if(navigator.share){
+
+try{
+
+await navigator.share({
+
+title:
+"VOTERA — Ask. Vote. Discover.",
+
+text:
+"🔥 Vote on VOTERA: " +
+voteData.question,
+
+url:
+window.location.href
+
+});
+
+}catch(error){
+
+console.log(
+"Share cancelled."
+);
+
+}
+
+}else{
+
+copyLink();
+
+}
+
+}
+
+
+/* =================================
+   SAFE HTML
+================================= */
+
+function escapeHTML(text){
+
+const div =
+document.createElement("div");
+
+div.textContent =
+String(text ?? "");
+
+return div.innerHTML;
+
+}
+
+
+/* =================================
+   SAFE ATTRIBUTE
+================================= */
+
+function escapeAttribute(text){
+
+return String(text ?? "")
+.replace(/&/g,"&amp;")
+.replace(/"/g,"&quot;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;");
+
+}
+
+
+/* =================================
+   CHECK PREVIOUS VOTE
+================================= */
+
+function checkPreviousVote(){
+
+if(!voteId){
+
+return;
+
+}
+
+
+const saved =
+localStorage.getItem(
+"voted_" + voteId
+);
+
+
+if(saved === "true"){
+
+alreadyVoted = true;
+
+}
+
+}
+
+
+/* =================================
    START
-========================================= */
+================================= */
+
+checkPreviousVote();
 
 loadVote();
 
