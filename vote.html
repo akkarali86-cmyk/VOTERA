@@ -7,24 +7,24 @@
 <title>Vote — VOTERA</title>
 
 <style>
-:root {
+:root{
   --primary:#6c5ce7;
   --primary-dark:#5848d6;
   --bg:#f7f7fb;
-  --card:#ffffff;
+  --card:#fff;
   --text:#17171c;
   --muted:#777783;
   --border:#e8e8ef;
   --green:#20bf6b;
 }
 
-* {
+*{
   margin:0;
   padding:0;
   box-sizing:border-box;
 }
 
-body {
+body{
   font-family:Arial,Helvetica,sans-serif;
   background:var(--bg);
   color:var(--text);
@@ -32,18 +32,20 @@ body {
   padding-bottom:40px;
 }
 
-button {
+button{
   font-family:inherit;
   cursor:pointer;
   border:none;
 }
 
-a {
+a{
   text-decoration:none;
   color:inherit;
 }
 
-header {
+/* HEADER */
+
+header{
   height:68px;
   background:rgba(255,255,255,.95);
   border-bottom:1px solid var(--border);
@@ -51,7 +53,7 @@ header {
   align-items:center;
 }
 
-.nav {
+.nav{
   width:100%;
   max-width:1000px;
   margin:auto;
@@ -61,35 +63,37 @@ header {
   align-items:center;
 }
 
-.logo {
+.logo{
   font-size:25px;
   font-weight:900;
   letter-spacing:-1px;
 }
 
-.logo span {
+.logo span{
   color:var(--primary);
 }
 
-.back {
+.back{
   color:var(--muted);
   font-size:14px;
   font-weight:700;
 }
 
-.container {
+/* MAIN */
+
+.container{
   width:100%;
   max-width:850px;
   margin:auto;
   padding:35px 18px;
 }
 
-.vote-header {
+.vote-header{
   text-align:center;
   margin-bottom:28px;
 }
 
-.category {
+.category{
   display:inline-block;
   background:#ece9ff;
   color:var(--primary);
@@ -100,26 +104,27 @@ header {
   margin-bottom:15px;
 }
 
-.vote-header h1 {
+.vote-header h1{
   font-size:clamp(26px,7vw,42px);
   line-height:1.15;
   letter-spacing:-1px;
   margin-bottom:12px;
 }
 
-.vote-header p {
+.vote-header p{
   color:var(--muted);
   font-size:13px;
 }
 
-.options {
+/* OPTIONS */
+
+.options{
   display:grid;
   grid-template-columns:1fr;
   gap:16px;
 }
 
-.option-card {
-  position:relative;
+.option-card{
   background:var(--card);
   border:2px solid var(--border);
   border-radius:22px;
@@ -127,12 +132,12 @@ header {
   transition:.2s;
 }
 
-.option-card:hover {
+.option-card:hover{
   transform:translateY(-3px);
   border-color:#c9c4f8;
 }
 
-.option-image {
+.option-image{
   height:210px;
   display:flex;
   align-items:center;
@@ -142,36 +147,36 @@ header {
   overflow:hidden;
 }
 
-.option-image img {
+.option-image img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
 
-.option-info {
+.option-info{
   padding:16px;
 }
 
-.option-label {
+.option-label{
   color:var(--primary);
   font-size:11px;
   font-weight:900;
   margin-bottom:5px;
 }
 
-.option-name {
+.option-name{
   font-size:18px;
   font-weight:900;
   margin-bottom:5px;
 }
 
-.option-description {
+.option-description{
   color:var(--muted);
   font-size:12px;
   line-height:1.5;
 }
 
-.vote-button {
+.vote-button{
   width:100%;
   padding:14px;
   margin-top:14px;
@@ -182,39 +187,41 @@ header {
   font-size:14px;
 }
 
-.vote-button:hover {
+.vote-button:hover{
   background:var(--primary-dark);
 }
 
-.vote-button:disabled {
+.vote-button:disabled{
   background:#aaa;
   cursor:not-allowed;
 }
 
-#results {
+/* RESULTS */
+
+#results{
   display:none;
   margin-top:25px;
 }
 
-.result-card {
+.result-card{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:22px;
   padding:20px;
 }
 
-.result-title {
+.result-title{
   text-align:center;
   font-size:20px;
   font-weight:900;
   margin-bottom:20px;
 }
 
-.result-row {
+.result-row{
   margin-bottom:18px;
 }
 
-.result-top {
+.result-top{
   display:flex;
   justify-content:space-between;
   margin-bottom:7px;
@@ -222,18 +229,18 @@ header {
   font-weight:800;
 }
 
-.percentage {
+.percentage{
   color:var(--primary);
 }
 
-.bar {
+.bar{
   height:12px;
-  background:#eeeef4;
+  background:#eeeeF4;
   border-radius:30px;
   overflow:hidden;
 }
 
-.bar-fill {
+.bar-fill{
   width:0;
   height:100%;
   background:var(--primary);
@@ -241,14 +248,14 @@ header {
   transition:width 1s ease;
 }
 
-.total {
+.total{
   text-align:center;
   color:var(--muted);
   font-size:13px;
   margin-top:20px;
 }
 
-.winner {
+.winner{
   text-align:center;
   margin-top:18px;
   padding:15px;
@@ -258,7 +265,9 @@ header {
   font-weight:900;
 }
 
-.share-section {
+/* SHARE */
+
+.share-section{
   margin-top:20px;
   background:var(--card);
   border:1px solid var(--border);
@@ -267,24 +276,24 @@ header {
   text-align:center;
 }
 
-.share-section h2 {
+.share-section h2{
   font-size:18px;
   margin-bottom:7px;
 }
 
-.share-section p {
+.share-section p{
   color:var(--muted);
   font-size:12px;
   margin-bottom:15px;
 }
 
-.share-buttons {
+.share-buttons{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:8px;
 }
 
-.share {
+.share{
   padding:11px 5px;
   border-radius:11px;
   background:#f3f3f7;
@@ -292,11 +301,11 @@ header {
   font-weight:800;
 }
 
-.share:hover {
+.share:hover{
   background:#e9e8f5;
 }
 
-.create-own {
+.create-own{
   display:block;
   width:100%;
   margin-top:14px;
@@ -307,7 +316,9 @@ header {
   font-weight:900;
 }
 
-.error {
+/* ERROR */
+
+.error{
   display:none;
   text-align:center;
   background:white;
@@ -316,37 +327,45 @@ header {
   padding:30px 20px;
 }
 
-.error h2 {
+.error h2{
   margin-bottom:10px;
 }
 
-.error p {
+.error p{
   color:var(--muted);
   margin-bottom:20px;
-  line-height:1.5;
 }
 
-.loading {
+/* LOADING */
+
+.loading{
   text-align:center;
+  padding:30px;
   color:var(--muted);
-  padding:40px 20px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
 }
 
-@media (min-width:650px) {
+/* DESKTOP */
 
-  .options {
+@media(min-width:650px){
+
+  .options{
     grid-template-columns:1fr 1fr;
     position:relative;
   }
 
-  .option-image {
+  .option-image{
     height:250px;
   }
 
-  .share-buttons {
+  .share-buttons{
     grid-template-columns:repeat(5,1fr);
   }
+
 }
+
 </style>
 </head>
 
@@ -388,11 +407,6 @@ Cast your vote and see what everyone thinks.
 </section>
 
 
-<div id="loading" class="loading">
-⏳ Loading vote...
-</div>
-
-
 <div id="error" class="error">
 
 <h2>
@@ -410,10 +424,12 @@ Go to VOTERA
 </div>
 
 
-<section
-class="options"
-id="options"
-style="display:none;">
+<section class="options" id="options">
+
+<div class="loading">
+⏳ Loading vote...
+</div>
+
 </section>
 
 
@@ -422,7 +438,7 @@ style="display:none;">
 <div class="result-card">
 
 <div class="result-title">
-📊 Results
+📊 Live Results
 </div>
 
 <div id="resultRows"></div>
@@ -450,41 +466,29 @@ Let your friends vote and discover what they think.
 
 <div class="share-buttons">
 
-<button
-class="share"
-onclick="shareWhatsApp()">
+<button class="share" onclick="shareWhatsApp()">
 💬 WhatsApp
 </button>
 
-<button
-class="share"
-onclick="shareFacebook()">
+<button class="share" onclick="shareFacebook()">
 📘 Facebook
 </button>
 
-<button
-class="share"
-onclick="shareX()">
+<button class="share" onclick="shareX()">
 𝕏 X
 </button>
 
-<button
-class="share"
-onclick="copyLink()">
+<button class="share" onclick="copyLink()">
 🔗 Copy Link
 </button>
 
-<button
-class="share"
-onclick="nativeShare()">
+<button class="share" onclick="nativeShare()">
 📤 Share
 </button>
 
 </div>
 
-<a
-href="create.html"
-class="create-own">
+<a href="create.html" class="create-own">
 🔥 Create Your Own Vote
 </a>
 
@@ -525,183 +529,117 @@ let alreadyVoted = false;
 
 
 /* =========================================
-   CHECK LOCAL VOTE
-========================================= */
-
-function checkAlreadyVoted() {
-
-if (!voteId) {
-return false;
-}
-
-return localStorage.getItem(
-"votera_already_voted_" + voteId
-) === "true";
-
-}
-
-
-/* =========================================
    LOAD VOTE
 ========================================= */
 
-async function loadVote() {
+async function loadVote(){
 
-if (!voteId) {
+  if(!voteId){
 
-showError(
-"No vote ID was found in the link."
-);
+    showError(
+      "No vote ID was found in the link."
+    );
 
-return;
+    return;
 
-}
+  }
 
 
-alreadyVoted =
-checkAlreadyVoted();
+  try{
 
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/votes?id=eq." +
+        encodeURIComponent(voteId) +
+        "&select=*",
+        {
+          method:"GET",
+          headers:{
+            "apikey":SUPABASE_KEY,
+            "Authorization":
+              "Bearer " + SUPABASE_KEY
+          }
+        }
+      );
 
-try {
 
-const response =
-await fetch(
+    if(!response.ok){
 
-SUPABASE_URL +
-"/rest/v1/votes?id=eq." +
-encodeURIComponent(voteId) +
-"&select=*",
+      const errorText =
+        await response.text();
 
-{
-method:"GET",
+      console.error(
+        "Supabase error:",
+        errorText
+      );
 
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":"Bearer " + SUPABASE_KEY
-}
+      showError(
+        "Could not load the vote."
+      );
 
-}
+      return;
 
-);
+    }
 
 
-const responseText =
-await response.text();
+    const data =
+      await response.json();
 
 
-let data = [];
+    if(!data || data.length === 0){
 
+      showError(
+        "This vote does not exist."
+      );
 
-try {
+      return;
 
-data =
-responseText
-? JSON.parse(responseText)
-: [];
+    }
 
-}
-catch(error) {
 
-console.error(
-"Invalid JSON:",
-responseText
-);
+    voteData =
+      data[0];
 
-}
 
+    /* Convert options to array */
 
-if (!response.ok) {
+    if(typeof voteData.options === "string"){
 
-console.error(
-"Supabase GET error:",
-data
-);
+      try{
 
-showError(
-"Could not load the vote from the database."
-);
+        voteData.options =
+          JSON.parse(voteData.options);
 
-return;
+      }
+      catch(error){
 
-}
+        voteData.options = [];
 
+      }
 
-if (!Array.isArray(data) || data.length === 0) {
+    }
 
-showError(
-"This vote does not exist in the database."
-);
 
-return;
+    if(!Array.isArray(voteData.options)){
 
-}
+      voteData.options = [];
 
+    }
 
-voteData =
-data[0];
 
+    renderVote();
 
-/*
-   Convert options to array
-*/
+  }
+  catch(error){
 
-if (
-typeof voteData.options === "string"
-) {
+    console.error(error);
 
-try {
+    showError(
+      "Could not connect to the database."
+    );
 
-voteData.options =
-JSON.parse(voteData.options);
-
-}
-catch(error) {
-
-voteData.options = [];
-
-}
-
-}
-
-
-if (!Array.isArray(voteData.options)) {
-
-voteData.options = [];
-
-}
-
-
-if (voteData.options.length < 2) {
-
-showError(
-"This vote does not have enough options."
-);
-
-return;
-
-}
-
-
-document.getElementById("loading")
-.style.display = "none";
-
-
-renderVote();
-
-
-}
-catch(error) {
-
-console.error(
-"Load error:",
-error
-);
-
-showError(
-"Could not connect to the database."
-);
-
-}
+  }
 
 }
 
@@ -710,30 +648,26 @@ showError(
    ERROR
 ========================================= */
 
-function showError(message) {
+function showError(message){
 
-document.getElementById("loading")
-.style.display = "none";
-
-
-document.getElementById("question")
-.textContent =
-"Vote not found";
+  document.getElementById("question")
+    .textContent =
+    "Vote not found";
 
 
-document.getElementById("options")
-.style.display =
-"none";
+  document.getElementById("options")
+    .style.display =
+    "none";
 
 
-document.getElementById("error")
-.style.display =
-"block";
+  document.getElementById("error")
+    .style.display =
+    "block";
 
 
-document.getElementById("errorMessage")
-.textContent =
-message;
+  document.getElementById("errorMessage")
+    .textContent =
+    message;
 
 }
 
@@ -742,113 +676,149 @@ message;
    RENDER VOTE
 ========================================= */
 
-function renderVote() {
+function renderVote(){
 
-document.getElementById("question")
-.textContent =
-voteData.question;
-
-
-const optionsContainer =
-document.getElementById("options");
+  document.getElementById("question")
+    .textContent =
+    voteData.question ||
+    "Untitled Vote";
 
 
-optionsContainer.innerHTML = "";
+  const container =
+    document.getElementById("options");
 
 
-optionsContainer.style.display =
-"grid";
+  container.innerHTML = "";
 
 
-voteData.options.forEach(
-function(option,index) {
+  if(!voteData.options.length){
+
+    showError(
+      "This vote has no options."
+    );
+
+    return;
+
+  }
 
 
-const card =
-document.createElement("article");
+  voteData.options.forEach(
+    function(option,index){
+
+      const card =
+        document.createElement("article");
 
 
-card.className =
-"option-card";
+      card.className =
+        "option-card";
 
 
-let imageHTML =
-"🖼️";
+      let imageHTML =
+        "🖼️";
 
 
-if (option.image) {
+      if(option.image){
 
-imageHTML =
-'<img src="' +
-escapeHTML(option.image) +
-'" alt="' +
-escapeHTML(option.name) +
-'">';
+        imageHTML =
+          '<img src="' +
+          escapeHTML(option.image) +
+          '" alt="' +
+          escapeHTML(option.name) +
+          '">';
 
-}
-
-
-const letter =
-String.fromCharCode(65 + index);
+      }
 
 
-card.innerHTML = `
+      card.innerHTML = `
 
-<div class="option-image">
-${imageHTML}
-</div>
+        <div class="option-image">
+          ${imageHTML}
+        </div>
 
-<div class="option-info">
+        <div class="option-info">
 
-<div class="option-label">
-OPTION ${letter}
-</div>
+          <div class="option-label">
+            OPTION ${String.fromCharCode(65 + index)}
+          </div>
 
-<div class="option-name">
-${escapeHTML(option.name)}
-</div>
+          <div class="option-name">
+            ${escapeHTML(option.name)}
+          </div>
 
-<div class="option-description">
-${escapeHTML(option.description || "")}
-</div>
+          <div class="option-description">
+            ${escapeHTML(option.description || "")}
+          </div>
 
-<button
-class="vote-button"
-data-index="${index}"
-onclick="vote(${index})"
-${alreadyVoted ? "disabled" : ""}
->
+          <button
+            class="vote-button"
+            onclick="vote(${index})"
+          >
+            Vote ${String.fromCharCode(65 + index)}
+          </button>
 
-${alreadyVoted ? "Already Voted" : "Vote " + letter}
+        </div>
 
-</button>
-
-</div>
-
-`;
+      `;
 
 
-optionsContainer.appendChild(card);
+      container.appendChild(card);
 
-});
-
+    }
+  );
 
 }
 
 
 /* =========================================
-   SAFE HTML
+   ESCAPE HTML
 ========================================= */
 
-function escapeHTML(text) {
+function escapeHTML(text){
 
-const div =
-document.createElement("div");
+  const div =
+    document.createElement("div");
 
-div.textContent =
-String(text ?? "");
+  div.textContent =
+    String(text ?? "");
 
-return div.innerHTML;
+  return div.innerHTML;
+
+}
+
+
+/* =========================================
+   CHECK LOCAL VOTE
+========================================= */
+
+function checkAlreadyVoted(){
+
+  if(!voteId){
+    return false;
+  }
+
+
+  return localStorage.getItem(
+    "votera_voted_" + voteId
+  ) === "true";
+
+}
+
+
+/* =========================================
+   SAVE LOCAL VOTE
+========================================= */
+
+function saveLocalVote(){
+
+  if(!voteId){
+    return;
+  }
+
+
+  localStorage.setItem(
+    "votera_voted_" + voteId,
+    "true"
+  );
 
 }
 
@@ -857,188 +827,231 @@ return div.innerHTML;
    VOTE
 ========================================= */
 
-async function vote(index) {
+async function vote(index){
 
-if (alreadyVoted) {
+  if(alreadyVoted){
 
-alert(
-"You have already voted on this device."
-);
+    alert(
+      "You have already voted."
+    );
 
-return;
+    return;
 
-}
+  }
 
 
-if (!voteData) {
-return;
-}
+  if(checkAlreadyVoted()){
 
+    alreadyVoted = true;
 
-if (!voteData.options[index]) {
-return;
-}
+    alert(
+      "You have already voted on this device."
+    );
 
+    showResults();
 
-const buttons =
-document.querySelectorAll(
-".vote-button"
-);
+    return;
 
+  }
 
-buttons.forEach(
-function(button) {
-button.disabled = true;
-}
-);
 
+  if(!voteData){
 
-const oldVotes =
-Number(
-voteData.options[index].votes || 0
-);
+    return;
 
+  }
 
-const newVotes =
-oldVotes + 1;
 
+  if(!voteData.options[index]){
 
-try {
+    return;
 
-/*
-   Update only the selected option
-*/
+  }
 
-const updatedOptions =
-voteData.options.map(
-function(option,optionIndex) {
 
-if (optionIndex === index) {
+  const buttons =
+    document.querySelectorAll(
+      ".vote-button"
+    );
 
-return {
-...option,
-votes:newVotes
-};
 
-}
+  buttons.forEach(function(button){
 
-return option;
+    button.disabled = true;
 
-}
-);
+  });
 
 
-/*
-   Send update to Supabase
-*/
+  try{
 
-const response =
-await fetch(
+    /*
+      First get the newest version
+      from Supabase.
+    */
 
-SUPABASE_URL +
-"/rest/v1/votes?id=eq." +
-encodeURIComponent(voteId),
+    const latestResponse =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/votes?id=eq." +
+        encodeURIComponent(voteId) +
+        "&select=*",
+        {
+          method:"GET",
+          headers:{
+            "apikey":SUPABASE_KEY,
+            "Authorization":
+              "Bearer " + SUPABASE_KEY
+          }
+        }
+      );
 
-{
-method:"PATCH",
 
-headers:{
+    if(!latestResponse.ok){
 
-"apikey":SUPABASE_KEY,
+      throw new Error(
+        "Could not refresh vote."
+      );
 
-"Authorization":
-"Bearer " + SUPABASE_KEY,
+    }
 
-"Content-Type":
-"application/json",
 
-"Prefer":
-"return=representation"
+    const latestData =
+      await latestResponse.json();
 
-},
 
-body:JSON.stringify({
+    if(!latestData || !latestData.length){
 
-options:updatedOptions
+      throw new Error(
+        "Vote no longer exists."
+      );
 
-})
+    }
 
-}
-);
 
+    let latestVote =
+      latestData[0];
 
-const responseText =
-await response.text();
 
+    if(typeof latestVote.options === "string"){
 
-if (!response.ok) {
+      latestVote.options =
+        JSON.parse(latestVote.options);
 
-console.error(
-"Supabase vote error:",
-responseText
-);
+    }
 
-throw new Error(
-responseText ||
-"Failed to save vote."
-);
 
-}
+    if(!Array.isArray(latestVote.options)){
 
+      throw new Error(
+        "Invalid vote options."
+      );
 
-/*
-   Update local data
-*/
+    }
 
-voteData.options =
-updatedOptions;
 
+    if(!latestVote.options[index]){
 
-/*
-   Remember vote on this device
-*/
+      throw new Error(
+        "Selected option not found."
+      );
 
-localStorage.setItem(
-"votera_already_voted_" + voteId,
-"true"
-);
+    }
 
 
-alreadyVoted = true;
+    /*
+      Increase selected option.
+    */
 
+    latestVote.options[index].votes =
+      Number(
+        latestVote.options[index].votes || 0
+      ) + 1;
 
-/*
-   Show results
-*/
 
-showResults();
+    /*
+      Update Supabase.
+    */
 
+    const updateResponse =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/votes?id=eq." +
+        encodeURIComponent(voteId),
+        {
+          method:"PATCH",
 
-}
-catch(error) {
+          headers:{
+            "apikey":SUPABASE_KEY,
+            "Authorization":
+              "Bearer " + SUPABASE_KEY,
+            "Content-Type":
+              "application/json",
+            "Prefer":
+              "return=representation"
+          },
 
-console.error(error);
+          body:
+            JSON.stringify({
+              options:
+                latestVote.options
+            })
 
+        }
+      );
 
-/*
-   Re-enable buttons
-*/
 
-buttons.forEach(
-function(button) {
+    if(!updateResponse.ok){
 
-button.disabled = false;
+      const errorText =
+        await updateResponse.text();
 
-}
-);
+      console.error(
+        "Update error:",
+        errorText
+      );
 
+      throw new Error(
+        "Failed to save your vote."
+      );
 
-alert(
-"❌ لم يتم حفظ التصويت.\n\n" +
-"حاول مرة أخرى."
-);
+    }
 
-}
+
+    /*
+      Success.
+    */
+
+    voteData =
+      latestVote;
+
+
+    alreadyVoted = true;
+
+
+    saveLocalVote();
+
+
+    showResults();
+
+
+  }
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      "❌ " +
+      error.message
+    );
+
+
+    buttons.forEach(function(button){
+
+      button.disabled = false;
+
+    });
+
+  }
 
 }
 
@@ -1047,132 +1060,144 @@ alert(
    RESULTS
 ========================================= */
 
-function showResults() {
+function showResults(){
 
-if (!voteData ||
-!Array.isArray(voteData.options)) {
+  if(!voteData ||
+     !Array.isArray(voteData.options)){
 
-return;
+    return;
 
-}
-
-
-const total =
-voteData.options.reduce(
-function(sum,option) {
-
-return sum +
-Number(option.votes || 0);
-
-},
-0
-);
+  }
 
 
-const resultRows =
-document.getElementById(
-"resultRows"
-);
+  const total =
+    voteData.options.reduce(
+      function(sum,option){
+
+        return sum +
+          Number(option.votes || 0);
+
+      },
+      0
+    );
 
 
-resultRows.innerHTML = "";
+  const resultRows =
+    document.getElementById(
+      "resultRows"
+    );
 
 
-let winnerIndex = 0;
-
-let highestVotes = -1;
+  resultRows.innerHTML = "";
 
 
-voteData.options.forEach(
-function(option,index) {
+  let winnerIndex = 0;
+
+  let highestVotes = -1;
 
 
-const votes =
-Number(option.votes || 0);
+  voteData.options.forEach(
+    function(option,index){
+
+      const votes =
+        Number(option.votes || 0);
 
 
-if (votes > highestVotes) {
+      if(votes > highestVotes){
 
-highestVotes =
-votes;
+        highestVotes =
+          votes;
 
-winnerIndex =
-index;
+        winnerIndex =
+          index;
 
-}
-
-
-const percentage =
-total === 0
-? 0
-: Math.round(
-(votes / total) * 100
-);
+      }
 
 
-const row =
-document.createElement("div");
+      const percentage =
+        total === 0
+        ? 0
+        : Math.round(
+            (votes / total) * 100
+          );
 
 
-row.className =
-"result-row";
+      const row =
+        document.createElement("div");
 
 
-row.innerHTML = `
-
-<div class="result-top">
-
-<span>
-${escapeHTML(option.name)}
-</span>
-
-<span class="percentage">
-${percentage}%
-</span>
-
-</div>
-
-<div class="bar">
-
-<div
-class="bar-fill"
-style="width:${percentage}%">
-</div>
-
-</div>
-
-`;
+      row.className =
+        "result-row";
 
 
-resultRows.appendChild(row);
+      row.innerHTML = `
 
-});
+        <div class="result-top">
+
+          <span>
+            ${escapeHTML(option.name)}
+          </span>
+
+          <span class="percentage">
+            ${percentage}%
+          </span>
+
+        </div>
+
+        <div class="bar">
+
+          <div
+            class="bar-fill"
+            style="width:${percentage}%"
+          ></div>
+
+        </div>
+
+      `;
 
 
-document.getElementById(
-"totalVotes"
-).textContent =
-total.toLocaleString();
+      resultRows.appendChild(row);
+
+    }
+  );
 
 
-document.getElementById(
-"winner"
-).textContent =
-"🏆 Winner: " +
-voteData.options[winnerIndex].name;
+  document.getElementById(
+    "totalVotes"
+  ).textContent =
+    total.toLocaleString();
 
 
-document.getElementById(
-"results"
-).style.display =
-"block";
+  if(total === 0){
+
+    document.getElementById(
+      "winner"
+    ).textContent =
+      "🏆 No votes yet";
+
+  }
+  else{
+
+    document.getElementById(
+      "winner"
+    ).textContent =
+      "🏆 Winner: " +
+      voteData.options[winnerIndex].name;
+
+  }
 
 
-document.getElementById(
-"results"
-).scrollIntoView({
-behavior:"smooth"
-});
+  document.getElementById(
+    "results"
+  ).style.display =
+    "block";
+
+
+  document.getElementById(
+    "results"
+  ).scrollIntoView({
+    behavior:"smooth"
+  });
 
 }
 
@@ -1181,39 +1206,37 @@ behavior:"smooth"
    COPY LINK
 ========================================= */
 
-function copyLink() {
+function copyLink(){
 
-if (!navigator.clipboard) {
+  if(navigator.clipboard){
 
-alert(
-"Copy the link from your browser."
-);
+    navigator.clipboard
+      .writeText(
+        window.location.href
+      )
+      .then(function(){
 
-return;
+        alert(
+          "✅ Vote link copied!"
+        );
 
-}
+      })
+      .catch(function(){
 
+        alert(
+          "Copy the link from your browser."
+        );
 
-navigator.clipboard
-.writeText(window.location.href)
-.then(
-function() {
+      });
 
-alert(
-"Vote link copied!"
-);
+  }
+  else{
 
-}
-)
-.catch(
-function() {
+    alert(
+      "Copy the link from your browser."
+    );
 
-alert(
-"Copy the link from your browser."
-);
-
-}
-);
+  }
 
 }
 
@@ -1222,30 +1245,31 @@ alert(
    WHATSAPP
 ========================================= */
 
-function shareWhatsApp() {
+function shareWhatsApp(){
 
-if (!voteData) {
-return;
-}
-
-
-const text =
-"🔥 Vote on VOTERA: " +
-voteData.question;
+  if(!voteData){
+    return;
+  }
 
 
-const url =
-"https://wa.me/?text=" +
-encodeURIComponent(
-text + " " +
-window.location.href
-);
+  const text =
+    "🔥 Vote on VOTERA: " +
+    voteData.question;
 
 
-window.open(
-url,
-"_blank"
-);
+  const url =
+    "https://wa.me/?text=" +
+    encodeURIComponent(
+      text +
+      " " +
+      window.location.href
+    );
+
+
+  window.open(
+    url,
+    "_blank"
+  );
 
 }
 
@@ -1254,19 +1278,19 @@ url,
    FACEBOOK
 ========================================= */
 
-function shareFacebook() {
+function shareFacebook(){
 
-const url =
-"https://www.facebook.com/sharer/sharer.php?u=" +
-encodeURIComponent(
-window.location.href
-);
+  const url =
+    "https://www.facebook.com/sharer/sharer.php?u=" +
+    encodeURIComponent(
+      window.location.href
+    );
 
 
-window.open(
-url,
-"_blank"
-);
+  window.open(
+    url,
+    "_blank"
+  );
 
 }
 
@@ -1275,31 +1299,31 @@ url,
    X
 ========================================= */
 
-function shareX() {
+function shareX(){
 
-if (!voteData) {
-return;
-}
-
-
-const text =
-"🔥 Vote on VOTERA: " +
-voteData.question;
+  if(!voteData){
+    return;
+  }
 
 
-const url =
-"https://twitter.com/intent/tweet?text=" +
-encodeURIComponent(text) +
-"&url=" +
-encodeURIComponent(
-window.location.href
-);
+  const text =
+    "🔥 Vote on VOTERA: " +
+    voteData.question;
 
 
-window.open(
-url,
-"_blank"
-);
+  const url =
+    "https://twitter.com/intent/tweet?text=" +
+    encodeURIComponent(text) +
+    "&url=" +
+    encodeURIComponent(
+      window.location.href
+    );
+
+
+  window.open(
+    url,
+    "_blank"
+  );
 
 }
 
@@ -1308,39 +1332,34 @@ url,
    NATIVE SHARE
 ========================================= */
 
-function nativeShare() {
+function nativeShare(){
 
-if (!voteData) {
-return;
-}
+  if(!voteData){
+    return;
+  }
 
 
-if (navigator.share) {
+  if(navigator.share){
 
-navigator.share({
+    navigator.share({
 
-title:"VOTERA",
+      title:"VOTERA",
 
-text:
-"🔥 Vote on VOTERA: " +
-voteData.question,
+      text:
+        "🔥 Vote on VOTERA: " +
+        voteData.question,
 
-url:
-window.location.href
+      url:
+        window.location.href
 
-})
-.catch(
-function(error) {
-console.log(error);
-}
-);
+    });
 
-}
-else {
+  }
+  else{
 
-copyLink();
+    copyLink();
 
-}
+  }
 
 }
 
