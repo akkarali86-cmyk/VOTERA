@@ -1,6 +1,3 @@
-أكيد. هذا هو الكود الكامل لـ index.html بعد ربطه بـ Supabase ليعرض التصويتات الحقيقية التي أنشأتها.
-احذف محتوى index.html القديم بالكامل، ثم الصق هذا الكود:
-الكتابة
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -325,11 +322,24 @@ header{
 .loading{
   grid-column:1/-1;
   text-align:center;
-  padding:35px;
+  padding:40px 20px;
   color:var(--muted);
-  background:white;
-  border:1px solid var(--border);
-  border-radius:20px;
+}
+
+.spinner{
+  width:35px;
+  height:35px;
+  border:4px solid #e5e2ff;
+  border-top-color:var(--primary);
+  border-radius:50%;
+  margin:0 auto 15px;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
 }
 
 /* EMPTY */
@@ -337,10 +347,15 @@ header{
 .empty{
   grid-column:1/-1;
   text-align:center;
-  padding:40px 20px;
   background:white;
   border:1px solid var(--border);
   border-radius:20px;
+  padding:35px 20px;
+}
+
+.empty-icon{
+  font-size:45px;
+  margin-bottom:12px;
 }
 
 .empty h3{
@@ -349,11 +364,11 @@ header{
 
 .empty p{
   color:var(--muted);
-  font-size:14px;
+  font-size:13px;
   margin-bottom:18px;
 }
 
-/* CREATE CTA */
+/* CTA */
 
 .create-box{
   margin-top:35px;
@@ -475,17 +490,25 @@ VOTE<span>RA</span>
 
 <div class="desktop-nav">
 
-<a href="index.html">Home</a>
+<a href="index.html">
+Home
+</a>
 
-<a href="#trending">Explore</a>
+<a href="#trending">
+Explore
+</a>
 
 <a href="create.html" class="create-small">
 ➕ Create Vote
 </a>
 
-<a href="#trending">Leaderboard</a>
+<a href="#trending">
+Leaderboard
+</a>
 
-<a href="create.html">Profile</a>
+<a href="create.html">
+Profile
+</a>
 
 </div>
 
@@ -541,11 +564,11 @@ Explore Votes
 <div class="section-title">
 
 <h2>
-🔥 Trending Votes
+🔥 Latest Votes
 </h2>
 
 <a href="#trending">
-View all →
+Refresh ↻
 </a>
 
 </div>
@@ -611,7 +634,11 @@ View all →
 <div class="votes-grid" id="votesGrid">
 
 <div class="loading">
-⏳ Loading votes...
+
+<div class="spinner"></div>
+
+Loading votes...
+
 </div>
 
 </div>
@@ -703,9 +730,9 @@ Profile
 
 <script>
 
-/* ================================
-   SUPABASE SETTINGS
-================================ */
+/* =================================
+   SUPABASE
+================================= */
 
 const SUPABASE_URL =
 "https://vatlwkuagxyrvwclttfz.supabase.co";
@@ -714,234 +741,370 @@ const SUPABASE_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
 
 
-/* ================================
-   LOAD VOTES
-================================ */
+/* =================================
+   LOAD REAL VOTES
+================================= */
 
 async function loadVotes(){
 
-  const grid =
-    document.getElementById("votesGrid");
+const grid =
+document.getElementById("votesGrid");
 
-  try{
+try{
 
-    const response =
-      await fetch(
-        SUPABASE_URL +
-        "/rest/v1/votes?select=*&order=created_at.desc&limit=12",
-        {
-          method:"GET",
-          headers:{
-            "apikey":SUPABASE_KEY,
-            "Authorization":"Bearer " + SUPABASE_KEY
-          }
-        }
-      );
+const response =
+await fetch(
+SUPABASE_URL +
+"/rest/v1/votes?select=*&order=id.desc",
+{
+method:"GET",
 
+headers:{
+"apikey":SUPABASE_KEY,
+"Authorization":
+"Bearer " + SUPABASE_KEY
+}
+}
+);
 
-    if(!response.ok){
 
-      const errorText =
-        await response.text();
+if(!response.ok){
 
-      console.error(
-        "Supabase error:",
-        errorText
-      );
+const errorText =
+await response.text();
 
-      grid.innerHTML = `
-        <div class="empty">
-          <h3>⚠️ Could not load votes</h3>
-          <p>Please try again later.</p>
-        </div>
-      `;
+console.error(
+"Supabase error:",
+errorText
+);
 
-      return;
-    }
+showEmpty(
+"Could not load votes."
+);
 
-
-    const votes =
-      await response.json();
-
-
-    if(!votes || votes.length === 0){
-
-      grid.innerHTML = `
-        <div class="empty">
-          <h3>🔥 No votes yet</h3>
-          <p>Be the first person to create a vote.</p>
-          <a
-            href="create.html"
-            class="create-own"
-            style="display:inline-block;width:auto;"
-          >
-            Create a Vote
-          </a>
-        </div>
-      `;
-
-      return;
-    }
-
-
-    grid.innerHTML = "";
-
-
-    votes.forEach(function(vote){
-
-      const options =
-        Array.isArray(vote.options)
-        ? vote.options
-        : [];
-
-
-      const totalVotes =
-        options.reduce(
-          function(sum,option){
-
-            return sum +
-              Number(option.votes || 0);
-
-          },
-          0
-        );
-
-
-      const card =
-        document.createElement("article");
-
-      card.className =
-        "vote-card";
-
-
-      let optionsHTML = "";
-
-
-      options.slice(0,4).forEach(
-        function(option,index){
-
-          const name =
-            escapeHTML(
-              option.name || 
-              "Option " +
-              String.fromCharCode(65 + index)
-            );
-
-
-          let imageHTML = "";
-
-
-          if(option.image){
-
-            imageHTML =
-              `<img src="${escapeHTML(option.image)}" alt="">`;
-
-          }
-
-
-          optionsHTML += `
-
-            <a
-              href="vote.html?id=${encodeURIComponent(vote.id)}"
-              class="option"
-            >
-
-              ${imageHTML}
-
-              <span>
-                ${name}
-              </span>
-
-            </a>
-
-          `;
-
-        }
-      );
-
-
-      if(options.length === 0){
-
-        optionsHTML = `
-          <div class="option">
-            <span>No options</span>
-          </div>
-        `;
-
-      }
-
-
-      card.innerHTML = `
-
-        <h3>
-          ${escapeHTML(vote.question || "Untitled Vote")}
-        </h3>
-
-        <div class="options">
-          ${optionsHTML}
-        </div>
-
-        <div class="vote-meta">
-
-          <span>
-            🔥 ${totalVotes.toLocaleString()} votes
-          </span>
-
-          <a
-            href="vote.html?id=${encodeURIComponent(vote.id)}"
-            class="share-btn"
-          >
-            Vote →
-          </a>
-
-        </div>
-
-      `;
-
-
-      grid.appendChild(card);
-
-    });
-
-  }
-  catch(error){
-
-    console.error(error);
-
-    grid.innerHTML = `
-      <div class="empty">
-        <h3>⚠️ Connection error</h3>
-        <p>
-          Could not connect to VOTERA database.
-        </p>
-      </div>
-    `;
-
-  }
+return;
 
 }
 
 
-/* ================================
-   SAFE TEXT
-================================ */
+const votes =
+await response.json();
+
+
+if(!votes || votes.length === 0){
+
+showEmpty(
+"No votes have been created yet."
+);
+
+return;
+
+}
+
+
+/* Clear loading */
+
+grid.innerHTML = "";
+
+
+/* Show latest votes */
+
+votes.forEach(function(vote){
+
+createVoteCard(
+vote,
+grid
+);
+
+});
+
+
+}catch(error){
+
+console.error(error);
+
+showEmpty(
+"Could not connect to the database."
+);
+
+}
+
+}
+
+
+/* =================================
+   CREATE VOTE CARD
+================================= */
+
+function createVoteCard(vote, grid){
+
+let options =
+vote.options;
+
+
+/* Convert JSON string if necessary */
+
+if(typeof options === "string"){
+
+try{
+
+options =
+JSON.parse(options);
+
+}catch(error){
+
+options = [];
+
+}
+
+}
+
+
+if(!Array.isArray(options)){
+
+options = [];
+
+}
+
+
+/* Need at least 2 options */
+
+if(options.length < 2){
+
+return;
+
+}
+
+
+/* Limit to 4 */
+
+options =
+options.slice(0,4);
+
+
+const card =
+document.createElement("article");
+
+card.className =
+"vote-card";
+
+
+const question =
+escapeHTML(
+vote.question || "Untitled vote"
+);
+
+
+/* Options HTML */
+
+let optionsHTML = "";
+
+
+options.forEach(
+function(option,index){
+
+const name =
+escapeHTML(
+option.name || "Option"
+);
+
+
+const image =
+option.image || "";
+
+
+const imageHTML =
+image
+?
+"<img src=\"" +
+escapeAttribute(image) +
+"\" alt=\"" +
+escapeAttribute(name) +
+"\">"
+:
+"";
+
+
+optionsHTML += `
+
+<a
+href="vote.html?id=${encodeURIComponent(vote.id)}"
+class="option"
+>
+
+${imageHTML}
+
+<span>
+${String.fromCharCode(65 + index)}. ${name}
+</span>
+
+</a>
+
+`;
+
+}
+);
+
+
+/* Total votes */
+
+let totalVotes = 0;
+
+
+options.forEach(
+function(option){
+
+totalVotes +=
+Number(option.votes || 0);
+
+}
+);
+
+
+/* Card */
+
+card.innerHTML = `
+
+<h3>
+${question}
+</h3>
+
+<div class="options">
+${optionsHTML}
+</div>
+
+<div class="vote-meta">
+
+<span>
+🔥 ${totalVotes.toLocaleString()} votes
+</span>
+
+<a
+href="vote.html?id=${encodeURIComponent(vote.id)}"
+class="share-btn"
+>
+Vote →
+</a>
+
+</div>
+
+`;
+
+
+grid.appendChild(card);
+
+}
+
+
+/* =================================
+   EMPTY STATE
+================================= */
+
+function showEmpty(message){
+
+const grid =
+document.getElementById("votesGrid");
+
+grid.innerHTML = `
+
+<div class="empty">
+
+<div class="empty-icon">
+🗳️
+</div>
+
+<h3>
+No votes yet
+</h3>
+
+<p>
+${escapeHTML(message)}
+</p>
+
+<a
+href="create.html"
+class="create-own"
+style="
+display:inline-block;
+padding:13px 20px;
+background:#6c5ce7;
+color:white;
+border-radius:13px;
+font-weight:900;
+"
+>
+🔥 Create the First Vote
+</a>
+
+</div>
+
+`;
+
+}
+
+
+/* =================================
+   SAFE HTML
+================================= */
 
 function escapeHTML(text){
 
-  const div =
-    document.createElement("div");
+const div =
+document.createElement("div");
 
-  div.textContent =
-    String(text ?? "");
+div.textContent =
+String(text ?? "");
 
-  return div.innerHTML;
+return div.innerHTML;
 
 }
 
 
-/* ================================
+/* =================================
+   SAFE ATTRIBUTE
+================================= */
+
+function escapeAttribute(text){
+
+return String(text ?? "")
+.replace(/&/g,"&amp;")
+.replace(/"/g,"&quot;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;");
+
+}
+
+
+/* =================================
+   CATEGORY BUTTONS
+================================= */
+
+document
+.querySelectorAll(".category")
+.forEach(function(category){
+
+category.addEventListener(
+"click",
+function(){
+
+document
+.querySelectorAll(".category")
+.forEach(function(item){
+
+item.classList.remove("active");
+
+});
+
+category.classList.add("active");
+
+});
+
+});
+
+
+/* =================================
    START
-================================ */
+================================= */
 
 loadVotes();
 
