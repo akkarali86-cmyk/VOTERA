@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>VOTERA — Ask. Vote. Discover.</title>
+<title>VOTERA — اسأل. صوّت. اكتشف.</title>
 
-<meta name="description" content="Create a question. Let the world decide.">
+<meta name="description" content="VOTERA — منصة التصويت الاجتماعية. أنشئ سؤالًا ودع العالم يقرر.">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root{
@@ -17,6 +19,8 @@
   --text:#17171c;
   --muted:#777783;
   --border:#e8e8ef;
+  --success:#16a34a;
+  --danger:#dc2626;
 }
 
 *{
@@ -82,7 +86,7 @@ header{
 .desktop-nav{
   display:none;
   align-items:center;
-  gap:22px;
+  gap:18px;
   font-size:14px;
   font-weight:800;
 }
@@ -96,6 +100,71 @@ header{
   color:white!important;
   padding:11px 16px;
   border-radius:12px;
+}
+
+/* AUTH */
+
+.auth-area{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.google-btn{
+  background:white;
+  border:1px solid var(--border);
+  color:#222;
+  padding:10px 14px;
+  border-radius:12px;
+  font-weight:800;
+  font-size:13px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.google-btn:hover{
+  background:#f5f5f5;
+}
+
+.google-icon{
+  font-size:17px;
+}
+
+.user-box{
+  display:none;
+  align-items:center;
+  gap:8px;
+}
+
+.user-avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid var(--primary);
+}
+
+.user-name{
+  max-width:120px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:13px;
+  font-weight:900;
+}
+
+.logout-btn{
+  background:#f1f1f5;
+  color:#555;
+  padding:8px 10px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:800;
+}
+
+.logout-btn:hover{
+  background:#e8e8ef;
 }
 
 /* HERO */
@@ -119,6 +188,7 @@ header{
 }
 
 .hero h1{
+  direction:ltr;
   font-size:clamp(50px,13vw,90px);
   line-height:.95;
   letter-spacing:-5px;
@@ -145,7 +215,7 @@ header{
 }
 
 .hero-buttons{
-  max-width:380px;
+  max-width:500px;
   margin:auto;
   display:flex;
   flex-direction:column;
@@ -174,6 +244,21 @@ header{
 .btn-secondary{
   background:white;
   border:1px solid var(--border);
+}
+
+/* USER MESSAGE */
+
+.welcome{
+  display:none;
+  max-width:600px;
+  margin:0 auto 25px;
+  padding:13px 16px;
+  background:#ecfdf3;
+  color:#166534;
+  border:1px solid #bbf7d0;
+  border-radius:14px;
+  font-size:14px;
+  font-weight:800;
 }
 
 /* SECTION */
@@ -224,6 +309,7 @@ header{
   border-radius:30px;
   font-size:13px;
   font-weight:800;
+  cursor:pointer;
 }
 
 .category.active{
@@ -232,15 +318,13 @@ header{
   border-color:var(--primary);
 }
 
-/* VOTES GRID */
+/* VOTE CARDS */
 
 .votes-grid{
   display:grid;
   grid-template-columns:1fr;
   gap:16px;
 }
-
-/* VOTE CARD */
 
 .vote-card{
   background:var(--card);
@@ -262,8 +346,6 @@ header{
   margin-bottom:14px;
 }
 
-/* OPTIONS */
-
 .options{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -275,38 +357,18 @@ header{
   padding:12px;
   border-radius:15px;
   display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
+  align-items:flex-end;
   font-weight:900;
   background:linear-gradient(135deg,#ddd8ff,#f4f2ff);
-  overflow:hidden;
 }
 
 .option:nth-child(2){
   background:linear-gradient(135deg,#ffe0ec,#fff3f7);
 }
 
-.option:nth-child(n+3){
-  background:linear-gradient(135deg,#dff8ee,#f2fffa);
-}
-
-.option img{
-  width:100%;
-  height:100px;
-  object-fit:cover;
-  border-radius:10px;
-  margin-bottom:8px;
-}
-
-.option-name{
-  font-size:15px;
-}
-
 .option:hover{
   transform:scale(1.02);
 }
-
-/* META */
 
 .vote-meta{
   display:flex;
@@ -317,49 +379,12 @@ header{
   font-size:12px;
 }
 
-.open-vote{
+.share-btn{
   color:var(--primary);
   font-weight:900;
 }
 
-/* LOADING */
-
-.loading{
-  text-align:center;
-  padding:45px 20px;
-  color:var(--muted);
-  background:white;
-  border:1px solid var(--border);
-  border-radius:20px;
-}
-
-.loading-icon{
-  font-size:35px;
-  margin-bottom:10px;
-}
-
-/* EMPTY */
-
-.empty{
-  display:none;
-  text-align:center;
-  padding:45px 20px;
-  background:white;
-  border:1px solid var(--border);
-  border-radius:20px;
-}
-
-.empty h3{
-  margin-bottom:8px;
-}
-
-.empty p{
-  color:var(--muted);
-  font-size:14px;
-  margin-bottom:18px;
-}
-
-/* CREATE CTA */
+/* CTA */
 
 .create-box{
   margin-top:35px;
@@ -445,7 +470,6 @@ header{
   }
 
   .hero-buttons{
-    max-width:500px;
     flex-direction:row;
   }
 
@@ -464,12 +488,39 @@ header{
     grid-template-columns:repeat(3,1fr);
   }
 }
+
+/* MOBILE AUTH */
+
+@media(max-width:767px){
+
+  .nav{
+    height:auto;
+    min-height:68px;
+    gap:8px;
+  }
+
+  .logo{
+    font-size:23px;
+  }
+
+  .user-name{
+    display:none;
+  }
+
+  .google-btn{
+    padding:9px 10px;
+    font-size:11px;
+  }
+
+  .logout-btn{
+    font-size:10px;
+    padding:7px 8px;
+  }
+}
 </style>
 </head>
 
 <body>
-
-<!-- HEADER -->
 
 <header>
 
@@ -481,17 +532,36 @@ VOTE<span>RA</span>
 
 <div class="desktop-nav">
 
-<a href="index.html">Home</a>
+<a href="index.html">الرئيسية</a>
 
-<a href="#trending">Explore</a>
+<a href="vote.html">استكشف</a>
 
 <a href="create.html" class="create-small">
-➕ Create Vote
+➕ إنشاء تصويت
 </a>
 
-<a href="#trending">Leaderboard</a>
+<a href="vote.html">🏆 الترتيب</a>
 
-<a href="create.html">Profile</a>
+</div>
+
+<div class="auth-area">
+
+<button id="googleLoginBtn" class="google-btn" onclick="signInWithGoogle()">
+<span class="google-icon">G</span>
+تسجيل الدخول
+</button>
+
+<div id="userBox" class="user-box">
+
+<img id="userAvatar" class="user-avatar" src="" alt="">
+
+<span id="userName" class="user-name"></span>
+
+<button class="logout-btn" onclick="signOutUser()">
+خروج
+</button>
+
+</div>
 
 </div>
 
@@ -500,16 +570,12 @@ VOTE<span>RA</span>
 </header>
 
 
-<!-- MAIN -->
-
 <main>
-
-<!-- HERO -->
 
 <section class="hero">
 
 <div class="hero-badge">
-🔥 The social voting platform
+🔥 منصة التصويت الاجتماعية
 </div>
 
 <h1>
@@ -517,22 +583,24 @@ VOTE<span>RA</span>
 </h1>
 
 <div class="tagline">
-Ask. Vote. Discover.
+اسأل. صوّت. اكتشف.
 </div>
 
 <p>
-Create a question. Let the world decide.
-Share your vote with friends and discover what people really think.
+أنشئ سؤالًا ودع العالم يقرر.
+شارك تصويتك مع أصدقائك واكتشف ما يعتقده الناس حقًا.
 </p>
+
+<div id="welcomeMessage" class="welcome"></div>
 
 <div class="hero-buttons">
 
 <a href="create.html" class="btn btn-primary">
-🔥 Create a Vote
+🔥 إنشاء تصويت
 </a>
 
-<a href="#trending" class="btn btn-secondary">
-Explore Votes
+<a href="vote.html" class="btn btn-secondary">
+استكشف التصويتات
 </a>
 
 </div>
@@ -540,123 +608,191 @@ Explore Votes
 </section>
 
 
-<!-- TRENDING -->
-
-<section class="section" id="trending">
+<section class="section">
 
 <div class="section-title">
 
 <h2>
-🔥 Latest Votes
+🔥 التصويتات الرائجة
 </h2>
 
-<a href="#trending">
-Refresh
+<a href="vote.html">
+عرض الكل →
 </a>
 
 </div>
 
-
-<!-- CATEGORIES -->
 
 <div class="categories">
 
 <div class="category active">
-🔥 All
+🔥 رائج
 </div>
 
 <div class="category">
-🆕 New
+🆕 جديد
 </div>
 
 <div class="category">
-🎮 Gaming
+🎮 ألعاب
 </div>
 
 <div class="category">
-👗 Fashion
+👗 أزياء
 </div>
 
 <div class="category">
-🍔 Food
+🍔 طعام
 </div>
 
 <div class="category">
-📱 Technology
+📱 تقنية
 </div>
 
 <div class="category">
-⚽ Sports
+⚽ رياضة
 </div>
 
 <div class="category">
-🎬 Movies
+🎬 أفلام
 </div>
 
 <div class="category">
-🎵 Music
+🎵 موسيقى
 </div>
 
 <div class="category">
-😂 Fun
+😂 ترفيه
+</div>
+
+<div class="category">
+💼 أعمال
+</div>
+
+<div class="category">
+❤️ علاقات
 </div>
 
 </div>
 
 
-<!-- LOADING -->
-
-<div class="loading" id="loading">
-
-<div class="loading-icon">
-⏳
-</div>
-
-<div>
-Loading votes...
-</div>
-
-</div>
+<div class="votes-grid">
 
 
-<!-- VOTES -->
-
-<div class="votes-grid" id="votesGrid"></div>
-
-
-<!-- EMPTY -->
-
-<div class="empty" id="empty">
+<article class="vote-card">
 
 <h3>
-😕 No votes yet
+أي تصميم يبدو أفضل؟
 </h3>
 
-<p>
-Be the first person to create a vote on VOTERA.
-</p>
+<div class="options">
 
-<a href="create.html" class="create-box-button">
-🔥 Create a Vote
+<a href="vote.html" class="option">
+🎨 التصميم A
+</a>
+
+<a href="vote.html" class="option">
+✨ التصميم B
 </a>
 
 </div>
 
+<div class="vote-meta">
 
-<!-- CREATE CTA -->
+<span>
+🔥 1,284 صوت
+</span>
+
+<a href="vote.html" class="share-btn">
+↗ مشاركة
+</a>
+
+</div>
+
+</article>
+
+
+<article class="vote-card">
+
+<h3>
+أي هاتف ستختار؟
+</h3>
+
+<div class="options">
+
+<a href="vote.html" class="option">
+📱 الهاتف A
+</a>
+
+<a href="vote.html" class="option">
+📱 الهاتف B
+</a>
+
+</div>
+
+<div class="vote-meta">
+
+<span>
+🔥 3,421 صوت
+</span>
+
+<a href="vote.html" class="share-btn">
+↗ مشاركة
+</a>
+
+</div>
+
+</article>
+
+
+<article class="vote-card">
+
+<h3>
+أي إطلالة أفضل؟
+</h3>
+
+<div class="options">
+
+<a href="vote.html" class="option">
+👕 الإطلالة A
+</a>
+
+<a href="vote.html" class="option">
+👔 الإطلالة B
+</a>
+
+</div>
+
+<div class="vote-meta">
+
+<span>
+🔥 2,108 صوت
+</span>
+
+<a href="vote.html" class="share-btn">
+↗ مشاركة
+</a>
+
+</div>
+
+</article>
+
+
+</div>
+
 
 <div class="create-box">
 
 <h2>
-🔥 Have something to ask?
+🔥 لديك سؤال؟
 </h2>
 
 <p>
-Create your own vote and let everyone decide.
+أنشئ تصويتك الخاص ودع الجميع يقرر.
 </p>
 
 <a href="create.html">
-Create Your Own Vote
+إنشاء تصويتك
 </a>
 
 </div>
@@ -666,8 +802,6 @@ Create Your Own Vote
 </main>
 
 
-<!-- MOBILE NAV -->
-
 <nav class="mobile-nav">
 
 <a href="index.html">
@@ -676,18 +810,18 @@ Create Your Own Vote
 🏠
 </span>
 
-Home
+الرئيسية
 
 </a>
 
 
-<a href="#trending">
+<a href="vote.html">
 
 <span class="nav-icon">
 🔥
 </span>
 
-Explore
+استكشف
 
 </a>
 
@@ -698,29 +832,29 @@ Explore
 ➕
 </span>
 
-Create
+إنشاء
 
 </a>
 
 
-<a href="#trending">
+<a href="vote.html">
 
 <span class="nav-icon">
 🏆
 </span>
 
-Ranking
+الترتيب
 
 </a>
 
 
-<a href="create.html">
+<a href="#" onclick="scrollToAuth(); return false;">
 
 <span class="nav-icon">
 👤
 </span>
 
-Profile
+حسابي
 
 </a>
 
@@ -729,333 +863,265 @@ Profile
 
 <script>
 
-/* =========================================
-   SUPABASE SETTINGS
-========================================= */
+/* ==========================================
+   SUPABASE
+   ========================================== */
+
+/*
+   ضع هنا بيانات مشروع VOTERA من Supabase.
+
+   SUPABASE_URL:
+   https://vatlwkuagxyrvwclttfz.supabase.co
+
+   SUPABASE_ANON_KEY:
+   ضع هنا مفتاح Publishable/Anon الخاص بمشروعك
+*/
 
 const SUPABASE_URL =
 "https://vatlwkuagxyrvwclttfz.supabase.co";
 
-const SUPABASE_KEY =
-"sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
+const SUPABASE_ANON_KEY =
+"ضع_مفتاح_Supabase_هنا";
+
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
 
 
-/* =========================================
-   ELEMENTS
-========================================= */
+/* ==========================================
+   GOOGLE LOGIN
+   ========================================== */
 
-const votesGrid =
-document.getElementById("votesGrid");
-
-const loading =
-document.getElementById("loading");
-
-const empty =
-document.getElementById("empty");
-
-
-/* =========================================
-   LOAD VOTES
-========================================= */
-
-async function loadVotes(){
-
-  loading.style.display = "block";
-  empty.style.display = "none";
-  votesGrid.innerHTML = "";
+async function signInWithGoogle(){
 
   try{
 
-    const response = await fetch(
-      SUPABASE_URL +
-      "/rest/v1/votes?select=id,question,options&limit=50",
-      {
-        method:"GET",
+    const { error } =
+      await supabaseClient.auth.signInWithOAuth({
 
-        headers:{
-          "apikey":SUPABASE_KEY,
-          "Authorization":"Bearer " + SUPABASE_KEY
+        provider:"google",
+
+        options:{
+          redirectTo:
+          "https://akkarali86-cmyk.github.io/VOTERA/"
         }
-      }
-    );
 
+      });
 
-    if(!response.ok){
-
-      const errorText =
-      await response.text();
-
-      console.error(
-        "Supabase error:",
-        errorText
-      );
-
-      throw new Error(
-        "Could not load votes."
-      );
+    if(error){
+      alert("حدث خطأ أثناء تسجيل الدخول: " + error.message);
     }
 
+  }catch(error){
 
-    const votes =
-    await response.json();
-
-
-    loading.style.display = "none";
-
-
-    if(!votes || votes.length === 0){
-
-      empty.style.display = "block";
-      return;
-
-    }
-
-
-    votes.forEach(function(vote){
-
-      createVoteCard(vote);
-
-    });
-
-  }
-
-  catch(error){
+    alert("حدث خطأ أثناء الاتصال.");
 
     console.error(error);
 
-    loading.style.display = "none";
-
-    votesGrid.innerHTML = `
-      <div class="loading">
-        <div class="loading-icon">⚠️</div>
-        <div>
-          Could not load votes.
-        </div>
-        <br>
-        <button
-          onclick="loadVotes()"
-          style="
-            background:#6c5ce7;
-            color:white;
-            padding:11px 18px;
-            border-radius:10px;
-            font-weight:900;
-          "
-        >
-          Try Again
-        </button>
-      </div>
-    `;
-
   }
 
 }
 
 
-/* =========================================
-   CREATE VOTE CARD
-========================================= */
+/* ==========================================
+   LOGOUT
+   ========================================== */
 
-function createVoteCard(vote){
+async function signOutUser(){
 
-  let options = vote.options;
+  const { error } =
+    await supabaseClient.auth.signOut();
 
+  if(error){
 
-  /* Convert JSON string if necessary */
+    alert("تعذر تسجيل الخروج.");
 
-  if(typeof options === "string"){
-
-    try{
-
-      options = JSON.parse(options);
-
-    }
-
-    catch(error){
-
-      options = [];
-
-    }
-
-  }
-
-
-  if(!Array.isArray(options)){
-
-    options = [];
-
-  }
-
-
-  if(options.length === 0){
+    console.error(error);
 
     return;
-
   }
 
-
-  const card =
-  document.createElement("article");
-
-  card.className =
-  "vote-card";
+  updateUserInterface(null);
+}
 
 
-  /* Question */
+/* ==========================================
+   UPDATE UI
+   ========================================== */
 
-  const title =
-  document.createElement("h3");
+function updateUserInterface(user){
 
-  title.textContent =
-  vote.question || "Untitled vote";
+  const googleButton =
+    document.getElementById("googleLoginBtn");
 
+  const userBox =
+    document.getElementById("userBox");
 
-  card.appendChild(title);
+  const userName =
+    document.getElementById("userName");
 
+  const userAvatar =
+    document.getElementById("userAvatar");
 
-  /* Options */
-
-  const optionsContainer =
-  document.createElement("div");
-
-  optionsContainer.className =
-  "options";
-
-
-  options.slice(0,4).forEach(
-    function(option,index){
-
-      const link =
-      document.createElement("a");
-
-      link.className =
-      "option";
-
-      link.href =
-      "vote.html?id=" +
-      encodeURIComponent(vote.id);
+  const welcome =
+    document.getElementById("welcomeMessage");
 
 
-      /* Image */
+  if(user){
 
-      if(option && option.image){
+    googleButton.style.display = "none";
 
-        const image =
-        document.createElement("img");
-
-        image.src =
-        option.image;
-
-        image.alt =
-        option.name || "Option";
-
-        image.onerror =
-        function(){
-
-          this.style.display =
-          "none";
-
-        };
-
-        link.appendChild(image);
-
-      }
+    userBox.style.display = "flex";
 
 
-      /* Name */
-
-      const name =
-      document.createElement("span");
-
-      name.className =
-      "option-name";
-
-      name.textContent =
-      option && option.name
-      ? option.name
-      : "Option " +
-        String.fromCharCode(65 + index);
+    const name =
+      user.user_metadata?.full_name ||
+      user.user_metadata?.name ||
+      user.email ||
+      "مستخدم VOTERA";
 
 
-      link.appendChild(name);
+    const avatar =
+      user.user_metadata?.avatar_url ||
+      user.user_metadata?.picture ||
+      "";
 
-      optionsContainer.appendChild(link);
+
+    userName.textContent = name;
+
+
+    if(avatar){
+
+      userAvatar.src = avatar;
+
+      userAvatar.style.display = "block";
+
+    }else{
+
+      userAvatar.style.display = "none";
 
     }
-  );
 
 
-  card.appendChild(optionsContainer);
+    welcome.textContent =
+      "مرحبًا بك في VOTERA 👋 " + name;
+
+    welcome.style.display = "block";
 
 
-  /* Total votes */
+  }else{
 
-  let totalVotes = 0;
+    googleButton.style.display = "flex";
 
+    userBox.style.display = "none";
 
-  options.forEach(
-    function(option){
+    welcome.style.display = "none";
 
-      totalVotes +=
-      Number(
-        option && option.votes
-        ? option.votes
-        : 0
-      );
-
-    }
-  );
-
-
-  /* Meta */
-
-  const meta =
-  document.createElement("div");
-
-  meta.className =
-  "vote-meta";
-
-
-  const voteCount =
-  document.createElement("span");
-
-  voteCount.textContent =
-  "🔥 " +
-  totalVotes.toLocaleString() +
-  " votes";
-
-
-  const openLink =
-  document.createElement("a");
-
-  openLink.className =
-  "open-vote";
-
-  openLink.href =
-  "vote.html?id=" +
-  encodeURIComponent(vote.id);
-
-  openLink.textContent =
-  "Vote →";
-
-
-  meta.appendChild(voteCount);
-  meta.appendChild(openLink);
-
-
-  card.appendChild(meta);
-
-
-  votesGrid.appendChild(card);
+  }
 
 }
 
 
-/* =========================================
-   START
-========================================= */
+/* ==========================================
+   CHECK CURRENT USER
+   ========================================== */
 
-loadVotes();
+async function checkUser(){
+
+  const {
+    data:{
+      session
+    }
+  } =
+    await supabaseClient.auth.getSession();
+
+
+  updateUserInterface(
+    session?.user || null
+  );
+
+}
+
+
+/* ==========================================
+   LISTEN FOR AUTH CHANGES
+   ========================================== */
+
+supabaseClient.auth.onAuthStateChange(
+  (_event, session) => {
+
+    updateUserInterface(
+      session?.user || null
+    );
+
+  }
+);
+
+
+/* ==========================================
+   MOBILE PROFILE BUTTON
+   ========================================== */
+
+function scrollToAuth(){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  setTimeout(() => {
+
+    const user =
+      document.getElementById("userBox");
+
+    const login =
+      document.getElementById("googleLoginBtn");
+
+    if(user.style.display === "flex"){
+
+      alert("أنت مسجل الدخول بالفعل ✅");
+
+    }else{
+
+      login.click();
+
+    }
+
+  },500);
+
+}
+
+
+/* ==========================================
+   CATEGORY BUTTONS
+   ========================================== */
+
+document
+.querySelectorAll(".category")
+.forEach(category => {
+
+  category.addEventListener("click",function(){
+
+    document
+    .querySelectorAll(".category")
+    .forEach(item =>
+      item.classList.remove("active")
+    );
+
+    this.classList.add("active");
+
+  });
+
+});
+
+
+/* ==========================================
+   START
+   ========================================== */
+
+checkUser();
 
 </script>
 
