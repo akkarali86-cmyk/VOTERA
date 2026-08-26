@@ -19,8 +19,6 @@
   --text:#17171c;
   --muted:#777783;
   --border:#e8e8ef;
-  --success:#16a34a;
-  --danger:#dc2626;
 }
 
 *{
@@ -129,6 +127,8 @@ header{
 
 .google-icon{
   font-size:17px;
+  font-weight:900;
+  color:#4285f4;
 }
 
 .user-box{
@@ -246,7 +246,7 @@ header{
   border:1px solid var(--border);
 }
 
-/* USER MESSAGE */
+/* WELCOME */
 
 .welcome{
   display:none;
@@ -318,7 +318,7 @@ header{
   border-color:var(--primary);
 }
 
-/* VOTE CARDS */
+/* VOTES */
 
 .votes-grid{
   display:grid;
@@ -489,12 +489,9 @@ header{
   }
 }
 
-/* MOBILE AUTH */
-
 @media(max-width:767px){
 
   .nav{
-    height:auto;
     min-height:68px;
     gap:8px;
   }
@@ -532,32 +529,56 @@ VOTE<span>RA</span>
 
 <div class="desktop-nav">
 
-<a href="index.html">الرئيسية</a>
+<a href="index.html">
+الرئيسية
+</a>
 
-<a href="vote.html">استكشف</a>
+<a href="vote.html">
+استكشف
+</a>
 
 <a href="create.html" class="create-small">
 ➕ إنشاء تصويت
 </a>
 
-<a href="vote.html">🏆 الترتيب</a>
+<a href="vote.html">
+🏆 الترتيب
+</a>
 
 </div>
 
 <div class="auth-area">
 
-<button id="googleLoginBtn" class="google-btn" onclick="signInWithGoogle()">
+<button
+id="googleLoginBtn"
+class="google-btn"
+onclick="signInWithGoogle()"
+>
 <span class="google-icon">G</span>
 تسجيل الدخول
 </button>
 
-<div id="userBox" class="user-box">
+<div
+id="userBox"
+class="user-box"
+>
 
-<img id="userAvatar" class="user-avatar" src="" alt="">
+<img
+id="userAvatar"
+class="user-avatar"
+src=""
+alt=""
+>
 
-<span id="userName" class="user-name"></span>
+<span
+id="userName"
+class="user-name"
+></span>
 
-<button class="logout-btn" onclick="signOutUser()">
+<button
+class="logout-btn"
+onclick="signOutUser()"
+>
 خروج
 </button>
 
@@ -591,15 +612,24 @@ VOTE<span>RA</span>
 شارك تصويتك مع أصدقائك واكتشف ما يعتقده الناس حقًا.
 </p>
 
-<div id="welcomeMessage" class="welcome"></div>
+<div
+id="welcomeMessage"
+class="welcome"
+></div>
 
 <div class="hero-buttons">
 
-<a href="create.html" class="btn btn-primary">
+<a
+href="create.html"
+class="btn btn-primary"
+>
 🔥 إنشاء تصويت
 </a>
 
-<a href="vote.html" class="btn btn-secondary">
+<a
+href="vote.html"
+class="btn btn-secondary"
+>
 استكشف التصويتات
 </a>
 
@@ -678,7 +708,6 @@ VOTE<span>RA</span>
 
 <div class="votes-grid">
 
-
 <article class="vote-card">
 
 <h3>
@@ -687,11 +716,17 @@ VOTE<span>RA</span>
 
 <div class="options">
 
-<a href="vote.html" class="option">
+<a
+href="vote.html"
+class="option"
+>
 🎨 التصميم A
 </a>
 
-<a href="vote.html" class="option">
+<a
+href="vote.html"
+class="option"
+>
 ✨ التصميم B
 </a>
 
@@ -703,7 +738,10 @@ VOTE<span>RA</span>
 🔥 1,284 صوت
 </span>
 
-<a href="vote.html" class="share-btn">
+<a
+href="vote.html"
+class="share-btn"
+>
 ↗ مشاركة
 </a>
 
@@ -720,11 +758,17 @@ VOTE<span>RA</span>
 
 <div class="options">
 
-<a href="vote.html" class="option">
+<a
+href="vote.html"
+class="option"
+>
 📱 الهاتف A
 </a>
 
-<a href="vote.html" class="option">
+<a
+href="vote.html"
+class="option"
+>
 📱 الهاتف B
 </a>
 
@@ -736,7 +780,10 @@ VOTE<span>RA</span>
 🔥 3,421 صوت
 </span>
 
-<a href="vote.html" class="share-btn">
+<a
+href="vote.html"
+class="share-btn"
+>
 ↗ مشاركة
 </a>
 
@@ -753,11 +800,17 @@ VOTE<span>RA</span>
 
 <div class="options">
 
-<a href="vote.html" class="option">
+<a
+href="vote.html"
+class="option"
+>
 👕 الإطلالة A
 </a>
 
-<a href="vote.html" class="option">
+<a
+href="vote.html"
+class="option"
+>
 👔 الإطلالة B
 </a>
 
@@ -769,14 +822,16 @@ VOTE<span>RA</span>
 🔥 2,108 صوت
 </span>
 
-<a href="vote.html" class="share-btn">
+<a
+href="vote.html"
+class="share-btn"
+>
 ↗ مشاركة
 </a>
 
 </div>
 
 </article>
-
 
 </div>
 
@@ -848,7 +903,10 @@ VOTE<span>RA</span>
 </a>
 
 
-<a href="#" onclick="scrollToAuth(); return false;">
+<a
+href="#"
+onclick="openAccount(); return false;"
+>
 
 <span class="nav-icon">
 👤
@@ -864,42 +922,32 @@ VOTE<span>RA</span>
 <script>
 
 /* ==========================================
-   SUPABASE
-   ========================================== */
-
-/*
-   ضع هنا بيانات مشروع VOTERA من Supabase.
-
-   SUPABASE_URL:
-   https://vatlwkuagxyrvwclttfz.supabase.co
-
-   SUPABASE_ANON_KEY:
-   ضع هنا مفتاح Publishable/Anon الخاص بمشروعك
-*/
+   إعدادات Supabase
+========================================== */
 
 const SUPABASE_URL =
 "https://vatlwkuagxyrvwclttfz.supabase.co";
 
-const  const SUPABASE_ANON_KEY =
+const SUPABASE_ANON_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
-"";
+
 
 const supabaseClient =
 window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
+SUPABASE_URL,
+SUPABASE_ANON_KEY
 );
 
 
 /* ==========================================
-   GOOGLE LOGIN
-   ========================================== */
+   تسجيل الدخول باستخدام Google
+========================================== */
 
 async function signInWithGoogle(){
 
   try{
 
-    const { error } =
+    const result =
       await supabaseClient.auth.signInWithOAuth({
 
         provider:"google",
@@ -911,15 +959,23 @@ async function signInWithGoogle(){
 
       });
 
-    if(error){
-      alert("حدث خطأ أثناء تسجيل الدخول: " + error.message);
+
+    if(result.error){
+
+      alert(
+        "حدث خطأ أثناء تسجيل الدخول:\n" +
+        result.error.message
+      );
+
     }
 
   }catch(error){
 
-    alert("حدث خطأ أثناء الاتصال.");
-
     console.error(error);
+
+    alert(
+      "حدث خطأ أثناء الاتصال بـ Supabase."
+    );
 
   }
 
@@ -927,54 +983,82 @@ async function signInWithGoogle(){
 
 
 /* ==========================================
-   LOGOUT
-   ========================================== */
+   تسجيل الخروج
+========================================== */
 
 async function signOutUser(){
 
-  const { error } =
-    await supabaseClient.auth.signOut();
+  try{
 
-  if(error){
+    const {error} =
+      await supabaseClient.auth.signOut();
 
-    alert("تعذر تسجيل الخروج.");
+    if(error){
+
+      alert(
+        "تعذر تسجيل الخروج."
+      );
+
+      console.error(error);
+
+      return;
+
+    }
+
+    updateUserInterface(null);
+
+  }catch(error){
 
     console.error(error);
 
-    return;
+    alert(
+      "حدث خطأ أثناء تسجيل الخروج."
+    );
+
   }
 
-  updateUserInterface(null);
 }
 
 
 /* ==========================================
-   UPDATE UI
-   ========================================== */
+   تحديث واجهة المستخدم
+========================================== */
 
 function updateUserInterface(user){
 
-  const googleButton =
-    document.getElementById("googleLoginBtn");
+  const googleLogin =
+    document.getElementById(
+      "googleLoginBtn"
+    );
 
   const userBox =
-    document.getElementById("userBox");
+    document.getElementById(
+      "userBox"
+    );
 
   const userName =
-    document.getElementById("userName");
+    document.getElementById(
+      "userName"
+    );
 
   const userAvatar =
-    document.getElementById("userAvatar");
+    document.getElementById(
+      "userAvatar"
+    );
 
   const welcome =
-    document.getElementById("welcomeMessage");
+    document.getElementById(
+      "welcomeMessage"
+    );
 
 
   if(user){
 
-    googleButton.style.display = "none";
+    googleLogin.style.display =
+      "none";
 
-    userBox.style.display = "flex";
+    userBox.style.display =
+      "flex";
 
 
     const name =
@@ -990,35 +1074,44 @@ function updateUserInterface(user){
       "";
 
 
-    userName.textContent = name;
+    userName.textContent =
+      name;
 
 
     if(avatar){
 
-      userAvatar.src = avatar;
+      userAvatar.src =
+        avatar;
 
-      userAvatar.style.display = "block";
+      userAvatar.style.display =
+        "block";
 
     }else{
 
-      userAvatar.style.display = "none";
+      userAvatar.style.display =
+        "none";
 
     }
 
 
     welcome.textContent =
-      "مرحبًا بك في VOTERA 👋 " + name;
+      "مرحبًا بك في VOTERA 👋 " +
+      name;
 
-    welcome.style.display = "block";
+    welcome.style.display =
+      "block";
 
 
   }else{
 
-    googleButton.style.display = "flex";
+    googleLogin.style.display =
+      "flex";
 
-    userBox.style.display = "none";
+    userBox.style.display =
+      "none";
 
-    welcome.style.display = "none";
+    welcome.style.display =
+      "none";
 
   }
 
@@ -1026,32 +1119,43 @@ function updateUserInterface(user){
 
 
 /* ==========================================
-   CHECK CURRENT USER
-   ========================================== */
+   فحص تسجيل الدخول
+========================================== */
 
 async function checkUser(){
 
-  const {
-    data:{
-      session
-    }
-  } =
-    await supabaseClient.auth.getSession();
+  try{
+
+    const result =
+      await supabaseClient.auth.getSession();
 
 
-  updateUserInterface(
-    session?.user || null
-  );
+    const session =
+      result.data.session;
+
+
+    updateUserInterface(
+      session?.user || null
+    );
+
+  }catch(error){
+
+    console.error(
+      "Session error:",
+      error
+    );
+
+  }
 
 }
 
 
 /* ==========================================
-   LISTEN FOR AUTH CHANGES
-   ========================================== */
+   مراقبة حالة الحساب
+========================================== */
 
 supabaseClient.auth.onAuthStateChange(
-  (_event, session) => {
+  function(event,session){
 
     updateUserInterface(
       session?.user || null
@@ -1062,65 +1166,76 @@ supabaseClient.auth.onAuthStateChange(
 
 
 /* ==========================================
-   MOBILE PROFILE BUTTON
-   ========================================== */
+   زر الحساب في الهاتف
+========================================== */
 
-function scrollToAuth(){
+function openAccount(){
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+  const userBox =
+    document.getElementById(
+      "userBox"
+    );
 
-  setTimeout(() => {
+  const loginButton =
+    document.getElementById(
+      "googleLoginBtn"
+    );
 
-    const user =
-      document.getElementById("userBox");
 
-    const login =
-      document.getElementById("googleLoginBtn");
+  if(
+    userBox.style.display ===
+    "flex"
+  ){
 
-    if(user.style.display === "flex"){
+    alert(
+      "أنت مسجل الدخول بالفعل ✅"
+    );
 
-      alert("أنت مسجل الدخول بالفعل ✅");
+  }else{
 
-    }else{
+    loginButton.click();
 
-      login.click();
-
-    }
-
-  },500);
+  }
 
 }
 
 
 /* ==========================================
-   CATEGORY BUTTONS
-   ========================================== */
+   التصنيفات
+========================================== */
 
 document
 .querySelectorAll(".category")
-.forEach(category => {
+.forEach(function(category){
 
-  category.addEventListener("click",function(){
+  category.addEventListener(
+    "click",
+    function(){
 
-    document
-    .querySelectorAll(".category")
-    .forEach(item =>
-      item.classList.remove("active")
-    );
+      document
+      .querySelectorAll(".category")
+      .forEach(function(item){
 
-    this.classList.add("active");
+        item.classList.remove(
+          "active"
+        );
 
-  });
+      });
+
+
+      this.classList.add(
+        "active"
+      );
+
+    }
+  );
 
 });
 
 
 /* ==========================================
-   START
-   ========================================== */
+   تشغيل الصفحة
+========================================== */
 
 checkUser();
 
