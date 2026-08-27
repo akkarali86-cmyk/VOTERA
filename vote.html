@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="ar" dir="rtl">
 
-<title>Vote — VOTERA</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>التصويت — VOTERA</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 :root{
   --primary:#6c5ce7;
   --primary-dark:#5848d6;
   --bg:#f7f7fb;
-  --card:#fff;
+  --card:#ffffff;
   --text:#17171c;
   --muted:#777783;
   --border:#e8e8ef;
@@ -28,7 +37,7 @@ body{
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
-  padding-bottom:50px;
+  padding-bottom:40px;
 }
 
 button{
@@ -42,6 +51,7 @@ a{
   color:inherit;
 }
 
+
 /* HEADER */
 
 header{
@@ -50,6 +60,9 @@ header{
   border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
+  position:sticky;
+  top:0;
+  z-index:100;
 }
 
 .nav{
@@ -64,8 +77,9 @@ header{
 
 .logo{
   font-size:25px;
-  font-weight:900;
+  font-weight:950;
   letter-spacing:-1px;
+  direction:ltr;
 }
 
 .logo span{
@@ -74,9 +88,10 @@ header{
 
 .back{
   color:var(--muted);
-  font-size:14px;
-  font-weight:700;
+  font-size:13px;
+  font-weight:800;
 }
+
 
 /* CONTAINER */
 
@@ -84,8 +99,9 @@ header{
   width:100%;
   max-width:850px;
   margin:auto;
-  padding:35px 18px;
+  padding:40px 18px;
 }
+
 
 /* HEADER */
 
@@ -98,16 +114,16 @@ header{
   display:inline-block;
   background:#ece9ff;
   color:var(--primary);
-  padding:7px 13px;
+  padding:8px 14px;
   border-radius:30px;
   font-size:12px;
-  font-weight:800;
+  font-weight:900;
   margin-bottom:15px;
 }
 
 .vote-header h1{
   font-size:clamp(26px,7vw,42px);
-  line-height:1.15;
+  line-height:1.2;
   margin-bottom:12px;
 }
 
@@ -115,6 +131,17 @@ header{
   color:var(--muted);
   font-size:13px;
 }
+
+
+/* LOADING */
+
+.loading{
+  text-align:center;
+  padding:45px 20px;
+  color:var(--muted);
+  font-size:14px;
+}
+
 
 /* OPTIONS */
 
@@ -133,16 +160,21 @@ header{
 }
 
 .option-card:hover{
-  transform:translateY(-2px);
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(0,0,0,.06);
 }
 
 .option-image{
-  height:210px;
+  height:190px;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:55px;
-  background:linear-gradient(135deg,#ded9ff,#f5f3ff);
+  background:linear-gradient(
+    135deg,
+    #ded9ff,
+    #f5f3ff
+  );
   overflow:hidden;
 }
 
@@ -153,26 +185,26 @@ header{
 }
 
 .option-info{
-  padding:16px;
+  padding:17px;
 }
 
 .option-label{
   color:var(--primary);
   font-size:11px;
-  font-weight:900;
-  margin-bottom:5px;
+  font-weight:950;
+  margin-bottom:6px;
 }
 
 .option-name{
-  font-size:18px;
-  font-weight:900;
+  font-size:19px;
+  font-weight:950;
   margin-bottom:5px;
 }
 
-.option-description{
+.vote-count{
   color:var(--muted);
   font-size:12px;
-  line-height:1.5;
+  margin-top:6px;
 }
 
 .vote-button{
@@ -182,7 +214,7 @@ header{
   background:var(--primary);
   color:white;
   border-radius:12px;
-  font-weight:900;
+  font-weight:950;
   font-size:14px;
 }
 
@@ -194,6 +226,7 @@ header{
   background:#aaa;
   cursor:not-allowed;
 }
+
 
 /* RESULTS */
 
@@ -214,7 +247,7 @@ header{
 .result-title{
   text-align:center;
   font-size:20px;
-  font-weight:900;
+  font-weight:950;
   margin-bottom:20px;
 }
 
@@ -227,7 +260,7 @@ header{
   justify-content:space-between;
   margin-bottom:7px;
   font-size:13px;
-  font-weight:800;
+  font-weight:900;
 }
 
 .percentage{
@@ -243,6 +276,7 @@ header{
 
 .bar-fill{
   height:100%;
+  width:0;
   background:var(--primary);
   border-radius:30px;
   transition:width 1s ease;
@@ -262,8 +296,9 @@ header{
   background:#f0fff7;
   color:#159957;
   border-radius:14px;
-  font-weight:900;
+  font-weight:950;
 }
+
 
 /* SHARE */
 
@@ -295,12 +330,6 @@ header{
   background:#f3f3f7;
   font-size:12px;
   font-weight:800;
-  transition:.2s;
-}
-
-.share:hover{
-  background:#e9e7f5;
-  transform:translateY(-1px);
 }
 
 .copy-success{
@@ -308,8 +337,9 @@ header{
   margin-top:12px;
   color:#159957;
   font-size:12px;
-  font-weight:800;
+  font-weight:900;
 }
+
 
 /* CREATE */
 
@@ -321,13 +351,14 @@ header{
   background:var(--primary);
   color:white;
   border-radius:13px;
-  font-weight:900;
+  font-weight:950;
   text-align:center;
 }
 
 .create-own:hover{
   background:var(--primary-dark);
 }
+
 
 /* ERROR */
 
@@ -345,13 +376,31 @@ header{
   margin-bottom:20px;
 }
 
-/* LOADING */
 
-.loading{
+/* MESSAGE */
+
+.message{
+  display:none;
+  padding:13px;
+  margin-bottom:18px;
+  border-radius:13px;
   text-align:center;
-  padding:40px;
-  color:var(--muted);
+  font-size:13px;
+  font-weight:900;
 }
+
+.message.error-message{
+  display:block;
+  background:#fff0f0;
+  color:#b42318;
+}
+
+.message.success-message{
+  display:block;
+  background:#ecfdf3;
+  color:#166534;
+}
+
 
 /* DESKTOP */
 
@@ -368,11 +417,16 @@ header{
   .share-buttons{
     grid-template-columns:repeat(5,1fr);
   }
+
 }
+
 </style>
+
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -383,7 +437,7 @@ VOTE<span>RA</span>
 </a>
 
 <a href="index.html" class="back">
-← Home
+→ الرئيسية
 </a>
 
 </nav>
@@ -391,127 +445,187 @@ VOTE<span>RA</span>
 </header>
 
 
+
 <main class="container">
+
 
 <section class="vote-header">
 
-<div class="category">
+<div
+class="category"
+id="category"
+>
 🔥 VOTERA
 </div>
 
 <h1 id="question">
-Loading vote...
+جاري تحميل التصويت...
 </h1>
 
 <p>
-Cast your vote and see what everyone thinks.
+صوّت واختر الخيار الذي تفضله.
 </p>
 
 </section>
 
 
-<div id="error" class="error">
+
+<div
+id="message"
+class="message"
+></div>
+
+
+
+<div
+id="loading"
+class="loading"
+>
+⏳ جاري تحميل التصويت...
+</div>
+
+
+
+<div
+id="error"
+class="error"
+>
 
 <h2>
-😕 Vote not found
+😕 التصويت غير موجود
 </h2>
 
 <p id="errorMessage">
-This vote does not exist or the link is incorrect.
+هذا التصويت غير موجود أو أن الرابط غير صحيح.
 </p>
 
-<a href="index.html" class="create-own">
-Go to VOTERA
+<a
+href="index.html"
+class="create-own"
+>
+العودة إلى VOTERA
 </a>
 
 </div>
 
 
-<div id="loading" class="loading">
-Loading vote...
-</div>
 
+<section
+class="options"
+id="options"
+style="display:none;"
+></section>
 
-<section class="options" id="options"></section>
 
 
 <section id="results">
 
+
 <div class="result-card">
 
 <div class="result-title">
-📊 Results
+📊 النتائج
 </div>
 
 <div id="resultRows"></div>
 
 <div class="total">
-🔥 <span id="totalVotes">0</span> people voted
+🔥
+<span id="totalVotes">0</span>
+شخص صوّت
 </div>
 
-<div class="winner" id="winner">
-🏆 Winner
+<div
+class="winner"
+id="winner"
+>
+🏆 الفائز
 </div>
 
 </div>
+
 
 
 <div class="share-section">
 
 <h2>
-🔗 Share This Vote
+🔗 مشاركة التصويت
 </h2>
 
 <p>
-Invite your friends and let them vote.
+شارك التصويت مع أصدقائك.
 </p>
 
 
 <div class="share-buttons">
 
-<button class="share" onclick="shareWhatsApp()">
+<button
+class="share"
+onclick="shareWhatsApp()"
+>
 💬 WhatsApp
 </button>
 
-<button class="share" onclick="shareFacebook()">
+<button
+class="share"
+onclick="shareFacebook()"
+>
 📘 Facebook
 </button>
 
-<button class="share" onclick="shareX()">
+<button
+class="share"
+onclick="shareX()"
+>
 𝕏 X
 </button>
 
-<button class="share" onclick="copyLink()">
-🔗 Copy Link
+<button
+class="share"
+onclick="copyLink()"
+>
+🔗 نسخ الرابط
 </button>
 
-<button class="share" onclick="nativeShare()">
-📤 Share
+<button
+class="share"
+onclick="nativeShare()"
+>
+📤 مشاركة
 </button>
 
 </div>
 
 
-<div id="copySuccess" class="copy-success">
-✅ Vote link copied successfully!
+<div
+id="copySuccess"
+class="copy-success"
+>
+✅ تم نسخ الرابط
 </div>
 
 
-<a href="create.html" class="create-own">
-🔥 Create Your Own Vote
+<a
+href="create.html"
+class="create-own"
+>
+🔥 إنشاء تصويت خاص بك
 </a>
 
 </div>
 
 </section>
 
+
 </main>
+
 
 
 <script>
 
+
 /* =================================
-   SUPABASE SETTINGS
+   SUPABASE
 ================================= */
 
 const SUPABASE_URL =
@@ -521,18 +635,31 @@ const SUPABASE_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
 
 
+const supabaseClient =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
 /* =================================
-   GET VOTE ID
+   VOTE ID
 ================================= */
 
 const params =
-new URLSearchParams(window.location.search);
+new URLSearchParams(
+window.location.search
+);
 
 const voteId =
 params.get("id");
 
-let voteData = null;
-let alreadyVoted = false;
+
+let voteData =
+null;
+
+let alreadyVoted =
+false;
 
 
 /* =================================
@@ -541,114 +668,70 @@ let alreadyVoted = false;
 
 async function loadVote(){
 
-if(!voteId){
+  if(!voteId){
 
-showError(
-"No vote ID was found in the link."
-);
+    showError(
+      "لم يتم العثور على رقم التصويت في الرابط."
+    );
 
-return;
+    return;
 
-}
-
-
-try{
-
-const response =
-await fetch(
-SUPABASE_URL +
-"/rest/v1/votes?id=eq." +
-encodeURIComponent(voteId) +
-"&select=*",
-{
-method:"GET",
-
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":
-"Bearer " + SUPABASE_KEY
-}
-}
-);
+  }
 
 
-if(!response.ok){
+  try{
 
-const errorText =
-await response.text();
-
-console.error(errorText);
-
-showError(
-"Could not connect to the database."
-);
-
-return;
-
-}
+    const {
+      data,
+      error
+    } =
+    await supabaseClient
+      .from("votes")
+      .select("*")
+      .eq("id",voteId)
+      .maybeSingle();
 
 
-const data =
-await response.json();
+    if(error){
+
+      console.error(error);
+
+      showError(
+        "تعذر الاتصال بقاعدة البيانات."
+      );
+
+      return;
+
+    }
 
 
-if(!data || data.length === 0){
+    if(!data){
 
-showError(
-"This vote does not exist."
-);
+      showError(
+        "هذا التصويت غير موجود."
+      );
 
-return;
+      return;
 
-}
-
-
-voteData =
-data[0];
+    }
 
 
-/* Convert options if Supabase returns text */
-
-if(typeof voteData.options === "string"){
-
-try{
-
-voteData.options =
-JSON.parse(voteData.options);
-
-}catch(error){
-
-voteData.options = [];
-
-}
-
-}
+    voteData =
+      data;
 
 
-if(!Array.isArray(voteData.options)){
-
-voteData.options = [];
-
-}
+    renderVote();
 
 
-document
-.getElementById("loading")
-.style.display = "none";
+  }catch(error){
 
+    console.error(error);
 
-renderVote();
+    showError(
+      "حدث خطأ غير متوقع."
+    );
 
-
-}catch(error){
-
-console.error(error);
-
-showError(
-"An unexpected error occurred."
-);
-
-}
+  }
 
 }
 
@@ -657,31 +740,36 @@ showError(
    ERROR
 ================================= */
 
-function showError(message){
+function showError(text){
 
-document
-.getElementById("loading")
-.style.display = "none";
+  document
+    .getElementById("loading")
+    .style.display =
+      "none";
 
-document
-.getElementById("question")
-.textContent =
-"Vote not found";
 
-document
-.getElementById("options")
-.style.display =
-"none";
+  document
+    .getElementById("options")
+    .style.display =
+      "none";
 
-document
-.getElementById("error")
-.style.display =
-"block";
 
-document
-.getElementById("errorMessage")
-.textContent =
-message;
+  document
+    .getElementById("question")
+    .textContent =
+      "التصويت غير موجود";
+
+
+  document
+    .getElementById("errorMessage")
+    .textContent =
+      text;
+
+
+  document
+    .getElementById("error")
+    .style.display =
+      "block";
 
 }
 
@@ -692,93 +780,162 @@ message;
 
 function renderVote(){
 
-document
-.getElementById("question")
-.textContent =
-voteData.question ||
-"Untitled vote";
+  document
+    .getElementById("loading")
+    .style.display =
+      "none";
 
 
-const container =
-document.getElementById("options");
+  document
+    .getElementById("options")
+    .style.display =
+      "grid";
 
 
-container.innerHTML = "";
+  document
+    .getElementById("question")
+    .textContent =
+      voteData.question ||
+      "بدون سؤال";
 
 
-if(!voteData.options.length){
+  document
+    .getElementById("category")
+    .textContent =
+      "🔥 " +
+      (
+        voteData.category ||
+        "عام"
+      );
 
-showError(
-"This vote has no options."
-);
 
-return;
+  const optionsContainer =
+    document.getElementById(
+      "options"
+    );
+
+
+  optionsContainer.innerHTML =
+    "";
+
+
+  /*
+    الخيار A
+  */
+
+  createOptionCard(
+    "A",
+    voteData.option_a,
+    Number(voteData.votes_a || 0),
+    0
+  );
+
+
+  /*
+    الخيار B
+  */
+
+  createOptionCard(
+    "B",
+    voteData.option_b,
+    Number(voteData.votes_b || 0),
+    1
+  );
+
+
+  /*
+    إذا سبق التصويت
+  */
+
+  if(alreadyVoted){
+
+    document
+      .querySelectorAll(".vote-button")
+      .forEach(function(button){
+
+        button.disabled =
+          true;
+
+        button.textContent =
+          "تم التصويت ✓";
+
+      });
+
+
+    showResults();
+
+  }
 
 }
 
 
-voteData.options.forEach(
-function(option,index){
+/* =================================
+   CREATE OPTION CARD
+================================= */
 
-const card =
-document.createElement("article");
+function createOptionCard(
+  letter,
+  name,
+  votes,
+  index
+){
 
-card.className =
-"option-card";
+  if(!name){
 
+    return;
 
-let imageHTML =
-"🖼️";
-
-
-if(option.image){
-
-imageHTML =
-"<img src=\"" +
-escapeAttribute(option.image) +
-"\" alt=\"" +
-escapeAttribute(option.name) +
-"\">";
-
-}
+  }
 
 
-card.innerHTML = `
-
-<div class="option-image">
-${imageHTML}
-</div>
-
-<div class="option-info">
-
-<div class="option-label">
-OPTION ${String.fromCharCode(65 + index)}
-</div>
-
-<div class="option-name">
-${escapeHTML(option.name)}
-</div>
-
-<div class="option-description">
-${escapeHTML(option.description || "")}
-</div>
-
-<button
-class="vote-button"
-onclick="vote(${index})"
->
-Vote ${String.fromCharCode(65 + index)}
-</button>
-
-</div>
-
-`;
+  const card =
+    document.createElement(
+      "article"
+    );
 
 
-container.appendChild(card);
+  card.className =
+    "option-card";
 
-}
-);
+
+  card.innerHTML = `
+
+    <div class="option-image">
+      ${
+        letter === "A"
+        ? "🅰️"
+        : "🅱️"
+      }
+    </div>
+
+    <div class="option-info">
+
+      <div class="option-label">
+        OPTION ${letter}
+      </div>
+
+      <div class="option-name">
+        ${escapeHTML(name)}
+      </div>
+
+      <div class="vote-count">
+        🔥 ${votes.toLocaleString()} صوت
+      </div>
+
+      <button
+        class="vote-button"
+        onclick="vote(${index})"
+      >
+        صوّت للخيار ${letter}
+      </button>
+
+    </div>
+
+  `;
+
+
+  document
+    .getElementById("options")
+    .appendChild(card);
 
 }
 
@@ -789,142 +946,155 @@ container.appendChild(card);
 
 async function vote(index){
 
-if(alreadyVoted){
+  if(alreadyVoted){
 
-alert(
-"You have already voted."
-);
+    showMessage(
+      "لقد صوّت بالفعل في هذا التصويت.",
+      "error-message"
+    );
 
-return;
+    return;
 
-}
-
-
-if(!voteData ||
-!voteData.options[index]){
-
-return;
-
-}
+  }
 
 
-alreadyVoted = true;
+  if(!voteData){
+
+    return;
+
+  }
 
 
-if(!voteData.options[index].votes){
+  /*
+    نحصل على جلسة المستخدم
+  */
 
-voteData.options[index].votes = 0;
-
-}
-
-
-voteData.options[index].votes++;
-
-
-document
-.querySelectorAll(".vote-button")
-.forEach(function(button){
-
-button.disabled = true;
-
-});
+  const {
+    data:{
+      session
+    }
+  } =
+    await supabaseClient
+      .auth
+      .getSession();
 
 
-try{
+  /*
+    نسمح بالتصويت للمستخدم
+    حتى لو لم يسجل الدخول.
 
-const response =
-await fetch(
-SUPABASE_URL +
-"/rest/v1/votes?id=eq." +
-encodeURIComponent(voteId),
-{
-method:"PATCH",
-
-headers:{
-"apikey":SUPABASE_KEY,
-"Authorization":
-"Bearer " + SUPABASE_KEY,
-"Content-Type":
-"application/json",
-"Prefer":
-"return=representation"
-},
-
-body:JSON.stringify({
-
-options:
-voteData.options
-
-})
-
-}
-);
+    سيتم منع التكرار باستخدام
+    localStorage.
+  */
 
 
-if(!response.ok){
-
-const errorText =
-await response.text();
-
-console.error(errorText);
-
-alreadyVoted = false;
-
-voteData.options[index].votes--;
+  const column =
+    index === 0
+    ? "votes_a"
+    : "votes_b";
 
 
-document
-.querySelectorAll(".vote-button")
-.forEach(function(button){
-
-button.disabled = false;
-
-});
+  const currentVotes =
+    Number(
+      voteData[column] || 0
+    );
 
 
-alert(
-"Failed to save your vote. Please try again."
-);
-
-return;
-
-}
+  const newVotes =
+    currentVotes + 1;
 
 
-/* Save local vote status */
+  document
+    .querySelectorAll(".vote-button")
+    .forEach(function(button){
 
-localStorage.setItem(
-"voted_" + voteId,
-"true"
-);
+      button.disabled =
+        true;
 
-
-showResults();
-
-
-}catch(error){
-
-console.error(error);
-
-alreadyVoted = false;
-
-voteData.options[index].votes--;
+    });
 
 
-document
-.querySelectorAll(".vote-button")
-.forEach(function(button){
+  try{
 
-button.disabled = false;
+    /*
+      تحديث العدد فقط
+    */
 
-});
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("votes")
+        .update({
+
+          [column]:
+            newVotes
+
+        })
+        .eq("id",voteId);
 
 
-alert(
-"Could not connect to the database."
-);
+    if(error){
 
-}
+      console.error(error);
+
+      throw error;
+
+    }
+
+
+    /*
+      تحديث البيانات محليًا
+    */
+
+    voteData[column] =
+      newVotes;
+
+
+    alreadyVoted =
+      true;
+
+
+    localStorage.setItem(
+      "voted_" + voteId,
+      "true"
+    );
+
+
+    showMessage(
+      "تم تسجيل صوتك بنجاح! 🎉",
+      "success-message"
+    );
+
+
+    renderVote();
+
+
+    showResults();
+
+
+  }catch(error){
+
+    console.error(error);
+
+
+    document
+      .querySelectorAll(".vote-button")
+      .forEach(function(button){
+
+        button.disabled =
+          false;
+
+      });
+
+
+    showMessage(
+      "فشل حفظ التصويت: " +
+      error.message,
+      "error-message"
+    );
+
+  }
 
 }
 
@@ -935,370 +1105,157 @@ alert(
 
 function showResults(){
 
-const total =
-voteData.options.reduce(
-function(sum,option){
+  if(!voteData){
 
-return sum +
-Number(option.votes || 0);
+    return;
 
-},
-0
-);
+  }
 
 
-const resultRows =
-document.getElementById("resultRows");
+  const votesA =
+    Number(
+      voteData.votes_a || 0
+    );
 
 
-resultRows.innerHTML = "";
+  const votesB =
+    Number(
+      voteData.votes_b || 0
+    );
 
 
-let winnerIndex = 0;
+  const total =
+    votesA + votesB;
 
-let highestVotes = -1;
 
+  const percentA =
+    total === 0
+    ? 0
+    : Math.round(
+        (votesA / total) * 100
+      );
 
-voteData.options.forEach(
-function(option,index){
 
-const votes =
-Number(option.votes || 0);
+  const percentB =
+    total === 0
+    ? 0
+    : Math.round(
+        (votesB / total) * 100
+      );
 
 
-if(votes > highestVotes){
+  const rows =
+    document.getElementById(
+      "resultRows"
+    );
 
-highestVotes = votes;
 
-winnerIndex = index;
+  rows.innerHTML = `
 
-}
+    <div class="result-row">
 
+      <div class="result-top">
 
-const percentage =
-total === 0
-? 0
-: Math.round(
-(votes / total) * 100
-);
+        <span>
+          ${escapeHTML(
+            voteData.option_a ||
+            "الخيار A"
+          )}
+        </span>
 
+        <span class="percentage">
+          ${percentA}%
+        </span>
 
-const row =
-document.createElement("div");
+      </div>
 
-row.className =
-"result-row";
+      <div class="bar">
 
+        <div
+          class="bar-fill"
+          style="width:${percentA}%"
+        ></div>
 
-row.innerHTML = `
+      </div>
 
-<div class="result-top">
+    </div>
 
-<span>
-${escapeHTML(option.name)}
-</span>
 
-<span class="percentage">
-${percentage}%
-</span>
+    <div class="result-row">
 
-</div>
+      <div class="result-top">
 
-<div class="bar">
+        <span>
+          ${escapeHTML(
+            voteData.option_b ||
+            "الخيار B"
+          )}
+        </span>
 
-<div
-class="bar-fill"
-style="width:${percentage}%"
-></div>
+        <span class="percentage">
+          ${percentB}%
+        </span>
 
-</div>
+      </div>
 
-`;
+      <div class="bar">
 
+        <div
+          class="bar-fill"
+          style="width:${percentB}%"
+        ></div>
 
-resultRows.appendChild(row);
+      </div>
 
-}
-);
+    </div>
 
+  `;
 
-document
-.getElementById("totalVotes")
-.textContent =
-total.toLocaleString();
 
+  document
+    .getElementById("totalVotes")
+    .textContent =
+      total.toLocaleString();
 
-document
-.getElementById("winner")
-.textContent =
-"🏆 Winner: " +
-(
-voteData.options[winnerIndex].name ||
-"Unknown"
-);
 
+  let winner;
 
-document
-.getElementById("results")
-.style.display =
-"block";
 
+  if(total === 0){
 
-document
-.getElementById("results")
-.scrollIntoView({
-behavior:"smooth"
-});
+    winner =
+      "🏆 لم يصوّت أحد بعد";
 
-}
+  }else if(votesA === votesB){
 
+    winner =
+      "🤝 تعادل";
 
-/* =================================
-   COPY LINK
-================================= */
+  }else if(votesA > votesB){
 
-async function copyLink(){
+    winner =
+      "🏆 الفائز: " +
+      (voteData.option_a || "الخيار A");
 
-const link =
-window.location.href;
+  }else{
 
+    winner =
+      "🏆 الفائز: " +
+      (voteData.option_b || "الخيار B");
 
-try{
+  }
 
-if(navigator.clipboard){
 
-await navigator.clipboard.writeText(link);
+  document
+    .getElementById("winner")
+    .textContent =
+      winner;
 
-}else{
 
-fallbackCopy(link);
-
-}
-
-
-document
-.getElementById("copySuccess")
-.style.display =
-"block";
-
-
-setTimeout(function(){
-
-document
-.getElementById("copySuccess")
-.style.display =
-"none";
-
-},3000);
-
-
-}catch(error){
-
-fallbackCopy(link);
-
-}
-
-}
-
-
-/* =================================
-   FALLBACK COPY
-================================= */
-
-function fallbackCopy(text){
-
-const textarea =
-document.createElement("textarea");
-
-textarea.value =
-text;
-
-textarea.style.position =
-"fixed";
-
-textarea.style.opacity =
-"0";
-
-document.body.appendChild(
-textarea
-);
-
-textarea.select();
-
-document.execCommand("copy");
-
-document.body.removeChild(
-textarea
-);
-
-}
-
-
-/* =================================
-   WHATSAPP
-================================= */
-
-function shareWhatsApp(){
-
-if(!voteData){
-
-return;
-
-}
-
-
-const text =
-"🔥 Vote on VOTERA!\n\n" +
-voteData.question +
-"\n\nVote here: " +
-window.location.href;
-
-
-const url =
-"https://wa.me/?text=" +
-encodeURIComponent(text);
-
-
-window.open(
-url,
-"_blank"
-);
-
-}
-
-
-/* =================================
-   FACEBOOK
-================================= */
-
-function shareFacebook(){
-
-const url =
-"https://www.facebook.com/sharer/sharer.php?u=" +
-encodeURIComponent(
-window.location.href
-);
-
-
-window.open(
-url,
-"_blank"
-);
-
-}
-
-
-/* =================================
-   X
-================================= */
-
-function shareX(){
-
-if(!voteData){
-
-return;
-
-}
-
-
-const text =
-"🔥 Vote on VOTERA: " +
-voteData.question;
-
-
-const url =
-"https://twitter.com/intent/tweet?text=" +
-encodeURIComponent(text) +
-"&url=" +
-encodeURIComponent(
-window.location.href
-);
-
-
-window.open(
-url,
-"_blank"
-);
-
-}
-
-
-/* =================================
-   NATIVE SHARE
-================================= */
-
-async function nativeShare(){
-
-if(!voteData){
-
-return;
-
-}
-
-
-if(navigator.share){
-
-try{
-
-await navigator.share({
-
-title:
-"VOTERA — Ask. Vote. Discover.",
-
-text:
-"🔥 Vote on VOTERA: " +
-voteData.question,
-
-url:
-window.location.href
-
-});
-
-}catch(error){
-
-console.log(
-"Share cancelled."
-);
-
-}
-
-}else{
-
-copyLink();
-
-}
-
-}
-
-
-/* =================================
-   SAFE HTML
-================================= */
-
-function escapeHTML(text){
-
-const div =
-document.createElement("div");
-
-div.textContent =
-String(text ?? "");
-
-return div.innerHTML;
-
-}
-
-
-/* =================================
-   SAFE ATTRIBUTE
-================================= */
-
-function escapeAttribute(text){
-
-return String(text ?? "")
-.replace(/&/g,"&amp;")
-.replace(/"/g,"&quot;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;");
+  document
+    .getElementById("results")
+    .style.display =
+      "block";
 
 }
 
@@ -1309,24 +1266,295 @@ return String(text ?? "")
 
 function checkPreviousVote(){
 
-if(!voteId){
+  if(!voteId){
 
-return;
+    return;
+
+  }
+
+
+  const saved =
+    localStorage.getItem(
+      "voted_" + voteId
+    );
+
+
+  if(saved === "true"){
+
+    alreadyVoted =
+      true;
+
+  }
 
 }
 
 
-const saved =
-localStorage.getItem(
-"voted_" + voteId
-);
+/* =================================
+   MESSAGE
+================================= */
+
+function showMessage(
+  text,
+  className
+){
+
+  const element =
+    document.getElementById(
+      "message"
+    );
 
 
-if(saved === "true"){
+  element.textContent =
+    text;
 
-alreadyVoted = true;
+
+  element.className =
+    "message " +
+    className;
+
+
+  setTimeout(
+    function(){
+
+      element.style.display =
+        "none";
+
+    },
+    4000
+  );
 
 }
+
+
+/* =================================
+   COPY
+================================= */
+
+async function copyLink(){
+
+  const link =
+    window.location.href;
+
+
+  try{
+
+    await navigator.clipboard.writeText(
+      link
+    );
+
+  }catch(error){
+
+    fallbackCopy(link);
+
+  }
+
+
+  const success =
+    document.getElementById(
+      "copySuccess"
+    );
+
+
+  success.style.display =
+    "block";
+
+
+  setTimeout(
+    function(){
+
+      success.style.display =
+        "none";
+
+    },
+    3000
+  );
+
+}
+
+
+/* =================================
+   FALLBACK COPY
+================================= */
+
+function fallbackCopy(text){
+
+  const textarea =
+    document.createElement(
+      "textarea"
+    );
+
+
+  textarea.value =
+    text;
+
+  textarea.style.position =
+    "fixed";
+
+  textarea.style.opacity =
+    "0";
+
+
+  document.body.appendChild(
+    textarea
+  );
+
+
+  textarea.select();
+
+  document.execCommand(
+    "copy"
+  );
+
+
+  document.body.removeChild(
+    textarea
+  );
+
+}
+
+
+/* =================================
+   WHATSAPP
+================================= */
+
+function shareWhatsApp(){
+
+  if(!voteData){
+
+    return;
+
+  }
+
+
+  const text =
+    "🔥 صوّت في VOTERA!\n\n" +
+    voteData.question +
+    "\n\n" +
+    window.location.href;
+
+
+  window.open(
+    "https://wa.me/?text=" +
+    encodeURIComponent(text),
+    "_blank"
+  );
+
+}
+
+
+/* =================================
+   FACEBOOK
+================================= */
+
+function shareFacebook(){
+
+  window.open(
+    "https://www.facebook.com/sharer/sharer.php?u=" +
+    encodeURIComponent(
+      window.location.href
+    ),
+    "_blank"
+  );
+
+}
+
+
+/* =================================
+   X
+================================= */
+
+function shareX(){
+
+  if(!voteData){
+
+    return;
+
+  }
+
+
+  const text =
+    "🔥 صوّت في VOTERA: " +
+    voteData.question;
+
+
+  window.open(
+    "https://twitter.com/intent/tweet?text=" +
+    encodeURIComponent(text) +
+    "&url=" +
+    encodeURIComponent(
+      window.location.href
+    ),
+    "_blank"
+  );
+
+}
+
+
+/* =================================
+   NATIVE SHARE
+================================= */
+
+async function nativeShare(){
+
+  if(!voteData){
+
+    return;
+
+  }
+
+
+  if(navigator.share){
+
+    try{
+
+      await navigator.share({
+
+        title:
+          "VOTERA — Ask. Vote. Discover.",
+
+        text:
+          "🔥 صوّت في VOTERA: " +
+          voteData.question,
+
+        url:
+          window.location.href
+
+      });
+
+    }catch(error){
+
+      console.log(
+        "Share cancelled."
+      );
+
+    }
+
+  }else{
+
+    copyLink();
+
+  }
+
+}
+
+
+/* =================================
+   SAFE HTML
+================================= */
+
+function escapeHTML(text){
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+
+  div.textContent =
+    String(text ?? "");
+
+
+  return div.innerHTML;
 
 }
 
