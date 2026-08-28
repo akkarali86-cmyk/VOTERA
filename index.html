@@ -11,18 +11,21 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+/* =========================================================
+   VOTERA — GLOBAL
+========================================================= */
+
 :root{
   --primary:#6c5ce7;
   --primary-dark:#5544d0;
   --primary-light:#eeebff;
   --bg:#f7f7fc;
-  --card:rgba(255,255,255,.78);
-  --card-solid:#fff;
+  --card:rgba(255,255,255,.76);
   --text:#15151b;
   --muted:#747480;
   --border:rgba(108,92,231,.12);
   --shadow:0 18px 55px rgba(44,38,100,.10);
-  --glass:blur(20px);
 }
 
 *{
@@ -41,70 +44,210 @@ body{
   min-height:100vh;
   padding-bottom:80px;
   overflow-x:hidden;
-  background:
-    radial-gradient(circle at 8% 8%,rgba(108,92,231,.16),transparent 27%),
-    radial-gradient(circle at 92% 15%,rgba(255,105,180,.12),transparent 25%),
-    radial-gradient(circle at 50% 90%,rgba(70,170,255,.09),transparent 30%),
-    linear-gradient(135deg,#fbfbff 0%,#f5f3ff 48%,#fcf8fc 100%);
-  background-attachment:fixed;
   position:relative;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fafaff 0%,
+      #f2efff 45%,
+      #fff5fb 70%,
+      #f3f8ff 100%
+    );
 }
 
+
+/* =========================================================
+   🌌 ANIMATED BACKGROUND
+========================================================= */
+
+/* الحاوية العامة للتوهجات */
 body::before{
   content:"";
   position:fixed;
-  inset:0;
+  inset:-40%;
+  z-index:-10;
   pointer-events:none;
-  z-index:-1;
-  opacity:.38;
-  background-image:
-    linear-gradient(rgba(108,92,231,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(108,92,231,.035) 1px,transparent 1px);
-  background-size:36px 36px;
-  mask-image:linear-gradient(to bottom,black,transparent 88%);
+
+  background:
+    radial-gradient(
+      circle at 20% 25%,
+      rgba(108,92,231,.34) 0,
+      rgba(108,92,231,.20) 10%,
+      transparent 24%
+    ),
+
+    radial-gradient(
+      circle at 75% 20%,
+      rgba(255,70,170,.28) 0,
+      rgba(255,70,170,.14) 12%,
+      transparent 27%
+    ),
+
+    radial-gradient(
+      circle at 65% 75%,
+      rgba(40,150,255,.25) 0,
+      rgba(40,150,255,.12) 12%,
+      transparent 28%
+    ),
+
+    radial-gradient(
+      circle at 15% 80%,
+      rgba(145,80,255,.22) 0,
+      rgba(145,80,255,.10) 12%,
+      transparent 27%
+    );
+
+  filter:blur(35px);
+
+  animation:
+    backgroundFloat
+    18s
+    ease-in-out
+    infinite
+    alternate;
 }
 
+
+/* شبكة متحركة */
 body::after{
   content:"";
   position:fixed;
-  width:420px;
-  height:420px;
-  border-radius:50%;
-  background:rgba(108,92,231,.07);
-  filter:blur(100px);
-  top:35%;
-  left:-220px;
+  inset:0;
+  z-index:-9;
   pointer-events:none;
-  z-index:-1;
+
+  background-image:
+    linear-gradient(
+      rgba(108,92,231,.055) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(108,92,231,.055) 1px,
+      transparent 1px
+    );
+
+  background-size:45px 45px;
+
+  animation:
+    gridAnimation
+    9s
+    linear
+    infinite;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      black 0%,
+      rgba(0,0,0,.8) 50%,
+      transparent 100%
+    );
 }
 
-button,
-input{
-  font-family:inherit;
+
+/* =========================================================
+   🌊 BACKGROUND ANIMATIONS
+========================================================= */
+
+@keyframes backgroundFloat{
+
+  0%{
+    transform:
+      translate3d(-4%,-5%,0)
+      scale(1);
+  }
+
+  20%{
+    transform:
+      translate3d(4%,2%,0)
+      scale(1.06);
+  }
+
+  40%{
+    transform:
+      translate3d(-2%,8%,0)
+      scale(1.12);
+  }
+
+  60%{
+    transform:
+      translate3d(7%,-2%,0)
+      scale(1.08);
+  }
+
+  80%{
+    transform:
+      translate3d(-6%,5%,0)
+      scale(1.14);
+  }
+
+  100%{
+    transform:
+      translate3d(5%,-6%,0)
+      scale(1.08);
+  }
+
 }
 
-button{
-  cursor:pointer;
+
+@keyframes gridAnimation{
+
+  0%{
+    background-position:
+      0 0,
+      0 0;
+  }
+
+  25%{
+    background-position:
+      45px -45px,
+      -45px 45px;
+  }
+
+  50%{
+    background-position:
+      90px 0,
+      0 90px;
+  }
+
+  75%{
+    background-position:
+      45px 45px,
+      -45px -45px;
+  }
+
+  100%{
+    background-position:
+      0 90px,
+      90px 0;
+  }
+
 }
 
-a{
-  text-decoration:none;
-  color:inherit;
-}
 
-/* =========================
+/* =========================================================
    HEADER
-========================= */
+========================================================= */
 
 header{
   position:sticky;
   top:0;
   z-index:1000;
-  background:rgba(255,255,255,.72);
-  backdrop-filter:var(--glass);
-  -webkit-backdrop-filter:var(--glass);
-  border-bottom:1px solid rgba(255,255,255,.7);
-  box-shadow:0 8px 30px rgba(30,25,80,.04);
+
+  background:
+    rgba(255,255,255,.70);
+
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.8);
+
+  box-shadow:
+    0 8px 30px
+    rgba(30,25,80,.05);
 }
 
 .nav{
@@ -112,9 +255,11 @@ header{
   height:72px;
   margin:auto;
   padding:0 20px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:20px;
 }
 
@@ -133,6 +278,7 @@ header{
   display:none;
   align-items:center;
   gap:25px;
+
   font-size:14px;
   font-weight:800;
 }
@@ -146,11 +292,22 @@ header{
 }
 
 .create-small{
-  background:linear-gradient(135deg,var(--primary),#8173f2);
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      #8173f2
+    );
+
   color:white!important;
+
   padding:11px 17px;
+
   border-radius:12px;
-  box-shadow:0 8px 20px rgba(108,92,231,.20);
+
+  box-shadow:
+    0 8px 20px
+    rgba(108,92,231,.20);
 }
 
 .auth-area{
@@ -163,20 +320,35 @@ header{
   display:flex;
   align-items:center;
   gap:8px;
-  background:rgba(255,255,255,.85);
-  border:1px solid var(--border);
+
+  background:
+    rgba(255,255,255,.88);
+
+  border:
+    1px solid
+    var(--border);
+
   color:#222;
+
   padding:10px 13px;
+
   border-radius:12px;
+
   font-size:12px;
   font-weight:900;
+
   transition:.2s;
 }
 
 .google-btn:hover{
   border-color:#cfc9ff;
-  transform:translateY(-1px);
-  box-shadow:0 8px 20px rgba(60,50,130,.08);
+
+  transform:
+    translateY(-1px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(60,50,130,.08);
 }
 
 .google-icon{
@@ -194,17 +366,27 @@ header{
 .user-avatar{
   width:37px;
   height:37px;
+
   border-radius:50%;
+
   object-fit:cover;
-  border:2px solid var(--primary);
-  box-shadow:0 4px 12px rgba(108,92,231,.2);
+
+  border:
+    2px solid
+    var(--primary);
+
+  box-shadow:
+    0 4px 12px
+    rgba(108,92,231,.2);
 }
 
 .user-name{
   max-width:110px;
+
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
+
   font-size:13px;
   font-weight:900;
 }
@@ -212,8 +394,11 @@ header{
 .account-btn{
   background:var(--primary-light);
   color:var(--primary);
+
   padding:9px 11px;
+
   border-radius:10px;
+
   font-size:12px;
   font-weight:900;
 }
@@ -221,51 +406,173 @@ header{
 .logout-btn{
   background:#f1f1f5;
   color:#555;
+
   border:0;
+
   padding:8px 10px;
+
   border-radius:10px;
+
   font-size:11px;
   font-weight:900;
 }
 
-/* =========================
+
+/* =========================================================
    HERO
-========================= */
+========================================================= */
 
 .hero{
   position:relative;
   overflow:hidden;
+
   max-width:1180px;
   margin:auto;
-  padding:95px 20px 65px;
+
+  padding:
+    95px
+    20px
+    65px;
+
   text-align:center;
+
+  isolation:isolate;
 }
 
+
+/* 🟣 كرة بنفسجية كبيرة */
 .hero::before{
   content:"";
+
   position:absolute;
-  width:380px;
-  height:380px;
+
+  width:430px;
+  height:430px;
+
   border-radius:50%;
-  background:rgba(108,92,231,.12);
-  filter:blur(70px);
-  top:-180px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(108,92,231,.38) 0%,
+      rgba(108,92,231,.18) 35%,
+      transparent 70%
+    );
+
+  filter:blur(22px);
+
+  top:-210px;
   right:-120px;
-  pointer-events:none;
+
+  z-index:-1;
+
+  animation:
+    purpleOrb
+    8s
+    ease-in-out
+    infinite
+    alternate;
 }
 
+
+/* 🩷 كرة وردية كبيرة */
 .hero::after{
   content:"";
+
   position:absolute;
-  width:300px;
-  height:300px;
+
+  width:360px;
+  height:360px;
+
   border-radius:50%;
-  background:rgba(255,105,180,.09);
-  filter:blur(70px);
-  bottom:-160px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,70,170,.34) 0%,
+      rgba(255,70,170,.15) 35%,
+      transparent 70%
+    );
+
+  filter:blur(25px);
+
+  bottom:-170px;
   left:-100px;
-  pointer-events:none;
+
+  z-index:-1;
+
+  animation:
+    pinkOrb
+    11s
+    ease-in-out
+    infinite
+    alternate;
 }
+
+
+@keyframes purpleOrb{
+
+  0%{
+    transform:
+      translate(0,0)
+      scale(1);
+  }
+
+  25%{
+    transform:
+      translate(-100px,80px)
+      scale(1.18);
+  }
+
+  50%{
+    transform:
+      translate(-30px,180px)
+      scale(.88);
+  }
+
+  75%{
+    transform:
+      translate(120px,80px)
+      scale(1.25);
+  }
+
+  100%{
+    transform:
+      translate(50px,-80px)
+      scale(1.05);
+  }
+
+}
+
+
+@keyframes pinkOrb{
+
+  0%{
+    transform:
+      translate(0,0)
+      scale(1);
+  }
+
+  30%{
+    transform:
+      translate(100px,-90px)
+      scale(1.22);
+  }
+
+  60%{
+    transform:
+      translate(190px,30px)
+      scale(.85);
+  }
+
+  100%{
+    transform:
+      translate(-40px,130px)
+      scale(1.16);
+  }
+
+}
+
 
 .hero-content{
   position:relative;
@@ -276,25 +583,51 @@ header{
   display:inline-flex;
   align-items:center;
   gap:7px;
-  background:rgba(238,235,255,.82);
-  border:1px solid rgba(108,92,231,.10);
+
+  background:
+    rgba(238,235,255,.84);
+
+  border:
+    1px solid
+    rgba(108,92,231,.12);
+
   color:var(--primary);
+
   padding:10px 16px;
+
   border-radius:30px;
+
   font-size:13px;
   font-weight:900;
+
   margin-bottom:23px;
-  box-shadow:0 8px 25px rgba(108,92,231,.07);
+
+  box-shadow:
+    0 8px 25px
+    rgba(108,92,231,.08);
 }
 
 .hero h1{
   direction:ltr;
-  font-size:clamp(62px,14vw,110px);
+
+  font-size:
+    clamp(
+      62px,
+      14vw,
+      110px
+    );
+
   line-height:.88;
+
   letter-spacing:-7px;
+
   font-weight:950;
+
   margin-bottom:25px;
-  text-shadow:0 12px 35px rgba(50,40,120,.08);
+
+  text-shadow:
+    0 12px 35px
+    rgba(50,40,120,.10);
 }
 
 .hero h1 span{
@@ -302,132 +635,223 @@ header{
 }
 
 .tagline{
-  font-size:clamp(23px,5vw,32px);
+  font-size:
+    clamp(
+      23px,
+      5vw,
+      32px
+    );
+
   font-weight:950;
+
   margin-bottom:13px;
 }
 
 .hero-description{
   max-width:620px;
-  margin:0 auto 30px;
+
+  margin:
+    0 auto
+    30px;
+
   color:var(--muted);
+
   font-size:16px;
+
   line-height:1.9;
 }
 
 .hero-buttons{
   display:flex;
   flex-direction:column;
+
   gap:11px;
+
   max-width:500px;
+
   margin:auto;
 }
 
 .btn{
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   padding:17px 22px;
+
   border-radius:16px;
+
   font-size:15px;
   font-weight:950;
+
   transition:.25s;
 }
 
 .btn-primary{
-  background:linear-gradient(135deg,var(--primary),#8274f3);
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      #8274f3
+    );
+
   color:white;
-  box-shadow:0 14px 30px rgba(108,92,231,.25);
+
+  box-shadow:
+    0 14px 30px
+    rgba(108,92,231,.25);
 }
 
 .btn-primary:hover{
-  transform:translateY(-3px);
-  box-shadow:0 18px 38px rgba(108,92,231,.32);
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    0 18px 38px
+    rgba(108,92,231,.32);
 }
 
 .btn-secondary{
-  background:rgba(255,255,255,.72);
-  border:1px solid rgba(108,92,231,.12);
+  background:
+    rgba(255,255,255,.75);
+
+  border:
+    1px solid
+    rgba(108,92,231,.12);
+
   backdrop-filter:blur(12px);
 }
 
 .btn-secondary:hover{
-  transform:translateY(-3px);
-  box-shadow:var(--shadow);
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    var(--shadow);
 }
 
-/* =========================
+
+/* =========================================================
    WELCOME
-========================= */
+========================================================= */
 
 .welcome{
   display:none;
+
   max-width:560px;
-  margin:0 auto 25px;
-  background:rgba(236,253,243,.88);
+
+  margin:
+    0 auto
+    25px;
+
+  background:
+    rgba(236,253,243,.90);
+
   color:#166534;
-  border:1px solid #bbf7d0;
+
+  border:
+    1px solid
+    #bbf7d0;
+
   padding:13px 16px;
+
   border-radius:14px;
+
   font-size:13px;
   font-weight:900;
 }
 
-/* =========================
+
+/* =========================================================
    STATS
-========================= */
+========================================================= */
 
 .stats{
   max-width:850px;
-  margin:10px auto 65px;
-  padding:0 20px;
+
+  margin:
+    10px auto
+    65px;
+
+  padding:
+    0 20px;
+
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+
+  grid-template-columns:
+    repeat(3,1fr);
+
   gap:12px;
 }
 
 .stat{
-  background:rgba(255,255,255,.66);
-  border:1px solid rgba(255,255,255,.8);
+  background:
+    rgba(255,255,255,.66);
+
+  border:
+    1px solid
+    rgba(255,255,255,.85);
+
   border-radius:19px;
+
   padding:19px 8px;
+
   text-align:center;
+
   backdrop-filter:blur(15px);
-  box-shadow:0 10px 35px rgba(40,35,100,.06);
+
+  box-shadow:
+    0 10px 35px
+    rgba(40,35,100,.06);
+
   transition:.25s;
 }
 
 .stat:hover{
-  transform:translateY(-3px);
-  box-shadow:var(--shadow);
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    var(--shadow);
 }
 
 .stat strong{
   display:block;
+
   font-size:23px;
+
   margin-bottom:5px;
 }
 
 .stat span{
   color:var(--muted);
+
   font-size:11px;
   font-weight:800;
 }
 
-/* =========================
+
+/* =========================================================
    MAIN
-========================= */
+========================================================= */
 
 .section{
   max-width:1180px;
+
   margin:auto;
-  padding:0 20px 60px;
+
+  padding:
+    0 20px
+    60px;
 }
 
 .section-header{
   display:flex;
+
   justify-content:space-between;
   align-items:center;
+
   margin-bottom:18px;
 }
 
@@ -438,57 +862,93 @@ header{
 
 .section-header a{
   color:var(--primary);
+
   font-size:13px;
   font-weight:900;
 }
 
-/* =========================
+
+/* =========================================================
    SEARCH
-========================= */
+========================================================= */
 
 .search-box{
   position:relative;
+
   margin-bottom:18px;
 }
 
 .search-box input{
   width:100%;
+
   height:52px;
-  border:1px solid rgba(108,92,231,.10);
+
+  border:
+    1px solid
+    rgba(108,92,231,.10);
+
   border-radius:16px;
-  background:rgba(255,255,255,.72);
+
+  background:
+    rgba(255,255,255,.72);
+
   backdrop-filter:blur(15px);
-  padding:0 47px 0 15px;
+
+  padding:
+    0 47px
+    0 15px;
+
   outline:none;
+
   font-size:14px;
-  box-shadow:0 8px 25px rgba(40,35,100,.04);
+
+  box-shadow:
+    0 8px 25px
+    rgba(40,35,100,.04);
+
   transition:.2s;
 }
 
 .search-box input:focus{
-  border-color:rgba(108,92,231,.35);
-  box-shadow:0 0 0 4px rgba(108,92,231,.07);
+  border-color:
+    rgba(108,92,231,.35);
+
+  box-shadow:
+    0 0 0 4px
+    rgba(108,92,231,.07);
+
   background:white;
 }
 
 .search-icon{
   position:absolute;
+
   right:16px;
+
   top:50%;
-  transform:translateY(-50%);
+
+  transform:
+    translateY(-50%);
+
   font-size:19px;
 }
 
-/* =========================
+
+/* =========================================================
    CATEGORIES
-========================= */
+========================================================= */
 
 .categories{
   display:flex;
+
   gap:8px;
+
   overflow-x:auto;
+
   scrollbar-width:none;
+
   padding-bottom:13px;
+
   margin-bottom:20px;
 }
 
@@ -498,82 +958,187 @@ header{
 
 .category{
   flex-shrink:0;
-  border:1px solid rgba(108,92,231,.10);
-  background:rgba(255,255,255,.72);
+
+  border:
+    1px solid
+    rgba(108,92,231,.10);
+
+  background:
+    rgba(255,255,255,.72);
+
   backdrop-filter:blur(10px);
+
   padding:10px 14px;
+
   border-radius:30px;
+
   font-size:12px;
   font-weight:900;
+
   transition:.2s;
 }
 
 .category:hover{
-  transform:translateY(-2px);
-  border-color:rgba(108,92,231,.25);
+  transform:
+    translateY(-2px);
+
+  border-color:
+    rgba(108,92,231,.25);
 }
 
 .category.active{
   color:white;
-  background:linear-gradient(135deg,var(--primary),#8173f2);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      #8173f2
+    );
+
   border-color:transparent;
-  box-shadow:0 8px 20px rgba(108,92,231,.20);
+
+  box-shadow:
+    0 8px 20px
+    rgba(108,92,231,.20);
 }
 
-/* =========================
+
+/* =========================================================
    VOTE CARDS
-========================= */
+========================================================= */
 
 .votes-grid{
   display:grid;
-  grid-template-columns:1fr;
+
+  grid-template-columns:
+    1fr;
+
   gap:18px;
 }
 
 .vote-card{
   position:relative;
+
   overflow:hidden;
-  background:rgba(255,255,255,.68);
-  border:1px solid rgba(255,255,255,.85);
+
+  background:
+    rgba(255,255,255,.70);
+
+  border:
+    1px solid
+    rgba(255,255,255,.88);
+
   border-radius:23px;
+
   padding:18px;
+
   backdrop-filter:blur(18px);
+
   -webkit-backdrop-filter:blur(18px);
-  box-shadow:0 10px 35px rgba(35,30,90,.06);
+
+  box-shadow:
+    0 10px 35px
+    rgba(35,30,90,.06);
+
   transition:.3s;
 }
 
+
+/* ✨ ضوء متحرك داخل البطاقة */
 .vote-card::before{
   content:"";
+
   position:absolute;
-  width:150px;
-  height:150px;
+
+  width:190px;
+  height:190px;
+
   border-radius:50%;
-  background:rgba(108,92,231,.06);
-  filter:blur(40px);
-  top:-90px;
-  right:-70px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(108,92,231,.15),
+      transparent 70%
+    );
+
+  filter:blur(25px);
+
+  top:-120px;
+  right:-100px;
+
   pointer-events:none;
+
+  animation:
+    cardLight
+    7s
+    ease-in-out
+    infinite
+    alternate;
 }
 
+
+@keyframes cardLight{
+
+  0%{
+    transform:
+      translate(0,0)
+      scale(.8);
+
+    opacity:.4;
+  }
+
+  50%{
+    transform:
+      translate(-80px,90px)
+      scale(1.1);
+
+    opacity:.8;
+  }
+
+  100%{
+    transform:
+      translate(-170px,160px)
+      scale(.75);
+
+    opacity:.25;
+  }
+
+}
+
+
 .vote-card:hover{
-  transform:translateY(-5px);
-  border-color:rgba(108,92,231,.18);
-  box-shadow:0 20px 50px rgba(40,35,110,.12);
+  transform:
+    translateY(-5px);
+
+  border-color:
+    rgba(108,92,231,.18);
+
+  box-shadow:
+    0 20px 50px
+    rgba(40,35,110,.12);
 }
 
 .card-top{
   display:flex;
+
   justify-content:space-between;
   align-items:center;
+
   margin-bottom:11px;
 }
 
 .card-tag{
-  background:rgba(238,235,255,.9);
+  background:
+    rgba(238,235,255,.9);
+
   color:var(--primary);
+
   padding:6px 9px;
+
   border-radius:8px;
+
   font-size:10px;
   font-weight:900;
 }
@@ -585,142 +1150,265 @@ header{
 .vote-card h3{
   position:relative;
   z-index:2;
+
   font-size:17px;
+
   line-height:1.5;
+
   margin-bottom:15px;
 }
 
 .options{
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr 1fr;
+
   gap:9px;
 }
 
 .option{
   position:relative;
+
   min-height:140px;
+
   border-radius:16px;
+
   padding:13px;
+
   display:flex;
+
   align-items:flex-end;
+
   overflow:hidden;
+
   font-size:14px;
   font-weight:950;
-  background:linear-gradient(135deg,#ddd8ff,#f7f5ff);
+
+  background:
+    linear-gradient(
+      135deg,
+      #ddd8ff,
+      #f7f5ff
+    );
+
   transition:.25s;
 }
 
 .option::after{
   content:"";
+
   position:absolute;
+
   inset:0;
-  background:linear-gradient(transparent,rgba(20,15,50,.22));
+
+  background:
+    linear-gradient(
+      transparent,
+      rgba(20,15,50,.22)
+    );
 }
 
 .option span{
   position:relative;
+
   z-index:2;
 }
 
 .option:nth-child(2){
-  background:linear-gradient(135deg,#ffdce9,#fff4f8);
+  background:
+    linear-gradient(
+      135deg,
+      #ffdce9,
+      #fff4f8
+    );
 }
 
 .option:hover{
-  transform:scale(1.025);
-  box-shadow:0 8px 20px rgba(30,25,80,.10);
+  transform:
+    scale(1.025);
+
+  box-shadow:
+    0 8px 20px
+    rgba(30,25,80,.10);
 }
 
 .vote-meta{
   display:flex;
+
   justify-content:space-between;
   align-items:center;
+
   margin-top:13px;
+
   color:var(--muted);
+
   font-size:11px;
 }
 
 .share-btn{
   color:var(--primary);
+
   font-weight:900;
+
   border:0;
+
   background:transparent;
+
   font-size:11px;
 }
 
-/* =========================
+
+/* =========================================================
    USERS
-========================= */
+========================================================= */
 
 .people-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
+
+  grid-template-columns:
+    1fr 1fr;
+
   gap:11px;
 }
 
 .person{
-  background:rgba(255,255,255,.68);
-  border:1px solid rgba(255,255,255,.85);
+  background:
+    rgba(255,255,255,.68);
+
+  border:
+    1px solid
+    rgba(255,255,255,.85);
+
   border-radius:18px;
+
   padding:16px 10px;
+
   text-align:center;
+
   backdrop-filter:blur(15px);
-  box-shadow:0 8px 25px rgba(35,30,90,.05);
+
+  box-shadow:
+    0 8px 25px
+    rgba(35,30,90,.05);
+
   transition:.25s;
 }
 
 .person:hover{
-  transform:translateY(-3px);
-  box-shadow:var(--shadow);
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    var(--shadow);
 }
 
 .person-avatar{
   width:50px;
   height:50px;
+
   border-radius:50%;
+
   margin-bottom:8px;
 }
 
 .person strong{
   display:block;
+
   font-size:13px;
+
   margin-bottom:4px;
 }
 
 .person span{
   color:var(--primary);
+
   font-size:11px;
   font-weight:900;
 }
 
-/* =========================
+
+/* =========================================================
    CTA
-========================= */
+========================================================= */
 
 .create-box{
   position:relative;
+
   overflow:hidden;
+
   margin-top:10px;
+
   padding:45px 20px;
+
   border-radius:28px;
+
   text-align:center;
+
   background:
-    radial-gradient(circle at 15% 20%,rgba(255,255,255,.7),transparent 30%),
-    linear-gradient(135deg,rgba(229,225,255,.92),rgba(252,232,242,.92));
-  border:1px solid rgba(255,255,255,.85);
-  box-shadow:var(--shadow);
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(255,255,255,.75),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(229,225,255,.92),
+      rgba(252,232,242,.92)
+    );
+
+  border:
+    1px solid
+    rgba(255,255,255,.85);
+
+  box-shadow:
+    var(--shadow);
 }
 
 .create-box::before{
   content:"";
+
   position:absolute;
-  width:180px;
-  height:180px;
+
+  width:200px;
+  height:200px;
+
   border-radius:50%;
-  background:rgba(108,92,231,.13);
-  filter:blur(50px);
-  right:-60px;
-  top:-80px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(108,92,231,.20),
+      transparent 70%
+    );
+
+  filter:blur(35px);
+
+  right:-70px;
+  top:-90px;
+
+  animation:
+    ctaOrb
+    6s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+@keyframes ctaOrb{
+
+  0%{
+    transform:
+      translate(0,0)
+      scale(1);
+  }
+
+  100%{
+    transform:
+      translate(-160px,100px)
+      scale(1.35);
+  }
+
 }
 
 .create-box h2,
@@ -732,73 +1420,120 @@ header{
 
 .create-box h2{
   font-size:27px;
+
   font-weight:950;
+
   margin-bottom:9px;
 }
 
 .create-box p{
   color:var(--muted);
+
   font-size:14px;
+
   line-height:1.7;
+
   margin-bottom:20px;
 }
 
 .create-box a{
   display:inline-block;
-  background:linear-gradient(135deg,var(--primary),#8173f2);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      #8173f2
+    );
+
   color:white;
+
   padding:14px 24px;
+
   border-radius:14px;
+
   font-size:14px;
   font-weight:950;
-  box-shadow:0 10px 25px rgba(108,92,231,.22);
+
+  box-shadow:
+    0 10px 25px
+    rgba(108,92,231,.22);
+
   transition:.2s;
 }
 
 .create-box a:hover{
-  transform:translateY(-2px);
+  transform:
+    translateY(-2px);
 }
 
-/* =========================
+
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 footer{
   max-width:1180px;
+
   margin:auto;
+
   padding:20px;
+
   text-align:center;
+
   color:var(--muted);
+
   font-size:11px;
 }
 
-/* =========================
+
+/* =========================================================
    MOBILE NAV
-========================= */
+========================================================= */
 
 .mobile-nav{
   position:fixed;
+
   bottom:0;
   left:0;
   right:0;
+
   height:73px;
+
   z-index:2000;
+
   display:flex;
+
   justify-content:space-around;
   align-items:center;
-  background:rgba(255,255,255,.78);
+
+  background:
+    rgba(255,255,255,.80);
+
   backdrop-filter:blur(22px);
+
   -webkit-backdrop-filter:blur(22px);
-  border-top:1px solid rgba(255,255,255,.85);
-  box-shadow:0 -8px 30px rgba(30,25,80,.07);
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.85);
+
+  box-shadow:
+    0 -8px 30px
+    rgba(30,25,80,.07);
 }
 
 .mobile-nav a{
   display:flex;
+
   flex-direction:column;
+
   align-items:center;
+
   gap:4px;
+
   color:var(--muted);
+
   font-size:10px;
   font-weight:900;
 }
@@ -811,24 +1546,36 @@ footer{
   font-size:20px;
 }
 
-/* =========================
+
+/* =========================================================
    NO RESULTS
-========================= */
+========================================================= */
 
 .no-results{
   display:none;
-  background:rgba(255,255,255,.72);
-  border:1px solid rgba(255,255,255,.85);
+
+  background:
+    rgba(255,255,255,.72);
+
+  border:
+    1px solid
+    rgba(255,255,255,.85);
+
   border-radius:20px;
+
   padding:35px;
+
   text-align:center;
+
   color:var(--muted);
+
   backdrop-filter:blur(15px);
 }
 
-/* =========================
+
+/* =========================================================
    DESKTOP
-========================= */
+========================================================= */
 
 @media(min-width:768px){
 
@@ -857,26 +1604,35 @@ footer{
   }
 
   .votes-grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
   .people-grid{
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:
+      repeat(4,1fr);
   }
+
 }
+
 
 @media(min-width:1050px){
 
   .votes-grid{
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+      repeat(3,1fr);
   }
+
 }
+
 
 @media(max-width:767px){
 
   .nav{
     height:65px;
-    padding:0 14px;
+
+    padding:
+      0 14px;
   }
 
   .logo{
@@ -892,12 +1648,16 @@ footer{
   }
 
   .google-btn{
-    padding:9px 10px;
+    padding:
+      9px 10px;
+
     font-size:10px;
   }
 
   .logout-btn{
-    padding:7px 8px;
+    padding:
+      7px 8px;
+
     font-size:10px;
   }
 
@@ -912,11 +1672,36 @@ footer{
   .stats{
     margin-bottom:50px;
   }
+
 }
+
+
+/* =========================================================
+   📱 REDUCE MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+
+}
+
 </style>
 </head>
 
+
 <body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
 
 <header>
 
@@ -925,6 +1710,7 @@ footer{
 <a href="index.html" class="logo">
 VOTE<span>RA</span>
 </a>
+
 
 <div class="desktop-nav">
 
@@ -946,6 +1732,7 @@ VOTE<span>RA</span>
 
 </div>
 
+
 <div class="auth-area">
 
 <button
@@ -953,9 +1740,15 @@ id="googleLoginBtn"
 class="google-btn"
 onclick="signInWithGoogle()"
 >
-<span class="google-icon">G</span>
+
+<span class="google-icon">
+G
+</span>
+
 تسجيل الدخول
+
 </button>
+
 
 <div
 id="userBox"
@@ -974,12 +1767,14 @@ id="userName"
 class="user-name"
 ></span>
 
+
 <a
 href="account.html"
 class="account-btn"
 >
 حسابي
 </a>
+
 
 <button
 class="logout-btn"
@@ -996,6 +1791,11 @@ onclick="signOutUser()"
 
 </header>
 
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
 <section class="hero">
 
 <div class="hero-content">
@@ -1004,23 +1804,30 @@ onclick="signOutUser()"
 🔥 مجتمع التصويت الجديد
 </div>
 
+
 <h1>
 VOTE<span>RA</span>
 </h1>
+
 
 <div class="tagline">
 اسأل. صوّت. اكتشف.
 </div>
 
+
 <p class="hero-description">
+
 أنشئ سؤالًا، شاركه مع العالم، واكتشف ماذا يعتقد الناس.
 في VOTERA رأيك له صوت.
+
 </p>
+
 
 <div
 id="welcomeMessage"
 class="welcome"
 ></div>
+
 
 <div class="hero-buttons">
 
@@ -1030,6 +1837,7 @@ class="btn btn-primary"
 >
 🔥 أنشئ تصويتك
 </a>
+
 
 <a
 href="vote.html"
@@ -1044,24 +1852,57 @@ class="btn btn-secondary"
 
 </section>
 
+
+<!-- =========================================================
+     STATS
+========================================================= -->
+
 <div class="stats">
 
 <div class="stat">
-<strong>1K+</strong>
-<span>تصويت</span>
+
+<strong>
+1K+
+</strong>
+
+<span>
+تصويت
+</span>
+
 </div>
+
 
 <div class="stat">
-<strong>10K+</strong>
-<span>صوت</span>
+
+<strong>
+10K+
+</strong>
+
+<span>
+صوت
+</span>
+
 </div>
+
 
 <div class="stat">
-<strong>500+</strong>
-<span>مستخدم</span>
+
+<strong>
+500+
+</strong>
+
+<span>
+مستخدم
+</span>
+
 </div>
 
 </div>
+
+
+<!-- =========================================================
+     TRENDING
+========================================================= -->
 
 <section class="section">
 
@@ -1077,6 +1918,7 @@ class="btn btn-secondary"
 
 </div>
 
+
 <div class="search-box">
 
 <span class="search-icon">
@@ -1091,6 +1933,7 @@ autocomplete="off"
 >
 
 </div>
+
 
 <div class="categories">
 
@@ -1132,10 +1975,14 @@ autocomplete="off"
 
 </div>
 
+
 <div
 id="votesGrid"
 class="votes-grid"
 >
+
+
+<!-- CARD 1 -->
 
 <article
 class="vote-card"
@@ -1154,21 +2001,35 @@ data-search="تصميم تصميم أفضل"
 
 </div>
 
+
 <h3>
 أي تصميم يبدو أفضل؟
 </h3>
 
+
 <div class="options">
 
-<a href="vote.html" class="option">
-<span>🎨 التصميم A</span>
+<a
+href="vote.html"
+class="option"
+>
+<span>
+🎨 التصميم A
+</span>
 </a>
 
-<a href="vote.html" class="option">
-<span>✨ التصميم B</span>
+
+<a
+href="vote.html"
+class="option"
+>
+<span>
+✨ التصميم B
+</span>
 </a>
 
 </div>
+
 
 <div class="vote-meta">
 
@@ -1187,6 +2048,9 @@ onclick="shareVote('أي تصميم يبدو أفضل؟')"
 
 </article>
 
+
+<!-- CARD 2 -->
+
 <article
 class="vote-card"
 data-search="هاتف تقنية هاتف أفضل"
@@ -1204,21 +2068,35 @@ data-search="هاتف تقنية هاتف أفضل"
 
 </div>
 
+
 <h3>
 أي هاتف ستختار؟
 </h3>
 
+
 <div class="options">
 
-<a href="vote.html" class="option">
-<span>📱 الهاتف A</span>
+<a
+href="vote.html"
+class="option"
+>
+<span>
+📱 الهاتف A
+</span>
 </a>
 
-<a href="vote.html" class="option">
-<span>📱 الهاتف B</span>
+
+<a
+href="vote.html"
+class="option"
+>
+<span>
+📱 الهاتف B
+</span>
 </a>
 
 </div>
+
 
 <div class="vote-meta">
 
@@ -1237,6 +2115,9 @@ onclick="shareVote('أي هاتف ستختار؟')"
 
 </article>
 
+
+<!-- CARD 3 -->
+
 <article
 class="vote-card"
 data-search="أزياء إطلالة ملابس"
@@ -1254,21 +2135,35 @@ data-search="أزياء إطلالة ملابس"
 
 </div>
 
+
 <h3>
 أي إطلالة أفضل؟
 </h3>
 
+
 <div class="options">
 
-<a href="vote.html" class="option">
-<span>👕 الإطلالة A</span>
+<a
+href="vote.html"
+class="option"
+>
+<span>
+👕 الإطلالة A
+</span>
 </a>
 
-<a href="vote.html" class="option">
-<span>👔 الإطلالة B</span>
+
+<a
+href="vote.html"
+class="option"
+>
+<span>
+👔 الإطلالة B
+</span>
 </a>
 
 </div>
+
 
 <div class="vote-meta">
 
@@ -1287,6 +2182,9 @@ onclick="shareVote('أي إطلالة أفضل؟')"
 
 </article>
 
+
+<!-- CARD 4 -->
+
 <article
 class="vote-card"
 data-search="ألعاب لعبة gaming"
@@ -1304,21 +2202,35 @@ data-search="ألعاب لعبة gaming"
 
 </div>
 
+
 <h3>
 ما اللعبة التي تفضلها؟
 </h3>
 
+
 <div class="options">
 
-<a href="vote.html" class="option">
-<span>🎮 لعبة A</span>
+<a
+href="vote.html"
+class="option"
+>
+<span>
+🎮 لعبة A
+</span>
 </a>
 
-<a href="vote.html" class="option">
-<span>🕹️ لعبة B</span>
+
+<a
+href="vote.html"
+class="option"
+>
+<span>
+🕹️ لعبة B
+</span>
 </a>
 
 </div>
+
 
 <div class="vote-meta">
 
@@ -1337,6 +2249,9 @@ onclick="shareVote('ما اللعبة التي تفضلها؟')"
 
 </article>
 
+
+<!-- CARD 5 -->
+
 <article
 class="vote-card"
 data-search="فيلم أفلام سينما"
@@ -1354,21 +2269,35 @@ data-search="فيلم أفلام سينما"
 
 </div>
 
+
 <h3>
 ما نوع الأفلام الذي تفضله؟
 </h3>
 
+
 <div class="options">
 
-<a href="vote.html" class="option">
-<span>🎬 أكشن</span>
+<a
+href="vote.html"
+class="option"
+>
+<span>
+🎬 أكشن
+</span>
 </a>
 
-<a href="vote.html" class="option">
-<span>😂 كوميديا</span>
+
+<a
+href="vote.html"
+class="option"
+>
+<span>
+😂 كوميديا
+</span>
 </a>
 
 </div>
+
 
 <div class="vote-meta">
 
@@ -1387,6 +2316,9 @@ onclick="shareVote('ما نوع الأفلام الذي تفضله؟')"
 
 </article>
 
+
+<!-- CARD 6 -->
+
 <article
 class="vote-card"
 data-search="طعام أكل بيتزا برغر"
@@ -1404,21 +2336,35 @@ data-search="طعام أكل بيتزا برغر"
 
 </div>
 
+
 <h3>
 ماذا تختار؟
 </h3>
 
+
 <div class="options">
 
-<a href="vote.html" class="option">
-<span>🍕 بيتزا</span>
+<a
+href="vote.html"
+class="option"
+>
+<span>
+🍕 بيتزا
+</span>
 </a>
 
-<a href="vote.html" class="option">
-<span>🍔 برغر</span>
+
+<a
+href="vote.html"
+class="option"
+>
+<span>
+🍔 برغر
+</span>
 </a>
 
 </div>
+
 
 <div class="vote-meta">
 
@@ -1439,6 +2385,7 @@ onclick="shareVote('ماذا تختار؟ بيتزا أم برغر؟')"
 
 </div>
 
+
 <div
 id="noResults"
 class="no-results"
@@ -1447,6 +2394,11 @@ class="no-results"
 </div>
 
 </section>
+
+
+<!-- =========================================================
+     TOP USERS
+========================================================= -->
 
 <section class="section">
 
@@ -1462,7 +2414,9 @@ class="no-results"
 
 </div>
 
+
 <div class="people-grid">
+
 
 <div class="person">
 
@@ -1482,6 +2436,7 @@ User One
 
 </div>
 
+
 <div class="person">
 
 <img
@@ -1500,6 +2455,7 @@ Vote Master
 
 </div>
 
+
 <div class="person">
 
 <img
@@ -1517,6 +2473,7 @@ Poll King
 </span>
 
 </div>
+
 
 <div class="person">
 
@@ -1540,6 +2497,11 @@ Voter Pro
 
 </section>
 
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
 <section class="section">
 
 <div class="create-box">
@@ -1560,9 +2522,15 @@ Voter Pro
 
 </section>
 
+
 <footer>
 VOTERA © 2026 — اسأل. صوّت. اكتشف.
 </footer>
+
+
+<!-- =========================================================
+     MOBILE NAV
+========================================================= -->
 
 <nav class="mobile-nav">
 
@@ -1570,37 +2538,71 @@ VOTERA © 2026 — اسأل. صوّت. اكتشف.
 href="index.html"
 class="active"
 >
-<span class="nav-icon">🏠</span>
+
+<span class="nav-icon">
+🏠
+</span>
+
 الرئيسية
+
 </a>
 
+
 <a href="vote.html">
-<span class="nav-icon">🔥</span>
+
+<span class="nav-icon">
+🔥
+</span>
+
 استكشف
+
 </a>
+
 
 <a href="create.html">
-<span class="nav-icon">➕</span>
+
+<span class="nav-icon">
+➕
+</span>
+
 إنشاء
+
 </a>
+
 
 <a href="vote.html">
-<span class="nav-icon">🏆</span>
+
+<span class="nav-icon">
+🏆
+</span>
+
 الترتيب
+
 </a>
 
+
 <a href="account.html">
-<span class="nav-icon">👤</span>
+
+<span class="nav-icon">
+👤
+</span>
+
 حسابي
+
 </a>
 
 </nav>
 
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
 <script>
 
-/* ==========================================
+/* =========================================================
    SUPABASE
-========================================== */
+========================================================= */
 
 const SUPABASE_URL =
 "https://vatlwkuagxyrvwclttfz.supabase.co";
@@ -1608,52 +2610,66 @@ const SUPABASE_URL =
 const SUPABASE_ANON_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
 
+
 const supabaseClient =
 window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_ANON_KEY
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
 );
 
 
-/* ==========================================
+/* =========================================================
    ELEMENTS
-========================================== */
+========================================================= */
 
 const googleLoginBtn =
-document.getElementById("googleLoginBtn");
+document.getElementById(
+  "googleLoginBtn"
+);
 
 const userBox =
-document.getElementById("userBox");
+document.getElementById(
+  "userBox"
+);
 
 const userAvatar =
-document.getElementById("userAvatar");
+document.getElementById(
+  "userAvatar"
+);
 
 const userName =
-document.getElementById("userName");
+document.getElementById(
+  "userName"
+);
 
 const welcomeMessage =
-document.getElementById("welcomeMessage");
+document.getElementById(
+  "welcomeMessage"
+);
 
 
-/* ==========================================
+/* =========================================================
    GOOGLE LOGIN
-========================================== */
+========================================================= */
 
 async function signInWithGoogle(){
 
   try{
 
-    const {error} =
-      await supabaseClient.auth.signInWithOAuth({
+    const {
+      error
+    } =
+    await supabaseClient.auth.signInWithOAuth({
 
-        provider:"google",
+      provider:"google",
 
-        options:{
-          redirectTo:
-          "https://akkarali86-cmyk.github.io/VOTERA/"
-        }
+      options:{
+        redirectTo:
+        "https://akkarali86-cmyk.github.io/VOTERA/"
+      }
 
-      });
+    });
+
 
     if(error){
 
@@ -1679,14 +2695,17 @@ async function signInWithGoogle(){
 }
 
 
-/* ==========================================
+/* =========================================================
    LOGOUT
-========================================== */
+========================================================= */
 
 async function signOutUser(){
 
-  const {error} =
-    await supabaseClient.auth.signOut();
+  const {
+    error
+  } =
+  await supabaseClient.auth.signOut();
+
 
   if(error){
 
@@ -1698,14 +2717,15 @@ async function signOutUser(){
 
   }
 
+
   updateUserInterface(null);
 
 }
 
 
-/* ==========================================
+/* =========================================================
    USER INTERFACE
-========================================== */
+========================================================= */
 
 function updateUserInterface(user){
 
@@ -1717,8 +2737,10 @@ function updateUserInterface(user){
     userBox.style.display =
       "flex";
 
+
     const metadata =
       user.user_metadata || {};
+
 
     const name =
       metadata.full_name ||
@@ -1726,13 +2748,16 @@ function updateUserInterface(user){
       user.email ||
       "مستخدم VOTERA";
 
+
     const avatar =
       metadata.avatar_url ||
       metadata.picture ||
       "";
 
+
     userName.textContent =
       name;
+
 
     if(avatar){
 
@@ -1747,9 +2772,11 @@ function updateUserInterface(user){
 
     }
 
+
     welcomeMessage.textContent =
       "مرحبًا بك في VOTERA 👋 " +
       name;
+
 
     welcomeMessage.style.display =
       "block";
@@ -1770,9 +2797,9 @@ function updateUserInterface(user){
 }
 
 
-/* ==========================================
+/* =========================================================
    SESSION
-========================================== */
+========================================================= */
 
 async function checkUser(){
 
@@ -1783,7 +2810,8 @@ async function checkUser(){
         session
       }
     } =
-      await supabaseClient.auth.getSession();
+    await supabaseClient.auth.getSession();
+
 
     updateUserInterface(
       session?.user || null
@@ -1801,9 +2829,9 @@ async function checkUser(){
 }
 
 
-/* ==========================================
+/* =========================================================
    AUTH LISTENER
-========================================== */
+========================================================= */
 
 supabaseClient.auth.onAuthStateChange(
   function(event,session){
@@ -1816,101 +2844,116 @@ supabaseClient.auth.onAuthStateChange(
 );
 
 
-/* ==========================================
+/* =========================================================
    SEARCH
-========================================== */
+========================================================= */
 
 const searchInput =
-document.getElementById("searchInput");
+document.getElementById(
+  "searchInput"
+);
 
 const cards =
-document.querySelectorAll(".vote-card");
+document.querySelectorAll(
+  ".vote-card"
+);
 
 const noResults =
-document.getElementById("noResults");
+document.getElementById(
+  "noResults"
+);
 
 
 searchInput.addEventListener(
-"input",
-function(){
+  "input",
+  function(){
 
-  const search =
-    this.value
-    .trim()
-    .toLowerCase();
+    const search =
+      this.value
+      .trim()
+      .toLowerCase();
 
-  let visible = 0;
 
-  cards.forEach(
-    function(card){
+    let visible = 0;
 
-      const text =
-        card.dataset.search
-        .toLowerCase();
 
-      if(text.includes(search)){
+    cards.forEach(
+      function(card){
 
-        card.style.display =
-          "block";
+        const text =
+          card.dataset.search
+          .toLowerCase();
 
-        visible++;
 
-      }else{
+        if(
+          text.includes(search)
+        ){
 
-        card.style.display =
-          "none";
+          card.style.display =
+            "block";
+
+          visible++;
+
+        }else{
+
+          card.style.display =
+            "none";
+
+        }
 
       }
-
-    }
-  );
-
-  noResults.style.display =
-    visible === 0
-      ? "block"
-      : "none";
-
-});
+    );
 
 
-/* ==========================================
+    noResults.style.display =
+      visible === 0
+        ? "block"
+        : "none";
+
+  }
+);
+
+
+/* =========================================================
    CATEGORIES
-========================================== */
+========================================================= */
 
 document
 .querySelectorAll(".category")
 .forEach(
-function(category){
+  function(category){
 
-  category.addEventListener(
-    "click",
-    function(){
+    category.addEventListener(
+      "click",
+      function(){
 
-      document
-      .querySelectorAll(".category")
-      .forEach(
-        function(item){
+        document
+        .querySelectorAll(".category")
+        .forEach(
+          function(item){
 
-          item.classList.remove(
-            "active"
-          );
+            item.classList.remove(
+              "active"
+            );
 
-        }
-      );
-
-      this.classList.add(
-        "active"
-      );
-
-    }
-  );
-
-});
+          }
+        );
 
 
-/* ==========================================
+        this.classList.add(
+          "active"
+        );
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
    SHARE
-========================================== */
+========================================================= */
 
 async function shareVote(question){
 
@@ -1928,9 +2971,12 @@ async function shareVote(question){
 
   };
 
+
   try{
 
-    if(navigator.share){
+    if(
+      navigator.share
+    ){
 
       await navigator.share(
         shareData
@@ -1959,9 +3005,9 @@ async function shareVote(question){
 }
 
 
-/* ==========================================
+/* =========================================================
    START
-========================================== */
+========================================================= */
 
 checkUser();
 
