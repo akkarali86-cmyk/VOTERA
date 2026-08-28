@@ -5,10 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>التصويت — VOTERA</title>
 
@@ -52,7 +49,9 @@ a{
 }
 
 
-/* HEADER */
+/* =========================================
+   HEADER
+========================================= */
 
 header{
   height:68px;
@@ -93,7 +92,9 @@ header{
 }
 
 
-/* CONTAINER */
+/* =========================================
+   CONTAINER
+========================================= */
 
 .container{
   width:100%;
@@ -103,7 +104,9 @@ header{
 }
 
 
-/* VOTE HEADER */
+/* =========================================
+   VOTE HEADER
+========================================= */
 
 .vote-header{
   text-align:center;
@@ -134,7 +137,9 @@ header{
 }
 
 
-/* LOADING */
+/* =========================================
+   LOADING
+========================================= */
 
 .loading{
   text-align:center;
@@ -144,7 +149,9 @@ header{
 }
 
 
-/* OPTIONS */
+/* =========================================
+   OPTIONS
+========================================= */
 
 .options{
   display:grid;
@@ -226,7 +233,9 @@ header{
 }
 
 
-/* RESULTS */
+/* =========================================
+   RESULTS
+========================================= */
 
 #results{
   display:none;
@@ -305,7 +314,9 @@ header{
 }
 
 
-/* SHARE */
+/* =========================================
+   SHARE
+========================================= */
 
 .share-section{
   margin-top:20px;
@@ -350,7 +361,9 @@ header{
 }
 
 
-/* CREATE */
+/* =========================================
+   CREATE
+========================================= */
 
 .create-own{
   display:block;
@@ -369,7 +382,9 @@ header{
 }
 
 
-/* ERROR */
+/* =========================================
+   ERROR
+========================================= */
 
 .error{
   display:none;
@@ -386,7 +401,9 @@ header{
 }
 
 
-/* MESSAGE */
+/* =========================================
+   MESSAGE
+========================================= */
 
 .message{
   display:none;
@@ -411,7 +428,9 @@ header{
 }
 
 
-/* DESKTOP */
+/* =========================================
+   DESKTOP
+========================================= */
 
 @media(min-width:650px){
 
@@ -675,6 +694,31 @@ let isVoting = false;
 
 
 /* =========================================
+   ALL OPTIONS
+   A → O
+========================================= */
+
+const optionLetters =
+[
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O"
+];
+
+
+/* =========================================
    CHECK PREVIOUS VOTE
 ========================================= */
 
@@ -717,13 +761,55 @@ async function loadVote(){
 
   try{
 
+    /*
+      جلب جميع الخيارات
+      من A إلى O
+    */
+
     const result =
       await supabaseClient
         .from("votes")
-        .select(
-          "id,question,category,option_a,option_b,votes_a,votes_b"
+        .select(`
+          id,
+          question,
+          category,
+
+          option_a,
+          option_b,
+          option_c,
+          option_d,
+          option_e,
+          option_f,
+          option_g,
+          option_h,
+          option_i,
+          option_j,
+          option_k,
+          option_l,
+          option_m,
+          option_n,
+          option_o,
+
+          votes_a,
+          votes_b,
+          votes_c,
+          votes_d,
+          votes_e,
+          votes_f,
+          votes_g,
+          votes_h,
+          votes_i,
+          votes_j,
+          votes_k,
+          votes_l,
+          votes_m,
+          votes_n,
+          votes_o
+        `)
+        .eq(
+          "id",
+          voteId
         )
-        .eq("id",voteId)
         .maybeSingle();
 
 
@@ -813,6 +899,75 @@ function showError(text){
 
 
 /* =========================================
+   GET EXISTING OPTIONS
+========================================= */
+
+function getOptions(){
+
+  if(!voteData){
+    return [];
+  }
+
+
+  const options = [];
+
+
+  optionLetters.forEach(
+  function(letter,index){
+
+    const optionColumn =
+      "option_" +
+      letter.toLowerCase();
+
+
+    const votesColumn =
+      "votes_" +
+      letter.toLowerCase();
+
+
+    const name =
+      voteData[optionColumn];
+
+
+    /*
+      لا نضيف الخيار إذا كان فارغًا.
+    */
+
+    if(
+      name !== null &&
+      name !== undefined &&
+      String(name).trim() !== ""
+    ){
+
+      options.push({
+
+        letter:
+          letter,
+
+        name:
+          String(name),
+
+        votes:
+          Number(
+            voteData[votesColumn] || 0
+          ),
+
+        index:
+          index
+
+      });
+
+    }
+
+  });
+
+
+  return options;
+
+}
+
+
+/* =========================================
    RENDER VOTE
 ========================================= */
 
@@ -868,33 +1023,54 @@ function renderVote(){
     "";
 
 
-  /* OPTION A */
+  const options =
+    getOptions();
 
-  createOptionCard(
-    "A",
-    voteData.option_a,
-    Number(voteData.votes_a || 0),
-    0
+
+  /*
+    إنشاء جميع الخيارات الموجودة
+    A → O
+  */
+
+  options.forEach(
+    function(option){
+
+      createOptionCard(
+        option.letter,
+        option.name,
+        option.votes,
+        option.index
+      );
+
+    }
   );
 
 
-  /* OPTION B */
+  /*
+    إذا لم توجد خيارات
+  */
 
-  createOptionCard(
-    "B",
-    voteData.option_b,
-    Number(voteData.votes_b || 0),
-    1
-  );
+  if(options.length === 0){
+
+    showError(
+      "لا توجد خيارات لهذا التصويت."
+    );
+
+    return;
+
+  }
 
 
-  /* PREVIOUS VOTE */
+  /*
+    إذا سبق للمستخدم التصويت
+  */
 
   if(alreadyVoted){
 
     document
       .querySelectorAll(".vote-button")
-      .forEach(function(button){
+      .forEach(
+      function(button){
 
         button.disabled =
           true;
@@ -938,10 +1114,33 @@ function createOptionCard(
     "option-card";
 
 
+  /*
+    رمز مختلف لكل خيار
+  */
+
+  const icons =
+  {
+    A:"🅰️",
+    B:"🅱️",
+    C:"©️",
+    D:"🔵",
+    E:"🟢",
+    F:"🟣",
+    G:"🟡",
+    H:"🟠",
+    I:"🔴",
+    J:"🟤",
+    K:"⚫",
+    L:"⚪",
+    M:"🔷",
+    N:"🔶",
+    O:"💠"
+  };
+
+
   const image =
-    letter === "A"
-    ? "🅰️"
-    : "🅱️";
+    icons[letter] ||
+    "🔹";
 
 
   card.innerHTML = `
@@ -961,11 +1160,14 @@ function createOptionCard(
       </div>
 
       <div class="vote-count">
-        🔥 ${Number(votes).toLocaleString()} صوت
+        🔥
+        ${Number(votes).toLocaleString()}
+        صوت
       </div>
 
       <button
         class="vote-button"
+        data-index="${index}"
         onclick="vote(${index})"
       >
         صوّت للخيار ${letter}
@@ -1018,13 +1220,33 @@ async function vote(index){
   }
 
 
-  isVoting = true;
+  /*
+    معرفة حرف الخيار
+  */
 
+  const letter =
+    optionLetters[index];
+
+
+  if(!letter){
+
+    showMessage(
+      "الخيار غير صالح.",
+      "error-message"
+    );
+
+    return;
+
+  }
+
+
+  /*
+    اسم عمود الأصوات
+  */
 
   const column =
-    index === 0
-    ? "votes_a"
-    : "votes_b";
+    "votes_" +
+    letter.toLowerCase();
 
 
   const currentVotes =
@@ -1037,9 +1259,18 @@ async function vote(index){
     currentVotes + 1;
 
 
+  isVoting =
+    true;
+
+
+  /*
+    تعطيل جميع الأزرار
+  */
+
   document
     .querySelectorAll(".vote-button")
-    .forEach(function(button){
+    .forEach(
+    function(button){
 
       button.disabled =
         true;
@@ -1053,7 +1284,7 @@ async function vote(index){
   try{
 
     /*
-      تحديث عدد الأصوات
+      تحديث الصوت
     */
 
     const result =
@@ -1095,6 +1326,10 @@ async function vote(index){
       true;
 
 
+    /*
+      حفظ التصويت على الجهاز
+    */
+
     localStorage.setItem(
       "voted_" + voteId,
       "true"
@@ -1108,7 +1343,7 @@ async function vote(index){
 
 
     /*
-      إعادة عرض الأزرار
+      إعادة عرض الخيارات
     */
 
     renderVote();
@@ -1123,20 +1358,37 @@ async function vote(index){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Voting error:",
+      error
+    );
 
+
+    /*
+      إعادة الأزرار
+    */
 
     document
       .querySelectorAll(".vote-button")
-      .forEach(function(button){
+      .forEach(
+      function(button){
 
         button.disabled =
           false;
 
+        const buttonIndex =
+          Number(
+            button.dataset.index
+          );
+
+        const buttonLetter =
+          optionLetters[
+            buttonIndex
+          ];
+
         button.textContent =
-          button.textContent.includes("A")
-          ? "صوّت للخيار A"
-          : "صوّت للخيار B";
+          "صوّت للخيار " +
+          buttonLetter;
 
       });
 
@@ -1172,38 +1424,30 @@ function showResults(){
   }
 
 
-  const votesA =
-    Number(
-      voteData.votes_a || 0
-    );
+  const options =
+    getOptions();
 
 
-  const votesB =
-    Number(
-      voteData.votes_b || 0
-    );
-
-
-  const total =
-    votesA + votesB;
-
-
-  let percentA = 0;
-
-  let percentB = 0;
-
-
-  if(total > 0){
-
-    percentA =
-      Math.round(
-        (votesA / total) * 100
-      );
-
-    percentB =
-      100 - percentA;
-
+  if(options.length === 0){
+    return;
   }
+
+
+  /*
+    إجمالي الأصوات
+  */
+
+  let total = 0;
+
+
+  options.forEach(
+    function(option){
+
+      total +=
+        Number(option.votes || 0);
+
+    }
+  );
 
 
   const rows =
@@ -1212,21 +1456,54 @@ function showResults(){
     );
 
 
-  rows.innerHTML = `
+  rows.innerHTML =
+    "";
 
-    <div class="result-row">
+
+  /*
+    إنشاء نتيجة لكل خيار
+  */
+
+  options.forEach(
+  function(option){
+
+    let percentage =
+      0;
+
+
+    if(total > 0){
+
+      percentage =
+        Math.round(
+          (
+            option.votes /
+            total
+          ) * 100
+        );
+
+    }
+
+
+    const row =
+      document.createElement(
+        "div"
+      );
+
+
+    row.className =
+      "result-row";
+
+
+    row.innerHTML = `
 
       <div class="result-top">
 
         <span>
-          ${escapeHTML(
-            voteData.option_a ||
-            "الخيار A"
-          )}
+          ${escapeHTML(option.name)}
         </span>
 
         <span class="percentage">
-          ${percentA}%
+          ${percentage}%
         </span>
 
       </div>
@@ -1235,44 +1512,22 @@ function showResults(){
 
         <div
           class="bar-fill"
-          style="width:${percentA}%"
+          style="width:${percentage}%"
         ></div>
 
       </div>
 
-    </div>
+    `;
 
 
-    <div class="result-row">
+    rows.appendChild(row);
 
-      <div class="result-top">
+  });
 
-        <span>
-          ${escapeHTML(
-            voteData.option_b ||
-            "الخيار B"
-          )}
-        </span>
 
-        <span class="percentage">
-          ${percentB}%
-        </span>
-
-      </div>
-
-      <div class="bar">
-
-        <div
-          class="bar-fill"
-          style="width:${percentB}%"
-        ></div>
-
-      </div>
-
-    </div>
-
-  `;
-
+  /*
+    إجمالي الأصوات
+  */
 
   document
     .getElementById("totalVotes")
@@ -1280,48 +1535,73 @@ function showResults(){
       total.toLocaleString();
 
 
-  let winner;
+  /*
+    تحديد الفائز
+  */
+
+  const winnerElement =
+    document.getElementById(
+      "winner"
+    );
 
 
   if(total === 0){
 
-    winner =
+    winnerElement.textContent =
       "🏆 لم يصوّت أحد بعد";
 
-  }
-  else if(votesA === votesB){
+  }else{
 
-    winner =
-      "🤝 تعادل";
-
-  }
-  else if(votesA > votesB){
-
-    winner =
-      "🏆 الفائز: " +
-      (
-        voteData.option_a ||
-        "الخيار A"
+    const maxVotes =
+      Math.max.apply(
+        null,
+        options.map(
+          function(option){
+            return option.votes;
+          }
+        )
       );
 
-  }
-  else{
 
-    winner =
-      "🏆 الفائز: " +
-      (
-        voteData.option_b ||
-        "الخيار B"
+    const winners =
+      options.filter(
+        function(option){
+
+          return (
+            option.votes ===
+            maxVotes
+          );
+
+        }
       );
 
+
+    if(winners.length > 1){
+
+      winnerElement.textContent =
+        "🤝 تعادل بين: " +
+        winners
+          .map(
+            function(option){
+              return option.name;
+            }
+          )
+          .join(" و ");
+
+    }else{
+
+      winnerElement.textContent =
+        "🏆 الفائز: " +
+        winners[0].name;
+
+    }
+
   }
 
 
-  document
-    .getElementById("winner")
-    .textContent =
-      winner;
-
+  /*
+    إظهار النتائج
+  */
 
   document
     .getElementById("results")
