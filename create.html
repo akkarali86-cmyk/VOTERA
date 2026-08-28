@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>إنشاء تصويت — VOTERA</title>
@@ -48,6 +51,7 @@ a{
   color:inherit;
 }
 
+
 /* HEADER */
 
 header{
@@ -88,6 +92,7 @@ header{
   font-weight:800;
 }
 
+
 /* CONTAINER */
 
 .container{
@@ -123,6 +128,7 @@ header{
   line-height:1.6;
   font-size:14px;
 }
+
 
 /* CARD */
 
@@ -178,6 +184,7 @@ input:focus{
   font-size:11px;
   margin-top:6px;
 }
+
 
 /* OPTIONS */
 
@@ -264,6 +271,7 @@ input:focus{
   margin-top:5px;
 }
 
+
 /* CATEGORY */
 
 .category-grid{
@@ -286,6 +294,7 @@ input:focus{
   color:white;
   border-color:var(--primary);
 }
+
 
 /* SETTINGS */
 
@@ -356,6 +365,7 @@ input:focus{
   transform:translateX(21px);
 }
 
+
 /* BUTTON */
 
 .publish{
@@ -377,6 +387,9 @@ input:focus{
   opacity:.65;
   cursor:not-allowed;
 }
+
+
+/* MESSAGE */
 
 .message{
   display:none;
@@ -402,6 +415,9 @@ input:focus{
   color:#166534;
   border:1px solid #bbf7d0;
 }
+
+
+/* LOGIN */
 
 .login-box{
   display:none;
@@ -435,6 +451,9 @@ input:focus{
   margin-top:13px;
 }
 
+
+/* DESKTOP */
+
 @media(min-width:700px){
 
   .container{
@@ -456,9 +475,12 @@ input:focus{
 }
 
 </style>
+
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -477,7 +499,9 @@ VOTE<span>RA</span>
 </header>
 
 
+
 <main class="container">
+
 
 <div class="title">
 
@@ -494,6 +518,7 @@ VOTE<span>RA</span>
 </p>
 
 </div>
+
 
 
 <div id="loginBox" class="login-box">
@@ -516,7 +541,9 @@ onclick="signInWithGoogle()"
 </div>
 
 
+
 <div id="message" class="message"></div>
+
 
 
 <!-- QUESTION -->
@@ -546,6 +573,7 @@ id="counter"
 </div>
 
 </section>
+
 
 
 <!-- CATEGORY -->
@@ -595,6 +623,7 @@ id="counter"
 </section>
 
 
+
 <!-- OPTIONS -->
 
 <section class="card">
@@ -606,6 +635,8 @@ id="counter"
 
 <div id="options">
 
+
+<!-- OPTION A -->
 
 <div class="option">
 
@@ -648,6 +679,9 @@ maxlength="80"
 
 </div>
 
+
+
+<!-- OPTION B -->
 
 <div class="option">
 
@@ -694,6 +728,7 @@ maxlength="80"
 </div>
 
 
+
 <button
 type="button"
 class="add-option"
@@ -703,6 +738,7 @@ onclick="addOption()"
 </button>
 
 </section>
+
 
 
 <!-- SETTINGS -->
@@ -743,6 +779,7 @@ checked
 </div>
 
 
+
 <div class="settings-row">
 
 <div class="setting-text">
@@ -774,6 +811,7 @@ checked
 </section>
 
 
+
 <button
 type="button"
 id="publishButton"
@@ -784,14 +822,18 @@ onclick="publishVote()"
 </button>
 
 
+
 <div class="bottom-note">
 بنشرك للتصويت، أنت توافق على قواعد مجتمع VOTERA.
 </div>
 
+
 </main>
 
 
+
 <script>
+
 
 /* ==========================================
    SUPABASE
@@ -803,11 +845,13 @@ const SUPABASE_URL =
 const SUPABASE_ANON_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
 
+
 const supabaseClient =
 window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
+
 
 
 /* ==========================================
@@ -819,6 +863,7 @@ let currentUser = null;
 let selectedCategory = "عام";
 
 let optionCount = 2;
+
 
 
 /* ==========================================
@@ -835,18 +880,21 @@ const publishButton =
 document.getElementById("publishButton");
 
 
+
 /* ==========================================
    MESSAGE
 ========================================== */
 
 function showMessage(text,type){
 
-  message.textContent = text;
+  message.textContent =
+    text;
 
   message.className =
     "message " + type;
 
 }
+
 
 
 /* ==========================================
@@ -864,10 +912,13 @@ async function checkUser(){
     } =
     await supabaseClient.auth.getSession();
 
+
     currentUser =
       session?.user || null;
 
+
     updateLoginState();
+
 
   }catch(error){
 
@@ -884,6 +935,7 @@ async function checkUser(){
   }
 
 }
+
 
 
 /* ==========================================
@@ -913,6 +965,7 @@ function updateLoginState(){
 }
 
 
+
 /* ==========================================
    GOOGLE LOGIN
 ========================================== */
@@ -929,8 +982,10 @@ async function signInWithGoogle(){
       provider:"google",
 
       options:{
+
         redirectTo:
         "https://akkarali86-cmyk.github.io/VOTERA/create.html"
+
       }
 
     });
@@ -962,6 +1017,7 @@ async function signInWithGoogle(){
 }
 
 
+
 /* ==========================================
    AUTH STATE
 ========================================== */
@@ -977,6 +1033,7 @@ function(event,session){
 });
 
 
+
 /* ==========================================
    QUESTION COUNTER
 ========================================== */
@@ -986,12 +1043,15 @@ function updateCounter(){
   const question =
     document.getElementById("question");
 
-  document.getElementById("counter")
+
+  document
+    .getElementById("counter")
     .textContent =
-    question.value.length +
-    " / 150";
+      question.value.length +
+      " / 150";
 
 }
+
 
 
 /* ==========================================
@@ -1004,8 +1064,11 @@ function previewImage(input){
     !input.files ||
     !input.files[0]
   ){
+
     return;
+
   }
+
 
   const file =
     input.files[0];
@@ -1047,14 +1110,23 @@ function previewImage(input){
   const container =
     input.parentElement;
 
+
   const preview =
-    container.querySelector(".preview");
+    container.querySelector(
+      ".preview"
+    );
+
 
   const icon =
-    container.querySelector("span");
+    container.querySelector(
+      "span"
+    );
+
 
   const text =
-    container.querySelector("p");
+    container.querySelector(
+      "p"
+    );
 
 
   const reader =
@@ -1084,6 +1156,7 @@ function previewImage(input){
 }
 
 
+
 /* ==========================================
    ADD OPTION
 ========================================== */
@@ -1099,7 +1172,7 @@ function addOption(){
   if(currentOptions.length >= 4){
 
     showMessage(
-      "يمكنك إضافة 4 خيارات كحد أقصى.",
+      "يمكنك إضافة 4 خيارات كحد أقصى: A و B و C و D.",
       "error"
     );
 
@@ -1120,6 +1193,7 @@ function addOption(){
 
   const option =
     document.createElement("div");
+
 
   option.className =
     "option";
@@ -1143,6 +1217,7 @@ function addOption(){
 
     </div>
 
+
     <div class="image-upload">
 
       <span>🖼️</span>
@@ -1160,6 +1235,7 @@ function addOption(){
       <img class="preview">
 
     </div>
+
 
     <label>
       اسم الخيار
@@ -1183,6 +1259,7 @@ function addOption(){
   updateOptionLetters();
 
 }
+
 
 
 /* ==========================================
@@ -1225,6 +1302,7 @@ function removeOption(button){
 }
 
 
+
 /* ==========================================
    UPDATE OPTION LETTERS
 ========================================== */
@@ -1251,11 +1329,12 @@ function updateOptionLetters(){
         ".option-number"
       )
       .textContent =
-      "الخيار " + letter;
+        "الخيار " + letter;
 
   });
 
 }
+
 
 
 /* ==========================================
@@ -1295,6 +1374,7 @@ function(button){
   );
 
 });
+
 
 
 /* ==========================================
@@ -1350,6 +1430,9 @@ async function publishVote(){
   }
 
 
+
+  /* الحصول على جميع الخيارات */
+
   const optionElements =
     document.querySelectorAll(
       "#options .option"
@@ -1381,10 +1464,13 @@ async function publishVote(){
   });
 
 
+
+  /* يجب وجود خيارين على الأقل */
+
   if(optionNames.length < 2){
 
     showMessage(
-      "أدخل اسم الخيارين على الأقل.",
+      "أدخل اسم خيارين على الأقل.",
       "error"
     );
 
@@ -1393,31 +1479,57 @@ async function publishVote(){
   }
 
 
+  /* الحد الأقصى 4 */
+
+  if(optionNames.length > 4){
+
+    showMessage(
+      "الحد الأقصى هو 4 خيارات.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+
   /*
-    مهم:
-    لا نرسل is_public
-    ولا one_vote
-    لأنهما غير موجودين
-    في جدول votes الحالي.
+    ترتيب الخيارات:
+
+    A = optionNames[0]
+    B = optionNames[1]
+    C = optionNames[2]
+    D = optionNames[3]
   */
 
   const optionA =
-    optionNames[0];
+    optionNames[0] || null;
 
   const optionB =
-    optionNames[1];
+    optionNames[1] || null;
+
+  const optionC =
+    optionNames[2] || null;
+
+  const optionD =
+    optionNames[3] || null;
+
 
 
   publishButton.disabled =
     true;
 
+
   publishButton.textContent =
     "⏳ جارٍ نشر التصويت...";
 
 
+
   try{
 
-    /* الحصول على الجلسة الحالية */
+
+    /* الحصول على الجلسة */
 
     const {
       data:{
@@ -1436,19 +1548,17 @@ async function publishVote(){
     }
 
 
-    /*
-      إدخال البيانات في جدول votes
 
-      نستخدم فقط الأعمدة
-      الموجودة في الجدول الحالي:
-      
-      user_id
-      question
-      category
-      option_a
-      option_b
-      votes_a
-      votes_b
+    /*
+      إنشاء التصويت
+
+      ملاحظة:
+      يجب أن تكون أعمدة
+      option_c
+      option_d
+      votes_c
+      votes_d
+      موجودة في جدول votes.
     */
 
     const {
@@ -1474,15 +1584,28 @@ async function publishVote(){
         option_b:
           optionB,
 
+        option_c:
+          optionC,
+
+        option_d:
+          optionD,
+
         votes_a:
           0,
 
         votes_b:
+          0,
+
+        votes_c:
+          0,
+
+        votes_d:
           0
 
       })
       .select()
       .single();
+
 
 
     if(error){
@@ -1499,6 +1622,7 @@ async function publishVote(){
     }
 
 
+
     if(!data){
 
       throw new Error(
@@ -1506,6 +1630,7 @@ async function publishVote(){
       );
 
     }
+
 
 
     /* نجاح */
@@ -1520,9 +1645,8 @@ async function publishVote(){
       "✅ تم النشر";
 
 
-    /*
-      الانتقال إلى صفحة التصويت
-    */
+
+    /* الانتقال إلى التصويت */
 
     setTimeout(
     function(){
@@ -1556,12 +1680,14 @@ async function publishVote(){
     publishButton.disabled =
       false;
 
+
     publishButton.textContent =
       "🚀 نشر التصويت";
 
   }
 
 }
+
 
 
 /* ==========================================
@@ -1573,4 +1699,5 @@ checkUser();
 </script>
 
 </body>
+
 </html>
