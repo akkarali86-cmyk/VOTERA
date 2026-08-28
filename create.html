@@ -51,7 +51,6 @@ a{
   color:inherit;
 }
 
-
 /* HEADER */
 
 header{
@@ -92,7 +91,6 @@ header{
   font-weight:800;
 }
 
-
 /* CONTAINER */
 
 .container{
@@ -128,7 +126,6 @@ header{
   line-height:1.6;
   font-size:14px;
 }
-
 
 /* CARD */
 
@@ -184,7 +181,6 @@ input:focus{
   font-size:11px;
   margin-top:6px;
 }
-
 
 /* OPTIONS */
 
@@ -271,6 +267,12 @@ input:focus{
   margin-top:5px;
 }
 
+.options-info{
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:12px;
+}
 
 /* CATEGORY */
 
@@ -294,7 +296,6 @@ input:focus{
   color:white;
   border-color:var(--primary);
 }
-
 
 /* SETTINGS */
 
@@ -365,7 +366,6 @@ input:focus{
   transform:translateX(21px);
 }
 
-
 /* BUTTON */
 
 .publish{
@@ -387,7 +387,6 @@ input:focus{
   opacity:.65;
   cursor:not-allowed;
 }
-
 
 /* MESSAGE */
 
@@ -415,7 +414,6 @@ input:focus{
   color:#166534;
   border:1px solid #bbf7d0;
 }
-
 
 /* LOGIN */
 
@@ -450,7 +448,6 @@ input:focus{
   line-height:1.6;
   margin-top:13px;
 }
-
 
 /* DESKTOP */
 
@@ -499,7 +496,6 @@ VOTE<span>RA</span>
 </header>
 
 
-
 <main class="container">
 
 
@@ -518,7 +514,6 @@ VOTE<span>RA</span>
 </p>
 
 </div>
-
 
 
 <div id="loginBox" class="login-box">
@@ -541,9 +536,7 @@ onclick="signInWithGoogle()"
 </div>
 
 
-
 <div id="message" class="message"></div>
-
 
 
 <!-- QUESTION -->
@@ -573,7 +566,6 @@ id="counter"
 </div>
 
 </section>
-
 
 
 <!-- CATEGORY -->
@@ -623,7 +615,6 @@ id="counter"
 </section>
 
 
-
 <!-- OPTIONS -->
 
 <section class="card">
@@ -631,7 +622,6 @@ id="counter"
 <div class="card-title">
 3️⃣ خيارات التصويت
 </div>
-
 
 <div id="options">
 
@@ -678,7 +668,6 @@ maxlength="80"
 >
 
 </div>
-
 
 
 <!-- OPTION B -->
@@ -728,7 +717,6 @@ maxlength="80"
 </div>
 
 
-
 <button
 type="button"
 class="add-option"
@@ -737,8 +725,12 @@ onclick="addOption()"
 ➕ إضافة خيار
 </button>
 
-</section>
 
+<div class="options-info">
+يمكنك إضافة حتى 15 خيارًا. الخيارات الإضافية اختيارية.
+</div>
+
+</section>
 
 
 <!-- SETTINGS -->
@@ -779,7 +771,6 @@ checked
 </div>
 
 
-
 <div class="settings-row">
 
 <div class="setting-text">
@@ -811,7 +802,6 @@ checked
 </section>
 
 
-
 <button
 type="button"
 id="publishButton"
@@ -822,7 +812,6 @@ onclick="publishVote()"
 </button>
 
 
-
 <div class="bottom-note">
 بنشرك للتصويت، أنت توافق على قواعد مجتمع VOTERA.
 </div>
@@ -831,9 +820,7 @@ onclick="publishVote()"
 </main>
 
 
-
 <script>
-
 
 /* ==========================================
    SUPABASE
@@ -853,7 +840,6 @@ window.supabase.createClient(
 );
 
 
-
 /* ==========================================
    VARIABLES
 ========================================== */
@@ -862,8 +848,7 @@ let currentUser = null;
 
 let selectedCategory = "عام";
 
-let optionCount = 2;
-
+const MAX_OPTIONS = 15;
 
 
 /* ==========================================
@@ -880,7 +865,6 @@ const publishButton =
 document.getElementById("publishButton");
 
 
-
 /* ==========================================
    MESSAGE
 ========================================== */
@@ -894,7 +878,6 @@ function showMessage(text,type){
     "message " + type;
 
 }
-
 
 
 /* ==========================================
@@ -937,7 +920,6 @@ async function checkUser(){
 }
 
 
-
 /* ==========================================
    UPDATE LOGIN STATE
 ========================================== */
@@ -963,7 +945,6 @@ function updateLoginState(){
   }
 
 }
-
 
 
 /* ==========================================
@@ -1017,7 +998,6 @@ async function signInWithGoogle(){
 }
 
 
-
 /* ==========================================
    AUTH STATE
 ========================================== */
@@ -1031,7 +1011,6 @@ function(event,session){
   updateLoginState();
 
 });
-
 
 
 /* ==========================================
@@ -1051,7 +1030,6 @@ function updateCounter(){
       " / 150";
 
 }
-
 
 
 /* ==========================================
@@ -1156,7 +1134,6 @@ function previewImage(input){
 }
 
 
-
 /* ==========================================
    ADD OPTION
 ========================================== */
@@ -1169,10 +1146,14 @@ function addOption(){
     );
 
 
-  if(currentOptions.length >= 4){
+  const currentCount =
+    currentOptions.length;
+
+
+  if(currentCount >= MAX_OPTIONS){
 
     showMessage(
-      "يمكنك إضافة 4 خيارات كحد أقصى: A و B و C و D.",
+      "وصلت إلى الحد الأقصى: 15 خيارًا.",
       "error"
     );
 
@@ -1181,13 +1162,13 @@ function addOption(){
   }
 
 
-  optionCount =
-    currentOptions.length + 1;
+  const nextNumber =
+    currentCount + 1;
 
 
   const letter =
     String.fromCharCode(
-      64 + optionCount
+      64 + nextNumber
     );
 
 
@@ -1258,8 +1239,25 @@ function addOption(){
 
   updateOptionLetters();
 
-}
 
+  if(
+    document.querySelectorAll(
+      "#options .option"
+    ).length >= MAX_OPTIONS
+  ){
+
+    document.querySelector(
+      ".add-option"
+    ).disabled = true;
+
+    document.querySelector(
+      ".add-option"
+    ).textContent =
+      "✅ وصلت إلى 15 خيارًا";
+
+  }
+
+}
 
 
 /* ==========================================
@@ -1277,7 +1275,7 @@ function removeOption(button){
   if(options.length <= 2){
 
     showMessage(
-      "يجب أن يحتوي التصويت على خيارين على الأقل.",
+      "لا يمكن حذف A أو B. يجب وجود خيارين على الأقل.",
       "error"
     );
 
@@ -1291,16 +1289,23 @@ function removeOption(button){
     .remove();
 
 
-  optionCount =
-    document.querySelectorAll(
-      "#options .option"
-    ).length;
-
-
   updateOptionLetters();
 
-}
 
+  const addButton =
+    document.querySelector(
+      ".add-option"
+    );
+
+
+  addButton.disabled =
+    false;
+
+
+  addButton.textContent =
+    "➕ إضافة خيار";
+
+}
 
 
 /* ==========================================
@@ -1331,10 +1336,23 @@ function updateOptionLetters(){
       .textContent =
         "الخيار " + letter;
 
+
+    const input =
+      option.querySelector(
+        ".option-name"
+      );
+
+
+    if(input && !input.value.trim()){
+
+      input.placeholder =
+        "مثال: الخيار " + letter;
+
+    }
+
   });
 
 }
-
 
 
 /* ==========================================
@@ -1374,7 +1392,6 @@ function(button){
   );
 
 });
-
 
 
 /* ==========================================
@@ -1430,8 +1447,10 @@ async function publishVote(){
   }
 
 
-
-  /* الحصول على جميع الخيارات */
+  /* =====================================
+     جمع جميع الخيارات
+     C إلى O اختيارية
+  ===================================== */
 
   const optionElements =
     document.querySelectorAll(
@@ -1439,7 +1458,8 @@ async function publishVote(){
     );
 
 
-  const optionNames = [];
+  const optionNames =
+    [];
 
 
   optionElements.forEach(
@@ -1455,6 +1475,11 @@ async function publishVote(){
       input.value.trim();
 
 
+    /*
+      لا نضيف الخيار إلى القائمة
+      إذا كان فارغًا.
+    */
+
     if(name){
 
       optionNames.push(name);
@@ -1464,57 +1489,38 @@ async function publishVote(){
   });
 
 
-
-  /* يجب وجود خيارين على الأقل */
+  /*
+    يجب أن يكون لدينا
+    A وB على الأقل.
+  */
 
   if(optionNames.length < 2){
 
     showMessage(
-      "أدخل اسم خيارين على الأقل.",
+      "يجب إدخال اسم الخيار A والخيار B على الأقل.",
       "error"
     );
 
     return;
 
   }
-
-
-  /* الحد الأقصى 4 */
-
-  if(optionNames.length > 4){
-
-    showMessage(
-      "الحد الأقصى هو 4 خيارات.",
-      "error"
-    );
-
-    return;
-
-  }
-
 
 
   /*
-    ترتيب الخيارات:
-
-    A = optionNames[0]
-    B = optionNames[1]
-    C = optionNames[2]
-    D = optionNames[3]
+    حماية إضافية:
+    الحد الأقصى 15.
   */
 
-  const optionA =
-    optionNames[0] || null;
+  if(optionNames.length > MAX_OPTIONS){
 
-  const optionB =
-    optionNames[1] || null;
+    showMessage(
+      "الحد الأقصى هو 15 خيارًا.",
+      "error"
+    );
 
-  const optionC =
-    optionNames[2] || null;
+    return;
 
-  const optionD =
-    optionNames[3] || null;
-
+  }
 
 
   publishButton.disabled =
@@ -1523,7 +1529,6 @@ async function publishVote(){
 
   publishButton.textContent =
     "⏳ جارٍ نشر التصويت...";
-
 
 
   try{
@@ -1548,17 +1553,98 @@ async function publishVote(){
     }
 
 
+    /*
+      تجهيز بيانات الخيارات.
+
+      A = index 0
+      B = index 1
+      C = index 2
+      ...
+      O = index 14
+    */
+
+    const voteData = {
+
+      user_id:
+        session.user.id,
+
+      question:
+        question,
+
+      category:
+        selectedCategory,
+
+      option_a:
+        optionNames[0] || null,
+
+      option_b:
+        optionNames[1] || null,
+
+      option_c:
+        optionNames[2] || null,
+
+      option_d:
+        optionNames[3] || null,
+
+      option_e:
+        optionNames[4] || null,
+
+      option_f:
+        optionNames[5] || null,
+
+      option_g:
+        optionNames[6] || null,
+
+      option_h:
+        optionNames[7] || null,
+
+      option_i:
+        optionNames[8] || null,
+
+      option_j:
+        optionNames[9] || null,
+
+      option_k:
+        optionNames[10] || null,
+
+      option_l:
+        optionNames[11] || null,
+
+      option_m:
+        optionNames[12] || null,
+
+      option_n:
+        optionNames[13] || null,
+
+      option_o:
+        optionNames[14] || null,
+
+
+      /*
+        أعداد الأصوات تبدأ من صفر.
+      */
+
+      votes_a: 0,
+      votes_b: 0,
+      votes_c: 0,
+      votes_d: 0,
+      votes_e: 0,
+      votes_f: 0,
+      votes_g: 0,
+      votes_h: 0,
+      votes_i: 0,
+      votes_j: 0,
+      votes_k: 0,
+      votes_l: 0,
+      votes_m: 0,
+      votes_n: 0,
+      votes_o: 0
+
+    };
+
 
     /*
-      إنشاء التصويت
-
-      ملاحظة:
-      يجب أن تكون أعمدة
-      option_c
-      option_d
-      votes_c
-      votes_d
-      موجودة في جدول votes.
+      إرسال التصويت إلى Supabase
     */
 
     const {
@@ -1567,45 +1653,9 @@ async function publishVote(){
     } =
     await supabaseClient
       .from("votes")
-      .insert({
-
-        user_id:
-          session.user.id,
-
-        question:
-          question,
-
-        category:
-          selectedCategory,
-
-        option_a:
-          optionA,
-
-        option_b:
-          optionB,
-
-        option_c:
-          optionC,
-
-        option_d:
-          optionD,
-
-        votes_a:
-          0,
-
-        votes_b:
-          0,
-
-        votes_c:
-          0,
-
-        votes_d:
-          0
-
-      })
+      .insert(voteData)
       .select()
       .single();
-
 
 
     if(error){
@@ -1622,7 +1672,6 @@ async function publishVote(){
     }
 
 
-
     if(!data){
 
       throw new Error(
@@ -1632,8 +1681,9 @@ async function publishVote(){
     }
 
 
-
-    /* نجاح */
+    /* =====================================
+       نجاح
+    ===================================== */
 
     showMessage(
       "تم نشر التصويت بنجاح! 🎉",
@@ -1645,8 +1695,9 @@ async function publishVote(){
       "✅ تم النشر";
 
 
-
-    /* الانتقال إلى التصويت */
+    /*
+      الانتقال إلى صفحة التصويت
+    */
 
     setTimeout(
     function(){
@@ -1687,7 +1738,6 @@ async function publishVote(){
   }
 
 }
-
 
 
 /* ==========================================
