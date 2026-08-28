@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>إنشاء تصويت — VOTERA</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 :root{
   --primary:#6c5ce7;
   --primary-dark:#5848d6;
@@ -33,7 +39,10 @@ body{
   padding-bottom:40px;
 }
 
-button,input,textarea,select{
+button,
+input,
+textarea,
+select{
   font-family:inherit;
 }
 
@@ -47,24 +56,32 @@ a{
   color:inherit;
 }
 
-/* HEADER */
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 header{
   height:68px;
   background:rgba(255,255,255,.95);
   border-bottom:1px solid var(--border);
+
   display:flex;
   align-items:center;
+
   position:sticky;
   top:0;
+
   z-index:100;
 }
 
 .nav{
   width:100%;
   max-width:900px;
+
   margin:auto;
   padding:0 18px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -87,12 +104,17 @@ header{
   font-weight:800;
 }
 
-/* CONTAINER */
+
+/* =========================================================
+   CONTAINER
+========================================================= */
 
 .container{
   width:100%;
   max-width:720px;
+
   margin:auto;
+
   padding:40px 18px;
 }
 
@@ -103,12 +125,17 @@ header{
 
 .title .badge{
   display:inline-block;
+
   background:#ece9ff;
   color:var(--primary);
+
   padding:8px 14px;
+
   border-radius:30px;
+
   font-size:12px;
   font-weight:900;
+
   margin-bottom:14px;
 }
 
@@ -123,27 +150,40 @@ header{
   font-size:14px;
 }
 
-/* CARD */
+
+/* =========================================================
+   CARD
+========================================================= */
 
 .card{
   background:var(--card);
+
   border:1px solid var(--border);
+
   border-radius:22px;
+
   padding:22px;
+
   margin-bottom:17px;
-  box-shadow:0 7px 25px rgba(0,0,0,.035);
+
+  box-shadow:
+    0 7px 25px
+    rgba(0,0,0,.035);
 }
 
 .card-title{
   font-size:18px;
   font-weight:950;
+
   margin-bottom:17px;
 }
 
 label{
   display:block;
+
   font-size:13px;
   font-weight:900;
+
   margin-bottom:8px;
 }
 
@@ -151,12 +191,19 @@ textarea,
 input,
 select{
   width:100%;
+
   border:1px solid var(--border);
+
   background:#fafafd;
+
   border-radius:13px;
+
   padding:14px;
+
   outline:none;
+
   color:var(--text);
+
   font-size:14px;
 }
 
@@ -168,25 +215,40 @@ textarea{
 textarea:focus,
 input:focus,
 select:focus{
+
   border-color:var(--primary);
+
   background:white;
-  box-shadow:0 0 0 3px rgba(108,92,231,.08);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(108,92,231,.08);
 }
 
 .counter{
   text-align:left;
+
   color:var(--muted);
+
   font-size:11px;
+
   margin-top:6px;
 }
 
-/* OPTIONS */
+
+/* =========================================================
+   OPTIONS
+========================================================= */
 
 .option{
   border:1px solid var(--border);
+
   border-radius:17px;
+
   padding:16px;
+
   margin-bottom:12px;
+
   background:#fafafd;
 }
 
@@ -195,30 +257,51 @@ select:focus{
 }
 
 .option-header{
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   margin-bottom:12px;
 }
 
 .option-number{
+
   color:var(--primary);
+
   font-size:13px;
+
   font-weight:950;
 }
 
 .image-upload{
-  border:2px dashed #dcdce8;
+
+  border:
+    2px dashed
+    #dcdce8;
+
   border-radius:14px;
+
   min-height:115px;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   flex-direction:column;
+
   gap:6px;
+
   margin-bottom:12px;
+
   overflow:hidden;
+
   position:relative;
+
   background:white;
 }
 
@@ -228,74 +311,125 @@ select:focus{
 
 .image-upload p{
   color:var(--muted);
+
   font-size:11px;
 }
 
 .image-upload input{
+
   position:absolute;
+
   inset:0;
+
   opacity:0;
+
   cursor:pointer;
+
   padding:0;
 }
 
 .preview{
+
   width:100%;
   height:115px;
+
   object-fit:cover;
+
   display:none;
 }
 
 .remove-option{
+
   background:#fff0f0;
+
   color:#e74c3c;
+
   padding:7px 10px;
+
   border-radius:9px;
+
   font-size:11px;
+
   font-weight:900;
 }
 
 .add-option{
+
   width:100%;
+
   padding:13px;
+
   background:#f0eeff;
+
   color:var(--primary);
+
   border-radius:13px;
+
   font-weight:900;
+
   margin-top:5px;
 }
 
-/* CATEGORY */
+
+/* =========================================================
+   CATEGORY
+========================================================= */
 
 .category-grid{
+
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+
+  grid-template-columns:
+    repeat(2,1fr);
+
   gap:9px;
 }
 
 .category{
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   background:white;
+
   padding:12px 8px;
+
   border-radius:12px;
+
   font-size:12px;
+
   font-weight:900;
 }
 
 .category.active{
+
   background:var(--primary);
+
   color:white;
+
   border-color:var(--primary);
 }
 
-/* SETTINGS */
+
+/* =========================================================
+   SETTINGS
+========================================================= */
 
 .settings-row{
+
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
   padding:14px 0;
-  border-bottom:1px solid var(--border);
+
+  border-bottom:
+    1px solid
+    var(--border);
+
   gap:15px;
 }
 
@@ -308,20 +442,28 @@ select:focus{
 }
 
 .setting-text strong{
+
   display:block;
+
   font-size:13px;
+
   margin-bottom:4px;
 }
 
 .setting-text span{
+
   color:var(--muted);
+
   font-size:11px;
 }
 
 .switch{
+
   position:relative;
+
   width:47px;
   height:26px;
+
   flex-shrink:0;
 }
 
@@ -330,110 +472,202 @@ select:focus{
 }
 
 .slider{
+
   position:absolute;
+
   inset:0;
+
   background:#dcdce5;
+
   border-radius:30px;
+
   transition:.2s;
 }
 
 .slider:before{
+
   content:"";
+
   position:absolute;
+
   width:20px;
   height:20px;
+
   left:3px;
   top:3px;
+
   background:white;
+
   border-radius:50%;
+
   transition:.2s;
 }
 
 .switch input:checked + .slider{
+
   background:var(--primary);
 }
 
 .switch input:checked + .slider:before{
-  transform:translateX(21px);
+
+  transform:
+    translateX(21px);
 }
 
-/* BUTTON */
+
+/* =========================================================
+   PUBLISH
+========================================================= */
 
 .publish{
+
   width:100%;
+
   padding:17px;
+
   border-radius:15px;
+
   background:var(--primary);
+
   color:white;
+
   font-size:16px;
+
   font-weight:950;
-  box-shadow:0 10px 25px rgba(108,92,231,.25);
+
+  box-shadow:
+    0 10px 25px
+    rgba(108,92,231,.25);
 }
 
 .publish:hover{
-  background:var(--primary-dark);
+
+  background:
+    var(--primary-dark);
 }
 
 .publish:disabled{
+
   opacity:.65;
+
   cursor:not-allowed;
 }
 
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
 .message{
+
   display:none;
+
   margin-bottom:16px;
+
   padding:14px;
+
   border-radius:13px;
+
   font-size:13px;
+
   font-weight:800;
+
   text-align:center;
+
+  white-space:pre-line;
 }
 
 .message.error{
+
   display:block;
+
   background:#fff0f0;
+
   color:#b42318;
-  border:1px solid #ffd0d0;
+
+  border:
+    1px solid
+    #ffd0d0;
 }
 
 .message.success{
+
   display:block;
+
   background:#ecfdf3;
+
   color:#166534;
-  border:1px solid #bbf7d0;
+
+  border:
+    1px solid
+    #bbf7d0;
 }
 
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
 .login-box{
+
   display:none;
+
   text-align:center;
+
   background:white;
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:20px;
+
   padding:28px 20px;
+
   margin-bottom:18px;
 }
 
 .login-box p{
+
   color:var(--muted);
+
   font-size:13px;
+
   margin:10px 0 17px;
 }
 
 .google-btn{
+
   background:white;
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   padding:12px 18px;
+
   border-radius:12px;
+
   font-weight:900;
 }
 
 .bottom-note{
+
   text-align:center;
+
   color:var(--muted);
+
   font-size:10px;
+
   line-height:1.6;
+
   margin-top:13px;
 }
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
 
 @media(min-width:700px){
 
@@ -450,30 +684,56 @@ select:focus{
   }
 
   .category-grid{
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+      repeat(4,1fr);
   }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <header>
+
 <nav class="nav">
 
-<a href="index.html" class="logo">
+<a
+  href="index.html"
+  class="logo"
+>
 VOTE<span>RA</span>
 </a>
 
-<a href="index.html" class="back">
+<a
+  href="index.html"
+  class="back"
+>
 → الرئيسية
 </a>
 
 </nav>
+
 </header>
 
 
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
 <main class="container">
+
+
+<!-- TITLE -->
 
 <div class="title">
 
@@ -492,7 +752,14 @@ VOTE<span>RA</span>
 </div>
 
 
-<div id="loginBox" class="login-box">
+<!-- =========================================================
+     LOGIN BOX
+========================================================= -->
+
+<div
+  id="loginBox"
+  class="login-box"
+>
 
 <h3>
 🔐 تسجيل الدخول مطلوب
@@ -503,8 +770,8 @@ VOTE<span>RA</span>
 </p>
 
 <button
-class="google-btn"
-onclick="signInWithGoogle()"
+  class="google-btn"
+  onclick="signInWithGoogle()"
 >
 🔵 تسجيل الدخول بـ Google
 </button>
@@ -512,13 +779,17 @@ onclick="signInWithGoogle()"
 </div>
 
 
+<!-- MESSAGE -->
+
 <div
-id="message"
-class="message"
+  id="message"
+  class="message"
 ></div>
 
 
-<!-- QUESTION -->
+<!-- =========================================================
+     QUESTION
+========================================================= -->
 
 <section class="card">
 
@@ -531,15 +802,15 @@ class="message"
 </label>
 
 <textarea
-id="question"
-maxlength="150"
-placeholder="مثال: أي تصميم يبدو أفضل؟"
-oninput="updateCounter()"
+  id="question"
+  maxlength="150"
+  placeholder="مثال: أي تصميم يبدو أفضل؟"
+  oninput="updateCounter()"
 ></textarea>
 
 <div
-class="counter"
-id="counter"
+  class="counter"
+  id="counter"
 >
 0 / 150
 </div>
@@ -547,7 +818,9 @@ id="counter"
 </section>
 
 
-<!-- CATEGORY -->
+<!-- =========================================================
+     CATEGORY
+========================================================= -->
 
 <section class="card">
 
@@ -557,44 +830,87 @@ id="counter"
 
 <div class="category-grid">
 
-<button class="category active" data-category="عام">
+
+<button
+  type="button"
+  class="category active"
+  data-category="عام"
+>
 🌐 عام
 </button>
 
-<button class="category" data-category="تقنية">
+
+<button
+  type="button"
+  class="category"
+  data-category="تقنية"
+>
 📱 تقنية
 </button>
 
-<button class="category" data-category="ألعاب">
+
+<button
+  type="button"
+  class="category"
+  data-category="ألعاب"
+>
 🎮 ألعاب
 </button>
 
-<button class="category" data-category="رياضة">
+
+<button
+  type="button"
+  class="category"
+  data-category="رياضة"
+>
 ⚽ رياضة
 </button>
 
-<button class="category" data-category="أفلام">
+
+<button
+  type="button"
+  class="category"
+  data-category="أفلام"
+>
 🎬 أفلام
 </button>
 
-<button class="category" data-category="موسيقى">
+
+<button
+  type="button"
+  class="category"
+  data-category="موسيقى"
+>
 🎵 موسيقى
 </button>
 
-<button class="category" data-category="طعام">
+
+<button
+  type="button"
+  class="category"
+  data-category="طعام"
+>
 🍔 طعام
 </button>
 
-<button class="category" data-category="ترفيه">
+
+<button
+  type="button"
+  class="category"
+  data-category="ترفيه"
+>
 😂 ترفيه
 </button>
+
 
 </div>
 
 </section>
 
 
-<!-- OPTIONS -->
+<!-- =========================================================
+     OPTIONS
+========================================================= -->
 
 <section class="card">
 
@@ -606,6 +922,8 @@ id="counter"
 <div id="options">
 
 
+<!-- OPTION A -->
+
 <div class="option">
 
 <div class="option-header">
@@ -616,37 +934,46 @@ id="counter"
 
 </div>
 
+
 <div class="image-upload">
 
-<span>🖼️</span>
+<span>
+🖼️
+</span>
 
 <p>
 اضغط لإضافة صورة
 </p>
 
 <input
-type="file"
-accept="image/*"
-onchange="previewImage(this)"
+  type="file"
+  accept="image/*"
+  onchange="previewImage(this)"
 >
 
-<img class="preview">
+<img
+  class="preview"
+  alt="معاينة الصورة"
+>
 
 </div>
+
 
 <label>
 اسم الخيار
 </label>
 
 <input
-type="text"
-class="option-name"
-placeholder="مثال: التصميم A"
-maxlength="80"
+  type="text"
+  class="option-name"
+  placeholder="مثال: التصميم A"
+  maxlength="80"
 >
 
 </div>
 
+
+<!-- OPTION B -->
 
 <div class="option">
 
@@ -658,33 +985,40 @@ maxlength="80"
 
 </div>
 
+
 <div class="image-upload">
 
-<span>🖼️</span>
+<span>
+🖼️
+</span>
 
 <p>
 اضغط لإضافة صورة
 </p>
 
 <input
-type="file"
-accept="image/*"
-onchange="previewImage(this)"
+  type="file"
+  accept="image/*"
+  onchange="previewImage(this)"
 >
 
-<img class="preview">
+<img
+  class="preview"
+  alt="معاينة الصورة"
+>
 
 </div>
+
 
 <label>
 اسم الخيار
 </label>
 
 <input
-type="text"
-class="option-name"
-placeholder="مثال: التصميم B"
-maxlength="80"
+  type="text"
+  class="option-name"
+  placeholder="مثال: التصميم B"
+  maxlength="80"
 >
 
 </div>
@@ -694,9 +1028,9 @@ maxlength="80"
 
 
 <button
-type="button"
-class="add-option"
-onclick="addOption()"
+  type="button"
+  class="add-option"
+  onclick="addOption()"
 >
 ➕ إضافة خيار
 </button>
@@ -704,7 +1038,9 @@ onclick="addOption()"
 </section>
 
 
-<!-- SETTINGS -->
+<!-- =========================================================
+     SETTINGS
+========================================================= -->
 
 <section class="card">
 
@@ -712,6 +1048,8 @@ onclick="addOption()"
 4️⃣ إعدادات التصويت
 </div>
 
+
+<!-- PUBLIC -->
 
 <div class="settings-row">
 
@@ -727,12 +1065,13 @@ onclick="addOption()"
 
 </div>
 
+
 <label class="switch">
 
 <input
-type="checkbox"
-id="publicVote"
-checked
+  type="checkbox"
+  id="publicVote"
+  checked
 >
 
 <span class="slider"></span>
@@ -741,6 +1080,8 @@ checked
 
 </div>
 
+
+<!-- ONE VOTE -->
 
 <div class="settings-row">
 
@@ -756,12 +1097,13 @@ checked
 
 </div>
 
+
 <label class="switch">
 
 <input
-type="checkbox"
-id="oneVote"
-checked
+  type="checkbox"
+  id="oneVote"
+  checked
 >
 
 <span class="slider"></span>
@@ -770,14 +1112,19 @@ checked
 
 </div>
 
+
 </section>
 
 
+<!-- =========================================================
+     PUBLISH
+========================================================= -->
+
 <button
-type="button"
-id="publishButton"
-class="publish"
-onclick="publishVote()"
+  type="button"
+  id="publishButton"
+  class="publish"
+  onclick="publishVote()"
 >
 🚀 نشر التصويت
 </button>
@@ -787,14 +1134,16 @@ onclick="publishVote()"
 بنشرك للتصويت، أنت توافق على قواعد مجتمع VOTERA.
 </div>
 
+
 </main>
 
 
 <script>
 
-/* ==========================================
+
+/* =========================================================
    SUPABASE
-========================================== */
+========================================================= */
 
 const SUPABASE_URL =
 "https://vatlwkuagxyrvwclttfz.supabase.co";
@@ -802,16 +1151,17 @@ const SUPABASE_URL =
 const SUPABASE_ANON_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
 
+
 const supabaseClient =
 window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_ANON_KEY
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
 );
 
 
-/* ==========================================
+/* =========================================================
    VARIABLES
-========================================== */
+========================================================= */
 
 let currentUser = null;
 
@@ -820,27 +1170,34 @@ let selectedCategory = "عام";
 let optionCount = 2;
 
 
-/* ==========================================
+/* =========================================================
    ELEMENTS
-========================================== */
+========================================================= */
 
 const loginBox =
-document.getElementById("loginBox");
+document.getElementById(
+  "loginBox"
+);
 
 const message =
-document.getElementById("message");
+document.getElementById(
+  "message"
+);
 
 const publishButton =
-document.getElementById("publishButton");
+document.getElementById(
+  "publishButton"
+);
 
 
-/* ==========================================
+/* =========================================================
    MESSAGE
-========================================== */
+========================================================= */
 
 function showMessage(text,type){
 
-  message.textContent = text;
+  message.textContent =
+    text;
 
   message.className =
     "message " + type;
@@ -848,9 +1205,24 @@ function showMessage(text,type){
 }
 
 
-/* ==========================================
+/* =========================================================
+   CLEAR MESSAGE
+========================================================= */
+
+function clearMessage(){
+
+  message.textContent =
+    "";
+
+  message.className =
+    "message";
+
+}
+
+
+/* =========================================================
    CHECK USER
-========================================== */
+========================================================= */
 
 async function checkUser(){
 
@@ -859,13 +1231,27 @@ async function checkUser(){
     const {
       data:{
         session
-      }
+      },
+      error
     } =
-      await supabaseClient.auth.getSession();
+    await supabaseClient
+      .auth
+      .getSession();
 
 
-    currentUser =
-      session?.user || null;
+    if(error){
+
+      console.error(error);
+
+      currentUser =
+        null;
+
+    }else{
+
+      currentUser =
+        session?.user || null;
+
+    }
 
 
     updateLoginState();
@@ -873,16 +1259,24 @@ async function checkUser(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Session error:",
+      error
+    );
+
+    currentUser =
+      null;
+
+    updateLoginState();
 
   }
 
 }
 
 
-/* ==========================================
-   UPDATE LOGIN STATE
-========================================== */
+/* =========================================================
+   LOGIN STATE
+========================================================= */
 
 function updateLoginState(){
 
@@ -907,18 +1301,22 @@ function updateLoginState(){
 }
 
 
-/* ==========================================
+/* =========================================================
    GOOGLE LOGIN
-========================================== */
+========================================================= */
 
 async function signInWithGoogle(){
+
+  clearMessage();
 
   try{
 
     const {
       error
     } =
-      await supabaseClient.auth.signInWithOAuth({
+    await supabaseClient
+      .auth
+      .signInWithOAuth({
 
         provider:"google",
 
@@ -937,7 +1335,7 @@ async function signInWithGoogle(){
       console.error(error);
 
       showMessage(
-        "حدث خطأ أثناء تسجيل الدخول: " +
+        "حدث خطأ أثناء تسجيل الدخول:\n" +
         error.message,
         "error"
       );
@@ -958,43 +1356,55 @@ async function signInWithGoogle(){
 }
 
 
-/* ==========================================
+/* =========================================================
    AUTH STATE
-========================================== */
+========================================================= */
 
-supabaseClient.auth.onAuthStateChange(
-function(event,session){
+supabaseClient
+.auth
+.onAuthStateChange(
+  function(event,session){
 
-  currentUser =
-    session?.user || null;
+    currentUser =
+      session?.user || null;
 
-  updateLoginState();
+    updateLoginState();
 
-});
+  }
+);
 
 
-/* ==========================================
+/* =========================================================
    QUESTION COUNTER
-========================================== */
+========================================================= */
 
 function updateCounter(){
 
-  const value =
+  const question =
     document
-      .getElementById("question")
-      .value;
+      .getElementById(
+        "question"
+      );
+
+
+  const value =
+    question.value;
+
 
   document
-    .getElementById("counter")
+    .getElementById(
+      "counter"
+    )
     .textContent =
-      value.length + " / 150";
+      value.length +
+      " / 150";
 
 }
 
 
-/* ==========================================
+/* =========================================================
    IMAGE PREVIEW
-========================================== */
+========================================================= */
 
 function previewImage(input){
 
@@ -1002,13 +1412,17 @@ function previewImage(input){
     !input.files ||
     !input.files[0]
   ){
+
     return;
+
   }
 
 
   const file =
     input.files[0];
 
+
+  /* الحد الأقصى 2MB */
 
   if(
     file.size >
@@ -1019,7 +1433,28 @@ function previewImage(input){
       "الصورة كبيرة جدًا. الحد الأقصى 2MB."
     );
 
-    input.value = "";
+    input.value =
+      "";
+
+    return;
+
+  }
+
+
+  /* التأكد من أنها صورة */
+
+  if(
+    !file.type.startsWith(
+      "image/"
+    )
+  ){
+
+    alert(
+      "يرجى اختيار ملف صورة فقط."
+    );
+
+    input.value =
+      "";
 
     return;
 
@@ -1029,15 +1464,18 @@ function previewImage(input){
   const container =
     input.parentElement;
 
+
   const preview =
     container.querySelector(
       ".preview"
     );
 
+
   const icon =
     container.querySelector(
       "span"
     );
+
 
   const text =
     container.querySelector(
@@ -1067,18 +1505,26 @@ function previewImage(input){
     };
 
 
-  reader.readAsDataURL(file);
+  reader.readAsDataURL(
+    file
+  );
 
 }
 
 
-/* ==========================================
+/* =========================================================
    ADD OPTION
-========================================== */
+========================================================= */
 
 function addOption(){
 
-  if(optionCount >= 4){
+  const currentOptions =
+    document.querySelectorAll(
+      "#options .option"
+    );
+
+
+  if(currentOptions.length >= 4){
 
     alert(
       "يمكنك إضافة 4 خيارات كحد أقصى."
@@ -1089,7 +1535,8 @@ function addOption(){
   }
 
 
-  optionCount++;
+  optionCount =
+    currentOptions.length + 1;
 
 
   const letter =
@@ -1099,7 +1546,10 @@ function addOption(){
 
 
   const option =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
+
 
   option.className =
     "option";
@@ -1126,7 +1576,9 @@ function addOption(){
 
     <div class="image-upload">
 
-      <span>🖼️</span>
+      <span>
+        🖼️
+      </span>
 
       <p>
         اضغط لإضافة صورة
@@ -1138,7 +1590,10 @@ function addOption(){
         onchange="previewImage(this)"
       >
 
-      <img class="preview">
+      <img
+        class="preview"
+        alt="معاينة الصورة"
+      >
 
     </div>
 
@@ -1158,8 +1613,12 @@ function addOption(){
 
 
   document
-    .getElementById("options")
-    .appendChild(option);
+    .getElementById(
+      "options"
+    )
+    .appendChild(
+      option
+    );
 
 
   updateOptionLetters();
@@ -1167,9 +1626,9 @@ function addOption(){
 }
 
 
-/* ==========================================
+/* =========================================================
    REMOVE OPTION
-========================================== */
+========================================================= */
 
 function removeOption(button){
 
@@ -1195,16 +1654,20 @@ function removeOption(button){
     .remove();
 
 
-  optionCount--;
+  optionCount =
+    document.querySelectorAll(
+      "#options .option"
+    ).length;
+
 
   updateOptionLetters();
 
 }
 
 
-/* ==========================================
+/* =========================================================
    UPDATE OPTION LETTERS
-========================================== */
+========================================================= */
 
 function updateOptionLetters(){
 
@@ -1228,94 +1691,87 @@ function updateOptionLetters(){
           ".option-number"
         )
         .textContent =
-          "الخيار " + letter;
+          "الخيار " +
+          letter;
+
+
+      const input =
+        option.querySelector(
+          ".option-name"
+        );
+
+
+      if(
+        input &&
+        !input.value.trim()
+      ){
+
+        input.placeholder =
+          "مثال: الخيار " +
+          letter;
+
+      }
 
     }
   );
+
+
+  optionCount =
+    options.length;
 
 }
 
 
-/* ==========================================
+/* =========================================================
    CATEGORY
-========================================== */
+========================================================= */
 
 document
-.querySelectorAll(".category")
-.forEach(
-function(button){
+  .querySelectorAll(
+    ".category"
+  )
+  .forEach(
+    function(button){
 
-  button.addEventListener(
-    "click",
-    function(){
+      button.addEventListener(
+        "click",
+        function(){
 
-      document
-      .querySelectorAll(".category")
-      .forEach(
-        function(item){
+          document
+            .querySelectorAll(
+              ".category"
+            )
+            .forEach(
+              function(item){
 
-          item.classList.remove(
+                item.classList.remove(
+                  "active"
+                );
+
+              }
+            );
+
+
+          this.classList.add(
             "active"
           );
+
+
+          selectedCategory =
+            this.dataset.category;
 
         }
       );
 
-
-      this.classList.add(
-        "active"
-      );
-
-
-      selectedCategory =
-        this.dataset.category;
-
     }
   );
 
-});
 
+/* =========================================================
+   GET OPTION NAMES
+========================================================= */
 
-/* ==========================================
-   PUBLISH
-========================================== */
-
-async function publishVote(){
-
-  if(!currentUser){
-
-    showMessage(
-      "يجب تسجيل الدخول أولًا.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  const question =
-    document
-      .getElementById("question")
-      .value
-      .trim();
-
-
-  if(!question){
-
-    showMessage(
-      "اكتب السؤال أولًا.",
-      "error"
-    );
-
-    document
-      .getElementById("question")
-      .focus();
-
-    return;
-
-  }
-
+function getOptionNames(){
 
   const optionElements =
     document.querySelectorAll(
@@ -1323,7 +1779,7 @@ async function publishVote(){
     );
 
 
-  const optionNames = [];
+  const names = [];
 
 
   optionElements.forEach(
@@ -1339,20 +1795,36 @@ async function publishVote(){
         input.value.trim();
 
 
-      if(name){
-
-        optionNames.push(name);
-
-      }
+      names.push(
+        name
+      );
 
     }
   );
 
 
-  if(optionNames.length < 2){
+  return names;
+
+}
+
+
+/* =========================================================
+   PUBLISH
+========================================================= */
+
+async function publishVote(){
+
+  clearMessage();
+
+
+  /* -----------------------------------------
+     تسجيل الدخول
+  ----------------------------------------- */
+
+  if(!currentUser){
 
     showMessage(
-      "أدخل اسم الخيارين على الأقل.",
+      "يجب تسجيل الدخول أولًا.",
       "error"
     );
 
@@ -1361,20 +1833,163 @@ async function publishVote(){
   }
 
 
-  /*
-    جدول Supabase الحالي يحتوي
-    option_a و option_b فقط.
+  /* -----------------------------------------
+     السؤال
+  ----------------------------------------- */
 
-    لذلك نستخدم أول خيارين
-    للتخزين في هذه المرحلة.
-  */
+  const question =
+    document
+      .getElementById(
+        "question"
+      )
+      .value
+      .trim();
 
-  const optionA =
-    optionNames[0];
 
-  const optionB =
-    optionNames[1];
+  if(!question){
 
+    showMessage(
+      "اكتب السؤال أولًا.",
+      "error"
+    );
+
+    document
+      .getElementById(
+        "question"
+      )
+      .focus();
+
+    return;
+
+  }
+
+
+  if(question.length < 5){
+
+    showMessage(
+      "السؤال قصير جدًا. اكتب سؤالًا أوضح.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /* -----------------------------------------
+     الخيارات
+  ----------------------------------------- */
+
+  const optionNames =
+    getOptionNames();
+
+
+  if(optionNames.length < 2){
+
+    showMessage(
+      "يجب أن يحتوي التصويت على خيارين على الأقل.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /* -----------------------------------------
+     التأكد من أن جميع الخيارات لها أسماء
+  ----------------------------------------- */
+
+  for(
+    let i = 0;
+    i < optionNames.length;
+    i++
+  ){
+
+    if(!optionNames[i]){
+
+      const letter =
+        String.fromCharCode(
+          65 + i
+        );
+
+
+      showMessage(
+        "أدخل اسم الخيار " +
+        letter +
+        " أولًا.",
+        "error"
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  /* -----------------------------------------
+     منع تكرار الخيارات
+  ----------------------------------------- */
+
+  const normalizedNames =
+    optionNames.map(
+      function(name){
+
+        return name
+          .toLowerCase()
+          .trim();
+
+      }
+    );
+
+
+  const hasDuplicate =
+    normalizedNames.some(
+      function(name,index){
+
+        return normalizedNames
+          .indexOf(name) !== index;
+
+      }
+    );
+
+
+  if(hasDuplicate){
+
+    showMessage(
+      "لا يمكن أن تكون هناك خيارات متطابقة.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /* -----------------------------------------
+     الإعدادات
+  ----------------------------------------- */
+
+  const isPublic =
+    document
+      .getElementById(
+        "publicVote"
+      )
+      .checked;
+
+
+  const oneVote =
+    document
+      .getElementById(
+        "oneVote"
+      )
+      .checked;
+
+
+  /* -----------------------------------------
+     تعطيل الزر
+  ----------------------------------------- */
 
   publishButton.disabled =
     true;
@@ -1385,17 +2000,29 @@ async function publishVote(){
 
   try{
 
-    /*
-      نتأكد من أن جلسة المستخدم
-      ما زالت موجودة.
-    */
+    /* ---------------------------------------
+       التأكد من الجلسة
+    --------------------------------------- */
 
     const {
       data:{
         session
-      }
+      },
+      error:
+        sessionError
     } =
-      await supabaseClient.auth.getSession();
+    await supabaseClient
+      .auth
+      .getSession();
+
+
+    if(sessionError){
+
+      throw new Error(
+        sessionError.message
+      );
+
+    }
 
 
     if(!session){
@@ -1407,48 +2034,79 @@ async function publishVote(){
     }
 
 
-    /*
-      حفظ التصويت في Supabase
-    */
+    currentUser =
+      session.user;
+
+
+    /* ---------------------------------------
+       تجهيز البيانات
+    --------------------------------------- */
+
+    const voteData = {
+
+      user_id:
+        session.user.id,
+
+      question:
+        question,
+
+      category:
+        selectedCategory,
+
+      option_a:
+        optionNames[0],
+
+      option_b:
+        optionNames[1],
+
+      option_c:
+        optionNames[2] || null,
+
+      option_d:
+        optionNames[3] || null,
+
+      votes_a:
+        0,
+
+      votes_b:
+        0,
+
+      votes_c:
+        0,
+
+      votes_d:
+        0,
+
+      is_public:
+        isPublic,
+
+      one_vote:
+        oneVote
+
+    };
+
+
+    /* ---------------------------------------
+       حفظ التصويت
+    --------------------------------------- */
 
     const {
       data,
       error
     } =
-      await supabaseClient
-        .from("votes")
-        .insert({
-
-          user_id:
-            session.user.id,
-
-          question:
-            question,
-
-          category:
-            selectedCategory,
-
-          option_a:
-            optionA,
-
-          option_b:
-            optionB,
-
-          votes_a:
-            0,
-
-          votes_b:
-            0
-
-        })
-        .select()
-        .single();
+    await supabaseClient
+      .from("votes")
+      .insert(
+        voteData
+      )
+      .select()
+      .single();
 
 
     if(error){
 
       console.error(
-        "Supabase error:",
+        "Supabase insert error:",
         error
       );
 
@@ -1459,9 +2117,18 @@ async function publishVote(){
     }
 
 
-    /*
-      نجاح
-    */
+    if(!data){
+
+      throw new Error(
+        "لم يتم إنشاء التصويت."
+      );
+
+    }
+
+
+    /* ---------------------------------------
+       نجاح
+    --------------------------------------- */
 
     showMessage(
       "تم نشر التصويت بنجاح! 🎉",
@@ -1469,10 +2136,13 @@ async function publishVote(){
     );
 
 
-    /*
-      ننتظر قليلًا ثم نذهب
-      إلى صفحة التصويت.
-    */
+    publishButton.textContent =
+      "✅ تم النشر";
+
+
+    /* ---------------------------------------
+       الانتقال للتصويت
+    --------------------------------------- */
 
     setTimeout(
       function(){
@@ -1490,7 +2160,10 @@ async function publishVote(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Publish error:",
+      error
+    );
 
 
     showMessage(
@@ -1511,11 +2184,13 @@ async function publishVote(){
 }
 
 
-/* ==========================================
+/* =========================================================
    START
-========================================== */
+========================================================= */
 
 checkUser();
+
+updateCounter();
 
 </script>
 
