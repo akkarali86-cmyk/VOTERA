@@ -13,6 +13,10 @@
 
 <style>
 
+/* ==================================================
+   VARIABLES
+================================================== */
+
 :root{
   --primary:#6c5ce7;
   --primary-dark:#5848d6;
@@ -24,6 +28,11 @@
   --soft:#f0eeff;
   --success:#16a34a;
 }
+
+
+/* ==================================================
+   RESET
+================================================== */
 
 *{
   margin:0;
@@ -40,6 +49,9 @@ body{
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
+
+  /* مساحة للقائمة السفلية */
+  padding-bottom:90px;
 }
 
 button,
@@ -58,23 +70,33 @@ a{
 }
 
 
-/* ================= HEADER ================= */
+/* ==================================================
+   HEADER
+================================================== */
 
 header{
   height:68px;
-  background:rgba(255,255,255,.96);
+
+  background:rgba(255,255,255,.97);
+
   border-bottom:1px solid var(--border);
+
   position:sticky;
   top:0;
-  z-index:100;
+
+  z-index:1000;
 }
 
 .nav{
   width:100%;
   max-width:1100px;
+
   height:100%;
+
   margin:auto;
+
   padding:0 18px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -100,6 +122,7 @@ header{
 .nav-button{
   padding:10px 14px;
   border-radius:11px;
+
   font-size:12px;
   font-weight:900;
 }
@@ -119,32 +142,45 @@ header{
 }
 
 
-/* ================= HERO ================= */
+/* ==================================================
+   HERO
+================================================== */
 
 .hero{
   width:100%;
   max-width:1000px;
+
   margin:auto;
+
   padding:70px 18px 45px;
+
   text-align:center;
 }
 
 .hero-badge{
   display:inline-block;
+
   background:#ece9ff;
   color:var(--primary);
+
   padding:8px 15px;
+
   border-radius:30px;
+
   font-size:12px;
   font-weight:950;
+
   margin-bottom:18px;
 }
 
 .hero h1{
   font-size:42px;
   line-height:1.2;
+
   font-weight:950;
+
   letter-spacing:-1px;
+
   margin-bottom:15px;
 }
 
@@ -154,23 +190,32 @@ header{
 
 .hero p{
   max-width:600px;
+
   margin:auto;
+
   color:var(--muted);
+
   font-size:15px;
   line-height:1.8;
 }
 
 .hero-actions{
   display:flex;
+
   justify-content:center;
+
   gap:10px;
+
   margin-top:25px;
+
   flex-wrap:wrap;
 }
 
 .hero-button{
   padding:14px 22px;
+
   border-radius:13px;
+
   font-size:13px;
   font-weight:950;
 }
@@ -178,36 +223,53 @@ header{
 .hero-primary{
   background:var(--primary);
   color:white;
-  box-shadow:0 10px 25px rgba(108,92,231,.22);
+
+  box-shadow:
+  0 10px 25px rgba(108,92,231,.22);
 }
 
 .hero-secondary{
   background:white;
+
   color:var(--primary);
+
   border:1px solid var(--border);
 }
 
 
-/* ================= MAIN ================= */
+/* ==================================================
+   MAIN
+================================================== */
 
 .main{
   width:100%;
   max-width:1000px;
+
   margin:auto;
-  padding:0 18px 60px;
+
+  padding:0 18px 70px;
 }
 
 
-/* ================= SEARCH ================= */
+/* ==================================================
+   SEARCH
+================================================== */
 
 .search-box{
   background:white;
+
   border:1px solid var(--border);
+
   border-radius:17px;
+
   padding:10px;
+
   display:flex;
+
   align-items:center;
+
   gap:9px;
+
   margin-bottom:25px;
 }
 
@@ -218,10 +280,14 @@ header{
 
 .search-box input{
   flex:1;
+
   border:0;
   outline:none;
+
   font-size:13px;
+
   background:transparent;
+
   color:var(--text);
 }
 
@@ -232,21 +298,31 @@ header{
 .search-button{
   background:var(--primary);
   color:white;
+
   padding:10px 15px;
+
   border-radius:10px;
+
   font-size:11px;
   font-weight:900;
 }
 
 
-/* ================= CATEGORIES ================= */
+/* ==================================================
+   CATEGORIES
+================================================== */
 
 .categories{
   display:flex;
+
   gap:8px;
+
   overflow-x:auto;
+
   padding-bottom:6px;
+
   margin-bottom:30px;
+
   scrollbar-width:none;
 }
 
@@ -256,23 +332,33 @@ header{
 
 .category{
   flex-shrink:0;
+
   padding:9px 14px;
+
   border:1px solid var(--border);
+
   background:white;
+
   border-radius:30px;
+
   font-size:11px;
   font-weight:900;
+
   color:var(--muted);
 }
 
 .category.active{
   background:var(--primary);
+
   border-color:var(--primary);
+
   color:white;
 }
 
 
-/* ================= SECTION ================= */
+/* ==================================================
+   SECTION
+================================================== */
 
 .section{
   margin-bottom:35px;
@@ -280,8 +366,11 @@ header{
 
 .section-header{
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   margin-bottom:15px;
 }
 
@@ -296,231 +385,338 @@ header{
 
 .refresh-button{
   background:white;
+
   border:1px solid var(--border);
+
   color:var(--muted);
+
   padding:8px 11px;
+
   border-radius:10px;
+
   font-size:11px;
   font-weight:900;
 }
 
 
-/* ================= VOTES GRID ================= */
+/* ==================================================
+   VOTES GRID
+================================================== */
 
 .votes-grid{
   display:grid;
+
   grid-template-columns:1fr;
+
   gap:14px;
 }
 
 
-/* ================= VOTE CARD ================= */
+/* ==================================================
+   VOTE CARD
+================================================== */
 
 .vote-item{
   background:white;
+
   border:1px solid var(--border);
+
   border-radius:20px;
+
   padding:18px;
+
   transition:.2s;
 }
 
 .vote-item:hover{
   transform:translateY(-2px);
-  box-shadow:0 10px 28px rgba(0,0,0,.05);
+
+  box-shadow:
+  0 10px 28px rgba(0,0,0,.05);
 }
 
 .vote-category{
   display:inline-block;
+
   background:#f0eeff;
+
   color:var(--primary);
+
   padding:6px 9px;
+
   border-radius:15px;
+
   font-size:10px;
   font-weight:900;
+
   margin-bottom:11px;
 }
 
 .vote-question{
   font-size:16px;
+
   font-weight:950;
+
   line-height:1.5;
+
   margin-bottom:14px;
 }
 
 .vote-options{
   display:grid;
+
   grid-template-columns:1fr 1fr;
+
   gap:8px;
 }
 
 .vote-option{
   min-width:0;
+
   border:1px solid var(--border);
+
   border-radius:12px;
+
   overflow:hidden;
+
   background:#fafafd;
 }
 
 .option-image{
   width:100%;
   height:100px;
+
   object-fit:cover;
+
   display:none;
 }
 
 .option-content{
   padding:10px;
+
   display:flex;
+
   align-items:center;
+
   gap:8px;
 }
 
 .option-letter{
   width:27px;
   height:27px;
+
   min-width:27px;
+
   background:#ece9ff;
+
   color:var(--primary);
+
   border-radius:8px;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   font-size:10px;
   font-weight:950;
 }
 
 .option-name{
   font-size:11px;
+
   font-weight:900;
+
   overflow:hidden;
+
   text-overflow:ellipsis;
+
   white-space:nowrap;
 }
 
 .vote-bottom{
   margin-top:14px;
+
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
   gap:8px;
 }
 
 .vote-count{
   color:var(--muted);
+
   font-size:10px;
 }
 
 .vote-now{
   background:var(--primary);
+
   color:white;
+
   padding:9px 13px;
+
   border-radius:10px;
+
   font-size:10px;
+
   font-weight:950;
 }
 
 .share-small{
   background:#f0eeff;
+
   color:var(--primary);
+
   padding:9px 11px;
+
   border-radius:10px;
+
   font-size:10px;
+
   font-weight:950;
 }
 
 
-/* ================= EMPTY ================= */
+/* ==================================================
+   EMPTY
+================================================== */
 
 .empty{
   background:white;
+
   border:1px solid var(--border);
+
   border-radius:20px;
+
   padding:40px 20px;
+
   text-align:center;
+
   color:var(--muted);
 }
 
 .empty-icon{
   font-size:35px;
+
   margin-bottom:10px;
 }
 
 .empty h3{
   color:var(--text);
+
   font-size:16px;
+
   margin-bottom:7px;
 }
 
 .empty p{
   font-size:12px;
+
   line-height:1.7;
 }
 
 
-/* ================= LOADING ================= */
+/* ==================================================
+   LOADING
+================================================== */
 
 .loading{
   text-align:center;
+
   padding:40px;
+
   color:var(--muted);
+
   font-size:12px;
 }
 
 .spinner{
   width:35px;
   height:35px;
+
   border:4px solid #e8e8ef;
+
   border-top-color:var(--primary);
+
   border-radius:50%;
+
   margin:0 auto 12px;
+
   animation:spin .8s linear infinite;
 }
 
 @keyframes spin{
+
   to{
     transform:rotate(360deg);
   }
+
 }
 
 
-/* ================= MESSAGE ================= */
+/* ==================================================
+   MESSAGE
+================================================== */
 
 .message{
   display:none;
+
   padding:13px;
+
   margin-bottom:18px;
+
   border-radius:12px;
+
   text-align:center;
+
   font-size:12px;
+
   font-weight:800;
 }
 
 .message.success{
   display:block;
+
   background:#ecfdf3;
+
   color:#166534;
 }
 
 .message.error{
   display:block;
+
   background:#fff0f0;
+
   color:#b42318;
 }
 
 
-/* ================= FOOTER ================= */
+/* ==================================================
+   FOOTER
+================================================== */
 
 footer{
   border-top:1px solid var(--border);
+
   background:white;
-  padding:30px 18px;
+
+  padding:30px 18px 100px;
+
   text-align:center;
 }
 
 .footer-logo{
   font-size:22px;
+
   font-weight:950;
+
   direction:ltr;
+
   margin-bottom:8px;
 }
 
@@ -530,54 +726,277 @@ footer{
 
 footer p{
   color:var(--muted);
+
   font-size:10px;
 }
 
 
-/* ================= DESKTOP ================= */
+/* ==================================================
+   BOTTOM NAVIGATION
+================================================== */
+
+.bottom-nav{
+
+  position:fixed;
+
+  left:0;
+  right:0;
+  bottom:0;
+
+  width:100%;
+
+  height:78px;
+
+  background:rgba(255,255,255,.98);
+
+  border-top:1px solid var(--border);
+
+  box-shadow:
+  0 -6px 25px rgba(0,0,0,.08);
+
+  z-index:99999;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  padding-bottom:
+    env(safe-area-inset-bottom);
+
+}
+
+
+/* محتوى القائمة */
+
+.bottom-nav-inner{
+
+  width:100%;
+
+  max-width:650px;
+
+  height:100%;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(5,1fr);
+
+  align-items:center;
+
+}
+
+
+/* عنصر */
+
+.bottom-item{
+
+  height:100%;
+
+  background:transparent;
+
+  color:#858592;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:4px;
+
+  font-size:10px;
+
+  font-weight:900;
+
+  position:relative;
+
+}
+
+
+/* الأيقونة */
+
+.bottom-icon{
+
+  font-size:21px;
+
+  line-height:1;
+}
+
+
+/* النص */
+
+.bottom-label{
+
+  font-size:10px;
+
+  line-height:1;
+}
+
+
+/* النشط */
+
+.bottom-item.active{
+
+  color:var(--primary);
+
+}
+
+
+/* زر الإضافة */
+
+.bottom-create{
+
+  width:52px;
+
+  height:52px;
+
+  border-radius:17px;
+
+  background:var(--primary);
+
+  color:white;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:29px;
+
+  font-weight:400;
+
+  box-shadow:
+    0 8px 22px rgba(108,92,231,.32);
+
+  margin-top:-22px;
+
+  transition:.2s;
+
+}
+
+.bottom-create:hover{
+
+  background:var(--primary-dark);
+
+  transform:translateY(-2px);
+
+}
+
+
+/* ==================================================
+   DESKTOP
+================================================== */
 
 @media(min-width:700px){
 
   .votes-grid{
-    grid-template-columns:repeat(2,1fr);
+
+    grid-template-columns:
+      repeat(2,1fr);
+
   }
 
   .hero{
+
     padding-top:90px;
+
     padding-bottom:60px;
+
   }
 
   .hero h1{
+
     font-size:52px;
+
   }
 
   .vote-question{
+
     font-size:18px;
+
   }
 
 }
 
+
+/* ==================================================
+   MOBILE
+================================================== */
+
 @media(max-width:500px){
 
   .logo{
+
     font-size:22px;
+
   }
 
   .nav-button{
+
     padding:9px 10px;
+
     font-size:10px;
+
   }
 
   .hero h1{
+
     font-size:34px;
+
   }
 
   .hero p{
+
     font-size:13px;
+
   }
 
   .search-button{
+
     display:none;
+
+  }
+
+  .bottom-nav{
+
+    height:76px;
+
+  }
+
+}
+
+
+/* ==================================================
+   SMALL PHONES
+================================================== */
+
+@media(max-width:360px){
+
+  .bottom-icon{
+
+    font-size:19px;
+
+  }
+
+  .bottom-label{
+
+    font-size:9px;
+
+  }
+
+  .bottom-create{
+
+    width:48px;
+
+    height:48px;
+
+    font-size:25px;
+
   }
 
 }
@@ -590,7 +1009,9 @@ footer p{
 <body>
 
 
-<!-- ================= HEADER ================= -->
+<!-- ==================================================
+     HEADER
+================================================== -->
 
 <header>
 
@@ -600,6 +1021,7 @@ footer p{
 VOTE<span>RA</span>
 </a>
 
+
 <div class="nav-actions">
 
 <button
@@ -608,6 +1030,7 @@ onclick="signInWithGoogle()"
 >
 🔐 دخول
 </button>
+
 
 <a
 href="create.html"
@@ -623,7 +1046,10 @@ class="nav-button create-button"
 </header>
 
 
-<!-- ================= HERO ================= -->
+
+<!-- ==================================================
+     HERO
+================================================== -->
 
 <section class="hero">
 
@@ -631,16 +1057,25 @@ class="nav-button create-button"
 🔥 VOTERA
 </div>
 
+
 <h1>
+
 اسأل.
+
 <span>صوّت.</span>
+
 اكتشف.
+
 </h1>
 
+
 <p>
+
 أنشئ تصويتًا، شاركه مع العالم،
 واكتشف رأي المجتمع في أي شيء.
+
 </p>
+
 
 <div class="hero-actions">
 
@@ -650,6 +1085,7 @@ class="hero-button hero-primary"
 >
 🔥 إنشاء تصويت
 </a>
+
 
 <a
 href="#trending"
@@ -663,15 +1099,25 @@ class="hero-button hero-secondary"
 </section>
 
 
-<!-- ================= MAIN ================= -->
+
+<!-- ==================================================
+     MAIN
+================================================== -->
 
 <main class="main">
 
 
-<div id="message" class="message"></div>
+<div
+id="message"
+class="message"
+>
+</div>
 
 
-<!-- SEARCH -->
+
+<!-- ==================================================
+     SEARCH
+================================================== -->
 
 <div class="search-box">
 
@@ -679,12 +1125,14 @@ class="hero-button hero-secondary"
 🔍
 </div>
 
+
 <input
 type="text"
 id="searchInput"
 placeholder="ابحث عن تصويت..."
 oninput="searchVotes()"
 >
+
 
 <button
 class="search-button"
@@ -696,9 +1144,13 @@ onclick="searchVotes()"
 </div>
 
 
-<!-- CATEGORIES -->
+
+<!-- ==================================================
+     CATEGORIES
+================================================== -->
 
 <div class="categories">
+
 
 <button
 class="category active"
@@ -708,6 +1160,7 @@ onclick="filterCategory('الكل',this)"
 🌐 الكل
 </button>
 
+
 <button
 class="category"
 data-category="عام"
@@ -715,6 +1168,7 @@ onclick="filterCategory('عام',this)"
 >
 🌐 عام
 </button>
+
 
 <button
 class="category"
@@ -724,6 +1178,7 @@ onclick="filterCategory('تقنية',this)"
 📱 تقنية
 </button>
 
+
 <button
 class="category"
 data-category="ألعاب"
@@ -731,6 +1186,7 @@ onclick="filterCategory('ألعاب',this)"
 >
 🎮 ألعاب
 </button>
+
 
 <button
 class="category"
@@ -740,6 +1196,7 @@ onclick="filterCategory('رياضة',this)"
 ⚽ رياضة
 </button>
 
+
 <button
 class="category"
 data-category="أفلام"
@@ -747,6 +1204,7 @@ onclick="filterCategory('أفلام',this)"
 >
 🎬 أفلام
 </button>
+
 
 <button
 class="category"
@@ -756,6 +1214,7 @@ onclick="filterCategory('موسيقى',this)"
 🎵 موسيقى
 </button>
 
+
 <button
 class="category"
 data-category="طعام"
@@ -763,6 +1222,7 @@ onclick="filterCategory('طعام',this)"
 >
 🍔 طعام
 </button>
+
 
 <button
 class="category"
@@ -772,21 +1232,33 @@ onclick="filterCategory('ترفيه',this)"
 😂 ترفيه
 </button>
 
+
 </div>
 
 
-<!-- ================= TRENDING ================= -->
+
+<!-- ==================================================
+     TRENDING
+================================================== -->
 
 <section
 class="section"
 id="trending"
 >
 
+
 <div class="section-header">
 
+
 <h2 class="section-title">
-🔥 <span>التصويتات الرائجة</span>
+
+🔥
+<span>
+التصويتات الرائجة
+</span>
+
 </h2>
+
 
 <button
 class="refresh-button"
@@ -794,6 +1266,7 @@ onclick="loadVotes()"
 >
 🔄 تحديث
 </button>
+
 
 </div>
 
@@ -803,28 +1276,40 @@ id="trendingVotes"
 class="votes-grid"
 >
 
+
 <div class="loading">
 
-<div class="spinner"></div>
+<div class="spinner">
+</div>
 
 جارٍ تحميل التصويتات...
 
 </div>
 
+
 </div>
+
 
 </section>
 
 
-<!-- ================= LATEST ================= -->
+
+<!-- ==================================================
+     LATEST
+================================================== -->
 
 <section class="section">
 
+
 <div class="section-header">
 
+
 <h2 class="section-title">
+
 🆕 أحدث التصويتات
+
 </h2>
+
 
 </div>
 
@@ -834,15 +1319,19 @@ id="latestVotes"
 class="votes-grid"
 >
 
+
 <div class="loading">
 
-<div class="spinner"></div>
+<div class="spinner">
+</div>
 
 جارٍ تحميل التصويتات...
 
 </div>
 
+
 </div>
+
 
 </section>
 
@@ -850,29 +1339,160 @@ class="votes-grid"
 </main>
 
 
-<!-- ================= FOOTER ================= -->
+
+<!-- ==================================================
+     FOOTER
+================================================== -->
 
 <footer>
 
+
 <div class="footer-logo">
+
 VOTE<span>RA</span>
+
 </div>
 
+
 <p>
-اسأل. صوّت. اكتشف. — منصة التصويت الاجتماعية.
+
+اسأل. صوّت. اكتشف.
+— منصة التصويت الاجتماعية.
+
 </p>
+
 
 </footer>
 
 
+
+<!-- ==================================================
+     BOTTOM NAVIGATION
+================================================== -->
+
+<nav
+class="bottom-nav"
+aria-label="القائمة الرئيسية"
+>
+
+
+<div class="bottom-nav-inner">
+
+
+<!-- الرئيسية -->
+
+<a
+href="index.html"
+class="bottom-item active"
+>
+
+<div class="bottom-icon">
+🏠
+</div>
+
+<div class="bottom-label">
+الرئيسية
+</div>
+
+</a>
+
+
+
+<!-- استكشاف -->
+
+<a
+href="#trending"
+class="bottom-item"
+>
+
+<div class="bottom-icon">
+🌎
+</div>
+
+<div class="bottom-label">
+استكشاف
+</div>
+
+</a>
+
+
+
+<!-- إنشاء -->
+
+<a
+href="create.html"
+class="bottom-item"
+>
+
+<div class="bottom-create">
+＋
+</div>
+
+<div class="bottom-label">
+إنشاء
+</div>
+
+</a>
+
+
+
+<!-- التصويتات -->
+
+<a
+href="#trending"
+class="bottom-item"
+>
+
+<div class="bottom-icon">
+🗳️
+</div>
+
+<div class="bottom-label">
+التصويتات
+</div>
+
+</a>
+
+
+
+<!-- الحساب -->
+
+<a
+href="profile.html"
+class="bottom-item"
+>
+
+<div class="bottom-icon">
+👤
+</div>
+
+<div class="bottom-label">
+حسابي
+</div>
+
+</a>
+
+
+</div>
+
+</nav>
+
+
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
+
 <script>
 
-/* ==========================================
+
+/* ==================================================
    SUPABASE
-========================================== */
+================================================== */
 
 const SUPABASE_URL =
 "https://vatlwkuagxyrvwclttfz.supabase.co";
+
 
 const SUPABASE_ANON_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
@@ -885,33 +1505,38 @@ window.supabase.createClient(
 );
 
 
-/* ==========================================
+
+/* ==================================================
    VARIABLES
-========================================== */
+================================================== */
 
 let allVotes = [];
 
 let selectedCategory = "الكل";
 
 
-/* ==========================================
+
+/* ==================================================
    ELEMENTS
-========================================== */
+================================================== */
 
 const trendingVotes =
 document.getElementById(
   "trendingVotes"
 );
 
+
 const latestVotes =
 document.getElementById(
   "latestVotes"
 );
 
+
 const searchInput =
 document.getElementById(
   "searchInput"
 );
+
 
 const message =
 document.getElementById(
@@ -919,17 +1544,20 @@ document.getElementById(
 );
 
 
-/* ==========================================
+
+/* ==================================================
    MESSAGE
-========================================== */
+================================================== */
 
 function showMessage(text,type){
 
   message.textContent =
     text;
 
+
   message.className =
     "message " + type;
+
 
   setTimeout(
     function(){
@@ -944,9 +1572,10 @@ function showMessage(text,type){
 }
 
 
-/* ==========================================
+
+/* ==================================================
    GOOGLE LOGIN
-========================================== */
+================================================== */
 
 async function signInWithGoogle(){
 
@@ -962,7 +1591,7 @@ async function signInWithGoogle(){
       options:{
 
         redirectTo:
-        window.location.href
+          window.location.href
 
       }
 
@@ -972,6 +1601,7 @@ async function signInWithGoogle(){
     if(error){
 
       console.error(error);
+
 
       showMessage(
         "حدث خطأ أثناء تسجيل الدخول.",
@@ -984,6 +1614,7 @@ async function signInWithGoogle(){
 
     console.error(error);
 
+
     showMessage(
       "تعذر الاتصال.",
       "error"
@@ -994,25 +1625,36 @@ async function signInWithGoogle(){
 }
 
 
-/* ==========================================
+
+/* ==================================================
    LOAD VOTES
-========================================== */
+================================================== */
 
 async function loadVotes(){
 
   trendingVotes.innerHTML = `
+
     <div class="loading">
+
       <div class="spinner"></div>
+
       جارٍ تحميل التصويتات...
+
     </div>
+
   `;
 
 
   latestVotes.innerHTML = `
+
     <div class="loading">
+
       <div class="spinner"></div>
+
       جارٍ تحميل التصويتات...
+
     </div>
+
   `;
 
 
@@ -1038,15 +1680,18 @@ async function loadVotes(){
 
       console.error(error);
 
+
       showEmpty(
         trendingVotes,
         "تعذر تحميل التصويتات."
       );
 
+
       showEmpty(
         latestVotes,
         "تعذر تحميل التصويتات."
       );
+
 
       return;
 
@@ -1064,10 +1709,12 @@ async function loadVotes(){
 
     console.error(error);
 
+
     showEmpty(
       trendingVotes,
       "حدث خطأ أثناء تحميل التصويتات."
     );
+
 
     showEmpty(
       latestVotes,
@@ -1079,9 +1726,10 @@ async function loadVotes(){
 }
 
 
-/* ==========================================
+
+/* ==================================================
    RENDER VOTES
-========================================== */
+================================================== */
 
 function renderVotes(){
 
@@ -1122,13 +1770,11 @@ function renderVotes(){
       filtered.filter(
       function(vote){
 
-        return (
-          String(
-            vote.question || ""
-          )
-          .toLowerCase()
-          .includes(search)
-        );
+        return String(
+          vote.question || ""
+        )
+        .toLowerCase()
+        .includes(search);
 
       });
 
@@ -1144,10 +1790,7 @@ function renderVotes(){
     );
 
 
-  /*
-    TRENDING
-    ترتيب تقريبي حسب مجموع الأصوات
-  */
+  /* TRENDING */
 
   const trending =
     [...filtered]
@@ -1180,11 +1823,15 @@ function renderVotes(){
 }
 
 
-/* ==========================================
-   RENDER LIST
-========================================== */
 
-function renderVoteList(container,votes){
+/* ==================================================
+   RENDER LIST
+================================================== */
+
+function renderVoteList(
+  container,
+  votes
+){
 
   container.innerHTML =
     "";
@@ -1197,6 +1844,7 @@ function renderVoteList(container,votes){
       "لا توجد تصويتات حاليًا.",
       "أنشئ أول تصويت وابدأ النقاش!"
     );
+
 
     return;
 
@@ -1216,9 +1864,10 @@ function renderVoteList(container,votes){
 }
 
 
-/* ==========================================
+
+/* ==================================================
    CREATE CARD
-========================================== */
+================================================== */
 
 function createVoteCard(vote){
 
@@ -1292,7 +1941,10 @@ function createVoteCard(vote){
     <div class="vote-category">
 
       ${getCategoryEmoji(vote.category)}
-      ${escapeHtml(vote.category || "عام")}
+
+      ${escapeHtml(
+        vote.category || "عام"
+      )}
 
     </div>
 
@@ -1300,7 +1952,8 @@ function createVoteCard(vote){
     <h3 class="vote-question">
 
       ${escapeHtml(
-        vote.question || "بدون سؤال"
+        vote.question ||
+        "بدون سؤال"
       )}
 
     </h3>
@@ -1318,7 +1971,9 @@ function createVoteCard(vote){
       <span class="vote-count">
 
         🗳️
+
         ${total}
+
         ${total === 1 ? "صوت" : "أصوات"}
 
       </span>
@@ -1358,9 +2013,10 @@ function createVoteCard(vote){
 }
 
 
-/* ==========================================
+
+/* ==================================================
    GET OPTIONS
-========================================== */
+================================================== */
 
 function getVoteOptions(vote){
 
@@ -1405,7 +2061,8 @@ function getVoteOptions(vote){
         name:String(name).trim(),
 
         image:
-          vote[imageField] || null
+          vote[imageField] ||
+          null
 
       });
 
@@ -1419,9 +2076,10 @@ function getVoteOptions(vote){
 }
 
 
-/* ==========================================
+
+/* ==================================================
    TOTAL
-========================================== */
+================================================== */
 
 function calculateTotal(vote){
 
@@ -1458,34 +2116,44 @@ function calculateTotal(vote){
 }
 
 
-/* ==========================================
+
+/* ==================================================
    CATEGORY EMOJI
-========================================== */
+================================================== */
 
 function getCategoryEmoji(category){
 
   const emojis = {
 
     "عام":"🌐",
+
     "تقنية":"📱",
+
     "ألعاب":"🎮",
+
     "رياضة":"⚽",
+
     "أفلام":"🎬",
+
     "موسيقى":"🎵",
+
     "طعام":"🍔",
+
     "ترفيه":"😂"
 
   };
 
 
-  return emojis[category] || "🌐";
+  return emojis[category] ||
+    "🌐";
 
 }
 
 
-/* ==========================================
+
+/* ==================================================
    FILTER
-========================================== */
+================================================== */
 
 function filterCategory(
   category,
@@ -1520,9 +2188,10 @@ function filterCategory(
 }
 
 
-/* ==========================================
+
+/* ==================================================
    SEARCH
-========================================== */
+================================================== */
 
 function searchVotes(){
 
@@ -1531,9 +2200,10 @@ function searchVotes(){
 }
 
 
-/* ==========================================
+
+/* ==================================================
    OPEN VOTE
-========================================== */
+================================================== */
 
 function openVote(id){
 
@@ -1544,9 +2214,10 @@ function openVote(id){
 }
 
 
-/* ==========================================
+
+/* ==================================================
    SHARE VOTE
-========================================== */
+================================================== */
 
 async function shareVote(id){
 
@@ -1565,8 +2236,10 @@ async function shareVote(id){
     allVotes.find(
       function(item){
 
-        return String(item.id) ===
-          String(id);
+        return String(
+          item.id
+        ) ===
+        String(id);
 
       }
     );
@@ -1590,16 +2263,14 @@ async function shareVote(id){
 
       await navigator.share({
 
-        title:
-          "VOTERA",
+        title:"VOTERA",
 
-        text:
-          text,
+        text:text,
 
-        url:
-          link
+        url:link
 
       });
+
 
       return;
 
@@ -1640,9 +2311,10 @@ async function shareVote(id){
 }
 
 
-/* ==========================================
+
+/* ==================================================
    EMPTY
-========================================== */
+================================================== */
 
 function showEmpty(
   container,
@@ -1663,6 +2335,7 @@ function showEmpty(
       </h3>
 
       <p>
+
         ${
           description
           ?
@@ -1670,6 +2343,7 @@ function showEmpty(
           :
           ""
         }
+
       </p>
 
     </div>
@@ -1679,9 +2353,10 @@ function showEmpty(
 }
 
 
-/* ==========================================
+
+/* ==================================================
    ESCAPE HTML
-========================================== */
+================================================== */
 
 function escapeHtml(text){
 
@@ -1690,33 +2365,57 @@ function escapeHtml(text){
       "div"
     );
 
+
   div.textContent =
     text;
+
 
   return div.innerHTML;
 
 }
 
 
-/* ==========================================
+
+/* ==================================================
    ESCAPE ATTRIBUTE
-========================================== */
+================================================== */
 
 function escapeAttribute(text){
 
   return String(text)
-    .replace(/&/g,"&amp;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;");
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    );
 
 }
 
 
-/* ==========================================
+
+/* ==================================================
    START
-========================================== */
+================================================== */
 
 loadVotes();
 
