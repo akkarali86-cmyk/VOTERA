@@ -5,7 +5,8 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>الملف الشخصي — VOTERA</title>
 
@@ -13,9 +14,9 @@
 
 <style>
 
-/* ==========================================
+/* =========================================
    VARIABLES
-========================================== */
+========================================= */
 
 :root{
   --primary:#6c5ce7;
@@ -25,13 +26,12 @@
   --text:#17171c;
   --muted:#777783;
   --border:#e8e8ef;
-  --danger:#e74c3c;
 }
 
 
-/* ==========================================
+/* =========================================
    RESET
-========================================== */
+========================================= */
 
 *{
   margin:0;
@@ -40,26 +40,24 @@
 }
 
 html{
-  scroll-behavior:smooth;
+  min-height:100%;
 }
 
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:var(--bg);
   color:var(--text);
-  min-height:100vh;
-  padding-bottom:90px;
-}
 
-button,
-input,
-textarea{
-  font-family:inherit;
+  /* مهم جدًا للقائمة السفلية */
+  padding-bottom:100px;
+
+  min-height:100vh;
 }
 
 button{
-  cursor:pointer;
+  font-family:inherit;
   border:0;
+  cursor:pointer;
 }
 
 a{
@@ -68,70 +66,436 @@ a{
 }
 
 
-/* ==========================================
+/* =========================================
    HEADER
-========================================== */
+========================================= */
 
 header{
+
   height:68px;
-  background:rgba(255,255,255,.96);
+
+  background:rgba(255,255,255,.97);
+
   border-bottom:1px solid var(--border);
+
   display:flex;
   align-items:center;
+
   position:sticky;
   top:0;
+
   z-index:100;
+
 }
 
 .nav{
+
   width:100%;
   max-width:900px;
+
   margin:auto;
+
   padding:0 18px;
 
   display:flex;
   align-items:center;
   justify-content:space-between;
+
 }
 
 .logo{
+
   font-size:25px;
+
   font-weight:950;
+
   letter-spacing:-1px;
+
   direction:ltr;
+
 }
 
 .logo span{
   color:var(--primary);
 }
 
-.back{
+.home-link{
+
   color:var(--muted);
+
   font-size:13px;
-  font-weight:800;
+
+  font-weight:900;
+
 }
 
 
-/* ==========================================
-   MAIN
-========================================== */
+/* =========================================
+   CONTAINER
+========================================= */
 
 .container{
+
   width:100%;
-  max-width:760px;
+
+  max-width:700px;
+
   margin:auto;
-  padding:35px 18px;
+
+  padding:35px 18px 40px;
+
 }
 
 
-/* ==========================================
+/* =========================================
+   PROFILE HEADER
+========================================= */
+
+.profile-card{
+
+  background:var(--card);
+
+  border:1px solid var(--border);
+
+  border-radius:24px;
+
+  padding:28px 20px;
+
+  text-align:center;
+
+  box-shadow:
+  0 8px 25px rgba(0,0,0,.035);
+
+  margin-bottom:18px;
+
+}
+
+.avatar{
+
+  width:82px;
+  height:82px;
+
+  border-radius:50%;
+
+  background:#ece9ff;
+
+  color:var(--primary);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  margin:0 auto 14px;
+
+  font-size:35px;
+
+  font-weight:950;
+
+  overflow:hidden;
+
+}
+
+.avatar img{
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+}
+
+.profile-name{
+
+  font-size:22px;
+
+  font-weight:950;
+
+  margin-bottom:6px;
+
+}
+
+.profile-email{
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  direction:ltr;
+
+  margin-bottom:20px;
+
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+.stats{
+
+  display:grid;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:8px;
+
+}
+
+.stat{
+
+  background:#fafafd;
+
+  border:1px solid var(--border);
+
+  border-radius:15px;
+
+  padding:13px 5px;
+
+}
+
+.stat strong{
+
+  display:block;
+
+  color:var(--primary);
+
+  font-size:19px;
+
+  margin-bottom:4px;
+
+}
+
+.stat span{
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  font-weight:800;
+
+}
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+.login-card{
+
+  background:white;
+
+  border:1px solid var(--border);
+
+  border-radius:22px;
+
+  padding:30px 20px;
+
+  text-align:center;
+
+}
+
+.login-card h2{
+
+  font-size:21px;
+
+  margin-bottom:10px;
+
+}
+
+.login-card p{
+
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.6;
+
+  margin-bottom:18px;
+
+}
+
+.google-btn{
+
+  background:white;
+
+  border:1px solid var(--border);
+
+  border-radius:13px;
+
+  padding:13px 20px;
+
+  font-weight:900;
+
+}
+
+
+/* =========================================
+   SECTION TITLE
+========================================= */
+
+.section-header{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin:25px 2px 14px;
+
+}
+
+.section-header h2{
+
+  font-size:21px;
+
+  font-weight:950;
+
+}
+
+.section-header span{
+
+  color:var(--primary);
+
+  font-size:12px;
+
+  font-weight:900;
+
+}
+
+
+/* =========================================
+   VOTES
+========================================= */
+
+.votes{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:12px;
+
+}
+
+.vote-card{
+
+  background:white;
+
+  border:1px solid var(--border);
+
+  border-radius:19px;
+
+  padding:17px;
+
+  box-shadow:
+  0 5px 18px rgba(0,0,0,.025);
+
+}
+
+.vote-category{
+
+  display:inline-block;
+
+  background:#f0eeff;
+
+  color:var(--primary);
+
+  border-radius:20px;
+
+  padding:6px 10px;
+
+  font-size:10px;
+
+  font-weight:900;
+
+  margin-bottom:10px;
+
+}
+
+.vote-question{
+
+  font-size:16px;
+
+  font-weight:900;
+
+  line-height:1.6;
+
+  margin-bottom:12px;
+
+}
+
+.vote-date{
+
+  color:var(--muted);
+
+  font-size:10px;
+
+}
+
+.empty{
+
+  background:white;
+
+  border:1px solid var(--border);
+
+  border-radius:20px;
+
+  padding:30px 15px;
+
+  text-align:center;
+
+  color:var(--muted);
+
+  font-size:13px;
+
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+.logout{
+
+  width:100%;
+
+  margin-top:20px;
+
+  padding:14px;
+
+  border-radius:14px;
+
+  background:#fff0f0;
+
+  color:#d93025;
+
+  font-size:14px;
+
+  font-weight:950;
+
+  border:1px solid #ffd5d5;
+
+}
+
+.logout:hover{
+
+  background:#ffe4e4;
+
+}
+
+
+/* =========================================
    MESSAGE
-========================================== */
+========================================= */
 
 .message{
+
   display:none;
 
-  margin-bottom:16px;
+  margin-bottom:15px;
+
   padding:13px;
 
   border-radius:13px;
@@ -139,455 +503,92 @@ header{
   text-align:center;
 
   font-size:12px;
+
   font-weight:800;
 
-  white-space:pre-line;
 }
 
 .message.error{
+
   display:block;
+
   background:#fff0f0;
+
   color:#b42318;
-  border:1px solid #ffd0d0;
+
 }
 
 .message.success{
+
   display:block;
+
   background:#ecfdf3;
+
   color:#166534;
-  border:1px solid #bbf7d0;
+
 }
 
 
-/* ==========================================
-   LOGIN
-========================================== */
-
-.login{
-  background:white;
-
-  border:1px solid var(--border);
-  border-radius:24px;
-
-  padding:45px 20px;
-
-  text-align:center;
-
-  box-shadow:0 7px 25px rgba(0,0,0,.035);
-}
-
-.login-icon{
-  font-size:45px;
-  margin-bottom:12px;
-}
-
-.login h2{
-  font-size:21px;
-  margin-bottom:9px;
-}
-
-.login p{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.7;
-  margin-bottom:20px;
-}
-
-.google-btn{
-  background:white;
-  border:1px solid var(--border);
-
-  padding:13px 20px;
-
-  border-radius:12px;
-
-  font-size:12px;
-  font-weight:900;
-}
-
-.google-btn:hover{
-  border-color:var(--primary);
-}
-
-
-/* ==========================================
-   PROFILE CARD
-========================================== */
-
-.profile-card{
-  background:var(--card);
-
-  border:1px solid var(--border);
-  border-radius:24px;
-
-  padding:28px 22px;
-
-  text-align:center;
-
-  box-shadow:0 7px 25px rgba(0,0,0,.035);
-
-  margin-bottom:18px;
-}
-
-.avatar{
-  width:92px;
-  height:92px;
-
-  border-radius:50%;
-
-  object-fit:cover;
-
-  display:block;
-
-  margin:0 auto 14px;
-
-  background:#ece9ff;
-
-  border:4px solid #f0eeff;
-}
-
-.avatar-placeholder{
-  width:92px;
-  height:92px;
-
-  border-radius:50%;
-
-  margin:0 auto 14px;
-
-  background:#ece9ff;
-
-  color:var(--primary);
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  font-size:38px;
-  font-weight:900;
-}
-
-.profile-name{
-  font-size:22px;
-  font-weight:950;
-
-  margin-bottom:6px;
-}
-
-.profile-email{
-  color:var(--muted);
-
-  font-size:12px;
-
-  direction:ltr;
-
-  margin-bottom:20px;
-}
-
-.logout{
-  background:#fff0f0;
-
-  color:var(--danger);
-
-  padding:11px 20px;
-
-  border-radius:12px;
-
-  font-size:12px;
-  font-weight:900;
-}
-
-.logout:hover{
-  background:#ffe4e4;
-}
-
-
-/* ==========================================
-   STATS
-========================================== */
-
-.stats{
-  display:grid;
-
-  grid-template-columns:repeat(3,1fr);
-
-  gap:10px;
-
-  margin-bottom:18px;
-}
-
-.stat{
-  background:white;
-
-  border:1px solid var(--border);
-
-  border-radius:17px;
-
-  padding:18px 8px;
-
-  text-align:center;
-}
-
-.stat strong{
-  display:block;
-
-  font-size:21px;
-
-  font-weight:950;
-
-  color:var(--primary);
-
-  margin-bottom:5px;
-}
-
-.stat span{
-  color:var(--muted);
-
-  font-size:10px;
-
-  font-weight:800;
-}
-
-
-/* ==========================================
-   SECTION
-========================================== */
-
-.section{
-  background:white;
-
-  border:1px solid var(--border);
-
-  border-radius:22px;
-
-  padding:20px;
-
-  box-shadow:0 7px 25px rgba(0,0,0,.03);
-}
-
-.section-title{
-  font-size:18px;
-
-  font-weight:950;
-
-  margin-bottom:17px;
-}
-
-
-/* ==========================================
-   VOTES
-========================================== */
-
-.votes{
-  display:flex;
-
-  flex-direction:column;
-
-  gap:12px;
-}
-
-.vote-card{
-  border:1px solid var(--border);
-
-  border-radius:16px;
-
-  padding:16px;
-
-  background:#fafafd;
-
-  transition:.2s;
-}
-
-.vote-card:hover{
-  border-color:#d8d3ff;
-
-  transform:translateY(-1px);
-}
-
-.vote-question{
-  font-size:14px;
-
-  font-weight:900;
-
-  line-height:1.6;
-
-  margin-bottom:10px;
-}
-
-.vote-meta{
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  gap:10px;
-}
-
-.category{
-  background:#ece9ff;
-
-  color:var(--primary);
-
-  padding:6px 9px;
-
-  border-radius:8px;
-
-  font-size:10px;
-
-  font-weight:900;
-}
-
-.vote-date{
-  color:var(--muted);
-
-  font-size:10px;
-}
-
-.vote-total{
-  color:var(--muted);
-
-  font-size:10px;
-
-  margin-top:9px;
-}
-
-.open-vote{
-  margin-top:12px;
-
-  width:100%;
-
-  padding:10px;
-
-  border-radius:10px;
-
-  background:var(--primary);
-
-  color:white;
-
-  font-size:11px;
-
-  font-weight:900;
-}
-
-.open-vote:hover{
-  background:var(--primary-dark);
-}
-
-
-/* ==========================================
-   EMPTY
-========================================== */
-
-.empty{
-  text-align:center;
-
-  padding:35px 15px;
-
-  color:var(--muted);
-}
-
-.empty-icon{
-  font-size:40px;
-
-  margin-bottom:10px;
-}
-
-.empty h3{
-  color:var(--text);
-
-  font-size:15px;
-
-  margin-bottom:7px;
-}
-
-.empty p{
-  font-size:11px;
-
-  line-height:1.6;
-}
-
-.create-btn{
-  display:inline-block;
-
-  margin-top:15px;
-
-  padding:11px 18px;
-
-  background:var(--primary);
-
-  color:white;
-
-  border-radius:11px;
-
-  font-size:11px;
-
-  font-weight:900;
-}
-
-
-/* ==========================================
-   LOADING
-========================================== */
-
-.loading{
-  text-align:center;
-
-  padding:35px;
-
-  color:var(--muted);
-
-  font-size:12px;
-}
-
-
-/* ==========================================
+/* =========================================
    BOTTOM NAVIGATION
-========================================== */
+   مهم جدًا
+========================================= */
 
 .bottom-nav{
+
   position:fixed;
 
   bottom:0;
   left:0;
   right:0;
 
-  height:72px;
+  width:100%;
+
+  height:76px;
 
   background:rgba(255,255,255,.98);
 
   border-top:1px solid var(--border);
 
-  z-index:200;
-
-  box-shadow:0 -5px 20px rgba(0,0,0,.05);
-}
-
-.bottom-nav-inner{
-  width:100%;
-  max-width:650px;
-
-  height:100%;
-
-  margin:auto;
+  box-shadow:
+  0 -6px 25px rgba(0,0,0,.07);
 
   display:flex;
 
   align-items:center;
 
-  justify-content:space-around;
+  justify-content:center;
 
-  padding:5px 8px;
+  z-index:9999;
+
 }
 
+
+/* محتوى القائمة */
+
+.bottom-nav-inner{
+
+  width:100%;
+
+  max-width:600px;
+
+  height:100%;
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(5,1fr);
+
+  align-items:center;
+
+}
+
+
+/* عنصر القائمة */
+
 .bottom-item{
-  height:60px;
 
-  min-width:60px;
-
-  flex:1;
-
-  max-width:105px;
+  height:100%;
 
   display:flex;
 
@@ -597,43 +598,59 @@ header{
 
   justify-content:center;
 
-  gap:3px;
+  gap:4px;
 
-  color:#858591;
+  background:transparent;
+
+  color:#888895;
 
   font-size:10px;
 
-  font-weight:800;
-
-  border-radius:14px;
+  font-weight:900;
 
   transition:.2s;
+
 }
 
-.bottom-item .icon{
+
+/* الأيقونة */
+
+.bottom-icon{
+
   font-size:21px;
 
   line-height:1;
+
 }
+
+
+/* النص */
+
+.bottom-label{
+
+  font-size:10px;
+
+}
+
+
+/* العنصر النشط */
 
 .bottom-item.active{
+
   color:var(--primary);
 
-  background:#f0eeff;
-}
-
-.bottom-item:hover{
-  color:var(--primary);
 }
 
 
-/* CREATE BUTTON */
+/* زر الإضافة */
 
 .bottom-create{
-  width:53px;
-  height:53px;
 
-  border-radius:50%;
+  width:52px;
+
+  height:52px;
+
+  border-radius:17px;
 
   background:var(--primary);
 
@@ -642,69 +659,77 @@ header{
   display:flex;
 
   align-items:center;
+
   justify-content:center;
 
-  font-size:28px;
-
-  font-weight:400;
+  font-size:27px;
 
   box-shadow:
-    0 7px 18px rgba(108,92,231,.30);
+  0 8px 20px rgba(108,92,231,.30);
 
-  transition:.2s;
+  margin-top:-20px;
+
 }
 
 .bottom-create:hover{
+
   background:var(--primary-dark);
 
-  transform:scale(1.04);
 }
 
 
-/* ==========================================
+/* =========================================
    DESKTOP
-========================================== */
+========================================= */
 
 @media(min-width:700px){
 
   .container{
+
     padding-top:50px;
-  }
 
-  .profile-card{
-    padding:32px;
-  }
-
-  .profile-name{
-    font-size:25px;
   }
 
   .bottom-nav{
-    height:76px;
+
+    height:80px;
+
+  }
+
+  .bottom-nav-inner{
+
+    max-width:650px;
+
   }
 
 }
 
 
-/* ==========================================
-   SMALL MOBILE
-========================================== */
+/* =========================================
+   SMALL PHONES
+========================================= */
 
-@media(max-width:380px){
+@media(max-width:360px){
 
-  .bottom-item{
-    min-width:48px;
-    font-size:9px;
+  .bottom-icon{
+
+    font-size:19px;
+
   }
 
-  .bottom-item .icon{
-    font-size:19px;
+  .bottom-label{
+
+    font-size:9px;
+
   }
 
   .bottom-create{
+
     width:48px;
     height:48px;
-    font-size:25px;
+
+    font-size:24px;
+
   }
 
 }
@@ -717,9 +742,9 @@ header{
 <body>
 
 
-<!-- ========================================
+<!-- =====================================
      HEADER
-========================================= -->
+===================================== -->
 
 <header>
 
@@ -729,8 +754,8 @@ header{
 VOTE<span>RA</span>
 </a>
 
-<a href="index.html" class="back">
-→ الرئيسية
+<a href="index.html" class="home-link">
+الرئيسية 🏠
 </a>
 
 </nav>
@@ -738,41 +763,32 @@ VOTE<span>RA</span>
 </header>
 
 
-
-<!-- ========================================
+<!-- =====================================
      MAIN
-========================================= -->
+===================================== -->
 
 <main class="container">
 
 
-<div
-id="message"
-class="message"
-></div>
+<div id="message" class="message"></div>
 
 
-<!-- ========================================
-     LOGIN BOX
-========================================= -->
+<!-- =====================================
+     LOGIN
+===================================== -->
 
 <div
-id="loginBox"
-class="login"
+id="loginCard"
+class="login-card"
 style="display:none;"
 >
 
-<div class="login-icon">
-🔐
-</div>
-
 <h2>
-تسجيل الدخول مطلوب
+🔐 تسجيل الدخول
 </h2>
 
 <p>
-سجل الدخول بحساب Google للوصول إلى حسابك
-ومشاهدة التصويتات التي أنشأتها.
+سجل الدخول بحساب Google لرؤية ملفك الشخصي وتصويتاتك.
 </p>
 
 <button
@@ -785,10 +801,9 @@ onclick="signInWithGoogle()"
 </div>
 
 
-
-<!-- ========================================
-     PROFILE CONTENT
-========================================= -->
+<!-- =====================================
+     PROFILE
+===================================== -->
 
 <div
 id="profileContent"
@@ -796,50 +811,32 @@ style="display:none;"
 >
 
 
-<!-- PROFILE -->
-
 <section class="profile-card">
 
 
-<div id="avatarContainer">
-
-<div class="avatar-placeholder">
+<div
+class="avatar"
+id="avatar"
+>
 👤
-</div>
-
 </div>
 
 
 <div
-id="profileName"
 class="profile-name"
+id="profileName"
 >
 مستخدم VOTERA
 </div>
 
 
 <div
-id="profileEmail"
 class="profile-email"
+id="profileEmail"
 >
+-
 </div>
 
-
-<button
-class="logout"
-onclick="logout()"
->
-🚪 تسجيل الخروج
-</button>
-
-
-</section>
-
-
-
-<!-- ========================================
-     STATS
-========================================= -->
 
 <div class="stats">
 
@@ -872,45 +869,51 @@ onclick="logout()"
 
 <div class="stat">
 
-<strong id="categoriesCount">
-0
+<strong id="accountDate">
+-
 </strong>
 
 <span>
-التصنيفات
+عضو منذ
+</span>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================
+     MY VOTES
+===================================== -->
+
+<div class="section-header">
+
+<h2>
+🗳️ تصويتاتي
+</h2>
+
+<span id="votesTitleCount">
+0 تصويت
 </span>
 
 </div>
 
 
-</div>
-
-
-
-<!-- ========================================
-     MY VOTES
-========================================= -->
-
-<section class="section">
-
-<div class="section-title">
-🗳️ تصويتاتي
-</div>
-
-
 <div
-id="votesContainer"
+id="votesList"
 class="votes"
 >
-
-<div class="loading">
-⏳ جارٍ تحميل التصويتات...
-</div>
-
 </div>
 
 
-</section>
+<button
+class="logout"
+onclick="logout()"
+>
+🚪 تسجيل الخروج
+</button>
 
 
 </div>
@@ -919,102 +922,101 @@ class="votes"
 </main>
 
 
-
-<!-- ========================================
+<!-- =====================================
      BOTTOM NAVIGATION
-========================================= -->
+===================================== -->
 
 <nav class="bottom-nav">
 
 <div class="bottom-nav-inner">
 
 
-<!-- HOME -->
+<!-- الرئيسية -->
 
 <a
 href="index.html"
 class="bottom-item"
 >
 
-<span class="icon">
+<div class="bottom-icon">
 🏠
-</span>
+</div>
 
-<span>
+<div class="bottom-label">
 الرئيسية
-</span>
+</div>
 
 </a>
 
 
-
-<!-- EXPLORE -->
+<!-- استكشاف -->
 
 <a
-href="index.html#explore"
+href="index.html#votes"
 class="bottom-item"
 >
 
-<span class="icon">
-🔍
-</span>
+<div class="bottom-icon">
+🌎
+</div>
 
-<span>
+<div class="bottom-label">
 استكشاف
-</span>
+</div>
 
 </a>
 
 
-
-<!-- CREATE -->
+<!-- إنشاء تصويت -->
 
 <a
 href="create.html"
 class="bottom-item"
 >
 
-<span class="bottom-create">
-+
-</span>
+<div class="bottom-create">
+＋
+</div>
+
+<div class="bottom-label">
+إنشاء
+</div>
 
 </a>
 
 
-
-<!-- NOTIFICATIONS -->
+<!-- التصويتات -->
 
 <a
-href="index.html#notifications"
+href="index.html#votes"
 class="bottom-item"
 >
 
-<span class="icon">
-🔔
-</span>
+<div class="bottom-icon">
+🗳️
+</div>
 
-<span>
-الإشعارات
-</span>
+<div class="bottom-label">
+التصويتات
+</div>
 
 </a>
 
 
-
-<!-- PROFILE -->
+<!-- الملف الشخصي -->
 
 <a
 href="profile.html"
 class="bottom-item active"
 >
 
-<span class="icon">
+<div class="bottom-icon">
 👤
-</span>
+</div>
 
-<span>
-الملف الشخصي
-</span>
+<div class="bottom-label">
+حسابي
+</div>
 
 </a>
 
@@ -1024,12 +1026,16 @@ class="bottom-item active"
 </nav>
 
 
+<!-- =====================================
+     JAVASCRIPT
+===================================== -->
 
 <script>
 
-/* ==========================================
+
+/* =========================================
    SUPABASE
-========================================== */
+========================================= */
 
 const SUPABASE_URL =
 "https://vatlwkuagxyrvwclttfz.supabase.co";
@@ -1045,21 +1051,19 @@ window.supabase.createClient(
 );
 
 
-
-/* ==========================================
+/* =========================================
    VARIABLES
-========================================== */
+========================================= */
 
 let currentUser = null;
 
 
-
-/* ==========================================
+/* =========================================
    ELEMENTS
-========================================== */
+========================================= */
 
-const loginBox =
-document.getElementById("loginBox");
+const loginCard =
+document.getElementById("loginCard");
 
 const profileContent =
 document.getElementById("profileContent");
@@ -1067,19 +1071,14 @@ document.getElementById("profileContent");
 const message =
 document.getElementById("message");
 
-const votesContainer =
-document.getElementById("votesContainer");
 
-
-
-/* ==========================================
+/* =========================================
    MESSAGE
-========================================== */
+========================================= */
 
 function showMessage(text,type){
 
-  message.textContent =
-    text;
+  message.textContent = text;
 
   message.className =
     "message " + type;
@@ -1087,10 +1086,9 @@ function showMessage(text,type){
 }
 
 
-
-/* ==========================================
+/* =========================================
    GOOGLE LOGIN
-========================================== */
+========================================= */
 
 async function signInWithGoogle(){
 
@@ -1106,7 +1104,8 @@ async function signInWithGoogle(){
       options:{
 
         redirectTo:
-        "https://akkarali86-cmyk.github.io/VOTERA/profile.html"
+        window.location.origin +
+        "/VOTERA/profile.html"
 
       }
 
@@ -1139,53 +1138,9 @@ async function signInWithGoogle(){
 }
 
 
-
-/* ==========================================
-   LOGOUT
-========================================== */
-
-async function logout(){
-
-  try{
-
-    const {
-      error
-    } =
-    await supabaseClient.auth.signOut();
-
-
-    if(error){
-
-      throw error;
-
-    }
-
-
-    currentUser =
-      null;
-
-
-    updatePage();
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showMessage(
-      "تعذر تسجيل الخروج.",
-      "error"
-    );
-
-  }
-
-}
-
-
-
-/* ==========================================
-   CHECK USER
-========================================== */
+/* =========================================
+   CHECK SESSION
+========================================= */
 
 async function checkUser(){
 
@@ -1203,16 +1158,29 @@ async function checkUser(){
       session?.user || null;
 
 
-    updatePage();
+    if(currentUser){
 
+      loginCard.style.display =
+        "none";
+
+      profileContent.style.display =
+        "block";
+
+      loadProfile();
+
+    }else{
+
+      loginCard.style.display =
+        "block";
+
+      profileContent.style.display =
+        "none";
+
+    }
 
   }catch(error){
 
-    console.error(
-      "Session error:",
-      error
-    );
-
+    console.error(error);
 
     showMessage(
       "تعذر التحقق من تسجيل الدخول.",
@@ -1224,10 +1192,9 @@ async function checkUser(){
 }
 
 
-
-/* ==========================================
+/* =========================================
    AUTH STATE
-========================================== */
+========================================= */
 
 supabaseClient.auth.onAuthStateChange(
 function(event,session){
@@ -1235,21 +1202,9 @@ function(event,session){
   currentUser =
     session?.user || null;
 
-  updatePage();
-
-});
-
-
-
-/* ==========================================
-   UPDATE PAGE
-========================================== */
-
-function updatePage(){
-
   if(currentUser){
 
-    loginBox.style.display =
+    loginCard.style.display =
       "none";
 
     profileContent.style.display =
@@ -1259,7 +1214,7 @@ function updatePage(){
 
   }else{
 
-    loginBox.style.display =
+    loginCard.style.display =
       "block";
 
     profileContent.style.display =
@@ -1267,13 +1222,12 @@ function updatePage(){
 
   }
 
-}
+});
 
 
-
-/* ==========================================
+/* =========================================
    LOAD PROFILE
-========================================== */
+========================================= */
 
 async function loadProfile(){
 
@@ -1284,80 +1238,117 @@ async function loadProfile(){
   }
 
 
+  /* ---------------------------------------
+     الاسم
+  --------------------------------------- */
+
   const metadata =
     currentUser.user_metadata || {};
 
 
-  /* NAME */
-
   const name =
     metadata.full_name ||
     metadata.name ||
-    metadata.user_name ||
     "مستخدم VOTERA";
 
 
-  document
-    .getElementById("profileName")
-    .textContent =
-      name;
+  const email =
+    currentUser.email ||
+    "-";
 
 
-
-  /* EMAIL */
-
-  document
-    .getElementById("profileEmail")
-    .textContent =
-      currentUser.email || "";
+  document.getElementById(
+    "profileName"
+  ).textContent =
+    name;
 
 
+  document.getElementById(
+    "profileEmail"
+  ).textContent =
+    email;
 
-  /* AVATAR */
 
-  const avatar =
+  /* ---------------------------------------
+     الصورة
+  --------------------------------------- */
+
+  const avatarUrl =
     metadata.avatar_url ||
     metadata.picture ||
     null;
 
 
-  if(avatar){
+  const avatar =
+    document.getElementById("avatar");
 
-    document
-      .getElementById("avatarContainer")
-      .innerHTML = `
 
-        <img
-          class="avatar"
-          src="${escapeHtml(avatar)}"
-          alt="صورة المستخدم"
-          onerror="this.style.display='none'"
-        >
+  if(avatarUrl){
 
-      `;
+    avatar.innerHTML =
+      `<img src="${avatarUrl}" alt="الصورة الشخصية">`;
+
+  }else{
+
+    avatar.textContent =
+      "👤";
 
   }
 
+
+  /* ---------------------------------------
+     تاريخ التسجيل
+  --------------------------------------- */
+
+  if(currentUser.created_at){
+
+    const date =
+      new Date(
+        currentUser.created_at
+      );
+
+
+    document.getElementById(
+      "accountDate"
+    ).textContent =
+      date.toLocaleDateString(
+        "ar-DZ",
+        {
+          month:"short",
+          year:"numeric"
+        }
+      );
+
+  }
+
+
+  /* ---------------------------------------
+     تحميل التصويتات
+  --------------------------------------- */
 
   await loadMyVotes();
 
 }
 
 
-
-/* ==========================================
-   LOAD VOTES
-========================================== */
+/* =========================================
+   LOAD MY VOTES
+========================================= */
 
 async function loadMyVotes(){
 
-  votesContainer.innerHTML = `
+  const votesList =
+    document.getElementById(
+      "votesList"
+    );
 
-    <div class="loading">
-      ⏳ جارٍ تحميل التصويتات...
+
+  votesList.innerHTML =
+    `
+    <div class="empty">
+      ⏳ جارٍ تحميل تصويتاتك...
     </div>
-
-  `;
+    `;
 
 
   try{
@@ -1367,16 +1358,12 @@ async function loadMyVotes(){
       error
     } =
     await supabaseClient
-
       .from("votes")
-
       .select("*")
-
       .eq(
         "user_id",
         currentUser.id
       )
-
       .order(
         "created_at",
         {
@@ -1387,10 +1374,7 @@ async function loadMyVotes(){
 
     if(error){
 
-      console.error(
-        "Load votes error:",
-        error
-      );
+      console.error(error);
 
       throw error;
 
@@ -1401,439 +1385,253 @@ async function loadMyVotes(){
       data || [];
 
 
+    /* -------------------------------------
+       العدد
+    ------------------------------------- */
 
-    /* ======================================
-       COUNT VOTES
-    ====================================== */
-
-    document
-      .getElementById("votesCount")
-      .textContent =
-        formatNumber(
-          votes.length
-        );
+    document.getElementById(
+      "votesCount"
+    ).textContent =
+      votes.length;
 
 
-
-    /* ======================================
-       TOTAL VOTES
-    ====================================== */
-
-    let total =
-      0;
+    document.getElementById(
+      "votesTitleCount"
+    ).textContent =
+      votes.length +
+      " تصويت";
 
 
-    const categories =
-      new Set();
-
-
-    votes.forEach(
-    function(vote){
-
-      categories.add(
-        vote.category || "عام"
-      );
-
-
-      const fields = [
-
-        "votes_a",
-        "votes_b",
-        "votes_c",
-        "votes_d",
-        "votes_e",
-        "votes_f",
-        "votes_g",
-        "votes_h",
-        "votes_i",
-        "votes_j",
-        "votes_k",
-        "votes_l",
-        "votes_m",
-        "votes_n",
-        "votes_o"
-
-      ];
-
-
-      fields.forEach(
-      function(field){
-
-        total +=
-          Number(
-            vote[field] || 0
-          );
-
-      });
-
-    });
-
-
-
-    document
-      .getElementById("totalVotes")
-      .textContent =
-        formatNumber(total);
-
-
-
-    /* ======================================
-       CATEGORIES
-    ====================================== */
-
-    document
-      .getElementById("categoriesCount")
-      .textContent =
-        formatNumber(
-          categories.size
-        );
-
-
-
-    /* ======================================
-       EMPTY
-    ====================================== */
+    /* -------------------------------------
+       لا توجد تصويتات
+    ------------------------------------- */
 
     if(votes.length === 0){
 
-      votesContainer.innerHTML = `
-
+      votesList.innerHTML =
+        `
         <div class="empty">
 
-          <div class="empty-icon">
-            🗳️
-          </div>
+          🗳️
 
-          <h3>
-            لم تنشئ أي تصويت بعد
-          </h3>
+          <br><br>
 
-          <p>
-            ابدأ بإنشاء أول تصويت لك ودع المجتمع يقرر.
-          </p>
+          لم تنشئ أي تصويت بعد.
 
-          <a
-            href="create.html"
-            class="create-btn"
-          >
-            ➕ إنشاء تصويت
-          </a>
+          <br>
+
+          ابدأ بإنشاء أول تصويت لك!
 
         </div>
-
-      `;
+        `;
 
       return;
 
     }
 
 
+    /* -------------------------------------
+       عرض التصويتات
+    ------------------------------------- */
 
-    /* ======================================
-       DISPLAY VOTES
-    ====================================== */
+    votesList.innerHTML = "";
 
-    votesContainer.innerHTML =
-      "";
+
+    let totalVotesNumber = 0;
 
 
     votes.forEach(
     function(vote){
 
+      const total =
+        Number(vote.votes_a || 0) +
+        Number(vote.votes_b || 0) +
+        Number(vote.votes_c || 0) +
+        Number(vote.votes_d || 0) +
+        Number(vote.votes_e || 0) +
+        Number(vote.votes_f || 0) +
+        Number(vote.votes_g || 0) +
+        Number(vote.votes_h || 0) +
+        Number(vote.votes_i || 0) +
+        Number(vote.votes_j || 0) +
+        Number(vote.votes_k || 0) +
+        Number(vote.votes_l || 0) +
+        Number(vote.votes_m || 0) +
+        Number(vote.votes_n || 0) +
+        Number(vote.votes_o || 0);
+
+
+      totalVotesNumber += total;
+
+
+      let dateText = "";
+
+
+      if(vote.created_at){
+
+        dateText =
+          new Date(
+            vote.created_at
+          ).toLocaleDateString(
+            "ar-DZ"
+          );
+
+      }
+
+
       const card =
-        document.createElement(
-          "div"
-        );
+        document.createElement("a");
 
 
       card.className =
         "vote-card";
 
 
-      const question =
-        escapeHtml(
-          vote.question ||
-          "بدون سؤال"
-        );
-
-
-      const category =
-        escapeHtml(
-          vote.category ||
-          "عام"
-        );
-
-
-      const date =
-        formatDate(
-          vote.created_at
-        );
-
-
-      const totalVotes =
-        calculateVoteTotal(
-          vote
+      card.href =
+        "vote.html?id=" +
+        encodeURIComponent(
+          vote.id
         );
 
 
       card.innerHTML = `
 
+        <div class="vote-category">
+          ${vote.category || "عام"}
+        </div>
+
         <div class="vote-question">
-          ${question}
+          ${escapeHtml(
+            vote.question || "تصويت بدون عنوان"
+          )}
         </div>
 
-        <div class="vote-meta">
-
-          <span class="category">
-            ${category}
-          </span>
-
-          <span class="vote-date">
-            ${date}
-          </span>
-
+        <div class="vote-date">
+          🗳️ ${total} أصوات
+          &nbsp;&nbsp; • &nbsp;&nbsp;
+          📅 ${dateText}
         </div>
-
-        <div class="vote-total">
-          🗳️ ${formatNumber(totalVotes)} صوت
-        </div>
-
-        <button
-          class="open-vote"
-          type="button"
-        >
-          👁️ عرض التصويت
-        </button>
 
       `;
 
 
-      const openButton =
-        card.querySelector(
-          ".open-vote"
-        );
-
-
-      openButton.addEventListener(
-        "click",
-        function(){
-
-          openVote(
-            vote.id
-          );
-
-        }
-      );
-
-
-      votesContainer.appendChild(
-        card
-      );
+      votesList.appendChild(card);
 
     });
+
+
+    document.getElementById(
+      "totalVotes"
+    ).textContent =
+      totalVotesNumber;
 
 
   }catch(error){
 
     console.error(
-      "Votes error:",
+      "Load votes error:",
       error
     );
 
 
-    votesContainer.innerHTML = `
-
+    votesList.innerHTML =
+      `
       <div class="empty">
 
-        <div class="empty-icon">
-          ⚠️
-        </div>
+        ❌ تعذر تحميل التصويتات.
 
-        <h3>
-          تعذر تحميل التصويتات
-        </h3>
+        <br><br>
 
-        <p>
-          حدث خطأ أثناء الاتصال بقاعدة البيانات.
-          حاول تحديث الصفحة.
-        </p>
+        ${escapeHtml(
+          error.message || ""
+        )}
 
       </div>
-
-    `;
+      `;
 
   }
 
 }
 
 
+/* =========================================
+   SECURITY
+========================================= */
 
-/* ==========================================
-   CALCULATE TOTAL
-========================================== */
+function escapeHtml(text){
 
-function calculateVoteTotal(vote){
+  const div =
+    document.createElement("div");
 
-  const fields = [
+  div.textContent =
+    text;
 
-    "votes_a",
-    "votes_b",
-    "votes_c",
-    "votes_d",
-    "votes_e",
-    "votes_f",
-    "votes_g",
-    "votes_h",
-    "votes_i",
-    "votes_j",
-    "votes_k",
-    "votes_l",
-    "votes_m",
-    "votes_n",
-    "votes_o"
-
-  ];
-
-
-  let total =
-    0;
-
-
-  fields.forEach(
-  function(field){
-
-    total +=
-      Number(
-        vote[field] || 0
-      );
-
-  });
-
-
-  return total;
+  return div.innerHTML;
 
 }
 
 
+/* =========================================
+   LOGOUT
+========================================= */
 
-/* ==========================================
-   OPEN VOTE
-========================================== */
+async function logout(){
 
-function openVote(id){
+  const confirmed =
+    confirm(
+      "هل تريد تسجيل الخروج من VOTERA؟"
+    );
 
-  if(!id){
+
+  if(!confirmed){
 
     return;
 
   }
 
 
-  window.location.href =
-    "vote.html?id=" +
-    encodeURIComponent(
-      id
-    );
-
-}
-
-
-
-/* ==========================================
-   FORMAT NUMBER
-========================================== */
-
-function formatNumber(number){
-
-  return Number(
-    number || 0
-  ).toLocaleString(
-    "en-US"
-  );
-
-}
-
-
-
-/* ==========================================
-   FORMAT DATE
-========================================== */
-
-function formatDate(date){
-
-  if(!date){
-
-    return "";
-
-  }
-
-
   try{
 
-    return new Date(date)
-      .toLocaleDateString(
-        "ar-DZ",
-        {
-          year:"numeric",
-          month:"short",
-          day:"numeric"
-        }
-      );
+    const {
+      error
+    } =
+    await supabaseClient.auth.signOut();
+
+
+    if(error){
+
+      throw error;
+
+    }
+
+
+    window.location.href =
+      "index.html";
+
 
   }catch(error){
 
-    return "";
+    console.error(error);
+
+    showMessage(
+      "تعذر تسجيل الخروج:\n" +
+      error.message,
+      "error"
+    );
 
   }
 
 }
 
 
-
-/* ==========================================
-   ESCAPE HTML
-========================================== */
-
-function escapeHtml(value){
-
-  return String(value)
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-
-/* ==========================================
+/* =========================================
    START
-========================================== */
+========================================= */
 
 checkUser();
 
 </script>
+
 
 </body>
 
