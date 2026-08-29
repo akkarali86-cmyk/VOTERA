@@ -2,14 +2,20 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>حسابي — VOTERA</title>
+<title>الملف الشخصي — VOTERA</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+/* ==========================================
+   VARIABLES
+========================================== */
 
 :root{
   --primary:#6c5ce7;
@@ -22,10 +28,19 @@
   --danger:#e74c3c;
 }
 
+
+/* ==========================================
+   RESET
+========================================== */
+
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
@@ -33,11 +48,16 @@ body{
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
-  padding-bottom:40px;
+  padding-bottom:90px;
+}
+
+button,
+input,
+textarea{
+  font-family:inherit;
 }
 
 button{
-  font-family:inherit;
   cursor:pointer;
   border:0;
 }
@@ -47,7 +67,10 @@ a{
   color:inherit;
 }
 
-/* HEADER */
+
+/* ==========================================
+   HEADER
+========================================== */
 
 header{
   height:68px;
@@ -65,6 +88,7 @@ header{
   max-width:900px;
   margin:auto;
   padding:0 18px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -87,7 +111,10 @@ header{
   font-weight:800;
 }
 
-/* CONTAINER */
+
+/* ==========================================
+   MAIN
+========================================== */
 
 .container{
   width:100%;
@@ -96,219 +123,56 @@ header{
   padding:35px 18px;
 }
 
-/* PROFILE */
 
-.profile-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:24px;
-  padding:28px 22px;
+/* ==========================================
+   MESSAGE
+========================================== */
+
+.message{
+  display:none;
+
+  margin-bottom:16px;
+  padding:13px;
+
+  border-radius:13px;
+
   text-align:center;
-  box-shadow:0 7px 25px rgba(0,0,0,.035);
-  margin-bottom:18px;
-}
 
-.avatar{
-  width:88px;
-  height:88px;
-  border-radius:50%;
-  object-fit:cover;
-  display:block;
-  margin:0 auto 14px;
-  background:#ece9ff;
-  border:4px solid #f0eeff;
-}
-
-.avatar-placeholder{
-  width:88px;
-  height:88px;
-  border-radius:50%;
-  margin:0 auto 14px;
-  background:#ece9ff;
-  color:var(--primary);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:38px;
-  font-weight:900;
-}
-
-.profile-name{
-  font-size:22px;
-  font-weight:950;
-  margin-bottom:6px;
-}
-
-.profile-email{
-  color:var(--muted);
   font-size:12px;
-  direction:ltr;
-  margin-bottom:20px;
-}
-
-.logout{
-  background:#fff0f0;
-  color:var(--danger);
-  padding:11px 20px;
-  border-radius:12px;
-  font-size:12px;
-  font-weight:900;
-}
-
-/* STATS */
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-bottom:18px;
-}
-
-.stat{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:18px 8px;
-  text-align:center;
-}
-
-.stat strong{
-  display:block;
-  font-size:21px;
-  font-weight:950;
-  color:var(--primary);
-  margin-bottom:5px;
-}
-
-.stat span{
-  color:var(--muted);
-  font-size:10px;
   font-weight:800;
+
+  white-space:pre-line;
 }
 
-/* SECTION */
-
-.section{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:20px;
-  box-shadow:0 7px 25px rgba(0,0,0,.03);
+.message.error{
+  display:block;
+  background:#fff0f0;
+  color:#b42318;
+  border:1px solid #ffd0d0;
 }
 
-.section-title{
-  font-size:18px;
-  font-weight:950;
-  margin-bottom:17px;
+.message.success{
+  display:block;
+  background:#ecfdf3;
+  color:#166534;
+  border:1px solid #bbf7d0;
 }
 
-/* VOTES */
 
-.votes{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.vote-card{
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:16px;
-  background:#fafafd;
-  transition:.2s;
-}
-
-.vote-card:hover{
-  border-color:#d8d3ff;
-  transform:translateY(-1px);
-}
-
-.vote-question{
-  font-size:14px;
-  font-weight:900;
-  line-height:1.6;
-  margin-bottom:10px;
-}
-
-.vote-meta{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.category{
-  background:#ece9ff;
-  color:var(--primary);
-  padding:6px 9px;
-  border-radius:8px;
-  font-size:10px;
-  font-weight:900;
-}
-
-.vote-date{
-  color:var(--muted);
-  font-size:10px;
-}
-
-.open-vote{
-  margin-top:12px;
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  background:var(--primary);
-  color:white;
-  font-size:11px;
-  font-weight:900;
-}
-
-.open-vote:hover{
-  background:var(--primary-dark);
-}
-
-/* EMPTY */
-
-.empty{
-  text-align:center;
-  padding:35px 15px;
-  color:var(--muted);
-}
-
-.empty-icon{
-  font-size:40px;
-  margin-bottom:10px;
-}
-
-.empty h3{
-  color:var(--text);
-  font-size:15px;
-  margin-bottom:7px;
-}
-
-.empty p{
-  font-size:11px;
-  line-height:1.6;
-}
-
-.create-btn{
-  display:inline-block;
-  margin-top:15px;
-  padding:11px 18px;
-  background:var(--primary);
-  color:white;
-  border-radius:11px;
-  font-size:11px;
-  font-weight:900;
-}
-
-/* LOGIN */
+/* ==========================================
+   LOGIN
+========================================== */
 
 .login{
   background:white;
+
   border:1px solid var(--border);
   border-radius:24px;
+
   padding:45px 20px;
+
   text-align:center;
+
   box-shadow:0 7px 25px rgba(0,0,0,.035);
 }
 
@@ -332,41 +196,474 @@ header{
 .google-btn{
   background:white;
   border:1px solid var(--border);
+
   padding:13px 20px;
+
   border-radius:12px;
+
   font-size:12px;
   font-weight:900;
 }
 
-/* MESSAGE */
+.google-btn:hover{
+  border-color:var(--primary);
+}
 
-.message{
-  display:none;
-  padding:13px;
-  border-radius:12px;
+
+/* ==========================================
+   PROFILE CARD
+========================================== */
+
+.profile-card{
+  background:var(--card);
+
+  border:1px solid var(--border);
+  border-radius:24px;
+
+  padding:28px 22px;
+
   text-align:center;
-  font-size:12px;
-  font-weight:800;
-  margin-bottom:16px;
+
+  box-shadow:0 7px 25px rgba(0,0,0,.035);
+
+  margin-bottom:18px;
 }
 
-.message.error{
+.avatar{
+  width:92px;
+  height:92px;
+
+  border-radius:50%;
+
+  object-fit:cover;
+
   display:block;
-  background:#fff0f0;
-  color:#b42318;
-  border:1px solid #ffd0d0;
+
+  margin:0 auto 14px;
+
+  background:#ece9ff;
+
+  border:4px solid #f0eeff;
 }
 
-/* LOADING */
+.avatar-placeholder{
+  width:92px;
+  height:92px;
+
+  border-radius:50%;
+
+  margin:0 auto 14px;
+
+  background:#ece9ff;
+
+  color:var(--primary);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  font-size:38px;
+  font-weight:900;
+}
+
+.profile-name{
+  font-size:22px;
+  font-weight:950;
+
+  margin-bottom:6px;
+}
+
+.profile-email{
+  color:var(--muted);
+
+  font-size:12px;
+
+  direction:ltr;
+
+  margin-bottom:20px;
+}
+
+.logout{
+  background:#fff0f0;
+
+  color:var(--danger);
+
+  padding:11px 20px;
+
+  border-radius:12px;
+
+  font-size:12px;
+  font-weight:900;
+}
+
+.logout:hover{
+  background:#ffe4e4;
+}
+
+
+/* ==========================================
+   STATS
+========================================== */
+
+.stats{
+  display:grid;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:10px;
+
+  margin-bottom:18px;
+}
+
+.stat{
+  background:white;
+
+  border:1px solid var(--border);
+
+  border-radius:17px;
+
+  padding:18px 8px;
+
+  text-align:center;
+}
+
+.stat strong{
+  display:block;
+
+  font-size:21px;
+
+  font-weight:950;
+
+  color:var(--primary);
+
+  margin-bottom:5px;
+}
+
+.stat span{
+  color:var(--muted);
+
+  font-size:10px;
+
+  font-weight:800;
+}
+
+
+/* ==========================================
+   SECTION
+========================================== */
+
+.section{
+  background:white;
+
+  border:1px solid var(--border);
+
+  border-radius:22px;
+
+  padding:20px;
+
+  box-shadow:0 7px 25px rgba(0,0,0,.03);
+}
+
+.section-title{
+  font-size:18px;
+
+  font-weight:950;
+
+  margin-bottom:17px;
+}
+
+
+/* ==========================================
+   VOTES
+========================================== */
+
+.votes{
+  display:flex;
+
+  flex-direction:column;
+
+  gap:12px;
+}
+
+.vote-card{
+  border:1px solid var(--border);
+
+  border-radius:16px;
+
+  padding:16px;
+
+  background:#fafafd;
+
+  transition:.2s;
+}
+
+.vote-card:hover{
+  border-color:#d8d3ff;
+
+  transform:translateY(-1px);
+}
+
+.vote-question{
+  font-size:14px;
+
+  font-weight:900;
+
+  line-height:1.6;
+
+  margin-bottom:10px;
+}
+
+.vote-meta{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+}
+
+.category{
+  background:#ece9ff;
+
+  color:var(--primary);
+
+  padding:6px 9px;
+
+  border-radius:8px;
+
+  font-size:10px;
+
+  font-weight:900;
+}
+
+.vote-date{
+  color:var(--muted);
+
+  font-size:10px;
+}
+
+.vote-total{
+  color:var(--muted);
+
+  font-size:10px;
+
+  margin-top:9px;
+}
+
+.open-vote{
+  margin-top:12px;
+
+  width:100%;
+
+  padding:10px;
+
+  border-radius:10px;
+
+  background:var(--primary);
+
+  color:white;
+
+  font-size:11px;
+
+  font-weight:900;
+}
+
+.open-vote:hover{
+  background:var(--primary-dark);
+}
+
+
+/* ==========================================
+   EMPTY
+========================================== */
+
+.empty{
+  text-align:center;
+
+  padding:35px 15px;
+
+  color:var(--muted);
+}
+
+.empty-icon{
+  font-size:40px;
+
+  margin-bottom:10px;
+}
+
+.empty h3{
+  color:var(--text);
+
+  font-size:15px;
+
+  margin-bottom:7px;
+}
+
+.empty p{
+  font-size:11px;
+
+  line-height:1.6;
+}
+
+.create-btn{
+  display:inline-block;
+
+  margin-top:15px;
+
+  padding:11px 18px;
+
+  background:var(--primary);
+
+  color:white;
+
+  border-radius:11px;
+
+  font-size:11px;
+
+  font-weight:900;
+}
+
+
+/* ==========================================
+   LOADING
+========================================== */
 
 .loading{
   text-align:center;
+
   padding:35px;
+
   color:var(--muted);
+
   font-size:12px;
 }
 
-/* DESKTOP */
+
+/* ==========================================
+   BOTTOM NAVIGATION
+========================================== */
+
+.bottom-nav{
+  position:fixed;
+
+  bottom:0;
+  left:0;
+  right:0;
+
+  height:72px;
+
+  background:rgba(255,255,255,.98);
+
+  border-top:1px solid var(--border);
+
+  z-index:200;
+
+  box-shadow:0 -5px 20px rgba(0,0,0,.05);
+}
+
+.bottom-nav-inner{
+  width:100%;
+  max-width:650px;
+
+  height:100%;
+
+  margin:auto;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-around;
+
+  padding:5px 8px;
+}
+
+.bottom-item{
+  height:60px;
+
+  min-width:60px;
+
+  flex:1;
+
+  max-width:105px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:3px;
+
+  color:#858591;
+
+  font-size:10px;
+
+  font-weight:800;
+
+  border-radius:14px;
+
+  transition:.2s;
+}
+
+.bottom-item .icon{
+  font-size:21px;
+
+  line-height:1;
+}
+
+.bottom-item.active{
+  color:var(--primary);
+
+  background:#f0eeff;
+}
+
+.bottom-item:hover{
+  color:var(--primary);
+}
+
+
+/* CREATE BUTTON */
+
+.bottom-create{
+  width:53px;
+  height:53px;
+
+  border-radius:50%;
+
+  background:var(--primary);
+
+  color:white;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  font-size:28px;
+
+  font-weight:400;
+
+  box-shadow:
+    0 7px 18px rgba(108,92,231,.30);
+
+  transition:.2s;
+}
+
+.bottom-create:hover{
+  background:var(--primary-dark);
+
+  transform:scale(1.04);
+}
+
+
+/* ==========================================
+   DESKTOP
+========================================== */
 
 @media(min-width:700px){
 
@@ -382,6 +679,34 @@ header{
     font-size:25px;
   }
 
+  .bottom-nav{
+    height:76px;
+  }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media(max-width:380px){
+
+  .bottom-item{
+    min-width:48px;
+    font-size:9px;
+  }
+
+  .bottom-item .icon{
+    font-size:19px;
+  }
+
+  .bottom-create{
+    width:48px;
+    height:48px;
+    font-size:25px;
+  }
+
 }
 
 </style>
@@ -391,6 +716,10 @@ header{
 
 <body>
 
+
+<!-- ========================================
+     HEADER
+========================================= -->
 
 <header>
 
@@ -409,15 +738,29 @@ VOTE<span>RA</span>
 </header>
 
 
+
+<!-- ========================================
+     MAIN
+========================================= -->
+
 <main class="container">
 
 
-<div id="message" class="message"></div>
+<div
+id="message"
+class="message"
+></div>
 
 
-<!-- LOGIN -->
+<!-- ========================================
+     LOGIN BOX
+========================================= -->
 
-<div id="loginBox" class="login" style="display:none;">
+<div
+id="loginBox"
+class="login"
+style="display:none;"
+>
 
 <div class="login-icon">
 🔐
@@ -442,10 +785,18 @@ onclick="signInWithGoogle()"
 </div>
 
 
+
+<!-- ========================================
+     PROFILE CONTENT
+========================================= -->
+
+<div
+id="profileContent"
+style="display:none;"
+>
+
+
 <!-- PROFILE -->
-
-<div id="profileContent" style="display:none;">
-
 
 <section class="profile-card">
 
@@ -485,7 +836,10 @@ onclick="logout()"
 </section>
 
 
-<!-- STATS -->
+
+<!-- ========================================
+     STATS
+========================================= -->
 
 <div class="stats">
 
@@ -532,7 +886,10 @@ onclick="logout()"
 </div>
 
 
-<!-- MY VOTES -->
+
+<!-- ========================================
+     MY VOTES
+========================================= -->
 
 <section class="section">
 
@@ -562,6 +919,112 @@ class="votes"
 </main>
 
 
+
+<!-- ========================================
+     BOTTOM NAVIGATION
+========================================= -->
+
+<nav class="bottom-nav">
+
+<div class="bottom-nav-inner">
+
+
+<!-- HOME -->
+
+<a
+href="index.html"
+class="bottom-item"
+>
+
+<span class="icon">
+🏠
+</span>
+
+<span>
+الرئيسية
+</span>
+
+</a>
+
+
+
+<!-- EXPLORE -->
+
+<a
+href="index.html#explore"
+class="bottom-item"
+>
+
+<span class="icon">
+🔍
+</span>
+
+<span>
+استكشاف
+</span>
+
+</a>
+
+
+
+<!-- CREATE -->
+
+<a
+href="create.html"
+class="bottom-item"
+>
+
+<span class="bottom-create">
++
+</span>
+
+</a>
+
+
+
+<!-- NOTIFICATIONS -->
+
+<a
+href="index.html#notifications"
+class="bottom-item"
+>
+
+<span class="icon">
+🔔
+</span>
+
+<span>
+الإشعارات
+</span>
+
+</a>
+
+
+
+<!-- PROFILE -->
+
+<a
+href="profile.html"
+class="bottom-item active"
+>
+
+<span class="icon">
+👤
+</span>
+
+<span>
+الملف الشخصي
+</span>
+
+</a>
+
+
+</div>
+
+</nav>
+
+
+
 <script>
 
 /* ==========================================
@@ -582,11 +1045,13 @@ window.supabase.createClient(
 );
 
 
+
 /* ==========================================
    VARIABLES
 ========================================== */
 
 let currentUser = null;
+
 
 
 /* ==========================================
@@ -606,6 +1071,7 @@ const votesContainer =
 document.getElementById("votesContainer");
 
 
+
 /* ==========================================
    MESSAGE
 ========================================== */
@@ -619,6 +1085,7 @@ function showMessage(text,type){
     "message " + type;
 
 }
+
 
 
 /* ==========================================
@@ -672,6 +1139,7 @@ async function signInWithGoogle(){
 }
 
 
+
 /* ==========================================
    LOGOUT
 ========================================== */
@@ -693,7 +1161,9 @@ async function logout(){
     }
 
 
-    currentUser = null;
+    currentUser =
+      null;
+
 
     updatePage();
 
@@ -712,8 +1182,9 @@ async function logout(){
 }
 
 
+
 /* ==========================================
-   GET SESSION
+   CHECK USER
 ========================================== */
 
 async function checkUser(){
@@ -737,7 +1208,11 @@ async function checkUser(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Session error:",
+      error
+    );
+
 
     showMessage(
       "تعذر التحقق من تسجيل الدخول.",
@@ -747,6 +1222,7 @@ async function checkUser(){
   }
 
 }
+
 
 
 /* ==========================================
@@ -762,6 +1238,7 @@ function(event,session){
   updatePage();
 
 });
+
 
 
 /* ==========================================
@@ -793,34 +1270,30 @@ function updatePage(){
 }
 
 
+
 /* ==========================================
-   PROFILE
+   LOAD PROFILE
 ========================================== */
 
 async function loadProfile(){
 
-  const user =
-    currentUser;
-
-
-  if(!user){
+  if(!currentUser){
 
     return;
 
   }
 
 
-  /* ----------------------------------------
-     الاسم
-  ---------------------------------------- */
-
   const metadata =
-    user.user_metadata || {};
+    currentUser.user_metadata || {};
 
+
+  /* NAME */
 
   const name =
     metadata.full_name ||
     metadata.name ||
+    metadata.user_name ||
     "مستخدم VOTERA";
 
 
@@ -830,19 +1303,17 @@ async function loadProfile(){
       name;
 
 
-  /* ----------------------------------------
-     البريد
-  ---------------------------------------- */
+
+  /* EMAIL */
 
   document
     .getElementById("profileEmail")
     .textContent =
-      user.email || "";
+      currentUser.email || "";
 
 
-  /* ----------------------------------------
-     الصورة
-  ---------------------------------------- */
+
+  /* AVATAR */
 
   const avatar =
     metadata.avatar_url ||
@@ -868,17 +1339,14 @@ async function loadProfile(){
   }
 
 
-  /* ----------------------------------------
-     تحميل التصويتات
-  ---------------------------------------- */
-
   await loadMyVotes();
 
 }
 
 
+
 /* ==========================================
-   LOAD MY VOTES
+   LOAD VOTES
 ========================================== */
 
 async function loadMyVotes(){
@@ -899,15 +1367,30 @@ async function loadMyVotes(){
       error
     } =
     await supabaseClient
+
       .from("votes")
+
       .select("*")
-      .eq("user_id",currentUser.id)
-      .order("created_at",{ascending:false});
+
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      );
 
 
     if(error){
 
-      console.error(error);
+      console.error(
+        "Load votes error:",
+        error
+      );
 
       throw error;
 
@@ -918,37 +1401,41 @@ async function loadMyVotes(){
       data || [];
 
 
-    /* --------------------------------------
-       عدد التصويتات
-    -------------------------------------- */
+
+    /* ======================================
+       COUNT VOTES
+    ====================================== */
 
     document
       .getElementById("votesCount")
       .textContent =
-        votes.length;
+        formatNumber(
+          votes.length
+        );
 
 
-    /* --------------------------------------
-       حساب إجمالي الأصوات
-    -------------------------------------- */
+
+    /* ======================================
+       TOTAL VOTES
+    ====================================== */
 
     let total =
       0;
 
 
-    const categorySet =
+    const categories =
       new Set();
 
 
     votes.forEach(
     function(vote){
 
-      categorySet.add(
+      categories.add(
         vote.category || "عام"
       );
 
 
-      const voteFields = [
+      const fields = [
 
         "votes_a",
         "votes_b",
@@ -969,15 +1456,18 @@ async function loadMyVotes(){
       ];
 
 
-      voteFields.forEach(
+      fields.forEach(
       function(field){
 
         total +=
-          Number(vote[field] || 0);
+          Number(
+            vote[field] || 0
+          );
 
       });
 
     });
+
 
 
     document
@@ -986,15 +1476,23 @@ async function loadMyVotes(){
         formatNumber(total);
 
 
+
+    /* ======================================
+       CATEGORIES
+    ====================================== */
+
     document
       .getElementById("categoriesCount")
       .textContent =
-        categorySet.size;
+        formatNumber(
+          categories.size
+        );
 
 
-    /* --------------------------------------
-       لا توجد تصويتات
-    -------------------------------------- */
+
+    /* ======================================
+       EMPTY
+    ====================================== */
 
     if(votes.length === 0){
 
@@ -1030,18 +1528,22 @@ async function loadMyVotes(){
     }
 
 
-    /* --------------------------------------
-       عرض التصويتات
-    -------------------------------------- */
 
-    votesContainer.innerHTML = "";
+    /* ======================================
+       DISPLAY VOTES
+    ====================================== */
+
+    votesContainer.innerHTML =
+      "";
 
 
     votes.forEach(
     function(vote){
 
       const card =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       card.className =
@@ -1050,19 +1552,27 @@ async function loadMyVotes(){
 
       const question =
         escapeHtml(
-          vote.question || "بدون سؤال"
+          vote.question ||
+          "بدون سؤال"
         );
 
 
       const category =
         escapeHtml(
-          vote.category || "عام"
+          vote.category ||
+          "عام"
         );
 
 
       const date =
         formatDate(
           vote.created_at
+        );
+
+
+      const totalVotes =
+        calculateVoteTotal(
+          vote
         );
 
 
@@ -1084,9 +1594,13 @@ async function loadMyVotes(){
 
         </div>
 
+        <div class="vote-total">
+          🗳️ ${formatNumber(totalVotes)} صوت
+        </div>
+
         <button
           class="open-vote"
-          onclick="openVote('${escapeHtml(String(vote.id))}')"
+          type="button"
         >
           👁️ عرض التصويت
         </button>
@@ -1094,7 +1608,27 @@ async function loadMyVotes(){
       `;
 
 
-      votesContainer.appendChild(card);
+      const openButton =
+        card.querySelector(
+          ".open-vote"
+        );
+
+
+      openButton.addEventListener(
+        "click",
+        function(){
+
+          openVote(
+            vote.id
+          );
+
+        }
+      );
+
+
+      votesContainer.appendChild(
+        card
+      );
 
     });
 
@@ -1102,7 +1636,7 @@ async function loadMyVotes(){
   }catch(error){
 
     console.error(
-      "Load votes error:",
+      "Votes error:",
       error
     );
 
@@ -1121,6 +1655,7 @@ async function loadMyVotes(){
 
         <p>
           حدث خطأ أثناء الاتصال بقاعدة البيانات.
+          حاول تحديث الصفحة.
         </p>
 
       </div>
@@ -1132,17 +1667,76 @@ async function loadMyVotes(){
 }
 
 
+
+/* ==========================================
+   CALCULATE TOTAL
+========================================== */
+
+function calculateVoteTotal(vote){
+
+  const fields = [
+
+    "votes_a",
+    "votes_b",
+    "votes_c",
+    "votes_d",
+    "votes_e",
+    "votes_f",
+    "votes_g",
+    "votes_h",
+    "votes_i",
+    "votes_j",
+    "votes_k",
+    "votes_l",
+    "votes_m",
+    "votes_n",
+    "votes_o"
+
+  ];
+
+
+  let total =
+    0;
+
+
+  fields.forEach(
+  function(field){
+
+    total +=
+      Number(
+        vote[field] || 0
+      );
+
+  });
+
+
+  return total;
+
+}
+
+
+
 /* ==========================================
    OPEN VOTE
 ========================================== */
 
 function openVote(id){
 
+  if(!id){
+
+    return;
+
+  }
+
+
   window.location.href =
     "vote.html?id=" +
-    encodeURIComponent(id);
+    encodeURIComponent(
+      id
+    );
 
 }
+
 
 
 /* ==========================================
@@ -1151,10 +1745,14 @@ function openVote(id){
 
 function formatNumber(number){
 
-  return Number(number || 0)
-    .toLocaleString("en-US");
+  return Number(
+    number || 0
+  ).toLocaleString(
+    "en-US"
+  );
 
 }
+
 
 
 /* ==========================================
@@ -1191,6 +1789,7 @@ function formatDate(date){
 }
 
 
+
 /* ==========================================
    ESCAPE HTML
 ========================================== */
@@ -1198,13 +1797,34 @@ function formatDate(date){
 function escapeHtml(value){
 
   return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
+
 
 
 /* ==========================================
