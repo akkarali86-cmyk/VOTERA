@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <title>الملف الشخصي — VOTERA</title>
 
@@ -41,21 +41,30 @@ content="width=device-width, initial-scale=1.0">
 
 html{
   min-height:100%;
+  background:var(--bg);
 }
 
 body{
+
   font-family:Arial,Helvetica,sans-serif;
+
   background:var(--bg);
+
   color:var(--text);
 
-  /* مهم جدًا للقائمة السفلية */
-  padding-bottom:100px;
-
   min-height:100vh;
+
+  /* مساحة للقائمة السفلية */
+  padding-bottom:110px;
+
+}
+
+button,
+input{
+  font-family:inherit;
 }
 
 button{
-  font-family:inherit;
   border:0;
   cursor:pointer;
 }
@@ -74,14 +83,16 @@ header{
 
   height:68px;
 
-  background:rgba(255,255,255,.97);
+  background:rgba(255,255,255,.98);
 
   border-bottom:1px solid var(--border);
 
   display:flex;
+
   align-items:center;
 
   position:sticky;
+
   top:0;
 
   z-index:100;
@@ -91,6 +102,7 @@ header{
 .nav{
 
   width:100%;
+
   max-width:900px;
 
   margin:auto;
@@ -98,7 +110,9 @@ header{
   padding:0 18px;
 
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
 
 }
@@ -142,13 +156,120 @@ header{
 
   margin:auto;
 
-  padding:35px 18px 40px;
+  padding:35px 18px 30px;
 
 }
 
 
 /* =========================================
-   PROFILE HEADER
+   MESSAGE
+========================================= */
+
+.message{
+
+  display:none;
+
+  margin-bottom:15px;
+
+  padding:13px;
+
+  border-radius:13px;
+
+  text-align:center;
+
+  font-size:12px;
+
+  font-weight:800;
+
+  white-space:pre-line;
+
+}
+
+.message.error{
+
+  display:block;
+
+  background:#fff0f0;
+
+  color:#b42318;
+
+  border:1px solid #ffd0d0;
+
+}
+
+.message.success{
+
+  display:block;
+
+  background:#ecfdf3;
+
+  color:#166534;
+
+  border:1px solid #bbf7d0;
+
+}
+
+
+/* =========================================
+   LOGIN CARD
+========================================= */
+
+.login-card{
+
+  background:white;
+
+  border:1px solid var(--border);
+
+  border-radius:22px;
+
+  padding:30px 20px;
+
+  text-align:center;
+
+  box-shadow:
+  0 8px 25px rgba(0,0,0,.035);
+
+}
+
+.login-card h2{
+
+  font-size:21px;
+
+  margin-bottom:10px;
+
+}
+
+.login-card p{
+
+  color:var(--muted);
+
+  font-size:13px;
+
+  line-height:1.7;
+
+  margin-bottom:18px;
+
+}
+
+.google-btn{
+
+  background:white;
+
+  border:1px solid var(--border);
+
+  border-radius:13px;
+
+  padding:13px 20px;
+
+  font-weight:900;
+
+  font-size:13px;
+
+}
+
+
+/* =========================================
+   PROFILE CARD
 ========================================= */
 
 .profile-card{
@@ -173,6 +294,7 @@ header{
 .avatar{
 
   width:82px;
+
   height:82px;
 
   border-radius:50%;
@@ -184,6 +306,7 @@ header{
   display:flex;
 
   align-items:center;
+
   justify-content:center;
 
   margin:0 auto 14px;
@@ -199,6 +322,7 @@ header{
 .avatar img{
 
   width:100%;
+
   height:100%;
 
   object-fit:cover;
@@ -278,60 +402,7 @@ header{
 
 
 /* =========================================
-   LOGIN
-========================================= */
-
-.login-card{
-
-  background:white;
-
-  border:1px solid var(--border);
-
-  border-radius:22px;
-
-  padding:30px 20px;
-
-  text-align:center;
-
-}
-
-.login-card h2{
-
-  font-size:21px;
-
-  margin-bottom:10px;
-
-}
-
-.login-card p{
-
-  color:var(--muted);
-
-  font-size:13px;
-
-  line-height:1.6;
-
-  margin-bottom:18px;
-
-}
-
-.google-btn{
-
-  background:white;
-
-  border:1px solid var(--border);
-
-  border-radius:13px;
-
-  padding:13px 20px;
-
-  font-weight:900;
-
-}
-
-
-/* =========================================
-   SECTION TITLE
+   SECTION HEADER
 ========================================= */
 
 .section-header{
@@ -381,6 +452,8 @@ header{
 
 .vote-card{
 
+  display:block;
+
   background:white;
 
   border:1px solid var(--border);
@@ -391,6 +464,14 @@ header{
 
   box-shadow:
   0 5px 18px rgba(0,0,0,.025);
+
+  transition:.2s;
+
+}
+
+.vote-card:active{
+
+  transform:scale(.98);
 
 }
 
@@ -450,6 +531,8 @@ header{
 
   font-size:13px;
 
+  line-height:1.7;
+
 }
 
 
@@ -479,100 +562,52 @@ header{
 
 }
 
-.logout:hover{
-
-  background:#ffe4e4;
-
-}
-
-
-/* =========================================
-   MESSAGE
-========================================= */
-
-.message{
-
-  display:none;
-
-  margin-bottom:15px;
-
-  padding:13px;
-
-  border-radius:13px;
-
-  text-align:center;
-
-  font-size:12px;
-
-  font-weight:800;
-
-}
-
-.message.error{
-
-  display:block;
-
-  background:#fff0f0;
-
-  color:#b42318;
-
-}
-
-.message.success{
-
-  display:block;
-
-  background:#ecfdf3;
-
-  color:#166534;
-
-}
-
 
 /* =========================================
    BOTTOM NAVIGATION
-   مهم جدًا
+   نسخة قوية وثابتة
 ========================================= */
 
 .bottom-nav{
 
-  position:fixed;
+  position:fixed !important;
 
-  bottom:0;
-  left:0;
-  right:0;
+  left:0 !important;
 
-  width:100%;
+  right:0 !important;
 
-  height:76px;
+  bottom:0 !important;
 
-  background:rgba(255,255,255,.98);
+  width:100% !important;
 
-  border-top:1px solid var(--border);
+  height:82px !important;
+
+  display:block !important;
+
+  background:#ffffff !important;
+
+  border-top:1px solid #e8e8ef !important;
 
   box-shadow:
-  0 -6px 25px rgba(0,0,0,.07);
+  0 -6px 25px rgba(0,0,0,.10) !important;
 
-  display:flex;
+  z-index:2147483647 !important;
 
-  align-items:center;
+  visibility:visible !important;
 
-  justify-content:center;
-
-  z-index:9999;
+  opacity:1 !important;
 
 }
-
-
-/* محتوى القائمة */
 
 .bottom-nav-inner{
 
   width:100%;
 
-  max-width:600px;
+  max-width:650px;
 
   height:100%;
+
+  margin:auto;
 
   display:grid;
 
@@ -584,13 +619,15 @@ header{
 }
 
 
-/* عنصر القائمة */
+/* =========================================
+   BOTTOM ITEM
+========================================= */
 
 .bottom-item{
 
-  height:100%;
+  height:82px;
 
-  display:flex;
+  display:flex !important;
 
   flex-direction:column;
 
@@ -598,42 +635,27 @@ header{
 
   justify-content:center;
 
-  gap:4px;
+  gap:5px;
 
   background:transparent;
 
-  color:#888895;
+  color:#858592;
 
   font-size:10px;
 
   font-weight:900;
 
-  transition:.2s;
+  position:relative;
+
+  -webkit-tap-highlight-color:transparent;
 
 }
 
+.bottom-item:active{
 
-/* الأيقونة */
-
-.bottom-icon{
-
-  font-size:21px;
-
-  line-height:1;
+  background:#faf9ff;
 
 }
-
-
-/* النص */
-
-.bottom-label{
-
-  font-size:10px;
-
-}
-
-
-/* العنصر النشط */
 
 .bottom-item.active{
 
@@ -642,7 +664,40 @@ header{
 }
 
 
-/* زر الإضافة */
+/* =========================================
+   ICON
+========================================= */
+
+.bottom-icon{
+
+  width:28px;
+
+  height:28px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:21px;
+
+  line-height:1;
+
+}
+
+.bottom-label{
+
+  font-size:10px;
+
+  white-space:nowrap;
+
+}
+
+
+/* =========================================
+   CREATE BUTTON
+========================================= */
 
 .bottom-create{
 
@@ -662,18 +717,47 @@ header{
 
   justify-content:center;
 
-  font-size:27px;
+  font-size:28px;
+
+  font-weight:400;
 
   box-shadow:
-  0 8px 20px rgba(108,92,231,.30);
+  0 8px 22px rgba(108,92,231,.32);
 
-  margin-top:-20px;
+  margin-top:-22px;
 
 }
 
-.bottom-create:hover{
+.bottom-create:active{
 
-  background:var(--primary-dark);
+  transform:scale(.94);
+
+}
+
+
+/* =========================================
+   MOBILE SAFE AREA
+========================================= */
+
+@supports(padding-bottom:env(safe-area-inset-bottom)){
+
+  .bottom-nav{
+
+    height:
+    calc(82px + env(safe-area-inset-bottom))
+    !important;
+
+    padding-bottom:
+    env(safe-area-inset-bottom);
+
+  }
+
+  body{
+
+    padding-bottom:
+    calc(110px + env(safe-area-inset-bottom));
+
+  }
 
 }
 
@@ -692,13 +776,7 @@ header{
 
   .bottom-nav{
 
-    height:80px;
-
-  }
-
-  .bottom-nav-inner{
-
-    max-width:650px;
+    height:82px !important;
 
   }
 
@@ -725,10 +803,11 @@ header{
 
   .bottom-create{
 
-    width:48px;
-    height:48px;
+    width:47px;
 
-    font-size:24px;
+    height:47px;
+
+    font-size:25px;
 
   }
 
@@ -770,7 +849,10 @@ VOTE<span>RA</span>
 <main class="container">
 
 
-<div id="message" class="message"></div>
+<div
+id="message"
+class="message"
+></div>
 
 
 <!-- =====================================
@@ -879,6 +961,7 @@ id="profileEmail"
 
 </div>
 
+
 </div>
 
 </section>
@@ -905,10 +988,12 @@ id="profileEmail"
 id="votesList"
 class="votes"
 >
+
 </div>
 
 
 <button
+type="button"
 class="logout"
 onclick="logout()"
 >
@@ -926,7 +1011,10 @@ onclick="logout()"
      BOTTOM NAVIGATION
 ===================================== -->
 
-<nav class="bottom-nav">
+<nav
+class="bottom-nav"
+id="bottomNav"
+>
 
 <div class="bottom-nav-inner">
 
@@ -967,7 +1055,7 @@ class="bottom-item"
 </a>
 
 
-<!-- إنشاء تصويت -->
+<!-- إنشاء -->
 
 <a
 href="create.html"
@@ -1003,7 +1091,7 @@ class="bottom-item"
 </a>
 
 
-<!-- الملف الشخصي -->
+<!-- حسابي -->
 
 <a
 href="profile.html"
@@ -1026,12 +1114,7 @@ class="bottom-item active"
 </nav>
 
 
-<!-- =====================================
-     JAVASCRIPT
-===================================== -->
-
 <script>
-
 
 /* =========================================
    SUPABASE
@@ -1078,7 +1161,8 @@ document.getElementById("message");
 
 function showMessage(text,type){
 
-  message.textContent = text;
+  message.textContent =
+    text;
 
   message.className =
     "message " + type;
@@ -1139,7 +1223,7 @@ async function signInWithGoogle(){
 
 
 /* =========================================
-   CHECK SESSION
+   CHECK USER
 ========================================= */
 
 async function checkUser(){
@@ -1158,29 +1242,15 @@ async function checkUser(){
       session?.user || null;
 
 
-    if(currentUser){
+    updatePage();
 
-      loginCard.style.display =
-        "none";
-
-      profileContent.style.display =
-        "block";
-
-      loadProfile();
-
-    }else{
-
-      loginCard.style.display =
-        "block";
-
-      profileContent.style.display =
-        "none";
-
-    }
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Session error:",
+      error
+    );
 
     showMessage(
       "تعذر التحقق من تسجيل الدخول.",
@@ -1193,14 +1263,29 @@ async function checkUser(){
 
 
 /* =========================================
-   AUTH STATE
+   UPDATE PAGE
 ========================================= */
 
-supabaseClient.auth.onAuthStateChange(
-function(event,session){
+function updatePage(){
 
-  currentUser =
-    session?.user || null;
+  /* القائمة السفلية تظهر دائمًا */
+
+  const bottomNav =
+    document.getElementById("bottomNav");
+
+  if(bottomNav){
+
+    bottomNav.style.display =
+      "block";
+
+    bottomNav.style.visibility =
+      "visible";
+
+    bottomNav.style.opacity =
+      "1";
+
+  }
+
 
   if(currentUser){
 
@@ -1222,6 +1307,28 @@ function(event,session){
 
   }
 
+}
+
+
+/* =========================================
+   AUTH STATE
+========================================= */
+
+supabaseClient.auth.onAuthStateChange(
+function(event,session){
+
+  currentUser =
+    session?.user || null;
+
+  setTimeout(
+    function(){
+
+      updatePage();
+
+    },
+    0
+  );
+
 });
 
 
@@ -1237,10 +1344,6 @@ async function loadProfile(){
 
   }
 
-
-  /* ---------------------------------------
-     الاسم
-  --------------------------------------- */
 
   const metadata =
     currentUser.user_metadata || {};
@@ -1269,9 +1372,7 @@ async function loadProfile(){
     email;
 
 
-  /* ---------------------------------------
-     الصورة
-  --------------------------------------- */
+  /* صورة الحساب */
 
   const avatarUrl =
     metadata.avatar_url ||
@@ -1280,13 +1381,33 @@ async function loadProfile(){
 
 
   const avatar =
-    document.getElementById("avatar");
+    document.getElementById(
+      "avatar"
+    );
 
 
   if(avatarUrl){
 
-    avatar.innerHTML =
-      `<img src="${avatarUrl}" alt="الصورة الشخصية">`;
+    avatar.innerHTML = "";
+
+    const img =
+      document.createElement("img");
+
+    img.src =
+      avatarUrl;
+
+    img.alt =
+      "الصورة الشخصية";
+
+    img.onerror =
+    function(){
+
+      avatar.textContent =
+        "👤";
+
+    };
+
+    avatar.appendChild(img);
 
   }else{
 
@@ -1296,9 +1417,7 @@ async function loadProfile(){
   }
 
 
-  /* ---------------------------------------
-     تاريخ التسجيل
-  --------------------------------------- */
+  /* تاريخ الحساب */
 
   if(currentUser.created_at){
 
@@ -1322,10 +1441,6 @@ async function loadProfile(){
   }
 
 
-  /* ---------------------------------------
-     تحميل التصويتات
-  --------------------------------------- */
-
   await loadMyVotes();
 
 }
@@ -1343,12 +1458,13 @@ async function loadMyVotes(){
     );
 
 
-  votesList.innerHTML =
-    `
+  votesList.innerHTML = `
+  
     <div class="empty">
       ⏳ جارٍ تحميل تصويتاتك...
     </div>
-    `;
+
+  `;
 
 
   try{
@@ -1374,8 +1490,6 @@ async function loadMyVotes(){
 
     if(error){
 
-      console.error(error);
-
       throw error;
 
     }
@@ -1385,9 +1499,7 @@ async function loadMyVotes(){
       data || [];
 
 
-    /* -------------------------------------
-       العدد
-    ------------------------------------- */
+    /* العدد */
 
     document.getElementById(
       "votesCount"
@@ -1402,14 +1514,18 @@ async function loadMyVotes(){
       " تصويت";
 
 
-    /* -------------------------------------
-       لا توجد تصويتات
-    ------------------------------------- */
+    /* لا توجد تصويتات */
 
     if(votes.length === 0){
 
-      votesList.innerHTML =
-        `
+      document.getElementById(
+        "totalVotes"
+      ).textContent =
+        "0";
+
+
+      votesList.innerHTML = `
+
         <div class="empty">
 
           🗳️
@@ -1420,51 +1536,67 @@ async function loadMyVotes(){
 
           <br>
 
-          ابدأ بإنشاء أول تصويت لك!
+          ابدأ بإنشاء أول تصويت لك! 🚀
 
         </div>
-        `;
+
+      `;
 
       return;
 
     }
 
 
-    /* -------------------------------------
-       عرض التصويتات
-    ------------------------------------- */
-
-    votesList.innerHTML = "";
+    votesList.innerHTML =
+      "";
 
 
-    let totalVotesNumber = 0;
+    let totalVotesNumber =
+      0;
 
 
     votes.forEach(
     function(vote){
 
       const total =
+
         Number(vote.votes_a || 0) +
+
         Number(vote.votes_b || 0) +
+
         Number(vote.votes_c || 0) +
+
         Number(vote.votes_d || 0) +
+
         Number(vote.votes_e || 0) +
+
         Number(vote.votes_f || 0) +
+
         Number(vote.votes_g || 0) +
+
         Number(vote.votes_h || 0) +
+
         Number(vote.votes_i || 0) +
+
         Number(vote.votes_j || 0) +
+
         Number(vote.votes_k || 0) +
+
         Number(vote.votes_l || 0) +
+
         Number(vote.votes_m || 0) +
+
         Number(vote.votes_n || 0) +
+
         Number(vote.votes_o || 0);
 
 
-      totalVotesNumber += total;
+      totalVotesNumber +=
+        total;
 
 
-      let dateText = "";
+      let dateText =
+        "";
 
 
       if(vote.created_at){
@@ -1494,28 +1626,46 @@ async function loadMyVotes(){
         );
 
 
+      const category =
+        escapeHtml(
+          vote.category ||
+          "عام"
+        );
+
+
+      const question =
+        escapeHtml(
+          vote.question ||
+          "تصويت بدون عنوان"
+        );
+
+
       card.innerHTML = `
 
         <div class="vote-category">
-          ${vote.category || "عام"}
+          ${category}
         </div>
 
         <div class="vote-question">
-          ${escapeHtml(
-            vote.question || "تصويت بدون عنوان"
-          )}
+          ${question}
         </div>
 
         <div class="vote-date">
+
           🗳️ ${total} أصوات
+
           &nbsp;&nbsp; • &nbsp;&nbsp;
+
           📅 ${dateText}
+
         </div>
 
       `;
 
 
-      votesList.appendChild(card);
+      votesList.appendChild(
+        card
+      );
 
     });
 
@@ -1534,8 +1684,8 @@ async function loadMyVotes(){
     );
 
 
-    votesList.innerHTML =
-      `
+    votesList.innerHTML = `
+
       <div class="empty">
 
         ❌ تعذر تحميل التصويتات.
@@ -1547,7 +1697,8 @@ async function loadMyVotes(){
         )}
 
       </div>
-      `;
+
+    `;
 
   }
 
@@ -1564,7 +1715,7 @@ function escapeHtml(text){
     document.createElement("div");
 
   div.textContent =
-    text;
+    String(text);
 
   return div.innerHTML;
 
@@ -1611,7 +1762,11 @@ async function logout(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Logout error:",
+      error
+    );
+
 
     showMessage(
       "تعذر تسجيل الخروج:\n" +
@@ -1631,7 +1786,6 @@ async function logout(){
 checkUser();
 
 </script>
-
 
 </body>
 
