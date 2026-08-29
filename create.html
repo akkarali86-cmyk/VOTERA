@@ -54,9 +54,7 @@ a{
 }
 
 
-/* =========================
-   HEADER
-========================= */
+/* ================= HEADER ================= */
 
 header{
   height:68px;
@@ -97,9 +95,7 @@ header{
 }
 
 
-/* =========================
-   CONTAINER
-========================= */
+/* ================= CONTAINER ================= */
 
 .container{
   width:100%;
@@ -136,9 +132,7 @@ header{
 }
 
 
-/* =========================
-   CARD
-========================= */
+/* ================= CARD ================= */
 
 .card{
   background:var(--card);
@@ -194,9 +188,7 @@ input:focus{
 }
 
 
-/* =========================
-   OPTIONS
-========================= */
+/* ================= OPTIONS ================= */
 
 .option{
   border:1px solid var(--border);
@@ -303,9 +295,7 @@ input:focus{
 }
 
 
-/* =========================
-   CATEGORY
-========================= */
+/* ================= CATEGORY ================= */
 
 .category-grid{
   display:grid;
@@ -329,9 +319,7 @@ input:focus{
 }
 
 
-/* =========================
-   SETTINGS
-========================= */
+/* ================= SETTINGS ================= */
 
 .settings-row{
   display:flex;
@@ -401,9 +389,7 @@ input:focus{
 }
 
 
-/* =========================
-   PUBLISH BUTTON
-========================= */
+/* ================= PUBLISH ================= */
 
 .publish{
   width:100%;
@@ -426,9 +412,7 @@ input:focus{
 }
 
 
-/* =========================
-   MESSAGE
-========================= */
+/* ================= MESSAGE ================= */
 
 .message{
   display:none;
@@ -456,9 +440,7 @@ input:focus{
 }
 
 
-/* =========================
-   LOGIN
-========================= */
+/* ================= LOGIN ================= */
 
 .login-box{
   display:none;
@@ -493,9 +475,7 @@ input:focus{
 }
 
 
-/* =========================
-   DESKTOP
-========================= */
+/* ================= DESKTOP ================= */
 
 @media(min-width:700px){
 
@@ -585,9 +565,7 @@ onclick="signInWithGoogle()"
 <div id="message" class="message"></div>
 
 
-<!-- =========================
-     QUESTION
-========================= -->
+<!-- ================= QUESTION ================= -->
 
 <section class="card">
 
@@ -616,9 +594,7 @@ id="counter"
 </section>
 
 
-<!-- =========================
-     CATEGORY
-========================= -->
+<!-- ================= CATEGORY ================= -->
 
 <section class="card">
 
@@ -697,9 +673,7 @@ type="button"
 </section>
 
 
-<!-- =========================
-     OPTIONS
-========================= -->
+<!-- ================= OPTIONS ================= -->
 
 <section class="card">
 
@@ -711,9 +685,7 @@ type="button"
 <div id="options">
 
 
-<!-- =========================
-     OPTION A
-========================= -->
+<!-- OPTION A -->
 
 <div class="option">
 
@@ -768,9 +740,7 @@ maxlength="80"
 </div>
 
 
-<!-- =========================
-     OPTION B
-========================= -->
+<!-- OPTION B -->
 
 <div class="option">
 
@@ -844,9 +814,7 @@ A وB إجباريان — C إلى O اختيارية — يمكنك إضافة
 </section>
 
 
-<!-- =========================
-     SETTINGS
-========================= -->
+<!-- ================= SETTINGS ================= -->
 
 <section class="card">
 
@@ -915,9 +883,7 @@ checked
 </section>
 
 
-<!-- =========================
-     PUBLISH
-========================= -->
+<!-- ================= PUBLISH ================= -->
 
 <button
 type="button"
@@ -1006,15 +972,21 @@ async function checkUser(){
   try{
 
     const {
-      data:{
-        session
-      }
+      data,
+      error
     } =
     await supabaseClient.auth.getSession();
 
 
+    if(error){
+
+      throw error;
+
+    }
+
+
     currentUser =
-      session?.user || null;
+      data.session?.user || null;
 
 
     updateLoginState();
@@ -1027,8 +999,10 @@ async function checkUser(){
       error
     );
 
+
     showMessage(
-      "تعذر التحقق من تسجيل الدخول.",
+      "تعذر التحقق من تسجيل الدخول.\n" +
+      error.message,
       "error"
     );
 
@@ -1169,8 +1143,6 @@ function previewImage(input){
     input.files[0];
 
 
-  /* التأكد من أن الملف صورة */
-
   if(
     !file.type.startsWith("image/")
   ){
@@ -1186,8 +1158,6 @@ function previewImage(input){
 
   }
 
-
-  /* الحد الأقصى 2MB */
 
   if(
     file.size >
@@ -1271,7 +1241,9 @@ function addOption(){
     currentOptions.length;
 
 
-  if(currentCount >= MAX_OPTIONS){
+  if(
+    currentCount >= MAX_OPTIONS
+  ){
 
     showMessage(
       "وصلت إلى الحد الأقصى: 15 خيارًا.",
@@ -1294,7 +1266,9 @@ function addOption(){
 
 
   const option =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
 
   option.className =
@@ -1309,7 +1283,13 @@ function addOption(){
         الخيار ${letter}
       </span>
 
-      <div style="display:flex;align-items:center;gap:8px;">
+      <div
+        style="
+          display:flex;
+          align-items:center;
+          gap:8px;
+        "
+      >
 
         <span class="optional-badge">
           اختياري
@@ -1356,6 +1336,7 @@ function addOption(){
       اسم الخيار
     </label>
 
+
     <input
       type="text"
       class="option-name"
@@ -1380,10 +1361,14 @@ function addOption(){
     ).length;
 
 
-  if(totalOptions >= MAX_OPTIONS){
+  if(
+    totalOptions >= MAX_OPTIONS
+  ){
 
     const addButton =
-      document.querySelector(".add-option");
+      document.querySelector(
+        ".add-option"
+      );
 
 
     addButton.disabled =
@@ -1410,7 +1395,9 @@ function removeOption(button){
     );
 
 
-  if(options.length <= 2){
+  if(
+    options.length <= 2
+  ){
 
     showMessage(
       "لا يمكن حذف A أو B. يجب وجود خيارين على الأقل.",
@@ -1541,9 +1528,7 @@ function(button){
 
 async function publishVote(){
 
-  /* ================================
-     التأكد من تسجيل الدخول
-  ================================ */
+  /* التأكد من تسجيل الدخول */
 
   if(!currentUser){
 
@@ -1557,9 +1542,7 @@ async function publishVote(){
   }
 
 
-  /* ================================
-     السؤال
-  ================================ */
+  /* السؤال */
 
   const question =
     document
@@ -1596,9 +1579,7 @@ async function publishVote(){
   }
 
 
-  /* ================================
-     جمع الخيارات
-  ================================ */
+  /* الخيارات */
 
   const optionElements =
     document.querySelectorAll(
@@ -1606,7 +1587,9 @@ async function publishVote(){
     );
 
 
-  if(optionElements.length < 2){
+  if(
+    optionElements.length < 2
+  ){
 
     showMessage(
       "يجب وجود الخيار A والخيار B.",
@@ -1638,20 +1621,9 @@ async function publishVote(){
       );
 
 
-    const name =
-      input.value.trim();
-
-
-    /*
-      نحافظ على رقم الخيار.
-      A = 0
-      B = 1
-      C = 2
-      ...
-    */
-
     optionNames[index] =
-      name || null;
+      input.value.trim() ||
+      null;
 
 
     optionFiles[index] =
@@ -1664,9 +1636,7 @@ async function publishVote(){
   });
 
 
-  /* ================================
-     A و B إجباريان
-  ================================ */
+  /* A و B إجباريان */
 
   if(!optionNames[0]){
 
@@ -1692,11 +1662,30 @@ async function publishVote(){
   }
 
 
-  /* ================================
-     الحد الأقصى
-  ================================ */
+  /* C إلى O اختيارية */
 
-  if(optionNames.length > MAX_OPTIONS){
+  for(
+    let i = 2;
+    i < optionNames.length;
+    i++
+  ){
+
+    if(!optionNames[i]){
+
+      optionNames[i] =
+        null;
+
+    }
+
+  }
+
+
+  /* الحد الأقصى */
+
+  if(
+    optionNames.length >
+    MAX_OPTIONS
+  ){
 
     showMessage(
       "الحد الأقصى هو 15 خيارًا.",
@@ -1708,9 +1697,7 @@ async function publishVote(){
   }
 
 
-  /* ================================
-     فحص الصور
-  ================================ */
+  /* فحص الصور */
 
   for(
     let i = 0;
@@ -1729,15 +1716,17 @@ async function publishVote(){
     }
 
 
+    const letter =
+      String.fromCharCode(
+        65 + i
+      );
+
+
     if(
-      !file.type.startsWith("image/")
+      !file.type.startsWith(
+        "image/"
+      )
     ){
-
-      const letter =
-        String.fromCharCode(
-          65 + i
-        );
-
 
       showMessage(
         `ملف الخيار ${letter} ليس صورة.`,
@@ -1754,12 +1743,6 @@ async function publishVote(){
       2 * 1024 * 1024
     ){
 
-      const letter =
-        String.fromCharCode(
-          65 + i
-        );
-
-
       showMessage(
         `صورة الخيار ${letter} أكبر من 2MB.`,
         "error"
@@ -1772,9 +1755,7 @@ async function publishVote(){
   }
 
 
-  /* ================================
-     تعطيل الزر
-  ================================ */
+  /* تعطيل الزر */
 
   publishButton.disabled =
     true;
@@ -1786,17 +1767,24 @@ async function publishVote(){
 
   try{
 
-
-    /* ================================
-       الحصول على الجلسة
-    ================================ */
+    /* الحصول على الجلسة */
 
     const {
-      data:{
-        session
-      }
+      data:sessionData,
+      error:sessionError
     } =
     await supabaseClient.auth.getSession();
+
+
+    if(sessionError){
+
+      throw sessionError;
+
+    }
+
+
+    const session =
+      sessionData.session;
 
 
     if(!session){
@@ -1808,16 +1796,12 @@ async function publishVote(){
     }
 
 
-    /* ================================
-       روابط الصور
-    ================================ */
+    /* روابط الصور */
 
     const imageUrls = [];
 
 
-    /* ================================
-       رفع الصور
-    ================================ */
+    /* رفع الصور */
 
     for(
       let i = 0;
@@ -1849,21 +1833,12 @@ async function publishVote(){
         `⏳ جارٍ رفع صورة الخيار ${letter}...`;
 
 
-      /* ================================
-         امتداد الصورة
-      ================================ */
-
       let extension =
         file.name
           .split(".")
           .pop()
           .toLowerCase();
 
-
-      /*
-        إذا لم يوجد امتداد مناسب،
-        نستخدم امتداد jpg.
-      */
 
       const allowedExtensions = [
         "jpg",
@@ -1886,9 +1861,7 @@ async function publishVote(){
       }
 
 
-      /* ================================
-         اسم فريد للصورة
-      ================================ */
+      /* اسم فريد */
 
       const filePath =
         session.user.id +
@@ -1898,9 +1871,7 @@ async function publishVote(){
         extension;
 
 
-      /* ================================
-         رفع الصورة
-      ================================ */
+      /* رفع الصورة */
 
       const {
         error:uploadError
@@ -1937,9 +1908,7 @@ async function publishVote(){
       }
 
 
-      /* ================================
-         الحصول على الرابط العام
-      ================================ */
+      /* الرابط العام */
 
       const {
         data:publicData
@@ -1953,36 +1922,42 @@ async function publishVote(){
 
 
       imageUrls[i] =
-        publicData.publicUrl;
+        publicData?.publicUrl ||
+        null;
 
     }
 
 
-    /* ================================
-       تجهيز بيانات التصويت
-    ================================ */
+    /* إنشاء بيانات التصويت */
 
     publishButton.textContent =
       "⏳ جارٍ إنشاء التصويت...";
 
+
+    /*
+      مهم:
+      أسماء الصور هنا هي:
+      image_a
+      image_b
+      image_c
+      ...
+      image_o
+
+      وهي نفس الأسماء التي يستخدمها
+      index.html لعرض الصور.
+    */
 
     const voteData = {
 
       user_id:
         session.user.id,
 
-
       question:
         question,
-
 
       category:
         selectedCategory,
 
-
-      /* ================================
-         أسماء الخيارات
-      ================================ */
 
       option_a:
         optionNames[0] || null,
@@ -2030,96 +2005,76 @@ async function publishVote(){
         optionNames[14] || null,
 
 
-      /* ================================
-         روابط صور الخيارات
-      ================================ */
+      /* الصور */
 
-      option_a_image:
+      image_a:
         imageUrls[0] || null,
 
-      option_b_image:
+      image_b:
         imageUrls[1] || null,
 
-      option_c_image:
+      image_c:
         imageUrls[2] || null,
 
-      option_d_image:
+      image_d:
         imageUrls[3] || null,
 
-      option_e_image:
+      image_e:
         imageUrls[4] || null,
 
-      option_f_image:
+      image_f:
         imageUrls[5] || null,
 
-      option_g_image:
+      image_g:
         imageUrls[6] || null,
 
-      option_h_image:
+      image_h:
         imageUrls[7] || null,
 
-      option_i_image:
+      image_i:
         imageUrls[8] || null,
 
-      option_j_image:
+      image_j:
         imageUrls[9] || null,
 
-      option_k_image:
+      image_k:
         imageUrls[10] || null,
 
-      option_l_image:
+      image_l:
         imageUrls[11] || null,
 
-      option_m_image:
+      image_m:
         imageUrls[12] || null,
 
-      option_n_image:
+      image_n:
         imageUrls[13] || null,
 
-      option_o_image:
+      image_o:
         imageUrls[14] || null,
 
 
-      /* ================================
-         الأصوات
-      ================================ */
+      /* الأصوات */
 
       votes_a:0,
-
       votes_b:0,
-
       votes_c:0,
-
       votes_d:0,
-
       votes_e:0,
-
       votes_f:0,
-
       votes_g:0,
-
       votes_h:0,
-
       votes_i:0,
-
       votes_j:0,
-
       votes_k:0,
-
       votes_l:0,
-
       votes_m:0,
-
       votes_n:0,
-
       votes_o:0
 
     };
 
 
-    /* ================================
-       إرسال التصويت إلى Supabase
-    ================================ */
+    /* إدخال التصويت */
 
     const {
       data,
@@ -2156,9 +2111,7 @@ async function publishVote(){
     }
 
 
-    /* ================================
-       نجاح
-    ================================ */
+    /* النجاح */
 
     showMessage(
       "تم نشر التصويت والصور بنجاح! 🎉",
@@ -2170,9 +2123,7 @@ async function publishVote(){
       "✅ تم النشر";
 
 
-    /* ================================
-       الانتقال إلى صفحة التصويت
-    ================================ */
+    /* الانتقال للتصويت */
 
     setTimeout(
     function(){
@@ -2198,7 +2149,10 @@ async function publishVote(){
 
     showMessage(
       "فشل نشر التصويت:\n" +
-      error.message,
+      (
+        error?.message ||
+        "خطأ غير معروف"
+      ),
       "error"
     );
 
@@ -2218,6 +2172,8 @@ async function publishVote(){
 /* ==========================================
    START
 ========================================== */
+
+updateCounter();
 
 checkUser();
 
