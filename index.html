@@ -1,31 +1,28 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>VOTERA — اسأل. صوّت. اكتشف.</title>
-
-<meta name="description" content="VOTERA — منصة التصويت الاجتماعية. اسأل، صوّت، واكتشف رأي المجتمع.">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
-/* =========================================================
-   VOTERA — GLOBAL
-========================================================= */
-
 :root{
   --primary:#6c5ce7;
-  --primary-dark:#5544d0;
-  --primary-light:#eeebff;
-  --bg:#f7f7fc;
-  --card:rgba(255,255,255,.72);
-  --text:#15151b;
-  --muted:#747480;
-  --border:rgba(108,92,231,.12);
-  --shadow:0 18px 55px rgba(44,38,100,.10);
+  --primary-dark:#5848d6;
+  --bg:#f7f7fb;
+  --card:#ffffff;
+  --text:#17171c;
+  --muted:#777783;
+  --border:#e8e8ef;
+  --soft:#f0eeff;
+  --success:#16a34a;
 }
 
 *{
@@ -40,498 +37,53 @@ html{
 
 body{
   font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
   color:var(--text);
   min-height:100vh;
-  padding-bottom:80px;
-  overflow-x:hidden;
-  position:relative;
+}
 
-  background:
-    linear-gradient(
-      120deg,
-      #fafaff,
-      #eeeaff,
-      #fff0f8,
-      #edf7ff,
-      #fafaff
-    );
+button,
+input{
+  font-family:inherit;
+}
 
-  background-size:500% 500%;
+button{
+  border:0;
+  cursor:pointer;
+}
 
-  animation:
-    pageBackground
-    18s
-    ease
-    infinite;
+a{
+  text-decoration:none;
+  color:inherit;
 }
 
 
-/* =========================================================
-   🌈 حركة ألوان الخلفية الرئيسية
-========================================================= */
-
-@keyframes pageBackground{
-
-  0%{
-    background-position:0% 50%;
-  }
-
-  20%{
-    background-position:50% 0%;
-  }
-
-  40%{
-    background-position:100% 50%;
-  }
-
-  60%{
-    background-position:70% 100%;
-  }
-
-  80%{
-    background-position:20% 70%;
-  }
-
-  100%{
-    background-position:0% 50%;
-  }
-
-}
-
-
-/* =========================================================
-   🟣 كرة بنفسجية ضخمة متحركة
-========================================================= */
-
-body::before{
-
-  content:"";
-
-  position:fixed;
-
-  width:700px;
-  height:700px;
-
-  left:-280px;
-  top:-250px;
-
-  border-radius:50%;
-
-  pointer-events:none;
-
-  z-index:-10;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(108,92,231,.42) 0%,
-      rgba(108,92,231,.25) 25%,
-      rgba(108,92,231,.10) 45%,
-      transparent 72%
-    );
-
-  filter:blur(20px);
-
-  animation:
-    purpleOrbMove
-    10s
-    ease-in-out
-    infinite
-    alternate;
-}
-
-
-@keyframes purpleOrbMove{
-
-  0%{
-    transform:
-      translate(0,0)
-      scale(.75);
-  }
-
-  20%{
-    transform:
-      translate(280px,120px)
-      scale(1.15);
-  }
-
-  40%{
-    transform:
-      translate(550px,430px)
-      scale(.85);
-  }
-
-  60%{
-    transform:
-      translate(850px,100px)
-      scale(1.25);
-  }
-
-  80%{
-    transform:
-      translate(1100px,500px)
-      scale(.9);
-  }
-
-  100%{
-    transform:
-      translate(1450px,200px)
-      scale(1.2);
-  }
-
-}
-
-
-/* =========================================================
-   🩷 كرة وردية ضخمة متحركة
-========================================================= */
-
-body::after{
-
-  content:"";
-
-  position:fixed;
-
-  width:650px;
-  height:650px;
-
-  right:-300px;
-  bottom:-300px;
-
-  border-radius:50%;
-
-  pointer-events:none;
-
-  z-index:-9;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,60,170,.38) 0%,
-      rgba(255,60,170,.22) 25%,
-      rgba(255,60,170,.08) 48%,
-      transparent 73%
-    );
-
-  filter:blur(25px);
-
-  animation:
-    pinkOrbMove
-    12s
-    ease-in-out
-    infinite
-    alternate;
-}
-
-
-@keyframes pinkOrbMove{
-
-  0%{
-    transform:
-      translate(0,0)
-      scale(.75);
-  }
-
-  25%{
-    transform:
-      translate(-250px,-200px)
-      scale(1.2);
-  }
-
-  50%{
-    transform:
-      translate(-550px,-50px)
-      scale(.85);
-  }
-
-  75%{
-    transform:
-      translate(-850px,-400px)
-      scale(1.3);
-  }
-
-  100%{
-    transform:
-      translate(-1100px,-100px)
-      scale(.9);
-  }
-
-}
-
-
-/* =========================================================
-   🔵 توهج أزرق متحرك
-========================================================= */
-
-.hero{
-
-  position:relative;
-
-  overflow:hidden;
-
-  max-width:1180px;
-
-  margin:auto;
-
-  padding:
-    95px
-    20px
-    65px;
-
-  text-align:center;
-
-  isolation:isolate;
-}
-
-
-.hero::before{
-
-  content:"";
-
-  position:absolute;
-
-  width:500px;
-  height:500px;
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(40,150,255,.32) 0%,
-      rgba(40,150,255,.15) 35%,
-      transparent 72%
-    );
-
-  filter:blur(20px);
-
-  top:-220px;
-  right:-100px;
-
-  z-index:-2;
-
-  animation:
-    blueHeroOrb
-    8s
-    ease-in-out
-    infinite
-    alternate;
-}
-
-
-@keyframes blueHeroOrb{
-
-  0%{
-    transform:
-      translate(0,0)
-      scale(.8);
-  }
-
-  30%{
-    transform:
-      translate(-180px,150px)
-      scale(1.2);
-  }
-
-  60%{
-    transform:
-      translate(-400px,300px)
-      scale(.85);
-  }
-
-  100%{
-    transform:
-      translate(-650px,100px)
-      scale(1.25);
-  }
-
-}
-
-
-/* =========================================================
-   🟠 توهج إضافي في HERO
-========================================================= */
-
-.hero::after{
-
-  content:"";
-
-  position:absolute;
-
-  width:400px;
-  height:400px;
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,180,70,.20),
-      transparent 70%
-    );
-
-  filter:blur(25px);
-
-  bottom:-180px;
-  left:-120px;
-
-  z-index:-2;
-
-  animation:
-    orangeOrb
-    9s
-    ease-in-out
-    infinite
-    alternate;
-}
-
-
-@keyframes orangeOrb{
-
-  0%{
-    transform:
-      translate(0,0)
-      scale(.8);
-  }
-
-  50%{
-    transform:
-      translate(250px,-180px)
-      scale(1.25);
-  }
-
-  100%{
-    transform:
-      translate(500px,50px)
-      scale(.9);
-  }
-
-}
-
-
-/* =========================================================
-   ✨ شبكة متحركة
-========================================================= */
-
-.hero-content::before{
-
-  content:"";
-
-  position:absolute;
-
-  width:100vw;
-  height:100vh;
-
-  left:50%;
-  top:50%;
-
-  transform:translate(-50%,-50%);
-
-  pointer-events:none;
-
-  z-index:-3;
-
-  opacity:.35;
-
-  background-image:
-
-    linear-gradient(
-      rgba(108,92,231,.07) 1px,
-      transparent 1px
-    ),
-
-    linear-gradient(
-      90deg,
-      rgba(108,92,231,.07) 1px,
-      transparent 1px
-    );
-
-  background-size:55px 55px;
-
-  animation:
-    movingGrid
-    7s
-    linear
-    infinite;
-}
-
-
-@keyframes movingGrid{
-
-  0%{
-    background-position:
-      0 0,
-      0 0;
-  }
-
-  25%{
-    background-position:
-      55px -55px,
-      -55px 55px;
-  }
-
-  50%{
-    background-position:
-      110px 0,
-      0 110px;
-  }
-
-  75%{
-    background-position:
-      55px 55px,
-      -55px -55px;
-  }
-
-  100%{
-    background-position:
-      0 110px,
-      110px 0;
-  }
-
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
+/* ================= HEADER ================= */
 
 header{
+  height:68px;
+  background:rgba(255,255,255,.96);
+  border-bottom:1px solid var(--border);
   position:sticky;
   top:0;
-  z-index:1000;
-
-  background:
-    rgba(255,255,255,.70);
-
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
-
-  border-bottom:
-    1px solid
-    rgba(255,255,255,.8);
-
-  box-shadow:
-    0 8px 30px
-    rgba(30,25,80,.05);
+  z-index:100;
 }
 
 .nav{
-  max-width:1180px;
-  height:72px;
+  width:100%;
+  max-width:1100px;
+  height:100%;
   margin:auto;
-  padding:0 20px;
-
+  padding:0 18px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-
-  gap:20px;
 }
 
 .logo{
-  font-size:28px;
+  font-size:26px;
   font-weight:950;
-  letter-spacing:-2px;
+  letter-spacing:-1px;
   direction:ltr;
 }
 
@@ -539,538 +91,163 @@ header{
   color:var(--primary);
 }
 
-.desktop-nav{
-  display:none;
-  align-items:center;
-  gap:25px;
-
-  font-size:14px;
-  font-weight:800;
-}
-
-.desktop-nav a{
-  transition:.2s;
-}
-
-.desktop-nav a:hover{
-  color:var(--primary);
-}
-
-.create-small{
-  background:
-    linear-gradient(
-      135deg,
-      var(--primary),
-      #8173f2
-    );
-
-  color:white!important;
-
-  padding:11px 17px;
-
-  border-radius:12px;
-
-  box-shadow:
-    0 8px 20px
-    rgba(108,92,231,.20);
-}
-
-.auth-area{
+.nav-actions{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:9px;
 }
 
-.google-btn{
-  display:flex;
-  align-items:center;
-  gap:8px;
-
-  background:
-    rgba(255,255,255,.88);
-
-  border:
-    1px solid
-    var(--border);
-
-  color:#222;
-
-  padding:10px 13px;
-
-  border-radius:12px;
-
-  font-size:12px;
-  font-weight:900;
-
-  transition:.2s;
-
-  cursor:pointer;
-}
-
-.google-btn:hover{
-  border-color:#cfc9ff;
-
-  transform:
-    translateY(-1px);
-
-  box-shadow:
-    0 8px 20px
-    rgba(60,50,130,.08);
-}
-
-.google-icon{
-  font-size:17px;
-  color:#4285f4;
-  font-weight:950;
-}
-
-.user-box{
-  display:none;
-  align-items:center;
-  gap:8px;
-}
-
-.user-avatar{
-  width:37px;
-  height:37px;
-
-  border-radius:50%;
-
-  object-fit:cover;
-
-  border:
-    2px solid
-    var(--primary);
-
-  box-shadow:
-    0 4px 12px
-    rgba(108,92,231,.2);
-}
-
-.user-name{
-  max-width:110px;
-
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-
-  font-size:13px;
-  font-weight:900;
-}
-
-.account-btn{
-  background:var(--primary-light);
-  color:var(--primary);
-
-  padding:9px 11px;
-
-  border-radius:10px;
-
+.nav-button{
+  padding:10px 14px;
+  border-radius:11px;
   font-size:12px;
   font-weight:900;
 }
 
-.logout-btn{
-  background:#f1f1f5;
-  color:#555;
-
-  border:0;
-
-  padding:8px 10px;
-
-  border-radius:10px;
-
-  font-size:11px;
-  font-weight:900;
-
-  cursor:pointer;
-}
-
-
-/* =========================================================
-   HERO CONTENT
-========================================================= */
-
-.hero-content{
-  position:relative;
-  z-index:2;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-
-  background:
-    rgba(238,235,255,.84);
-
-  border:
-    1px solid
-    rgba(108,92,231,.12);
-
+.login-button{
+  background:#f0eeff;
   color:var(--primary);
+}
 
-  padding:10px 16px;
+.create-button{
+  background:var(--primary);
+  color:white;
+}
 
+.create-button:hover{
+  background:var(--primary-dark);
+}
+
+
+/* ================= HERO ================= */
+
+.hero{
+  width:100%;
+  max-width:1000px;
+  margin:auto;
+  padding:70px 18px 45px;
+  text-align:center;
+}
+
+.hero-badge{
+  display:inline-block;
+  background:#ece9ff;
+  color:var(--primary);
+  padding:8px 15px;
   border-radius:30px;
-
-  font-size:13px;
-  font-weight:900;
-
-  margin-bottom:23px;
-
-  box-shadow:
-    0 8px 25px
-    rgba(108,92,231,.08);
+  font-size:12px;
+  font-weight:950;
+  margin-bottom:18px;
 }
 
 .hero h1{
-  direction:ltr;
-
-  font-size:
-    clamp(
-      62px,
-      14vw,
-      110px
-    );
-
-  line-height:.88;
-
-  letter-spacing:-7px;
-
+  font-size:42px;
+  line-height:1.2;
   font-weight:950;
-
-  margin-bottom:25px;
-
-  text-shadow:
-    0 12px 35px
-    rgba(50,40,120,.10);
+  letter-spacing:-1px;
+  margin-bottom:15px;
 }
 
 .hero h1 span{
   color:var(--primary);
 }
 
-.tagline{
-  font-size:
-    clamp(
-      23px,
-      5vw,
-      32px
-    );
-
-  font-weight:950;
-
-  margin-bottom:13px;
-}
-
-.hero-description{
-  max-width:620px;
-
-  margin:
-    0 auto
-    30px;
-
-  color:var(--muted);
-
-  font-size:16px;
-
-  line-height:1.9;
-}
-
-.hero-buttons{
-  display:flex;
-  flex-direction:column;
-
-  gap:11px;
-
-  max-width:500px;
-
+.hero p{
+  max-width:600px;
   margin:auto;
-}
-
-.btn{
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  padding:17px 22px;
-
-  border-radius:16px;
-
+  color:var(--muted);
   font-size:15px;
-  font-weight:950;
-
-  transition:.25s;
-
-  text-decoration:none;
+  line-height:1.8;
 }
 
-.btn-primary{
-  background:
-    linear-gradient(
-      135deg,
-      var(--primary),
-      #8274f3
-    );
-
-  color:white;
-
-  box-shadow:
-    0 14px 30px
-    rgba(108,92,231,.25);
-}
-
-.btn-primary:hover{
-  transform:
-    translateY(-3px);
-
-  box-shadow:
-    0 18px 38px
-    rgba(108,92,231,.32);
-}
-
-.btn-secondary{
-  background:
-    rgba(255,255,255,.75);
-
-  border:
-    1px solid
-    rgba(108,92,231,.12);
-
-  backdrop-filter:blur(12px);
-
-  color:var(--text);
-}
-
-.btn-secondary:hover{
-  transform:
-    translateY(-3px);
-
-  box-shadow:
-    var(--shadow);
-}
-
-
-/* =========================================================
-   WELCOME
-========================================================= */
-
-.welcome{
-  display:none;
-
-  max-width:560px;
-
-  margin:
-    0 auto
-    25px;
-
-  background:
-    rgba(236,253,243,.90);
-
-  color:#166534;
-
-  border:
-    1px solid
-    #bbf7d0;
-
-  padding:13px 16px;
-
-  border-radius:14px;
-
-  font-size:13px;
-  font-weight:900;
-}
-
-
-/* =========================================================
-   STATS
-========================================================= */
-
-.stats{
-  max-width:850px;
-
-  margin:
-    10px auto
-    65px;
-
-  padding:
-    0 20px;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
-  gap:12px;
-}
-
-.stat{
-  background:
-    rgba(255,255,255,.66);
-
-  border:
-    1px solid
-    rgba(255,255,255,.85);
-
-  border-radius:19px;
-
-  padding:19px 8px;
-
-  text-align:center;
-
-  backdrop-filter:blur(15px);
-
-  box-shadow:
-    0 10px 35px
-    rgba(40,35,100,.06);
-
-  transition:.25s;
-}
-
-.stat:hover{
-  transform:
-    translateY(-3px);
-
-  box-shadow:
-    var(--shadow);
-}
-
-.stat strong{
-  display:block;
-
-  font-size:23px;
-
-  margin-bottom:5px;
-}
-
-.stat span{
-  color:var(--muted);
-
-  font-size:11px;
-  font-weight:800;
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.section{
-  position:relative;
-
-  max-width:1180px;
-
-  margin:auto;
-
-  padding:
-    0 20px
-    60px;
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-.section-header{
+.hero-actions{
   display:flex;
-
-  justify-content:space-between;
-  align-items:center;
-
-  margin-bottom:18px;
+  justify-content:center;
+  gap:10px;
+  margin-top:25px;
+  flex-wrap:wrap;
 }
 
-.section-header h2{
-  font-size:23px;
+.hero-button{
+  padding:14px 22px;
+  border-radius:13px;
+  font-size:13px;
   font-weight:950;
 }
 
-.section-header a{
-  color:var(--primary);
-
-  font-size:13px;
-  font-weight:900;
-
-  text-decoration:none;
+.hero-primary{
+  background:var(--primary);
+  color:white;
+  box-shadow:0 10px 25px rgba(108,92,231,.22);
 }
+
+.hero-secondary{
+  background:white;
+  color:var(--primary);
+  border:1px solid var(--border);
+}
+
+
+/* ================= MAIN ================= */
+
+.main{
+  width:100%;
+  max-width:1000px;
+  margin:auto;
+  padding:0 18px 60px;
+}
+
+
+/* ================= SEARCH ================= */
 
 .search-box{
-  position:relative;
-
-  margin-bottom:18px;
-}
-
-.search-box input{
-  width:100%;
-
-  height:52px;
-
-  border:
-    1px solid
-    rgba(108,92,231,.10);
-
-  border-radius:16px;
-
-  background:
-    rgba(255,255,255,.72);
-
-  backdrop-filter:blur(15px);
-
-  padding:
-    0 47px
-    0 15px;
-
-  outline:none;
-
-  font-size:14px;
-
-  transition:.2s;
-}
-
-.search-box input:focus{
-  border-color:
-    rgba(108,92,231,.35);
-
-  box-shadow:
-    0 0 0 4px
-    rgba(108,92,231,.07);
-
   background:white;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:10px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:25px;
 }
 
 .search-icon{
-  position:absolute;
+  font-size:18px;
+  padding-right:7px;
+}
 
-  right:16px;
+.search-box input{
+  flex:1;
+  border:0;
+  outline:none;
+  font-size:13px;
+  background:transparent;
+  color:var(--text);
+}
 
-  top:50%;
+.search-box input::placeholder{
+  color:#9999a4;
+}
 
-  transform:
-    translateY(-50%);
-
-  font-size:19px;
+.search-button{
+  background:var(--primary);
+  color:white;
+  padding:10px 15px;
+  border-radius:10px;
+  font-size:11px;
+  font-weight:900;
 }
 
 
-/* =========================================================
-   CATEGORIES
-========================================================= */
+/* ================= CATEGORIES ================= */
 
 .categories{
   display:flex;
-
   gap:8px;
-
   overflow-x:auto;
-
+  padding-bottom:6px;
+  margin-bottom:30px;
   scrollbar-width:none;
-
-  padding-bottom:13px;
-
-  margin-bottom:20px;
 }
 
 .categories::-webkit-scrollbar{
@@ -1079,845 +256,341 @@ header{
 
 .category{
   flex-shrink:0;
-
-  border:
-    1px solid
-    rgba(108,92,231,.10);
-
-  background:
-    rgba(255,255,255,.72);
-
-  backdrop-filter:blur(10px);
-
-  padding:10px 14px;
-
+  padding:9px 14px;
+  border:1px solid var(--border);
+  background:white;
   border-radius:30px;
-
-  font-size:12px;
+  font-size:11px;
   font-weight:900;
-
-  transition:.2s;
-
-  cursor:pointer;
-}
-
-.category:hover{
-  transform:
-    translateY(-2px);
-
-  border-color:
-    rgba(108,92,231,.25);
+  color:var(--muted);
 }
 
 .category.active{
+  background:var(--primary);
+  border-color:var(--primary);
   color:white;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--primary),
-      #8173f2
-    );
-
-  border-color:transparent;
-
-  box-shadow:
-    0 8px 20px
-    rgba(108,92,231,.20);
 }
 
 
-/* =========================================================
-   VOTE CARDS
-========================================================= */
+/* ================= SECTION ================= */
 
-.votes-grid{
-  display:grid;
-
-  grid-template-columns:
-    1fr;
-
-  gap:18px;
+.section{
+  margin-bottom:35px;
 }
 
-.vote-card{
-  position:relative;
-
-  overflow:hidden;
-
-  background:
-    rgba(255,255,255,.70);
-
-  border:
-    1px solid
-    rgba(255,255,255,.88);
-
-  border-radius:23px;
-
-  padding:18px;
-
-  backdrop-filter:blur(18px);
-
-  -webkit-backdrop-filter:blur(18px);
-
-  box-shadow:
-    0 10px 35px
-    rgba(35,30,90,.06);
-
-  transition:.3s;
-}
-
-
-/* =========================================================
-   💫 ضوء متحرك داخل البطاقات
-========================================================= */
-
-.vote-card::before{
-
-  content:"";
-
-  position:absolute;
-
-  width:220px;
-  height:220px;
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(108,92,231,.25),
-      transparent 70%
-    );
-
-  filter:blur(25px);
-
-  top:-130px;
-  right:-120px;
-
-  pointer-events:none;
-
-  animation:
-    cardLight
-    6s
-    ease-in-out
-    infinite
-    alternate;
-}
-
-
-@keyframes cardLight{
-
-  0%{
-    transform:
-      translate(0,0)
-      scale(.7);
-
-    opacity:.35;
-  }
-
-  30%{
-    transform:
-      translate(-60px,80px)
-      scale(1.15);
-
-    opacity:.8;
-  }
-
-  60%{
-    transform:
-      translate(-150px,20px)
-      scale(.9);
-
-    opacity:.55;
-  }
-
-  100%{
-    transform:
-      translate(-220px,150px)
-      scale(1.25);
-
-    opacity:.25;
-  }
-
-}
-
-
-/* =========================================================
-   ✨ لمعان يمر على البطاقة
-========================================================= */
-
-.vote-card::after{
-
-  content:"";
-
-  position:absolute;
-
-  top:-100%;
-  left:-150%;
-
-  width:70%;
-  height:300%;
-
-  pointer-events:none;
-
-  transform:rotate(25deg);
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.42),
-      transparent
-    );
-
-  animation:
-    cardShine
-    6s
-    ease-in-out
-    infinite;
-}
-
-
-@keyframes cardShine{
-
-  0%{
-    left:-150%;
-  }
-
-  40%{
-    left:160%;
-  }
-
-  100%{
-    left:160%;
-  }
-
-}
-
-
-.vote-card:hover{
-  transform:
-    translateY(-5px);
-
-  border-color:
-    rgba(108,92,231,.18);
-
-  box-shadow:
-    0 20px 50px
-    rgba(40,35,110,.12);
-}
-
-.card-top{
+.section-header{
   display:flex;
-
-  justify-content:space-between;
   align-items:center;
-
-  margin-bottom:11px;
-
-  position:relative;
-  z-index:2;
-}
-
-.card-tag{
-  background:
-    rgba(238,235,255,.9);
-
-  color:var(--primary);
-
-  padding:6px 9px;
-
-  border-radius:8px;
-
-  font-size:10px;
-  font-weight:900;
-}
-
-.trending{
-  font-size:12px;
-}
-
-.vote-card h3{
-  position:relative;
-  z-index:2;
-
-  font-size:17px;
-
-  line-height:1.5;
-
+  justify-content:space-between;
   margin-bottom:15px;
 }
 
-.options{
-  position:relative;
-  z-index:2;
-
-  display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:9px;
-}
-
-.option{
-  position:relative;
-
-  min-height:140px;
-
-  border-radius:16px;
-
-  padding:13px;
-
-  display:flex;
-
-  align-items:flex-end;
-
-  overflow:hidden;
-
-  font-size:14px;
+.section-title{
+  font-size:20px;
   font-weight:950;
-
-  background:
-    linear-gradient(
-      135deg,
-      #ddd8ff,
-      #f7f5ff
-    );
-
-  transition:.25s;
-
-  text-decoration:none;
-
-  color:var(--text);
 }
 
-.option::after{
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  background:
-    linear-gradient(
-      transparent,
-      rgba(20,15,50,.22)
-    );
+.section-title span{
+  color:var(--primary);
 }
 
-.option span{
-  position:relative;
-
-  z-index:2;
+.refresh-button{
+  background:white;
+  border:1px solid var(--border);
+  color:var(--muted);
+  padding:8px 11px;
+  border-radius:10px;
+  font-size:11px;
+  font-weight:900;
 }
 
-.option:nth-child(2){
-  background:
-    linear-gradient(
-      135deg,
-      #ffdce9,
-      #fff4f8
-    );
+
+/* ================= VOTES GRID ================= */
+
+.votes-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
 }
 
-.option:hover{
-  transform:
-    scale(1.025);
 
-  box-shadow:
-    0 8px 20px
-    rgba(30,25,80,.10);
+/* ================= VOTE CARD ================= */
+
+.vote-item{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:18px;
+  transition:.2s;
 }
 
-.vote-meta{
-  position:relative;
-  z-index:2;
+.vote-item:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 28px rgba(0,0,0,.05);
+}
 
+.vote-category{
+  display:inline-block;
+  background:#f0eeff;
+  color:var(--primary);
+  padding:6px 9px;
+  border-radius:15px;
+  font-size:10px;
+  font-weight:900;
+  margin-bottom:11px;
+}
+
+.vote-question{
+  font-size:16px;
+  font-weight:950;
+  line-height:1.5;
+  margin-bottom:14px;
+}
+
+.vote-options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.vote-option{
+  min-width:0;
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+  background:#fafafd;
+}
+
+.option-image{
+  width:100%;
+  height:100px;
+  object-fit:cover;
+  display:none;
+}
+
+.option-content{
+  padding:10px;
   display:flex;
+  align-items:center;
+  gap:8px;
+}
 
+.option-letter{
+  width:27px;
+  height:27px;
+  min-width:27px;
+  background:#ece9ff;
+  color:var(--primary);
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  font-weight:950;
+}
+
+.option-name{
+  font-size:11px;
+  font-weight:900;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.vote-bottom{
+  margin-top:14px;
+  display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:8px;
+}
 
-  margin-top:13px;
-
+.vote-count{
   color:var(--muted);
-
-  font-size:11px;
+  font-size:10px;
 }
 
-.share-btn{
+.vote-now{
+  background:var(--primary);
+  color:white;
+  padding:9px 13px;
+  border-radius:10px;
+  font-size:10px;
+  font-weight:950;
+}
+
+.share-small{
+  background:#f0eeff;
   color:var(--primary);
-
-  font-weight:900;
-
-  border:0;
-
-  background:transparent;
-
-  font-size:11px;
-
-  cursor:pointer;
+  padding:9px 11px;
+  border-radius:10px;
+  font-size:10px;
+  font-weight:950;
 }
 
 
-/* =========================================================
-   USERS
-========================================================= */
+/* ================= EMPTY ================= */
 
-.people-grid{
-  display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap:11px;
-}
-
-.person{
-  background:
-    rgba(255,255,255,.68);
-
-  border:
-    1px solid
-    rgba(255,255,255,.85);
-
-  border-radius:18px;
-
-  padding:16px 10px;
-
+.empty{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:40px 20px;
   text-align:center;
-
-  backdrop-filter:blur(15px);
-
-  box-shadow:
-    0 8px 25px
-    rgba(35,30,90,.05);
-
-  transition:.25s;
+  color:var(--muted);
 }
 
-.person:hover{
-  transform:
-    translateY(-3px);
-
-  box-shadow:
-    var(--shadow);
+.empty-icon{
+  font-size:35px;
+  margin-bottom:10px;
 }
 
-.person-avatar{
-  width:50px;
-  height:50px;
+.empty h3{
+  color:var(--text);
+  font-size:16px;
+  margin-bottom:7px;
+}
 
+.empty p{
+  font-size:12px;
+  line-height:1.7;
+}
+
+
+/* ================= LOADING ================= */
+
+.loading{
+  text-align:center;
+  padding:40px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.spinner{
+  width:35px;
+  height:35px;
+  border:4px solid #e8e8ef;
+  border-top-color:var(--primary);
   border-radius:50%;
+  margin:0 auto 12px;
+  animation:spin .8s linear infinite;
+}
 
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+
+/* ================= MESSAGE ================= */
+
+.message{
+  display:none;
+  padding:13px;
+  margin-bottom:18px;
+  border-radius:12px;
+  text-align:center;
+  font-size:12px;
+  font-weight:800;
+}
+
+.message.success{
+  display:block;
+  background:#ecfdf3;
+  color:#166534;
+}
+
+.message.error{
+  display:block;
+  background:#fff0f0;
+  color:#b42318;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer{
+  border-top:1px solid var(--border);
+  background:white;
+  padding:30px 18px;
+  text-align:center;
+}
+
+.footer-logo{
+  font-size:22px;
+  font-weight:950;
+  direction:ltr;
   margin-bottom:8px;
 }
 
-.person strong{
-  display:block;
-
-  font-size:13px;
-
-  margin-bottom:4px;
-}
-
-.person span{
+.footer-logo span{
   color:var(--primary);
-
-  font-size:11px;
-  font-weight:900;
 }
 
-
-/* =========================================================
-   CTA
-========================================================= */
-
-.create-box{
-  position:relative;
-
-  overflow:hidden;
-
-  margin-top:10px;
-
-  padding:45px 20px;
-
-  border-radius:28px;
-
-  text-align:center;
-
-  background:
-    radial-gradient(
-      circle at 15% 20%,
-      rgba(255,255,255,.75),
-      transparent 30%
-    ),
-    linear-gradient(
-      135deg,
-      rgba(229,225,255,.92),
-      rgba(252,232,242,.92)
-    );
-
-  border:
-    1px solid
-    rgba(255,255,255,.85);
-
-  box-shadow:
-    var(--shadow);
-}
-
-.create-box::before{
-  content:"";
-
-  position:absolute;
-
-  width:250px;
-  height:250px;
-
-  border-radius:50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(108,92,231,.30),
-      transparent 70%
-    );
-
-  filter:blur(30px);
-
-  right:-90px;
-  top:-100px;
-
-  animation:
-    ctaOrb
-    5s
-    ease-in-out
-    infinite
-    alternate;
-}
-
-@keyframes ctaOrb{
-
-  0%{
-    transform:
-      translate(0,0)
-      scale(.8);
-  }
-
-  50%{
-    transform:
-      translate(-130px,80px)
-      scale(1.3);
-  }
-
-  100%{
-    transform:
-      translate(-280px,140px)
-      scale(.9);
-  }
-
-}
-
-.create-box h2,
-.create-box p,
-.create-box a{
-  position:relative;
-  z-index:2;
-}
-
-.create-box h2{
-  font-size:27px;
-
-  font-weight:950;
-
-  margin-bottom:9px;
-}
-
-.create-box p{
+footer p{
   color:var(--muted);
-
-  font-size:14px;
-
-  line-height:1.7;
-
-  margin-bottom:20px;
-}
-
-.create-box a{
-  display:inline-block;
-
-  background:
-    linear-gradient(
-      135deg,
-      var(--primary),
-      #8173f2
-    );
-
-  color:white;
-
-  padding:14px 24px;
-
-  border-radius:14px;
-
-  font-size:14px;
-  font-weight:950;
-
-  box-shadow:
-    0 10px 25px
-    rgba(108,92,231,.22);
-
-  transition:.2s;
-
-  text-decoration:none;
-}
-
-.create-box a:hover{
-  transform:
-    translateY(-2px);
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer{
-  max-width:1180px;
-
-  margin:auto;
-
-  padding:20px;
-
-  text-align:center;
-
-  color:var(--muted);
-
-  font-size:11px;
-}
-
-
-/* =========================================================
-   MOBILE NAV
-========================================================= */
-
-.mobile-nav{
-  position:fixed;
-
-  bottom:0;
-  left:0;
-  right:0;
-
-  height:73px;
-
-  z-index:2000;
-
-  display:flex;
-
-  justify-content:space-around;
-  align-items:center;
-
-  background:
-    rgba(255,255,255,.80);
-
-  backdrop-filter:blur(22px);
-
-  -webkit-backdrop-filter:blur(22px);
-
-  border-top:
-    1px solid
-    rgba(255,255,255,.85);
-
-  box-shadow:
-    0 -8px 30px
-    rgba(30,25,80,.07);
-}
-
-.mobile-nav a{
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-
-  gap:4px;
-
-  color:var(--muted);
-
   font-size:10px;
-  font-weight:900;
-
-  text-decoration:none;
-}
-
-.mobile-nav a.active{
-  color:var(--primary);
-}
-
-.nav-icon{
-  font-size:20px;
 }
 
 
-/* =========================================================
-   NO RESULTS
-========================================================= */
+/* ================= DESKTOP ================= */
 
-.no-results{
-  display:none;
+@media(min-width:700px){
 
-  background:
-    rgba(255,255,255,.72);
-
-  border:
-    1px solid
-    rgba(255,255,255,.85);
-
-  border-radius:20px;
-
-  padding:35px;
-
-  text-align:center;
-
-  color:var(--muted);
-
-  backdrop-filter:blur(15px);
-}
-
-
-/* =========================================================
-   DESKTOP
-========================================================= */
-
-@media(min-width:768px){
-
-  body{
-    padding-bottom:0;
-  }
-
-  .desktop-nav{
-    display:flex;
-  }
-
-  .mobile-nav{
-    display:none;
+  .votes-grid{
+    grid-template-columns:repeat(2,1fr);
   }
 
   .hero{
-    padding-top:115px;
-  }
-
-  .hero-buttons{
-    flex-direction:row;
-  }
-
-  .btn{
-    min-width:205px;
-  }
-
-  .votes-grid{
-    grid-template-columns:
-      repeat(2,1fr);
-  }
-
-  .people-grid{
-    grid-template-columns:
-      repeat(4,1fr);
-  }
-
-}
-
-
-@media(min-width:1050px){
-
-  .votes-grid{
-    grid-template-columns:
-      repeat(3,1fr);
-  }
-
-}
-
-
-@media(max-width:767px){
-
-  .nav{
-    height:65px;
-
-    padding:
-      0 14px;
-  }
-
-  .logo{
-    font-size:23px;
-  }
-
-  .user-name{
-    display:none;
-  }
-
-  .account-btn{
-    display:none;
-  }
-
-  .google-btn{
-    padding:
-      9px 10px;
-
-    font-size:10px;
-  }
-
-  .logout-btn{
-    padding:
-      7px 8px;
-
-    font-size:10px;
-  }
-
-  .hero{
-    padding-top:70px;
+    padding-top:90px;
+    padding-bottom:60px;
   }
 
   .hero h1{
-    letter-spacing:-4px;
+    font-size:52px;
   }
 
-  .stats{
-    margin-bottom:50px;
+  .vote-question{
+    font-size:18px;
   }
 
 }
 
+@media(max-width:500px){
 
-/* =========================================================
-   ⚡ REDUCE MOTION
-========================================================= */
+  .logo{
+    font-size:22px;
+  }
 
-@media(prefers-reduced-motion:reduce){
+  .nav-button{
+    padding:9px 10px;
+    font-size:10px;
+  }
 
-  *,
-  *::before,
-  *::after{
+  .hero h1{
+    font-size:34px;
+  }
 
-    animation-duration:.01ms!important;
+  .hero p{
+    font-size:13px;
+  }
 
-    animation-iteration-count:1!important;
-
-    transition-duration:.01ms!important;
+  .search-button{
+    display:none;
   }
 
 }
 
 </style>
+
 </head>
 
 
 <body>
 
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
+<!-- ================= HEADER ================= -->
 
 <header>
 
@@ -1927,79 +600,21 @@ footer{
 VOTE<span>RA</span>
 </a>
 
-
-<div class="desktop-nav">
-
-<a href="index.html">
-الرئيسية
-</a>
-
-<a href="vote.html">
-🔥 استكشف
-</a>
-
-<a href="create.html" class="create-small">
-➕ إنشاء تصويت
-</a>
-
-<a href="vote.html">
-🏆 الترتيب
-</a>
-
-</div>
-
-
-<div class="auth-area">
+<div class="nav-actions">
 
 <button
-id="googleLoginBtn"
-class="google-btn"
+class="nav-button login-button"
 onclick="signInWithGoogle()"
 >
-
-<span class="google-icon">
-G
-</span>
-
-تسجيل الدخول
-
+🔐 دخول
 </button>
-
-
-<div
-id="userBox"
-class="user-box"
->
-
-<img
-id="userAvatar"
-class="user-avatar"
-src=""
-alt="صورة المستخدم"
->
-
-<span
-id="userName"
-class="user-name"
-></span>
-
 
 <a
-href="account.html"
-class="account-btn"
+href="create.html"
+class="nav-button create-button"
 >
-حسابي
+🔥 إنشاء تصويت
 </a>
-
-
-<button
-class="logout-btn"
-onclick="signOutUser()"
->
-خروج
-</button>
-
-</div>
 
 </div>
 
@@ -2008,704 +623,222 @@ onclick="signOutUser()"
 </header>
 
 
-<!-- =========================================================
-     HERO
-========================================================= -->
+<!-- ================= HERO ================= -->
 
 <section class="hero">
 
-<div class="hero-content">
-
-<div class="badge">
-🔥 مجتمع التصويت الجديد
+<div class="hero-badge">
+🔥 VOTERA
 </div>
-
 
 <h1>
-VOTE<span>RA</span>
+اسأل.
+<span>صوّت.</span>
+اكتشف.
 </h1>
 
-
-<div class="tagline">
-اسأل. صوّت. اكتشف.
-</div>
-
-
-<p class="hero-description">
-
-أنشئ سؤالًا، شاركه مع العالم، واكتشف ماذا يعتقد الناس.
-في VOTERA رأيك له صوت.
-
+<p>
+أنشئ تصويتًا، شاركه مع العالم،
+واكتشف رأي المجتمع في أي شيء.
 </p>
 
-
-<div
-id="welcomeMessage"
-class="welcome"
-></div>
-
-
-<div class="hero-buttons">
+<div class="hero-actions">
 
 <a
 href="create.html"
-class="btn btn-primary"
+class="hero-button hero-primary"
 >
-🔥 أنشئ تصويتك
+🔥 إنشاء تصويت
 </a>
-
 
 <a
-href="vote.html"
-class="btn btn-secondary"
+href="#trending"
+class="hero-button hero-secondary"
 >
-استكشف التصويتات ←
+🌎 استكشف التصويتات
 </a>
-
-</div>
 
 </div>
 
 </section>
 
 
-<!-- =========================================================
-     STATS
-========================================================= -->
+<!-- ================= MAIN ================= -->
 
-<div class="stats">
-
-<div class="stat">
-
-<strong>
-1K+
-</strong>
-
-<span>
-تصويت
-</span>
-
-</div>
+<main class="main">
 
 
-<div class="stat">
-
-<strong>
-10K+
-</strong>
-
-<span>
-صوت
-</span>
-
-</div>
+<div id="message" class="message"></div>
 
 
-<div class="stat">
-
-<strong>
-500+
-</strong>
-
-<span>
-مستخدم
-</span>
-
-</div>
-
-</div>
-
-
-<!-- =========================================================
-     TRENDING
-========================================================= -->
-
-<section class="section">
-
-<div class="section-header">
-
-<h2>
-🔥 التصويتات الرائجة
-</h2>
-
-<a href="vote.html">
-عرض الكل →
-</a>
-
-</div>
-
+<!-- SEARCH -->
 
 <div class="search-box">
 
-<span class="search-icon">
-🔎
-</span>
+<div class="search-icon">
+🔍
+</div>
 
 <input
+type="text"
 id="searchInput"
-type="search"
 placeholder="ابحث عن تصويت..."
-autocomplete="off"
+oninput="searchVotes()"
 >
+
+<button
+class="search-button"
+onclick="searchVotes()"
+>
+بحث
+</button>
 
 </div>
 
 
+<!-- CATEGORIES -->
+
 <div class="categories">
 
-<button class="category active">
-🔥 رائج
+<button
+class="category active"
+data-category="الكل"
+onclick="filterCategory('الكل',this)"
+>
+🌐 الكل
 </button>
 
-<button class="category">
-🆕 جديد
+<button
+class="category"
+data-category="عام"
+onclick="filterCategory('عام',this)"
+>
+🌐 عام
 </button>
 
-<button class="category">
-🎮 ألعاب
-</button>
-
-<button class="category">
+<button
+class="category"
+data-category="تقنية"
+onclick="filterCategory('تقنية',this)"
+>
 📱 تقنية
 </button>
 
-<button class="category">
+<button
+class="category"
+data-category="ألعاب"
+onclick="filterCategory('ألعاب',this)"
+>
+🎮 ألعاب
+</button>
+
+<button
+class="category"
+data-category="رياضة"
+onclick="filterCategory('رياضة',this)"
+>
 ⚽ رياضة
 </button>
 
-<button class="category">
+<button
+class="category"
+data-category="أفلام"
+onclick="filterCategory('أفلام',this)"
+>
 🎬 أفلام
 </button>
 
-<button class="category">
+<button
+class="category"
+data-category="موسيقى"
+onclick="filterCategory('موسيقى',this)"
+>
 🎵 موسيقى
 </button>
 
-<button class="category">
+<button
+class="category"
+data-category="طعام"
+onclick="filterCategory('طعام',this)"
+>
 🍔 طعام
 </button>
 
-<button class="category">
+<button
+class="category"
+data-category="ترفيه"
+onclick="filterCategory('ترفيه',this)"
+>
 😂 ترفيه
 </button>
 
 </div>
 
 
+<!-- ================= TRENDING ================= -->
+
+<section
+class="section"
+id="trending"
+>
+
+<div class="section-header">
+
+<h2 class="section-title">
+🔥 <span>التصويتات الرائجة</span>
+</h2>
+
+<button
+class="refresh-button"
+onclick="loadVotes()"
+>
+🔄 تحديث
+</button>
+
+</div>
+
+
 <div
-id="votesGrid"
+id="trendingVotes"
 class="votes-grid"
 >
 
+<div class="loading">
 
-<!-- CARD 1 -->
+<div class="spinner"></div>
 
-<article
-class="vote-card"
-data-search="تصميم تصميم أفضل"
->
-
-<div class="card-top">
-
-<span class="card-tag">
-🎨 تصميم
-</span>
-
-<span class="trending">
-🔥
-</span>
+جارٍ تحميل التصويتات...
 
 </div>
 
-
-<h3>
-أي تصميم يبدو أفضل؟
-</h3>
-
-
-<div class="options">
-
-<a
-href="vote.html"
-class="option"
->
-<span>
-🎨 التصميم A
-</span>
-</a>
-
-
-<a
-href="vote.html"
-class="option"
->
-<span>
-✨ التصميم B
-</span>
-</a>
-
-</div>
-
-
-<div class="vote-meta">
-
-<span>
-1,284 صوت
-</span>
-
-<button
-class="share-btn"
-onclick="shareVote('أي تصميم يبدو أفضل؟')"
->
-↗ مشاركة
-</button>
-
-</div>
-
-</article>
-
-
-<!-- CARD 2 -->
-
-<article
-class="vote-card"
-data-search="هاتف تقنية هاتف أفضل"
->
-
-<div class="card-top">
-
-<span class="card-tag">
-📱 تقنية
-</span>
-
-<span class="trending">
-🔥
-</span>
-
-</div>
-
-
-<h3>
-أي هاتف ستختار؟
-</h3>
-
-
-<div class="options">
-
-<a
-href="vote.html"
-class="option"
->
-<span>
-📱 الهاتف A
-</span>
-</a>
-
-
-<a
-href="vote.html"
-class="option"
->
-<span>
-📱 الهاتف B
-</span>
-</a>
-
-</div>
-
-
-<div class="vote-meta">
-
-<span>
-3,421 صوت
-</span>
-
-<button
-class="share-btn"
-onclick="shareVote('أي هاتف ستختار؟')"
->
-↗ مشاركة
-</button>
-
-</div>
-
-</article>
-
-
-<!-- CARD 3 -->
-
-<article
-class="vote-card"
-data-search="أزياء إطلالة ملابس"
->
-
-<div class="card-top">
-
-<span class="card-tag">
-👗 أزياء
-</span>
-
-<span class="trending">
-🔥
-</span>
-
-</div>
-
-
-<h3>
-أي إطلالة أفضل؟
-</h3>
-
-
-<div class="options">
-
-<a
-href="vote.html"
-class="option"
->
-<span>
-👕 الإطلالة A
-</span>
-</a>
-
-
-<a
-href="vote.html"
-class="option"
->
-<span>
-👔 الإطلالة B
-</span>
-</a>
-
-</div>
-
-
-<div class="vote-meta">
-
-<span>
-2,108 صوت
-</span>
-
-<button
-class="share-btn"
-onclick="shareVote('أي إطلالة أفضل؟')"
->
-↗ مشاركة
-</button>
-
-</div>
-
-</article>
-
-
-<!-- CARD 4 -->
-
-<article
-class="vote-card"
-data-search="ألعاب لعبة gaming"
->
-
-<div class="card-top">
-
-<span class="card-tag">
-🎮 ألعاب
-</span>
-
-<span class="trending">
-🔥
-</span>
-
-</div>
-
-
-<h3>
-ما اللعبة التي تفضلها؟
-</h3>
-
-
-<div class="options">
-
-<a
-href="vote.html"
-class="option"
->
-<span>
-🎮 لعبة A
-</span>
-</a>
-
-
-<a
-href="vote.html"
-class="option"
->
-<span>
-🕹️ لعبة B
-</span>
-</a>
-
-</div>
-
-
-<div class="vote-meta">
-
-<span>
-1,876 صوت
-</span>
-
-<button
-class="share-btn"
-onclick="shareVote('ما اللعبة التي تفضلها؟')"
->
-↗ مشاركة
-</button>
-
-</div>
-
-</article>
-
-
-<!-- CARD 5 -->
-
-<article
-class="vote-card"
-data-search="فيلم أفلام سينما"
->
-
-<div class="card-top">
-
-<span class="card-tag">
-🎬 أفلام
-</span>
-
-<span class="trending">
-🔥
-</span>
-
-</div>
-
-
-<h3>
-ما نوع الأفلام الذي تفضله؟
-</h3>
-
-
-<div class="options">
-
-<a
-href="vote.html"
-class="option"
->
-<span>
-🎬 أكشن
-</span>
-</a>
-
-
-<a
-href="vote.html"
-class="option"
->
-<span>
-😂 كوميديا
-</span>
-</a>
-
-</div>
-
-
-<div class="vote-meta">
-
-<span>
-954 صوت
-</span>
-
-<button
-class="share-btn"
-onclick="shareVote('ما نوع الأفلام الذي تفضله؟')"
->
-↗ مشاركة
-</button>
-
-</div>
-
-</article>
-
-
-<!-- CARD 6 -->
-
-<article
-class="vote-card"
-data-search="طعام أكل بيتزا برغر"
->
-
-<div class="card-top">
-
-<span class="card-tag">
-🍔 طعام
-</span>
-
-<span class="trending">
-🔥
-</span>
-
-</div>
-
-
-<h3>
-ماذا تختار؟
-</h3>
-
-
-<div class="options">
-
-<a
-href="vote.html"
-class="option"
->
-<span>
-🍕 بيتزا
-</span>
-</a>
-
-
-<a
-href="vote.html"
-class="option"
->
-<span>
-🍔 برغر
-</span>
-</a>
-
-</div>
-
-
-<div class="vote-meta">
-
-<span>
-1,542 صوت
-</span>
-
-<button
-class="share-btn"
-onclick="shareVote('ماذا تختار؟ بيتزا أم برغر؟')"
->
-↗ مشاركة
-</button>
-
-</div>
-
-</article>
-
-</div>
-
-
-<div
-id="noResults"
-class="no-results"
->
-لا توجد تصويتات تطابق بحثك 🔎
 </div>
 
 </section>
 
 
-<!-- =========================================================
-     TOP USERS
-========================================================= -->
+<!-- ================= LATEST ================= -->
 
 <section class="section">
 
 <div class="section-header">
 
-<h2>
-🏆 أفضل المستخدمين
+<h2 class="section-title">
+🆕 أحدث التصويتات
 </h2>
 
-<a href="vote.html">
-الترتيب →
-</a>
-
 </div>
 
 
-<div class="people-grid">
-
-
-<div class="person">
-
-<img
-class="person-avatar"
-src="https://ui-avatars.com/api/?name=User+1"
-alt=""
+<div
+id="latestVotes"
+class="votes-grid"
 >
 
-<strong>
-User One
-</strong>
+<div class="loading">
 
-<span>
-⭐ 2,450 نقطة
-</span>
+<div class="spinner"></div>
 
-</div>
-
-
-<div class="person">
-
-<img
-class="person-avatar"
-src="https://ui-avatars.com/api/?name=User+2"
-alt=""
->
-
-<strong>
-Vote Master
-</strong>
-
-<span>
-⭐ 2,120 نقطة
-</span>
-
-</div>
-
-
-<div class="person">
-
-<img
-class="person-avatar"
-src="https://ui-avatars.com/api/?name=User+3"
-alt=""
->
-
-<strong>
-Poll King
-</strong>
-
-<span>
-⭐ 1,980 نقطة
-</span>
-
-</div>
-
-
-<div class="person">
-
-<img
-class="person-avatar"
-src="https://ui-avatars.com/api/?name=User+4"
-alt=""
->
-
-<strong>
-Voter Pro
-</strong>
-
-<span>
-⭐ 1,750 نقطة
-</span>
+جارٍ تحميل التصويتات...
 
 </div>
 
@@ -2714,117 +847,36 @@ Voter Pro
 </section>
 
 
-<!-- =========================================================
-     CTA
-========================================================= -->
+</main>
 
-<section class="section">
 
-<div class="create-box">
-
-<h2>
-🔥 لديك سؤال؟
-</h2>
-
-<p>
-حوّل فكرتك إلى تصويت واكتشف رأي الناس.
-</p>
-
-<a href="create.html">
-➕ إنشاء تصويت الآن
-</a>
-
-</div>
-
-</section>
-
+<!-- ================= FOOTER ================= -->
 
 <footer>
-VOTERA © 2026 — اسأل. صوّت. اكتشف.
+
+<div class="footer-logo">
+VOTE<span>RA</span>
+</div>
+
+<p>
+اسأل. صوّت. اكتشف. — منصة التصويت الاجتماعية.
+</p>
+
 </footer>
 
 
-<!-- =========================================================
-     MOBILE NAV
-========================================================= -->
-
-<nav class="mobile-nav">
-
-<a
-href="index.html"
-class="active"
->
-
-<span class="nav-icon">
-🏠
-</span>
-
-الرئيسية
-
-</a>
-
-
-<a href="vote.html">
-
-<span class="nav-icon">
-🔥
-</span>
-
-استكشف
-
-</a>
-
-
-<a href="create.html">
-
-<span class="nav-icon">
-➕
-</span>
-
-إنشاء
-
-</a>
-
-
-<a href="vote.html">
-
-<span class="nav-icon">
-🏆
-</span>
-
-الترتيب
-
-</a>
-
-
-<a href="account.html">
-
-<span class="nav-icon">
-👤
-</span>
-
-حسابي
-
-</a>
-
-</nav>
-
-
-<!-- =========================================================
-     JAVASCRIPT
-========================================================= -->
-
 <script>
 
-/* =========================================================
+/* ==========================================
    SUPABASE
-========================================================= */
+========================================== */
 
 const SUPABASE_URL =
 "https://vatlwkuagxyrvwclttfz.supabase.co";
 
 const SUPABASE_ANON_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
+
 
 const supabaseClient =
 window.supabase.createClient(
@@ -2833,39 +885,68 @@ window.supabase.createClient(
 );
 
 
-/* =========================================================
+/* ==========================================
+   VARIABLES
+========================================== */
+
+let allVotes = [];
+
+let selectedCategory = "الكل";
+
+
+/* ==========================================
    ELEMENTS
-========================================================= */
+========================================== */
 
-const googleLoginBtn =
+const trendingVotes =
 document.getElementById(
-  "googleLoginBtn"
+  "trendingVotes"
 );
 
-const userBox =
+const latestVotes =
 document.getElementById(
-  "userBox"
+  "latestVotes"
 );
 
-const userAvatar =
+const searchInput =
 document.getElementById(
-  "userAvatar"
+  "searchInput"
 );
 
-const userName =
+const message =
 document.getElementById(
-  "userName"
-);
-
-const welcomeMessage =
-document.getElementById(
-  "welcomeMessage"
+  "message"
 );
 
 
-/* =========================================================
+/* ==========================================
+   MESSAGE
+========================================== */
+
+function showMessage(text,type){
+
+  message.textContent =
+    text;
+
+  message.className =
+    "message " + type;
+
+  setTimeout(
+    function(){
+
+      message.className =
+        "message";
+
+    },
+    3000
+  );
+
+}
+
+
+/* ==========================================
    GOOGLE LOGIN
-========================================================= */
+========================================== */
 
 async function signInWithGoogle(){
 
@@ -2879,8 +960,10 @@ async function signInWithGoogle(){
       provider:"google",
 
       options:{
+
         redirectTo:
-        "https://akkarali86-cmyk.github.io/VOTERA/"
+        window.location.href
+
       }
 
     });
@@ -2890,9 +973,9 @@ async function signInWithGoogle(){
 
       console.error(error);
 
-      alert(
-        "حدث خطأ أثناء تسجيل الدخول:\n" +
-        error.message
+      showMessage(
+        "حدث خطأ أثناء تسجيل الدخول.",
+        "error"
       );
 
     }
@@ -2901,8 +984,9 @@ async function signInWithGoogle(){
 
     console.error(error);
 
-    alert(
-      "حدث خطأ أثناء الاتصال."
+    showMessage(
+      "تعذر الاتصال.",
+      "error"
     );
 
   }
@@ -2910,22 +994,208 @@ async function signInWithGoogle(){
 }
 
 
-/* =========================================================
-   LOGOUT
-========================================================= */
+/* ==========================================
+   LOAD VOTES
+========================================== */
 
-async function signOutUser(){
+async function loadVotes(){
 
-  const {
-    error
-  } =
-  await supabaseClient.auth.signOut();
+  trendingVotes.innerHTML = `
+    <div class="loading">
+      <div class="spinner"></div>
+      جارٍ تحميل التصويتات...
+    </div>
+  `;
 
 
-  if(error){
+  latestVotes.innerHTML = `
+    <div class="loading">
+      <div class="spinner"></div>
+      جارٍ تحميل التصويتات...
+    </div>
+  `;
 
-    alert(
-      "حدث خطأ أثناء تسجيل الخروج."
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+    await supabaseClient
+      .from("votes")
+      .select("*")
+      .order(
+        "created_at",
+        {
+          ascending:false
+        }
+      )
+      .limit(50);
+
+
+    if(error){
+
+      console.error(error);
+
+      showEmpty(
+        trendingVotes,
+        "تعذر تحميل التصويتات."
+      );
+
+      showEmpty(
+        latestVotes,
+        "تعذر تحميل التصويتات."
+      );
+
+      return;
+
+    }
+
+
+    allVotes =
+      data || [];
+
+
+    renderVotes();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showEmpty(
+      trendingVotes,
+      "حدث خطأ أثناء تحميل التصويتات."
+    );
+
+    showEmpty(
+      latestVotes,
+      "حدث خطأ أثناء تحميل التصويتات."
+    );
+
+  }
+
+}
+
+
+/* ==========================================
+   RENDER VOTES
+========================================== */
+
+function renderVotes(){
+
+  let filtered =
+    [...allVotes];
+
+
+  /* CATEGORY */
+
+  if(
+    selectedCategory !==
+    "الكل"
+  ){
+
+    filtered =
+      filtered.filter(
+      function(vote){
+
+        return vote.category ===
+          selectedCategory;
+
+      });
+
+  }
+
+
+  /* SEARCH */
+
+  const search =
+    searchInput.value
+      .trim()
+      .toLowerCase();
+
+
+  if(search){
+
+    filtered =
+      filtered.filter(
+      function(vote){
+
+        return (
+          String(
+            vote.question || ""
+          )
+          .toLowerCase()
+          .includes(search)
+        );
+
+      });
+
+  }
+
+
+  /* LATEST */
+
+  const latest =
+    filtered.slice(
+      0,
+      10
+    );
+
+
+  /*
+    TRENDING
+    ترتيب تقريبي حسب مجموع الأصوات
+  */
+
+  const trending =
+    [...filtered]
+      .sort(
+      function(a,b){
+
+        return (
+          calculateTotal(b) -
+          calculateTotal(a)
+        );
+
+      })
+      .slice(
+        0,
+        10
+      );
+
+
+  renderVoteList(
+    trendingVotes,
+    trending
+  );
+
+
+  renderVoteList(
+    latestVotes,
+    latest
+  );
+
+}
+
+
+/* ==========================================
+   RENDER LIST
+========================================== */
+
+function renderVoteList(container,votes){
+
+  container.innerHTML =
+    "";
+
+
+  if(!votes.length){
+
+    showEmpty(
+      container,
+      "لا توجد تصويتات حاليًا.",
+      "أنشئ أول تصويت وابدأ النقاش!"
     );
 
     return;
@@ -2933,286 +1203,436 @@ async function signOutUser(){
   }
 
 
-  updateUserInterface(null);
+  votes.forEach(
+    function(vote){
+
+      container.appendChild(
+        createVoteCard(vote)
+      );
+
+    }
+  );
 
 }
 
 
-/* =========================================================
-   USER INTERFACE
-========================================================= */
+/* ==========================================
+   CREATE CARD
+========================================== */
 
-function updateUserInterface(user){
+function createVoteCard(vote){
 
-  if(user){
-
-    googleLoginBtn.style.display =
-      "none";
-
-    userBox.style.display =
-      "flex";
+  const card =
+    document.createElement(
+      "article"
+    );
 
 
-    const metadata =
-      user.user_metadata || {};
+  card.className =
+    "vote-item";
+
+
+  const options =
+    getVoteOptions(vote);
+
+
+  const total =
+    calculateTotal(vote);
+
+
+  let optionsHTML =
+    "";
+
+
+  options
+    .slice(0,4)
+    .forEach(
+    function(option){
+
+      optionsHTML += `
+
+        <div class="vote-option">
+
+          ${
+            option.image
+            ?
+            `
+            <img
+              class="option-image"
+              src="${escapeAttribute(option.image)}"
+              alt=""
+              style="display:block;"
+            >
+            `
+            :
+            ""
+          }
+
+          <div class="option-content">
+
+            <div class="option-letter">
+              ${option.letter}
+            </div>
+
+            <div class="option-name">
+              ${escapeHtml(option.name)}
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+
+  card.innerHTML = `
+
+    <div class="vote-category">
+
+      ${getCategoryEmoji(vote.category)}
+      ${escapeHtml(vote.category || "عام")}
+
+    </div>
+
+
+    <h3 class="vote-question">
+
+      ${escapeHtml(
+        vote.question || "بدون سؤال"
+      )}
+
+    </h3>
+
+
+    <div class="vote-options">
+
+      ${optionsHTML}
+
+    </div>
+
+
+    <div class="vote-bottom">
+
+      <span class="vote-count">
+
+        🗳️
+        ${total}
+        ${total === 1 ? "صوت" : "أصوات"}
+
+      </span>
+
+
+      <div
+        style="
+          display:flex;
+          gap:6px;
+        "
+      >
+
+        <button
+          class="share-small"
+          onclick="shareVote('${escapeAttribute(vote.id)}')"
+        >
+          📤 مشاركة
+        </button>
+
+
+        <button
+          class="vote-now"
+          onclick="openVote('${escapeAttribute(vote.id)}')"
+        >
+          صوّت الآن →
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  return card;
+
+}
+
+
+/* ==========================================
+   GET OPTIONS
+========================================== */
+
+function getVoteOptions(vote){
+
+  const options = [];
+
+
+  for(
+    let i = 0;
+    i < 15;
+    i++
+  ){
+
+    const letter =
+      String.fromCharCode(
+        65 + i
+      );
+
+
+    const nameField =
+      "option_" +
+      letter.toLowerCase();
+
+
+    const imageField =
+      "image_" +
+      letter.toLowerCase();
 
 
     const name =
-      metadata.full_name ||
-      metadata.name ||
-      user.email ||
-      "مستخدم VOTERA";
+      vote[nameField];
 
 
-    const avatar =
-      metadata.avatar_url ||
-      metadata.picture ||
-      "";
+    if(
+      name &&
+      String(name).trim()
+    ){
 
+      options.push({
 
-    userName.textContent =
-      name;
+        letter:letter,
 
+        name:String(name).trim(),
 
-    if(avatar){
+        image:
+          vote[imageField] || null
 
-      userAvatar.src =
-        avatar;
-
-    }else{
-
-      userAvatar.src =
-        "https://ui-avatars.com/api/?name=" +
-        encodeURIComponent(name);
+      });
 
     }
 
-
-    welcomeMessage.textContent =
-      "مرحبًا بك في VOTERA 👋 " +
-      name;
-
-
-    welcomeMessage.style.display =
-      "block";
-
-  }else{
-
-    googleLoginBtn.style.display =
-      "flex";
-
-    userBox.style.display =
-      "none";
-
-    welcomeMessage.style.display =
-      "none";
-
   }
+
+
+  return options;
 
 }
 
 
-/* =========================================================
-   SESSION
-========================================================= */
+/* ==========================================
+   TOTAL
+========================================== */
 
-async function checkUser(){
+function calculateTotal(vote){
 
-  try{
-
-    const {
-      data:{
-        session
-      }
-    } =
-    await supabaseClient.auth.getSession();
+  let total = 0;
 
 
-    updateUserInterface(
-      session?.user || null
-    );
+  for(
+    let i = 0;
+    i < 15;
+    i++
+  ){
 
-  }catch(error){
+    const letter =
+      String.fromCharCode(
+        65 + i
+      );
 
-    console.error(
-      "Session error:",
-      error
-    );
+
+    const field =
+      "votes_" +
+      letter.toLowerCase();
+
+
+    total +=
+      Number(
+        vote[field] || 0
+      );
 
   }
+
+
+  return total;
 
 }
 
 
-/* =========================================================
-   AUTH LISTENER
-========================================================= */
+/* ==========================================
+   CATEGORY EMOJI
+========================================== */
 
-supabaseClient.auth.onAuthStateChange(
-  function(event,session){
+function getCategoryEmoji(category){
 
-    updateUserInterface(
-      session?.user || null
-    );
+  const emojis = {
 
-  }
-);
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-const searchInput =
-document.getElementById(
-  "searchInput"
-);
-
-const cards =
-document.querySelectorAll(
-  ".vote-card"
-);
-
-const noResults =
-document.getElementById(
-  "noResults"
-);
-
-
-searchInput.addEventListener(
-  "input",
-  function(){
-
-    const search =
-      this.value
-      .trim()
-      .toLowerCase();
-
-
-    let visible = 0;
-
-
-    cards.forEach(
-      function(card){
-
-        const text =
-          card.dataset.search
-          .toLowerCase();
-
-
-        if(
-          text.includes(search)
-        ){
-
-          card.style.display =
-            "block";
-
-          visible++;
-
-        }else{
-
-          card.style.display =
-            "none";
-
-        }
-
-      }
-    );
-
-
-    noResults.style.display =
-      visible === 0
-        ? "block"
-        : "none";
-
-  }
-);
-
-
-/* =========================================================
-   CATEGORIES
-========================================================= */
-
-document
-.querySelectorAll(".category")
-.forEach(
-  function(category){
-
-    category.addEventListener(
-      "click",
-      function(){
-
-        document
-        .querySelectorAll(".category")
-        .forEach(
-          function(item){
-
-            item.classList.remove(
-              "active"
-            );
-
-          }
-        );
-
-
-        this.classList.add(
-          "active"
-        );
-
-      }
-    );
-
-  }
-);
-
-
-/* =========================================================
-   SHARE
-========================================================= */
-
-async function shareVote(question){
-
-  const shareData = {
-
-    title:"VOTERA",
-
-    text:
-      question +
-      "\n\nصوّت الآن على VOTERA",
-
-    url:
-      window.location.origin +
-      "/VOTERA/vote.html"
+    "عام":"🌐",
+    "تقنية":"📱",
+    "ألعاب":"🎮",
+    "رياضة":"⚽",
+    "أفلام":"🎬",
+    "موسيقى":"🎵",
+    "طعام":"🍔",
+    "ترفيه":"😂"
 
   };
 
 
-  try{
+  return emojis[category] || "🌐";
 
-    if(
-      navigator.share
-    ){
+}
 
-      await navigator.share(
-        shareData
+
+/* ==========================================
+   FILTER
+========================================== */
+
+function filterCategory(
+  category,
+  button
+){
+
+  selectedCategory =
+    category;
+
+
+  document
+    .querySelectorAll(
+      ".category"
+    )
+    .forEach(
+    function(item){
+
+      item.classList.remove(
+        "active"
       );
 
-    }else{
+    });
 
-      await navigator.clipboard.writeText(
-        shareData.url
-      );
 
-      alert(
-        "تم نسخ رابط التصويت ✅"
+  button.classList.add(
+    "active"
+  );
+
+
+  renderVotes();
+
+}
+
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+function searchVotes(){
+
+  renderVotes();
+
+}
+
+
+/* ==========================================
+   OPEN VOTE
+========================================== */
+
+function openVote(id){
+
+  window.location.href =
+    "vote.html?id=" +
+    encodeURIComponent(id);
+
+}
+
+
+/* ==========================================
+   SHARE VOTE
+========================================== */
+
+async function shareVote(id){
+
+  const link =
+    window.location.origin +
+    window.location.pathname
+      .replace(
+        "index.html",
+        "vote.html"
+      ) +
+    "?id=" +
+    encodeURIComponent(id);
+
+
+  const vote =
+    allVotes.find(
+      function(item){
+
+        return String(item.id) ===
+          String(id);
+
+      }
+    );
+
+
+  const text =
+    vote
+    ?
+    "🗳️ " +
+    vote.question +
+    "\n\nصوّت الآن على VOTERA 👇"
+    :
+    "🗳️ شاهد هذا التصويت على VOTERA";
+
+
+  if(
+    navigator.share
+  ){
+
+    try{
+
+      await navigator.share({
+
+        title:
+          "VOTERA",
+
+        text:
+          text,
+
+        url:
+          link
+
+      });
+
+      return;
+
+    }catch(error){
+
+      console.log(
+        "Share cancelled"
       );
 
     }
 
+  }
+
+
+  try{
+
+    await navigator.clipboard.writeText(
+      link
+    );
+
+
+    showMessage(
+      "تم نسخ رابط التصويت 🔗",
+      "success"
+    );
+
+
   }catch(error){
 
-    console.log(
-      "Share cancelled"
+    showMessage(
+      "انسخ الرابط:\n" +
+      link,
+      "error"
     );
 
   }
@@ -3220,13 +1640,88 @@ async function shareVote(question){
 }
 
 
-/* =========================================================
-   START
-========================================================= */
+/* ==========================================
+   EMPTY
+========================================== */
 
-checkUser();
+function showEmpty(
+  container,
+  title,
+  description
+){
+
+  container.innerHTML = `
+
+    <div class="empty">
+
+      <div class="empty-icon">
+        🗳️
+      </div>
+
+      <h3>
+        ${escapeHtml(title)}
+      </h3>
+
+      <p>
+        ${
+          description
+          ?
+          escapeHtml(description)
+          :
+          ""
+        }
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ==========================================
+   ESCAPE HTML
+========================================== */
+
+function escapeHtml(text){
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+  div.textContent =
+    text;
+
+  return div.innerHTML;
+
+}
+
+
+/* ==========================================
+   ESCAPE ATTRIBUTE
+========================================== */
+
+function escapeAttribute(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
+
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+loadVotes();
 
 </script>
 
 </body>
+
 </html>
