@@ -45,6 +45,11 @@ button{
   border:0;
 }
 
+button:disabled{
+  cursor:not-allowed;
+  opacity:.7;
+}
+
 a{
   text-decoration:none;
   color:inherit;
@@ -214,10 +219,6 @@ header{
   transform:translateY(-1px);
 }
 
-.option.disabled{
-  cursor:default;
-}
-
 .option-top{
   display:flex;
   align-items:center;
@@ -256,6 +257,18 @@ header{
 
 .option-vote-button:hover{
   background:var(--primary-dark);
+}
+
+
+/* ================= OPTION IMAGE ================= */
+
+.option-image{
+  width:100%;
+  max-height:220px;
+  object-fit:cover;
+  border-radius:13px;
+  margin-bottom:12px;
+  display:block;
 }
 
 
@@ -375,7 +388,7 @@ header{
 }
 
 
-/* ================= FOOTER INFO ================= */
+/* ================= FOOTER ================= */
 
 .vote-footer{
   text-align:center;
@@ -737,7 +750,10 @@ async function loadVote(){
 
     if(error){
 
-      console.error(error);
+      console.error(
+        "Load vote error:",
+        error
+      );
 
       showError(
         "تعذر تحميل التصويت."
@@ -762,6 +778,8 @@ async function loadVote(){
     vote =
       data;
 
+
+    checkPreviousVote();
 
     displayVote();
 
@@ -810,14 +828,10 @@ function displayVote(){
 
 
   metaElement.textContent =
-    total +
-    (total === 1 ? " صوت" : " أصوات");
+    formatVotes(total);
 
 
   renderOptions();
-
-
-  checkPreviousVote();
 
 }
 
@@ -855,54 +869,125 @@ function getCategoryEmoji(category){
 
 
 /* ==========================================
-   GET OPTIONS
+   FORMAT VOTES
+========================================== */
+
+function formatVotes(number){
+
+  number =
+    Number(number || 0);
+
+
+  if(number === 1){
+
+    return "1 صوت";
+
+  }
+
+
+  return number + " أصوات";
+
+}
+
+
+/* ==========================================
+   GET OPTIONS FROM JSONB
 ========================================== */
 
 function getOptions(){
 
-  const options = [];
+  if(!vote){
+
+    return [];
+
+  }
 
 
-  for(
-    let i = 0;
-    i < 15;
-    i++
-  ){
-
-    const letter =
-      getOptionLetter(i);
+  let rawOptions =
+    vote.options;
 
 
-    const field =
-      "option_" +
-      letter.toLowerCase();
+  /*
+    Supabase يعيد jsonb عادةً كـ Array.
+    لكن إذا عاد كنص نحاول تحويله.
+  */
 
+  if(typeof rawOptions === "string"){
 
-    const name =
-      vote[field];
+    try{
 
+      rawOptions =
+        JSON.parse(rawOptions);
 
-    if(
-      name &&
-      String(name).trim()
-    ){
+    }catch(error){
 
-      options.push({
+      console.error(
+        "Options JSON error:",
+        error
+      );
 
-        letter:letter,
-
-        name:String(name).trim(),
-
-        index:i
-
-      });
+      return [];
 
     }
 
   }
 
 
-  return options;
+  if(!Array.isArray(rawOptions)){
+
+    return [];
+
+  }
+
+
+  return rawOptions
+    .map(function(option,index){
+
+      if(!option){
+
+        return null;
+
+      }
+
+
+      const name =
+        option.name;
+
+
+      if(
+        name === null ||
+        name === undefined ||
+        String(name).trim() === ""
+      ){
+
+        return null;
+
+      }
+
+
+      return {
+
+        letter:
+          getOptionLetter(index),
+
+        name:
+          String(name).trim(),
+
+        image:
+          option.image
+          ? String(option.image)
+          : "",
+
+        votes:
+          Number(option.votes || 0),
+
+        index:
+          index
+
+      };
+
+    })
+    .filter(Boolean);
 
 }
 
@@ -913,13 +998,29 @@ function getOptions(){
 
 function getVoteCount(letter){
 
-  const field =
-    "votes_" +
-    letter.toLowerCase();
+  const options =
+    getOptions();
+
+
+  const option =
+    options.find(
+      function(item){
+
+        return item.letter === letter;
+
+      }
+    );
+
+
+  if(!option){
+
+    return 0;
+
+  }
 
 
   return Number(
-    vote[field] || 0
+    option.votes || 0
   );
 
 }
@@ -935,18 +1036,20 @@ function calculateTotalVotes(){
     getOptions();
 
 
-  let total = 0;
+  let total =
+    0;
 
 
   options.forEach(
-  function(option){
+    function(option){
 
-    total +=
-      getVoteCount(
-        option.letter
-      );
+      total +=
+        Number(
+          option.votes || 0
+        );
 
-  });
+    }
+  );
 
 
   return total;
@@ -971,14 +1074,18 @@ function renderOptions(){
   if(options.length === 0){
 
     optionsElement.innerHTML = `
+
       <div style="
         text-align:center;
         padding:25px;
         color:#777783;
         font-size:13px;
       ">
+
         لا توجد خيارات لهذا التصويت.
+
       </div>
+
     `;
 
     return;
@@ -991,89 +1098,118 @@ function renderOptions(){
 
 
   options.forEach(
-  function(option){
+    function(option){
 
-    const count =
-      getVoteCount(
-        option.letter
+      const count =
+        Number(
+          option.votes || 0
+        );
+
+
+      const percentage =
+        total > 0
+        ? Math.round(
+            (count / total) * 100
+          )
+        : 0;
+
+
+      const element =
+        document.createElement("div");
+
+
+      element.className =
+        "option";
+
+
+      element.dataset.letter =
+        option.letter;
+
+
+      /*
+        صورة الخيار
+      */
+
+      let imageHTML =
+        "";
+
+
+      if(option.image){
+
+        imageHTML = `
+
+          <img
+            class="option-image"
+            src="${escapeAttribute(option.image)}"
+            alt="${escapeAttribute(option.name)}"
+            loading="lazy"
+            onerror="this.style.display='none'"
+          >
+
+        `;
+
+      }
+
+
+      element.innerHTML = `
+
+        ${imageHTML}
+
+        <div class="option-top">
+
+          <div class="option-letter">
+            ${option.letter}
+          </div>
+
+          <div class="option-name">
+            ${escapeHtml(option.name)}
+          </div>
+
+          <button
+            class="option-vote-button"
+            onclick="voteFor('${option.letter}')"
+          >
+            تصويت
+          </button>
+
+        </div>
+
+
+        <div class="result-area">
+
+          <div class="result-info">
+
+            <span>
+              ${count} صوت
+            </span>
+
+            <span class="result-percent">
+              ${percentage}%
+            </span>
+
+          </div>
+
+
+          <div class="result-bar">
+
+            <div
+              class="result-fill"
+              style="width:${percentage}%"
+            ></div>
+
+          </div>
+
+        </div>
+
+      `;
+
+
+      optionsElement.appendChild(
+        element
       );
 
-
-    const percentage =
-      total > 0
-      ? Math.round(
-          (count / total) * 100
-        )
-      : 0;
-
-
-    const element =
-      document.createElement("div");
-
-
-    element.className =
-      "option";
-
-
-    element.dataset.letter =
-      option.letter;
-
-
-    element.innerHTML = `
-
-      <div class="option-top">
-
-        <div class="option-letter">
-          ${option.letter}
-        </div>
-
-        <div class="option-name">
-          ${escapeHtml(option.name)}
-        </div>
-
-        <button
-          class="option-vote-button"
-          onclick="voteFor('${option.letter}')"
-        >
-          تصويت
-        </button>
-
-      </div>
-
-
-      <div class="result-area">
-
-        <div class="result-info">
-
-          <span>
-            ${count} صوت
-          </span>
-
-          <span class="result-percent">
-            ${percentage}%
-          </span>
-
-        </div>
-
-        <div class="result-bar">
-
-          <div
-            class="result-fill"
-            style="width:${percentage}%"
-          ></div>
-
-        </div>
-
-      </div>
-
-    `;
-
-
-    optionsElement.appendChild(
-      element
-    );
-
-  });
+    }
+  );
 
 
   if(hasVoted){
@@ -1094,10 +1230,27 @@ function escapeHtml(text){
   const div =
     document.createElement("div");
 
+
   div.textContent =
     text;
 
+
   return div.innerHTML;
+
+}
+
+
+/* ==========================================
+   ESCAPE ATTRIBUTE
+========================================== */
+
+function escapeAttribute(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
 
 }
 
@@ -1140,15 +1293,75 @@ function checkPreviousVote(){
 
 
 /* ==========================================
+   CHECK AUTH
+========================================== */
+
+async function getCurrentSession(){
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+    await supabaseClient.auth.getSession();
+
+
+    if(error){
+
+      console.error(
+        "Session error:",
+        error
+      );
+
+      return null;
+
+    }
+
+
+    return data.session || null;
+
+  }catch(error){
+
+    console.error(error);
+
+    return null;
+
+  }
+
+}
+
+
+/* ==========================================
    VOTE
 ========================================== */
 
 async function voteFor(letter){
 
+  /*
+    التأكد من وجود التصويت
+  */
+
+  if(!vote || !voteId){
+
+    showMessage(
+      "التصويت غير متوفر.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /*
+    منع التصويت مرة ثانية
+  */
+
   if(hasVoted){
 
     showMessage(
-      "لقد صوتت بالفعل في هذا التصويت. يمكنك مشاهدة النتائج أدناه.",
+      "لقد صوتت بالفعل في هذا التصويت. يمكنك مشاهدة النتائج.",
       "error"
     );
 
@@ -1159,71 +1372,166 @@ async function voteFor(letter){
   }
 
 
-  const options =
-    getOptions();
+  /*
+    التأكد من تسجيل الدخول
+  */
+
+  const session =
+    await getCurrentSession();
 
 
-  const exists =
-    options.some(
-      function(option){
-        return option.letter === letter;
-      }
+  if(!session){
+
+    showMessage(
+      "يجب تسجيل الدخول بحساب Google للتصويت.",
+      "error"
     );
 
 
-  if(!exists){
+    const login =
+      confirm(
+        "يجب تسجيل الدخول أولًا للتصويت.\n\nهل تريد تسجيل الدخول بحساب Google؟"
+      );
+
+
+    if(login){
+
+      await signInWithGoogleForVote();
+
+    }
+
 
     return;
 
   }
 
 
-  const field =
-    "votes_" +
-    letter.toLowerCase();
+  /*
+    البحث عن الخيار
+  */
+
+  const options =
+    getOptions();
 
 
-  const currentCount =
-    Number(
-      vote[field] || 0
+  const selected =
+    options.find(
+      function(option){
+
+        return option.letter === letter;
+
+      }
     );
 
 
-  const newCount =
-    currentCount + 1;
+  if(!selected){
+
+    showMessage(
+      "الخيار غير صحيح.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /*
+    رقم الخيار في JSON
+  */
+
+  const optionIndex =
+    selected.index;
+
+
+  /*
+    تعطيل الأزرار
+  */
+
+  disableVoteButtons();
+
+
+  showMessage(
+    "⏳ جارٍ تسجيل صوتك...",
+    "success"
+  );
 
 
   try{
 
-    disableVoteButtons();
-
-
     /*
-      تحديث عدد الأصوات
+      استدعاء دالة Supabase
     */
 
     const {
       data,
       error
     } =
-    await supabaseClient
-      .from("votes")
-      .update({
+    await supabaseClient.rpc(
+      "cast_vote",
+      {
+        p_vote_id:
+          voteId,
 
-        [field]:
-          newCount
+        p_option_index:
+          optionIndex
+      }
+    );
 
-      })
-      .eq("id",voteId)
-      .select()
-      .single();
 
+    /*
+      خطأ
+    */
 
     if(error){
 
-      console.error(error);
+      console.error(
+        "Cast vote error:",
+        error
+      );
+
 
       enableVoteButtons();
+
+
+      if(
+        error.message &&
+        error.message.includes(
+          "لقد صوتت بالفعل"
+        )
+      ){
+
+        hasVoted =
+          true;
+
+        showMessage(
+          "لقد صوتت بالفعل في هذا التصويت.",
+          "error"
+        );
+
+        await reloadVote();
+
+        return;
+
+      }
+
+
+      if(
+        error.message &&
+        error.message.includes(
+          "يجب تسجيل الدخول"
+        )
+      ){
+
+        showMessage(
+          "يجب تسجيل الدخول أولًا للتصويت.",
+          "error"
+        );
+
+        return;
+
+      }
+
 
       showMessage(
         "فشل تسجيل التصويت:\n" +
@@ -1236,27 +1544,31 @@ async function voteFor(letter){
     }
 
 
-    if(!data){
+    /*
+      التأكد من النجاح
+    */
+
+    if(
+      !data ||
+      data.success !== true
+    ){
 
       enableVoteButtons();
+
 
       showMessage(
         "لم يتم تسجيل التصويت.",
         "error"
       );
 
+
       return;
 
     }
 
 
-    vote =
-      data;
-
-
     /*
-      حفظ التصويت على الجهاز
-      لمنع التصويت مرة أخرى
+      حفظ الاختيار محليًا
     */
 
     localStorage.setItem(
@@ -1272,31 +1584,33 @@ async function voteFor(letter){
       letter;
 
 
+    /*
+      إعادة تحميل البيانات
+    */
+
+    await reloadVote();
+
+
     showMessage(
       "تم تسجيل صوتك بنجاح! 🎉",
       "success"
     );
 
 
-    metaElement.textContent =
-      calculateTotalVotes() +
-      " أصوات";
-
-
-    renderOptions();
-
-
-    showResults();
-
-
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Vote error:",
+      error
+    );
+
 
     enableVoteButtons();
 
+
     showMessage(
-      "حدث خطأ أثناء التصويت.",
+      "حدث خطأ أثناء تسجيل التصويت:\n" +
+      error.message,
       "error"
     );
 
@@ -1306,7 +1620,127 @@ async function voteFor(letter){
 
 
 /* ==========================================
-   DISABLE BUTTONS
+   GOOGLE LOGIN
+========================================== */
+
+async function signInWithGoogleForVote(){
+
+  try{
+
+    const {
+      error
+    } =
+    await supabaseClient.auth.signInWithOAuth({
+
+      provider:"google",
+
+      options:{
+
+        redirectTo:
+          window.location.href
+
+      }
+
+    });
+
+
+    if(error){
+
+      console.error(
+        "Google login error:",
+        error
+      );
+
+
+      showMessage(
+        "حدث خطأ أثناء تسجيل الدخول:\n" +
+        error.message,
+        "error"
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+
+    showMessage(
+      "تعذر الاتصال بخدمة تسجيل الدخول.",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* ==========================================
+   RELOAD VOTE
+========================================== */
+
+async function reloadVote(){
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+    await supabaseClient
+      .from("votes")
+      .select("*")
+      .eq("id",voteId)
+      .single();
+
+
+    if(error){
+
+      console.error(
+        "Reload vote error:",
+        error
+      );
+
+      return;
+
+    }
+
+
+    if(data){
+
+      vote =
+        data;
+
+
+      const total =
+        calculateTotalVotes();
+
+
+      metaElement.textContent =
+        formatVotes(total);
+
+
+      renderOptions();
+
+
+      showResults();
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Reload error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* ==========================================
+   DISABLE VOTE BUTTONS
 ========================================== */
 
 function disableVoteButtons(){
@@ -1316,39 +1750,48 @@ function disableVoteButtons(){
       ".option-vote-button"
     )
     .forEach(
-    function(button){
+      function(button){
 
-      button.disabled =
-        true;
+        button.disabled =
+          true;
 
-      button.textContent =
-        "⏳";
+        button.textContent =
+          "⏳";
 
-    });
+      }
+    );
 
 }
 
 
 /* ==========================================
-   ENABLE BUTTONS
+   ENABLE VOTE BUTTONS
 ========================================== */
 
 function enableVoteButtons(){
+
+  if(hasVoted){
+
+    return;
+
+  }
+
 
   document
     .querySelectorAll(
       ".option-vote-button"
     )
     .forEach(
-    function(button){
+      function(button){
 
-      button.disabled =
-        false;
+        button.disabled =
+          false;
 
-      button.textContent =
-        "تصويت";
+        button.textContent =
+          "تصويت";
 
-    });
+      }
+    );
 
 }
 
@@ -1368,60 +1811,61 @@ function showResults(){
       ".option"
     )
     .forEach(
-    function(option){
+      function(option){
 
-      const letter =
-        option.dataset.letter;
-
-
-      const resultArea =
-        option.querySelector(
-          ".result-area"
-        );
+        const letter =
+          option.dataset.letter;
 
 
-      const button =
-        option.querySelector(
-          ".option-vote-button"
-        );
+        const resultArea =
+          option.querySelector(
+            ".result-area"
+          );
 
 
-      if(resultArea){
+        const button =
+          option.querySelector(
+            ".option-vote-button"
+          );
 
-        resultArea.style.display =
-          "block";
+
+        if(resultArea){
+
+          resultArea.style.display =
+            "block";
+
+        }
+
+
+        if(button){
+
+          button.disabled =
+            true;
+
+          button.textContent =
+            "تم التصويت";
+
+        }
+
+
+        if(
+          selectedOption === letter
+        ){
+
+          option.classList.add(
+            "selected"
+          );
+
+        }
 
       }
-
-
-      if(button){
-
-        button.disabled =
-          true;
-
-        button.textContent =
-          "تم التصويت";
-
-      }
-
-
-      if(
-        selectedOption === letter
-      ){
-
-        option.classList.add(
-          "selected"
-        );
-
-      }
-
-    });
+    );
 
 }
 
 
 /* ==========================================
-   SHARE
+   SHARE PANEL
 ========================================== */
 
 function toggleShare(){
@@ -1564,10 +2008,6 @@ async function shareNative(){
 
     }catch(error){
 
-      /*
-        المستخدم أغلق نافذة المشاركة.
-      */
-
       console.log(
         "Share cancelled"
       );
@@ -1620,6 +2060,13 @@ async function copyVoteLink(){
 
     textarea.value =
       link;
+
+
+    textarea.style.position =
+      "fixed";
+
+    textarea.style.opacity =
+      "0";
 
 
     document.body.appendChild(
@@ -1679,6 +2126,22 @@ function showError(text){
     text;
 
 }
+
+
+/* ==========================================
+   AUTH STATE
+========================================== */
+
+supabaseClient.auth.onAuthStateChange(
+  function(event,session){
+
+    console.log(
+      "Auth event:",
+      event
+    );
+
+  }
+);
 
 
 /* ==========================================
