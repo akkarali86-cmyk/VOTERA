@@ -13,10 +13,6 @@
 
 <style>
 
-/* ==================================================
-   VARIABLES
-================================================== */
-
 :root{
   --primary:#6c5ce7;
   --primary-dark:#5848d6;
@@ -28,11 +24,6 @@
   --soft:#f0eeff;
   --success:#16a34a;
 }
-
-
-/* ==================================================
-   RESET
-================================================== */
 
 *{
   margin:0;
@@ -49,8 +40,6 @@ body{
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
-
-  /* مساحة للقائمة السفلية */
   padding-bottom:90px;
 }
 
@@ -70,31 +59,22 @@ a{
 }
 
 
-/* ==================================================
-   HEADER
-================================================== */
+/* ================= HEADER ================= */
 
 header{
   height:68px;
-
   background:rgba(255,255,255,.97);
-
   border-bottom:1px solid var(--border);
-
   position:sticky;
   top:0;
-
   z-index:1000;
 }
 
 .nav{
   width:100%;
   max-width:1100px;
-
   height:100%;
-
   margin:auto;
-
   padding:0 18px;
 
   display:flex;
@@ -122,7 +102,6 @@ header{
 .nav-button{
   padding:10px 14px;
   border-radius:11px;
-
   font-size:12px;
   font-weight:900;
 }
@@ -142,45 +121,32 @@ header{
 }
 
 
-/* ==================================================
-   HERO
-================================================== */
+/* ================= HERO ================= */
 
 .hero{
   width:100%;
   max-width:1000px;
-
   margin:auto;
-
   padding:70px 18px 45px;
-
   text-align:center;
 }
 
 .hero-badge{
   display:inline-block;
-
   background:#ece9ff;
   color:var(--primary);
-
   padding:8px 15px;
-
   border-radius:30px;
-
   font-size:12px;
   font-weight:950;
-
   margin-bottom:18px;
 }
 
 .hero h1{
   font-size:42px;
   line-height:1.2;
-
   font-weight:950;
-
   letter-spacing:-1px;
-
   margin-bottom:15px;
 }
 
@@ -190,32 +156,23 @@ header{
 
 .hero p{
   max-width:600px;
-
   margin:auto;
-
   color:var(--muted);
-
   font-size:15px;
   line-height:1.8;
 }
 
 .hero-actions{
   display:flex;
-
   justify-content:center;
-
   gap:10px;
-
   margin-top:25px;
-
   flex-wrap:wrap;
 }
 
 .hero-button{
   padding:14px 22px;
-
   border-radius:13px;
-
   font-size:13px;
   font-weight:950;
 }
@@ -223,51 +180,36 @@ header{
 .hero-primary{
   background:var(--primary);
   color:white;
-
-  box-shadow:
-  0 10px 25px rgba(108,92,231,.22);
+  box-shadow:0 10px 25px rgba(108,92,231,.22);
 }
 
 .hero-secondary{
   background:white;
-
   color:var(--primary);
-
   border:1px solid var(--border);
 }
 
 
-/* ==================================================
-   MAIN
-================================================== */
+/* ================= MAIN ================= */
 
 .main{
   width:100%;
   max-width:1000px;
-
   margin:auto;
-
   padding:0 18px 70px;
 }
 
 
-/* ==================================================
-   SEARCH
-================================================== */
+/* ================= SEARCH ================= */
 
 .search-box{
   background:white;
-
   border:1px solid var(--border);
-
   border-radius:17px;
-
   padding:10px;
 
   display:flex;
-
   align-items:center;
-
   gap:9px;
 
   margin-bottom:25px;
@@ -280,14 +222,10 @@ header{
 
 .search-box input{
   flex:1;
-
   border:0;
   outline:none;
-
   font-size:13px;
-
   background:transparent;
-
   color:var(--text);
 }
 
@@ -298,31 +236,21 @@ header{
 .search-button{
   background:var(--primary);
   color:white;
-
   padding:10px 15px;
-
   border-radius:10px;
-
   font-size:11px;
   font-weight:900;
 }
 
 
-/* ==================================================
-   CATEGORIES
-================================================== */
+/* ================= CATEGORIES ================= */
 
 .categories{
   display:flex;
-
   gap:8px;
-
   overflow-x:auto;
-
   padding-bottom:6px;
-
   margin-bottom:30px;
-
   scrollbar-width:none;
 }
 
@@ -332,33 +260,23 @@ header{
 
 .category{
   flex-shrink:0;
-
   padding:9px 14px;
-
   border:1px solid var(--border);
-
   background:white;
-
   border-radius:30px;
-
   font-size:11px;
   font-weight:900;
-
   color:var(--muted);
 }
 
 .category.active{
   background:var(--primary);
-
   border-color:var(--primary);
-
   color:white;
 }
 
 
-/* ==================================================
-   SECTION
-================================================== */
+/* ================= SECTION ================= */
 
 .section{
   margin-bottom:35px;
@@ -366,11 +284,8 @@ header{
 
 .section-header{
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
   margin-bottom:15px;
 }
 
@@ -385,138 +300,96 @@ header{
 
 .refresh-button{
   background:white;
-
   border:1px solid var(--border);
-
   color:var(--muted);
-
   padding:8px 11px;
-
   border-radius:10px;
-
   font-size:11px;
   font-weight:900;
 }
 
 
-/* ==================================================
-   VOTES GRID
-================================================== */
+/* ================= GRID ================= */
 
 .votes-grid{
   display:grid;
-
   grid-template-columns:1fr;
-
   gap:14px;
 }
 
 
-/* ==================================================
-   VOTE CARD
-================================================== */
+/* ================= CARD ================= */
 
 .vote-item{
   background:white;
-
   border:1px solid var(--border);
-
   border-radius:20px;
-
   padding:18px;
-
   transition:.2s;
 }
 
 .vote-item:hover{
   transform:translateY(-2px);
-
-  box-shadow:
-  0 10px 28px rgba(0,0,0,.05);
+  box-shadow:0 10px 28px rgba(0,0,0,.05);
 }
 
 .vote-category{
   display:inline-block;
-
   background:#f0eeff;
-
   color:var(--primary);
-
   padding:6px 9px;
-
   border-radius:15px;
-
   font-size:10px;
   font-weight:900;
-
   margin-bottom:11px;
 }
 
 .vote-question{
   font-size:16px;
-
   font-weight:950;
-
   line-height:1.5;
-
   margin-bottom:14px;
 }
 
+
+/* ================= OPTIONS ================= */
+
 .vote-options{
   display:grid;
-
   grid-template-columns:1fr 1fr;
-
   gap:8px;
 }
 
 .vote-option{
   min-width:0;
-
   border:1px solid var(--border);
-
   border-radius:12px;
-
   overflow:hidden;
-
   background:#fafafd;
 }
 
-.option-image{
-  width:100%;
-  height:100px;
-
-  object-fit:cover;
-
-  display:none;
-}
-
 .option-content{
-  padding:10px;
+  padding:12px 10px;
 
   display:flex;
-
   align-items:center;
-
   gap:8px;
+
+  min-height:52px;
 }
 
 .option-letter{
   width:27px;
   height:27px;
-
   min-width:27px;
 
   background:#ece9ff;
-
   color:var(--primary);
 
   border-radius:8px;
 
   display:flex;
-
   align-items:center;
-
   justify-content:center;
 
   font-size:10px;
@@ -525,113 +398,88 @@ header{
 
 .option-name{
   font-size:11px;
-
   font-weight:900;
 
   overflow:hidden;
-
   text-overflow:ellipsis;
-
   white-space:nowrap;
 }
+
+
+/* ================= BOTTOM ================= */
 
 .vote-bottom{
   margin-top:14px;
 
   display:flex;
-
   justify-content:space-between;
-
   align-items:center;
-
   gap:8px;
 }
 
 .vote-count{
   color:var(--muted);
-
   font-size:10px;
+}
+
+.vote-actions{
+  display:flex;
+  gap:6px;
 }
 
 .vote-now{
   background:var(--primary);
-
   color:white;
-
   padding:9px 13px;
-
   border-radius:10px;
-
   font-size:10px;
-
   font-weight:950;
 }
 
 .share-small{
   background:#f0eeff;
-
   color:var(--primary);
-
   padding:9px 11px;
-
   border-radius:10px;
-
   font-size:10px;
-
   font-weight:950;
 }
 
 
-/* ==================================================
-   EMPTY
-================================================== */
+/* ================= EMPTY ================= */
 
 .empty{
   background:white;
-
   border:1px solid var(--border);
-
   border-radius:20px;
-
   padding:40px 20px;
-
   text-align:center;
-
   color:var(--muted);
 }
 
 .empty-icon{
   font-size:35px;
-
   margin-bottom:10px;
 }
 
 .empty h3{
   color:var(--text);
-
   font-size:16px;
-
   margin-bottom:7px;
 }
 
 .empty p{
   font-size:12px;
-
   line-height:1.7;
 }
 
 
-/* ==================================================
-   LOADING
-================================================== */
+/* ================= LOADING ================= */
 
 .loading{
   text-align:center;
-
   padding:40px;
-
   color:var(--muted);
-
   font-size:12px;
 }
 
@@ -640,7 +488,6 @@ header{
   height:35px;
 
   border:4px solid #e8e8ef;
-
   border-top-color:var(--primary);
 
   border-radius:50%;
@@ -651,72 +498,50 @@ header{
 }
 
 @keyframes spin{
-
   to{
     transform:rotate(360deg);
   }
-
 }
 
 
-/* ==================================================
-   MESSAGE
-================================================== */
+/* ================= MESSAGE ================= */
 
 .message{
   display:none;
-
   padding:13px;
-
   margin-bottom:18px;
-
   border-radius:12px;
-
   text-align:center;
-
   font-size:12px;
-
   font-weight:800;
 }
 
 .message.success{
   display:block;
-
   background:#ecfdf3;
-
   color:#166534;
 }
 
 .message.error{
   display:block;
-
   background:#fff0f0;
-
   color:#b42318;
 }
 
 
-/* ==================================================
-   FOOTER
-================================================== */
+/* ================= FOOTER ================= */
 
 footer{
   border-top:1px solid var(--border);
-
   background:white;
-
   padding:30px 18px 100px;
-
   text-align:center;
 }
 
 .footer-logo{
   font-size:22px;
-
   font-weight:950;
-
   direction:ltr;
-
   margin-bottom:8px;
 }
 
@@ -726,277 +551,179 @@ footer{
 
 footer p{
   color:var(--muted);
-
   font-size:10px;
 }
 
 
-/* ==================================================
-   BOTTOM NAVIGATION
-================================================== */
+/* ================= BOTTOM NAV ================= */
 
 .bottom-nav{
-
   position:fixed;
-
   left:0;
   right:0;
   bottom:0;
 
   width:100%;
-
   height:78px;
 
   background:rgba(255,255,255,.98);
 
   border-top:1px solid var(--border);
 
-  box-shadow:
-  0 -6px 25px rgba(0,0,0,.08);
+  box-shadow:0 -6px 25px rgba(0,0,0,.08);
 
   z-index:99999;
 
   display:flex;
-
   justify-content:center;
-
   align-items:center;
 
-  padding-bottom:
-    env(safe-area-inset-bottom);
-
+  padding-bottom:env(safe-area-inset-bottom);
 }
 
-
-/* محتوى القائمة */
-
 .bottom-nav-inner{
-
   width:100%;
-
   max-width:650px;
-
   height:100%;
 
   display:grid;
-
-  grid-template-columns:
-    repeat(5,1fr);
-
+  grid-template-columns:repeat(5,1fr);
   align-items:center;
-
 }
 
-
-/* عنصر */
-
 .bottom-item{
-
   height:100%;
-
   background:transparent;
-
   color:#858592;
 
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
-
   justify-content:center;
 
   gap:4px;
 
   font-size:10px;
-
   font-weight:900;
 
   position:relative;
-
 }
-
-
-/* الأيقونة */
 
 .bottom-icon{
-
   font-size:21px;
-
   line-height:1;
 }
-
-
-/* النص */
 
 .bottom-label{
-
   font-size:10px;
-
   line-height:1;
 }
 
-
-/* النشط */
-
 .bottom-item.active{
-
   color:var(--primary);
-
 }
 
-
-/* زر الإضافة */
-
 .bottom-create{
-
   width:52px;
-
   height:52px;
 
   border-radius:17px;
 
   background:var(--primary);
-
   color:white;
 
   display:flex;
-
   align-items:center;
-
   justify-content:center;
 
   font-size:29px;
-
   font-weight:400;
 
-  box-shadow:
-    0 8px 22px rgba(108,92,231,.32);
+  box-shadow:0 8px 22px rgba(108,92,231,.32);
 
   margin-top:-22px;
 
   transition:.2s;
-
 }
 
 .bottom-create:hover{
-
   background:var(--primary-dark);
-
   transform:translateY(-2px);
-
 }
 
 
-/* ==================================================
-   DESKTOP
-================================================== */
+/* ================= DESKTOP ================= */
 
 @media(min-width:700px){
 
   .votes-grid{
-
-    grid-template-columns:
-      repeat(2,1fr);
-
+    grid-template-columns:repeat(2,1fr);
   }
 
   .hero{
-
     padding-top:90px;
-
     padding-bottom:60px;
-
   }
 
   .hero h1{
-
     font-size:52px;
-
   }
 
   .vote-question{
-
     font-size:18px;
-
   }
 
 }
 
 
-/* ==================================================
-   MOBILE
-================================================== */
+/* ================= MOBILE ================= */
 
 @media(max-width:500px){
 
   .logo{
-
     font-size:22px;
-
   }
 
   .nav-button{
-
     padding:9px 10px;
-
     font-size:10px;
-
   }
 
   .hero h1{
-
     font-size:34px;
-
   }
 
   .hero p{
-
     font-size:13px;
-
   }
 
   .search-button{
-
     display:none;
-
   }
 
   .bottom-nav{
-
     height:76px;
-
   }
 
 }
 
 
-/* ==================================================
-   SMALL PHONES
-================================================== */
+/* ================= SMALL PHONES ================= */
 
 @media(max-width:360px){
 
   .bottom-icon{
-
     font-size:19px;
-
   }
 
   .bottom-label{
-
     font-size:9px;
-
   }
 
   .bottom-create{
-
     width:48px;
-
     height:48px;
-
     font-size:25px;
-
   }
 
 }
@@ -1009,9 +736,7 @@ footer p{
 <body>
 
 
-<!-- ==================================================
-     HEADER
-================================================== -->
+<!-- ================= HEADER ================= -->
 
 <header>
 
@@ -1021,7 +746,6 @@ footer p{
 VOTE<span>RA</span>
 </a>
 
-
 <div class="nav-actions">
 
 <button
@@ -1030,7 +754,6 @@ onclick="signInWithGoogle()"
 >
 🔐 دخول
 </button>
-
 
 <a
 href="create.html"
@@ -1046,10 +769,7 @@ class="nav-button create-button"
 </header>
 
 
-
-<!-- ==================================================
-     HERO
-================================================== -->
+<!-- ================= HERO ================= -->
 
 <section class="hero">
 
@@ -1057,25 +777,16 @@ class="nav-button create-button"
 🔥 VOTERA
 </div>
 
-
 <h1>
-
 اسأل.
-
 <span>صوّت.</span>
-
 اكتشف.
-
 </h1>
 
-
 <p>
-
 أنشئ تصويتًا، شاركه مع العالم،
 واكتشف رأي المجتمع في أي شيء.
-
 </p>
-
 
 <div class="hero-actions">
 
@@ -1085,7 +796,6 @@ class="hero-button hero-primary"
 >
 🔥 إنشاء تصويت
 </a>
-
 
 <a
 href="#trending"
@@ -1099,13 +809,9 @@ class="hero-button hero-secondary"
 </section>
 
 
-
-<!-- ==================================================
-     MAIN
-================================================== -->
+<!-- ================= MAIN ================= -->
 
 <main class="main">
-
 
 <div
 id="message"
@@ -1114,10 +820,7 @@ class="message"
 </div>
 
 
-
-<!-- ==================================================
-     SEARCH
-================================================== -->
+<!-- ================= SEARCH ================= -->
 
 <div class="search-box">
 
@@ -1125,14 +828,12 @@ class="message"
 🔍
 </div>
 
-
 <input
 type="text"
 id="searchInput"
 placeholder="ابحث عن تصويت..."
 oninput="searchVotes()"
 >
-
 
 <button
 class="search-button"
@@ -1144,111 +845,84 @@ onclick="searchVotes()"
 </div>
 
 
-
-<!-- ==================================================
-     CATEGORIES
-================================================== -->
+<!-- ================= CATEGORIES ================= -->
 
 <div class="categories">
 
-
 <button
 class="category active"
-data-category="الكل"
 onclick="filterCategory('الكل',this)"
 >
 🌐 الكل
 </button>
 
-
 <button
 class="category"
-data-category="عام"
 onclick="filterCategory('عام',this)"
 >
 🌐 عام
 </button>
 
-
 <button
 class="category"
-data-category="تقنية"
 onclick="filterCategory('تقنية',this)"
 >
 📱 تقنية
 </button>
 
-
 <button
 class="category"
-data-category="ألعاب"
 onclick="filterCategory('ألعاب',this)"
 >
 🎮 ألعاب
 </button>
 
-
 <button
 class="category"
-data-category="رياضة"
 onclick="filterCategory('رياضة',this)"
 >
 ⚽ رياضة
 </button>
 
-
 <button
 class="category"
-data-category="أفلام"
 onclick="filterCategory('أفلام',this)"
 >
 🎬 أفلام
 </button>
 
-
 <button
 class="category"
-data-category="موسيقى"
 onclick="filterCategory('موسيقى',this)"
 >
 🎵 موسيقى
 </button>
 
-
 <button
 class="category"
-data-category="طعام"
 onclick="filterCategory('طعام',this)"
 >
 🍔 طعام
 </button>
 
-
 <button
 class="category"
-data-category="ترفيه"
 onclick="filterCategory('ترفيه',this)"
 >
 😂 ترفيه
 </button>
 
-
 </div>
 
 
-
-<!-- ==================================================
-     TRENDING
-================================================== -->
+<!-- ================= TRENDING ================= -->
 
 <section
 class="section"
 id="trending"
 >
 
-
 <div class="section-header">
-
 
 <h2 class="section-title">
 
@@ -1259,7 +933,6 @@ id="trending"
 
 </h2>
 
-
 <button
 class="refresh-button"
 onclick="loadVotes()"
@@ -1267,119 +940,83 @@ onclick="loadVotes()"
 🔄 تحديث
 </button>
 
-
 </div>
-
 
 <div
 id="trendingVotes"
 class="votes-grid"
 >
 
-
 <div class="loading">
 
-<div class="spinner">
-</div>
+<div class="spinner"></div>
 
 جارٍ تحميل التصويتات...
 
 </div>
 
-
 </div>
-
 
 </section>
 
 
-
-<!-- ==================================================
-     LATEST
-================================================== -->
+<!-- ================= LATEST ================= -->
 
 <section class="section">
 
-
 <div class="section-header">
 
-
 <h2 class="section-title">
-
 🆕 أحدث التصويتات
-
 </h2>
 
-
 </div>
-
 
 <div
 id="latestVotes"
 class="votes-grid"
 >
 
-
 <div class="loading">
 
-<div class="spinner">
-</div>
+<div class="spinner"></div>
 
 جارٍ تحميل التصويتات...
 
 </div>
 
-
 </div>
 
-
 </section>
-
 
 </main>
 
 
-
-<!-- ==================================================
-     FOOTER
-================================================== -->
+<!-- ================= FOOTER ================= -->
 
 <footer>
 
-
 <div class="footer-logo">
-
 VOTE<span>RA</span>
-
 </div>
 
-
 <p>
-
 اسأل. صوّت. اكتشف.
 — منصة التصويت الاجتماعية.
-
 </p>
-
 
 </footer>
 
 
-
-<!-- ==================================================
-     BOTTOM NAVIGATION
-================================================== -->
+<!-- ================= BOTTOM NAV ================= -->
 
 <nav
 class="bottom-nav"
 aria-label="القائمة الرئيسية"
 >
 
-
 <div class="bottom-nav-inner">
 
-
-<!-- الرئيسية -->
 
 <a
 href="index.html"
@@ -1397,9 +1034,6 @@ class="bottom-item active"
 </a>
 
 
-
-<!-- استكشاف -->
-
 <a
 href="#trending"
 class="bottom-item"
@@ -1415,9 +1049,6 @@ class="bottom-item"
 
 </a>
 
-
-
-<!-- إنشاء -->
 
 <a
 href="create.html"
@@ -1435,9 +1066,6 @@ class="bottom-item"
 </a>
 
 
-
-<!-- التصويتات -->
-
 <a
 href="#trending"
 class="bottom-item"
@@ -1453,9 +1081,6 @@ class="bottom-item"
 
 </a>
 
-
-
-<!-- الحساب -->
 
 <a
 href="profile.html"
@@ -1478,10 +1103,7 @@ class="bottom-item"
 </nav>
 
 
-
-<!-- ==================================================
-     JAVASCRIPT
-================================================== -->
+<!-- ================= JAVASCRIPT ================= -->
 
 <script>
 
@@ -1493,17 +1115,14 @@ class="bottom-item"
 const SUPABASE_URL =
 "https://vatlwkuagxyrvwclttfz.supabase.co";
 
-
 const SUPABASE_ANON_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
-
 
 const supabaseClient =
 window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
-
 
 
 /* ==================================================
@@ -1515,7 +1134,6 @@ let allVotes = [];
 let selectedCategory = "الكل";
 
 
-
 /* ==================================================
    ELEMENTS
 ================================================== */
@@ -1525,24 +1143,20 @@ document.getElementById(
   "trendingVotes"
 );
 
-
 const latestVotes =
 document.getElementById(
   "latestVotes"
 );
-
 
 const searchInput =
 document.getElementById(
   "searchInput"
 );
 
-
 const message =
 document.getElementById(
   "message"
 );
-
 
 
 /* ==================================================
@@ -1554,10 +1168,8 @@ function showMessage(text,type){
   message.textContent =
     text;
 
-
   message.className =
     "message " + type;
-
 
   setTimeout(
     function(){
@@ -1570,7 +1182,6 @@ function showMessage(text,type){
   );
 
 }
-
 
 
 /* ==================================================
@@ -1597,11 +1208,9 @@ async function signInWithGoogle(){
 
     });
 
-
     if(error){
 
       console.error(error);
-
 
       showMessage(
         "حدث خطأ أثناء تسجيل الدخول.",
@@ -1614,7 +1223,6 @@ async function signInWithGoogle(){
 
     console.error(error);
 
-
     showMessage(
       "تعذر الاتصال.",
       "error"
@@ -1623,7 +1231,6 @@ async function signInWithGoogle(){
   }
 
 }
-
 
 
 /* ==================================================
@@ -1644,7 +1251,6 @@ async function loadVotes(){
 
   `;
 
-
   latestVotes.innerHTML = `
 
     <div class="loading">
@@ -1660,38 +1266,87 @@ async function loadVotes(){
 
   try{
 
+    /*
+      مهم جدًا:
+
+      نحن الآن نحدد الأعمدة الموجودة
+      التي يحتاجها الموقع فقط.
+
+      لا نطلب image_a
+      ولا image_b
+      ولا أي image column.
+    */
+
     const {
       data,
       error
     } =
     await supabaseClient
       .from("votes")
-      .select("*")
+      .select(`
+        id,
+        user_id,
+        question,
+        category,
+        option_a,
+        option_b,
+        option_c,
+        option_d,
+        option_e,
+        option_f,
+        option_g,
+        option_h,
+        option_i,
+        option_j,
+        option_k,
+        option_l,
+        option_m,
+        option_n,
+        option_o,
+        votes_a,
+        votes_b,
+        votes_c,
+        votes_d,
+        votes_e,
+        votes_f,
+        votes_g,
+        votes_h,
+        votes_i,
+        votes_j,
+        votes_k,
+        votes_l,
+        votes_m,
+        votes_n,
+        votes_o,
+        created_at
+      `)
       .order(
         "created_at",
         {
           ascending:false
         }
       )
-      .limit(50);
+      .limit(100);
 
 
     if(error){
 
-      console.error(error);
-
+      console.error(
+        "Supabase load error:",
+        error
+      );
 
       showEmpty(
         trendingVotes,
-        "تعذر تحميل التصويتات."
+        "تعذر تحميل التصويتات.",
+        error.message
       );
-
 
       showEmpty(
         latestVotes,
-        "تعذر تحميل التصويتات."
+        "تعذر تحميل التصويتات.",
+        error.message
       );
-
 
       return;
 
@@ -1702,19 +1357,26 @@ async function loadVotes(){
       data || [];
 
 
+    console.log(
+      "Votes loaded:",
+      allVotes
+    );
+
+
     renderVotes();
 
 
   }catch(error){
 
-    console.error(error);
-
+    console.error(
+      "Load votes error:",
+      error
+    );
 
     showEmpty(
       trendingVotes,
       "حدث خطأ أثناء تحميل التصويتات."
     );
-
 
     showEmpty(
       latestVotes,
@@ -1724,7 +1386,6 @@ async function loadVotes(){
   }
 
 }
-
 
 
 /* ==================================================
@@ -1748,8 +1409,12 @@ function renderVotes(){
       filtered.filter(
       function(vote){
 
-        return vote.category ===
-          selectedCategory;
+        return (
+          String(
+            vote.category || ""
+          ) ===
+          selectedCategory
+        );
 
       });
 
@@ -1770,11 +1435,24 @@ function renderVotes(){
       filtered.filter(
       function(vote){
 
-        return String(
-          vote.question || ""
-        )
-        .toLowerCase()
-        .includes(search);
+        const question =
+          String(
+            vote.question || ""
+          )
+          .toLowerCase();
+
+
+        const category =
+          String(
+            vote.category || ""
+          )
+          .toLowerCase();
+
+
+        return (
+          question.includes(search) ||
+          category.includes(search)
+        );
 
       });
 
@@ -1823,7 +1501,6 @@ function renderVotes(){
 }
 
 
-
 /* ==================================================
    RENDER LIST
 ================================================== */
@@ -1845,7 +1522,6 @@ function renderVoteList(
       "أنشئ أول تصويت وابدأ النقاش!"
     );
 
-
     return;
 
   }
@@ -1864,7 +1540,6 @@ function renderVoteList(
 }
 
 
-
 /* ==================================================
    CREATE CARD
 ================================================== */
@@ -1875,7 +1550,6 @@ function createVoteCard(vote){
     document.createElement(
       "article"
     );
-
 
   card.className =
     "vote-item";
@@ -1901,21 +1575,6 @@ function createVoteCard(vote){
       optionsHTML += `
 
         <div class="vote-option">
-
-          ${
-            option.image
-            ?
-            `
-            <img
-              class="option-image"
-              src="${escapeAttribute(option.image)}"
-              alt=""
-              style="display:block;"
-            >
-            `
-            :
-            ""
-          }
 
           <div class="option-content">
 
@@ -1979,12 +1638,7 @@ function createVoteCard(vote){
       </span>
 
 
-      <div
-        style="
-          display:flex;
-          gap:6px;
-        "
-      >
+      <div class="vote-actions">
 
         <button
           class="share-small"
@@ -2013,7 +1667,6 @@ function createVoteCard(vote){
 }
 
 
-
 /* ==================================================
    GET OPTIONS
 ================================================== */
@@ -2035,19 +1688,19 @@ function getVoteOptions(vote){
       );
 
 
-    const nameField =
+    const field =
       "option_" +
       letter.toLowerCase();
 
 
-    const imageField =
-      "image_" +
-      letter.toLowerCase();
-
-
     const name =
-      vote[nameField];
+      vote[field];
 
+
+    /*
+      لا نستخدم image_a
+      ولا أي صورة هنا.
+    */
 
     if(
       name &&
@@ -2058,11 +1711,7 @@ function getVoteOptions(vote){
 
         letter:letter,
 
-        name:String(name).trim(),
-
-        image:
-          vote[imageField] ||
-          null
+        name:String(name).trim()
 
       });
 
@@ -2076,9 +1725,8 @@ function getVoteOptions(vote){
 }
 
 
-
 /* ==================================================
-   TOTAL
+   TOTAL VOTES
 ================================================== */
 
 function calculateTotal(vote){
@@ -2116,7 +1764,6 @@ function calculateTotal(vote){
 }
 
 
-
 /* ==================================================
    CATEGORY EMOJI
 ================================================== */
@@ -2144,11 +1791,12 @@ function getCategoryEmoji(category){
   };
 
 
-  return emojis[category] ||
-    "🌐";
+  return (
+    emojis[category] ||
+    "🌐"
+  );
 
 }
-
 
 
 /* ==================================================
@@ -2188,7 +1836,6 @@ function filterCategory(
 }
 
 
-
 /* ==================================================
    SEARCH
 ================================================== */
@@ -2198,7 +1845,6 @@ function searchVotes(){
   renderVotes();
 
 }
-
 
 
 /* ==================================================
@@ -2214,9 +1860,8 @@ function openVote(id){
 }
 
 
-
 /* ==================================================
-   SHARE VOTE
+   SHARE
 ================================================== */
 
 async function shareVote(id){
@@ -2271,7 +1916,6 @@ async function shareVote(id){
 
       });
 
-
       return;
 
     }catch(error){
@@ -2311,7 +1955,6 @@ async function shareVote(id){
 }
 
 
-
 /* ==================================================
    EMPTY
 ================================================== */
@@ -2335,7 +1978,6 @@ function showEmpty(
       </h3>
 
       <p>
-
         ${
           description
           ?
@@ -2343,7 +1985,6 @@ function showEmpty(
           :
           ""
         }
-
       </p>
 
     </div>
@@ -2351,7 +1992,6 @@ function showEmpty(
   `;
 
 }
-
 
 
 /* ==================================================
@@ -2365,15 +2005,14 @@ function escapeHtml(text){
       "div"
     );
 
-
   div.textContent =
-    text;
-
+    text == null
+    ? ""
+    : String(text);
 
   return div.innerHTML;
 
 }
-
 
 
 /* ==================================================
@@ -2412,12 +2051,12 @@ function escapeAttribute(text){
 }
 
 
-
 /* ==================================================
    START
 ================================================== */
 
 loadVotes();
+
 
 </script>
 
