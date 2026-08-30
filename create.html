@@ -17,10 +17,12 @@
   --primary:#6c5ce7;
   --primary-dark:#5848d6;
   --bg:#f7f7fb;
-  --card:#fff;
+  --card:#ffffff;
   --text:#17171c;
   --muted:#777783;
   --border:#e8e8ef;
+  --success:#16a34a;
+  --danger:#e74c3c;
 }
 
 *{
@@ -34,7 +36,7 @@ body{
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
-  padding-bottom:40px;
+  padding-bottom:50px;
 }
 
 button,
@@ -48,6 +50,11 @@ button{
   border:0;
 }
 
+button:disabled{
+  cursor:not-allowed;
+  opacity:.6;
+}
+
 a{
   text-decoration:none;
   color:inherit;
@@ -58,7 +65,7 @@ a{
 
 header{
   height:68px;
-  background:rgba(255,255,255,.95);
+  background:rgba(255,255,255,.96);
   border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
@@ -157,7 +164,7 @@ label{
 }
 
 textarea,
-input{
+input[type="text"]{
   width:100%;
   border:1px solid var(--border);
   background:#fafafd;
@@ -174,7 +181,7 @@ textarea{
 }
 
 textarea:focus,
-input:focus{
+input[type="text"]:focus{
   border-color:var(--primary);
   background:white;
   box-shadow:0 0 0 3px rgba(108,92,231,.08);
@@ -185,6 +192,66 @@ input:focus{
   color:var(--muted);
   font-size:11px;
   margin-top:6px;
+}
+
+
+/* ================= LOGIN ================= */
+
+.login-box{
+  display:none;
+  text-align:center;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:28px 20px;
+  margin-bottom:18px;
+}
+
+.login-box h3{
+  font-size:17px;
+}
+
+.login-box p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.6;
+  margin:10px 0 17px;
+}
+
+.google-btn{
+  background:white;
+  border:1px solid var(--border);
+  padding:12px 18px;
+  border-radius:12px;
+  font-weight:900;
+}
+
+
+/* ================= MESSAGE ================= */
+
+.message{
+  display:none;
+  margin-bottom:16px;
+  padding:14px;
+  border-radius:13px;
+  font-size:13px;
+  font-weight:800;
+  text-align:center;
+  white-space:pre-line;
+}
+
+.message.error{
+  display:block;
+  background:#fff0f0;
+  color:#b42318;
+  border:1px solid #ffd0d0;
+}
+
+.message.success{
+  display:block;
+  background:#ecfdf3;
+  color:#166534;
+  border:1px solid #bbf7d0;
 }
 
 
@@ -215,6 +282,12 @@ input:focus{
   font-weight:950;
 }
 
+.option-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
 .optional-badge{
   color:var(--muted);
   font-size:10px;
@@ -224,10 +297,22 @@ input:focus{
   border-radius:8px;
 }
 
+.required-badge{
+  color:#b42318;
+  font-size:10px;
+  font-weight:800;
+  background:#fff0f0;
+  padding:5px 8px;
+  border-radius:8px;
+}
+
+
+/* ================= IMAGE UPLOAD ================= */
+
 .image-upload{
   border:2px dashed #dcdce8;
   border-radius:14px;
-  min-height:115px;
+  min-height:125px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -251,17 +336,40 @@ input:focus{
 .image-upload input{
   position:absolute;
   inset:0;
+  width:100%;
+  height:100%;
   opacity:0;
   cursor:pointer;
-  padding:0;
 }
 
 .preview{
   width:100%;
-  height:115px;
+  height:125px;
   object-fit:cover;
   display:none;
 }
+
+.image-upload.has-image{
+  border-style:solid;
+  border-color:#d8d3ff;
+}
+
+.remove-image{
+  display:none;
+  position:absolute;
+  top:8px;
+  left:8px;
+  z-index:5;
+  background:rgba(0,0,0,.65);
+  color:white;
+  padding:6px 9px;
+  border-radius:8px;
+  font-size:10px;
+  font-weight:900;
+}
+
+
+/* ================= REMOVE OPTION ================= */
 
 .remove-option{
   background:#fff0f0;
@@ -271,6 +379,9 @@ input:focus{
   font-size:11px;
   font-weight:900;
 }
+
+
+/* ================= ADD OPTION ================= */
 
 .add-option{
   width:100%;
@@ -291,6 +402,7 @@ input:focus{
   text-align:center;
   color:var(--muted);
   font-size:11px;
+  line-height:1.6;
   margin-top:12px;
 }
 
@@ -347,7 +459,11 @@ input:focus{
 .setting-text span{
   color:var(--muted);
   font-size:11px;
+  line-height:1.5;
 }
+
+
+/* ================= SWITCH ================= */
 
 .switch{
   position:relative;
@@ -408,63 +524,10 @@ input:focus{
 
 .publish:disabled{
   opacity:.65;
-  cursor:not-allowed;
 }
 
 
-/* ================= MESSAGE ================= */
-
-.message{
-  display:none;
-  margin-bottom:16px;
-  padding:14px;
-  border-radius:13px;
-  font-size:13px;
-  font-weight:800;
-  text-align:center;
-  white-space:pre-line;
-}
-
-.message.error{
-  display:block;
-  background:#fff0f0;
-  color:#b42318;
-  border:1px solid #ffd0d0;
-}
-
-.message.success{
-  display:block;
-  background:#ecfdf3;
-  color:#166534;
-  border:1px solid #bbf7d0;
-}
-
-
-/* ================= LOGIN ================= */
-
-.login-box{
-  display:none;
-  text-align:center;
-  background:white;
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:28px 20px;
-  margin-bottom:18px;
-}
-
-.login-box p{
-  color:var(--muted);
-  font-size:13px;
-  margin:10px 0 17px;
-}
-
-.google-btn{
-  background:white;
-  border:1px solid var(--border);
-  padding:12px 18px;
-  border-radius:12px;
-  font-weight:900;
-}
+/* ================= NOTE ================= */
 
 .bottom-note{
   text-align:center;
@@ -525,6 +588,8 @@ VOTE<span>RA</span>
 <main class="container">
 
 
+<!-- ================= TITLE ================= -->
+
 <div class="title">
 
 <div class="badge">
@@ -536,11 +601,13 @@ VOTE<span>RA</span>
 </h1>
 
 <p>
-اطرح سؤالك ودع المجتمع يقرر.
+اكتب سؤالك، أضف خيارات نصية أو صورًا، ودع المجتمع يقرر.
 </p>
 
 </div>
 
+
+<!-- ================= LOGIN ================= -->
 
 <div id="loginBox" class="login-box">
 
@@ -553,6 +620,7 @@ VOTE<span>RA</span>
 </p>
 
 <button
+type="button"
 class="google-btn"
 onclick="signInWithGoogle()"
 >
@@ -561,6 +629,8 @@ onclick="signInWithGoogle()"
 
 </div>
 
+
+<!-- ================= MESSAGE ================= -->
 
 <div id="message" class="message"></div>
 
@@ -604,35 +674,67 @@ id="counter"
 
 <div class="category-grid">
 
-<button class="category active" data-category="عام" type="button">
+<button
+type="button"
+class="category active"
+data-category="عام"
+>
 🌐 عام
 </button>
 
-<button class="category" data-category="تقنية" type="button">
+<button
+type="button"
+class="category"
+data-category="تقنية"
+>
 📱 تقنية
 </button>
 
-<button class="category" data-category="ألعاب" type="button">
+<button
+type="button"
+class="category"
+data-category="ألعاب"
+>
 🎮 ألعاب
 </button>
 
-<button class="category" data-category="رياضة" type="button">
+<button
+type="button"
+class="category"
+data-category="رياضة"
+>
 ⚽ رياضة
 </button>
 
-<button class="category" data-category="أفلام" type="button">
+<button
+type="button"
+class="category"
+data-category="أفلام"
+>
 🎬 أفلام
 </button>
 
-<button class="category" data-category="موسيقى" type="button">
+<button
+type="button"
+class="category"
+data-category="موسيقى"
+>
 🎵 موسيقى
 </button>
 
-<button class="category" data-category="طعام" type="button">
+<button
+type="button"
+class="category"
+data-category="طعام"
+>
 🍔 طعام
 </button>
 
-<button class="category" data-category="ترفيه" type="button">
+<button
+type="button"
+class="category"
+data-category="ترفيه"
+>
 😂 ترفيه
 </button>
 
@@ -653,7 +755,7 @@ id="counter"
 <div id="options">
 
 
-<!-- OPTION A -->
+<!-- ================= OPTION A ================= -->
 
 <div class="option">
 
@@ -663,16 +765,22 @@ id="counter"
 الخيار A
 </span>
 
-<span class="optional-badge">
+<div class="option-right">
+
+<span class="required-badge">
 إجباري
 </span>
+
+</div>
 
 </div>
 
 
 <div class="image-upload">
 
-<span>🖼️</span>
+<span>
+🖼️
+</span>
 
 <p>
 اضغط لإضافة صورة — اختياري
@@ -681,13 +789,21 @@ id="counter"
 <input
 type="file"
 accept="image/*"
-onchange="previewImage(this)"
+onchange="handleImageChange(this)"
 >
 
 <img
 class="preview"
 alt="معاينة الصورة"
 >
+
+<button
+type="button"
+class="remove-image"
+onclick="removeImage(this)"
+>
+✕ حذف الصورة
+</button>
 
 </div>
 
@@ -706,7 +822,7 @@ maxlength="80"
 </div>
 
 
-<!-- OPTION B -->
+<!-- ================= OPTION B ================= -->
 
 <div class="option">
 
@@ -716,16 +832,22 @@ maxlength="80"
 الخيار B
 </span>
 
-<span class="optional-badge">
+<div class="option-right">
+
+<span class="required-badge">
 إجباري
 </span>
+
+</div>
 
 </div>
 
 
 <div class="image-upload">
 
-<span>🖼️</span>
+<span>
+🖼️
+</span>
 
 <p>
 اضغط لإضافة صورة — اختياري
@@ -734,13 +856,21 @@ maxlength="80"
 <input
 type="file"
 accept="image/*"
-onchange="previewImage(this)"
+onchange="handleImageChange(this)"
 >
 
 <img
 class="preview"
 alt="معاينة الصورة"
 >
+
+<button
+type="button"
+class="remove-image"
+onclick="removeImage(this)"
+>
+✕ حذف الصورة
+</button>
 
 </div>
 
@@ -772,7 +902,7 @@ onclick="addOption()"
 
 
 <div class="options-info">
-A وB إجباريان — C إلى O اختيارية — يمكنك إضافة حتى 15 خيارًا.
+A وB إجباريان فقط — C إلى O اختيارية ويمكن تركها فارغة — يمكنك إضافة حتى 15 خيارًا.
 </div>
 
 </section>
@@ -796,7 +926,7 @@ A وB إجباريان — C إلى O اختيارية — يمكنك إضافة
 </strong>
 
 <span>
-سيظهر التصويت للمستخدمين.
+سيظهر التصويت للمستخدمين ويمكن مشاركته.
 </span>
 
 </div>
@@ -825,7 +955,7 @@ checked
 </strong>
 
 <span>
-يمنع التصويت أكثر من مرة.
+يمنع المستخدم من التصويت أكثر من مرة.
 </span>
 
 </div>
@@ -869,16 +999,15 @@ onclick="publishVote()"
 
 <script>
 
-/* ==========================================
+/* =====================================================
    SUPABASE
-========================================== */
+===================================================== */
 
 const SUPABASE_URL =
 "https://vatlwkuagxyrvwclttfz.supabase.co";
 
 const SUPABASE_ANON_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
-
 
 const supabaseClient =
 window.supabase.createClient(
@@ -887,9 +1016,9 @@ window.supabase.createClient(
 );
 
 
-/* ==========================================
+/* =====================================================
    VARIABLES
-========================================== */
+===================================================== */
 
 let currentUser = null;
 
@@ -897,10 +1026,13 @@ let selectedCategory = "عام";
 
 const MAX_OPTIONS = 15;
 
+const MAX_IMAGE_SIZE =
+  5 * 1024 * 1024;
 
-/* ==========================================
+
+/* =====================================================
    ELEMENTS
-========================================== */
+===================================================== */
 
 const loginBox =
 document.getElementById("loginBox");
@@ -911,10 +1043,13 @@ document.getElementById("message");
 const publishButton =
 document.getElementById("publishButton");
 
+const optionsContainer =
+document.getElementById("options");
 
-/* ==========================================
+
+/* =====================================================
    MESSAGE
-========================================== */
+===================================================== */
 
 function showMessage(text,type){
 
@@ -924,12 +1059,32 @@ function showMessage(text,type){
   message.className =
     "message " + type;
 
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
 }
 
 
-/* ==========================================
+/* =====================================================
+   CLEAR MESSAGE
+===================================================== */
+
+function clearMessage(){
+
+  message.textContent =
+    "";
+
+  message.className =
+    "message";
+
+}
+
+
+/* =====================================================
    CHECK USER
-========================================== */
+===================================================== */
 
 async function checkUser(){
 
@@ -963,7 +1118,6 @@ async function checkUser(){
       error
     );
 
-
     showMessage(
       "تعذر التحقق من تسجيل الدخول.\n" +
       error.message,
@@ -975,9 +1129,9 @@ async function checkUser(){
 }
 
 
-/* ==========================================
+/* =====================================================
    UPDATE LOGIN STATE
-========================================== */
+===================================================== */
 
 function updateLoginState(){
 
@@ -995,16 +1149,16 @@ function updateLoginState(){
       "block";
 
     publishButton.disabled =
-      true;
+      false;
 
   }
 
 }
 
 
-/* ==========================================
+/* =====================================================
    GOOGLE LOGIN
-========================================== */
+===================================================== */
 
 async function signInWithGoogle(){
 
@@ -1020,7 +1174,7 @@ async function signInWithGoogle(){
       options:{
 
         redirectTo:
-        "https://akkarali86-cmyk.github.io/VOTERA/create.html"
+          "https://akkarali86-cmyk.github.io/VOTERA/create.html"
 
       }
 
@@ -1029,7 +1183,10 @@ async function signInWithGoogle(){
 
     if(error){
 
-      console.error(error);
+      console.error(
+        "Google login error:",
+        error
+      );
 
       showMessage(
         "حدث خطأ أثناء تسجيل الدخول:\n" +
@@ -1044,7 +1201,7 @@ async function signInWithGoogle(){
     console.error(error);
 
     showMessage(
-      "حدث خطأ أثناء الاتصال.",
+      "حدث خطأ أثناء الاتصال بخدمة تسجيل الدخول.",
       "error"
     );
 
@@ -1053,9 +1210,9 @@ async function signInWithGoogle(){
 }
 
 
-/* ==========================================
+/* =====================================================
    AUTH STATE
-========================================== */
+===================================================== */
 
 supabaseClient.auth.onAuthStateChange(
 function(event,session){
@@ -1068,30 +1225,33 @@ function(event,session){
 });
 
 
-/* ==========================================
+/* =====================================================
    QUESTION COUNTER
-========================================== */
+===================================================== */
 
 function updateCounter(){
 
   const question =
     document.getElementById("question");
 
+  const counter =
+    document.getElementById("counter");
 
-  document
-    .getElementById("counter")
-    .textContent =
-      question.value.length +
-      " / 150";
+  counter.textContent =
+    question.value.length +
+    " / 150";
 
 }
 
 
-/* ==========================================
-   IMAGE PREVIEW
-========================================== */
+/* =====================================================
+   IMAGE CHANGE
+===================================================== */
 
-function previewImage(input){
+function handleImageChange(input){
+
+  clearMessage();
+
 
   if(
     !input.files ||
@@ -1124,12 +1284,11 @@ function previewImage(input){
 
 
   if(
-    file.size >
-    2 * 1024 * 1024
+    file.size > MAX_IMAGE_SIZE
   ){
 
     showMessage(
-      "الصورة كبيرة جدًا. الحد الأقصى 2MB.",
+      "الصورة كبيرة جدًا. الحد الأقصى 5MB.",
       "error"
     );
 
@@ -1143,17 +1302,17 @@ function previewImage(input){
   const container =
     input.parentElement;
 
-
   const preview =
     container.querySelector(".preview");
-
 
   const icon =
     container.querySelector("span");
 
-
   const text =
     container.querySelector("p");
+
+  const removeButton =
+    container.querySelector(".remove-image");
 
 
   const reader =
@@ -1175,6 +1334,26 @@ function previewImage(input){
     text.style.display =
       "none";
 
+    removeButton.style.display =
+      "block";
+
+    container.classList.add(
+      "has-image"
+    );
+
+  };
+
+
+  reader.onerror =
+  function(){
+
+    showMessage(
+      "تعذر قراءة الصورة.",
+      "error"
+    );
+
+    input.value = "";
+
   };
 
 
@@ -1183,11 +1362,68 @@ function previewImage(input){
 }
 
 
-/* ==========================================
+/* =====================================================
+   REMOVE IMAGE
+===================================================== */
+
+function removeImage(button){
+
+  const container =
+    button.parentElement;
+
+  const input =
+    container.querySelector(
+      'input[type="file"]'
+    );
+
+  const preview =
+    container.querySelector(".preview");
+
+  const icon =
+    container.querySelector("span");
+
+  const text =
+    container.querySelector("p");
+
+
+  if(input){
+
+    input.value =
+      "";
+
+  }
+
+
+  preview.src =
+    "";
+
+  preview.style.display =
+    "none";
+
+  icon.style.display =
+    "block";
+
+  text.style.display =
+    "block";
+
+  button.style.display =
+    "none";
+
+  container.classList.remove(
+    "has-image"
+  );
+
+}
+
+
+/* =====================================================
    ADD OPTION
-========================================== */
+===================================================== */
 
 function addOption(){
+
+  clearMessage();
+
 
   const currentOptions =
     document.querySelectorAll(
@@ -1204,7 +1440,7 @@ function addOption(){
   ){
 
     showMessage(
-      "وصلت إلى الحد الأقصى: 15 خيارًا.",
+      "وصلت إلى الحد الأقصى وهو 15 خيارًا.",
       "error"
     );
 
@@ -1213,13 +1449,12 @@ function addOption(){
   }
 
 
-  const nextNumber =
-    currentCount + 1;
-
+  const nextIndex =
+    currentCount;
 
   const letter =
     String.fromCharCode(
-      64 + nextNumber
+      65 + nextIndex
     );
 
 
@@ -1239,13 +1474,7 @@ function addOption(){
         الخيار ${letter}
       </span>
 
-      <div
-        style="
-          display:flex;
-          align-items:center;
-          gap:8px;
-        "
-      >
+      <div class="option-right">
 
         <span class="optional-badge">
           اختياري
@@ -1277,13 +1506,21 @@ function addOption(){
       <input
         type="file"
         accept="image/*"
-        onchange="previewImage(this)"
+        onchange="handleImageChange(this)"
       >
 
       <img
         class="preview"
         alt="معاينة الصورة"
       >
+
+      <button
+        type="button"
+        class="remove-image"
+        onclick="removeImage(this)"
+      >
+        ✕ حذف الصورة
+      </button>
 
     </div>
 
@@ -1302,44 +1539,26 @@ function addOption(){
   `;
 
 
-  document
-    .getElementById("options")
-    .appendChild(option);
+  optionsContainer.appendChild(
+    option
+  );
 
 
   updateOptionLetters();
 
-
-  const totalOptions =
-    document.querySelectorAll(
-      "#options .option"
-    ).length;
-
-
-  if(
-    totalOptions >= MAX_OPTIONS
-  ){
-
-    const addButton =
-      document.querySelector(".add-option");
-
-
-    addButton.disabled =
-      true;
-
-    addButton.textContent =
-      "✅ وصلت إلى 15 خيارًا";
-
-  }
+  updateAddButton();
 
 }
 
 
-/* ==========================================
+/* =====================================================
    REMOVE OPTION
-========================================== */
+===================================================== */
 
 function removeOption(button){
+
+  clearMessage();
+
 
   const options =
     document.querySelectorAll(
@@ -1352,7 +1571,7 @@ function removeOption(button){
   ){
 
     showMessage(
-      "يجب وجود خيارين على الأقل.",
+      "يجب الاحتفاظ بالخيار A والخيار B.",
       "error"
     );
 
@@ -1361,30 +1580,23 @@ function removeOption(button){
   }
 
 
-  button
-    .closest(".option")
-    .remove();
+  const option =
+    button.closest(".option");
+
+
+  option.remove();
 
 
   updateOptionLetters();
 
-
-  const addButton =
-    document.querySelector(".add-option");
-
-
-  addButton.disabled =
-    false;
-
-  addButton.textContent =
-    "➕ إضافة خيار";
+  updateAddButton();
 
 }
 
 
-/* ==========================================
+/* =====================================================
    UPDATE OPTION LETTERS
-========================================== */
+===================================================== */
 
 function updateOptionLetters(){
 
@@ -1403,14 +1615,24 @@ function updateOptionLetters(){
       );
 
 
-    option
-      .querySelector(".option-number")
-      .textContent =
+    const number =
+      option.querySelector(
+        ".option-number"
+      );
+
+
+    if(number){
+
+      number.textContent =
         "الخيار " + letter;
+
+    }
 
 
     const input =
-      option.querySelector(".option-name");
+      option.querySelector(
+        ".option-name"
+      );
 
 
     if(
@@ -1428,9 +1650,48 @@ function updateOptionLetters(){
 }
 
 
-/* ==========================================
+/* =====================================================
+   UPDATE ADD BUTTON
+===================================================== */
+
+function updateAddButton(){
+
+  const addButton =
+    document.querySelector(
+      ".add-option"
+    );
+
+
+  const count =
+    document.querySelectorAll(
+      "#options .option"
+    ).length;
+
+
+  if(count >= MAX_OPTIONS){
+
+    addButton.disabled =
+      true;
+
+    addButton.textContent =
+      "✅ وصلت إلى 15 خيارًا";
+
+  }else{
+
+    addButton.disabled =
+      false;
+
+    addButton.textContent =
+      "➕ إضافة خيار";
+
+  }
+
+}
+
+
+/* =====================================================
    CATEGORY
-========================================== */
+===================================================== */
 
 document
 .querySelectorAll(".category")
@@ -1467,11 +1728,153 @@ function(button){
 });
 
 
-/* ==========================================
-   BUILD OPTION DATA
-========================================== */
+/* =====================================================
+   COMPRESS IMAGE
+===================================================== */
 
-function getOptionData(){
+function compressImage(file){
+
+  return new Promise(
+  function(resolve,reject){
+
+    const reader =
+      new FileReader();
+
+
+    reader.onload =
+    function(event){
+
+      const image =
+        new Image();
+
+
+      image.onload =
+      function(){
+
+        const MAX_WIDTH =
+          1000;
+
+        const MAX_HEIGHT =
+          1000;
+
+
+        let width =
+          image.width;
+
+        let height =
+          image.height;
+
+
+        if(
+          width > MAX_WIDTH ||
+          height > MAX_HEIGHT
+        ){
+
+          const ratio =
+            Math.min(
+              MAX_WIDTH / width,
+              MAX_HEIGHT / height
+            );
+
+
+          width =
+            Math.round(
+              width * ratio
+            );
+
+
+          height =
+            Math.round(
+              height * ratio
+            );
+
+        }
+
+
+        const canvas =
+          document.createElement(
+            "canvas"
+          );
+
+
+        canvas.width =
+          width;
+
+        canvas.height =
+          height;
+
+
+        const context =
+          canvas.getContext(
+            "2d"
+          );
+
+
+        context.drawImage(
+          image,
+          0,
+          0,
+          width,
+          height
+        );
+
+
+        const compressed =
+          canvas.toDataURL(
+            "image/jpeg",
+            0.75
+          );
+
+
+        resolve(
+          compressed
+        );
+
+      };
+
+
+      image.onerror =
+      function(){
+
+        reject(
+          new Error(
+            "تعذر معالجة الصورة."
+          )
+        );
+
+      };
+
+
+      image.src =
+        event.target.result;
+
+    };
+
+
+    reader.onerror =
+    function(){
+
+      reject(
+        new Error(
+          "تعذر قراءة الصورة."
+        )
+      );
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+  });
+
+}
+
+
+/* =====================================================
+   GET OPTION DATA
+===================================================== */
+
+async function getOptionData(){
 
   const optionElements =
     document.querySelectorAll(
@@ -1482,8 +1885,15 @@ function getOptionData(){
   const result = [];
 
 
-  optionElements.forEach(
-  function(option,index){
+  for(
+    let index = 0;
+    index < optionElements.length;
+    index++
+  ){
+
+    const option =
+      optionElements[index];
+
 
     const input =
       option.querySelector(
@@ -1491,15 +1901,70 @@ function getOptionData(){
       );
 
 
+    const fileInput =
+      option.querySelector(
+        'input[type="file"]'
+      );
+
+
+    const name =
+      input
+      ? input.value.trim()
+      : "";
+
+
+    let image =
+      "";
+
+
+    /*
+      الصورة اختيارية.
+    */
+
+    if(
+      fileInput &&
+      fileInput.files &&
+      fileInput.files[0]
+    ){
+
+      image =
+        await compressImage(
+          fileInput.files[0]
+        );
+
+    }
+
+
+    /*
+      إذا لم يوجد اسم ولا صورة
+      للخيار C وما بعده،
+      يتم تجاهله.
+    */
+
+    if(
+      !name &&
+      !image
+    ){
+
+      continue;
+
+    }
+
+
     result.push({
-      index:index,
-      letter:String.fromCharCode(65 + index),
-      name:input
-        ? input.value.trim()
-        : ""
+
+      name:
+        name,
+
+      image:
+        image,
+
+      votes:
+        0
+
     });
 
-  });
+  }
 
 
   return result;
@@ -1507,16 +1972,31 @@ function getOptionData(){
 }
 
 
-/* ==========================================
+/* =====================================================
    PUBLISH VOTE
-========================================== */
+===================================================== */
 
 async function publishVote(){
 
-  if(!currentUser){
+  clearMessage();
+
+
+  /*
+    التحقق من المستخدم
+  */
+
+  const {
+    data:sessionData,
+    error:sessionError
+  } =
+  await supabaseClient.auth.getSession();
+
+
+  if(sessionError){
 
     showMessage(
-      "يجب تسجيل الدخول أولًا.",
+      "تعذر التحقق من جلسة الدخول:\n" +
+      sessionError.message,
       "error"
     );
 
@@ -1524,6 +2004,30 @@ async function publishVote(){
 
   }
 
+
+  const session =
+    sessionData.session;
+
+
+  if(!session){
+
+    showMessage(
+      "يجب تسجيل الدخول بحساب Google أولًا.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  currentUser =
+    session.user;
+
+
+  /*
+    السؤال
+  */
 
   const question =
     document
@@ -1560,9 +2064,39 @@ async function publishVote(){
   }
 
 
-  const options =
-    getOptionData();
+  /*
+    الحصول على الخيارات
+  */
 
+  let options;
+
+
+  try{
+
+    options =
+      await getOptionData();
+
+  }catch(error){
+
+    console.error(
+      "Image processing error:",
+      error
+    );
+
+    showMessage(
+      "حدث خطأ أثناء معالجة الصور:\n" +
+      error.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /*
+    يجب أن يكون A وB موجودين
+  */
 
   if(options.length < 2){
 
@@ -1579,7 +2113,7 @@ async function publishVote(){
   if(!options[0].name){
 
     showMessage(
-      "يجب إدخال اسم الخيار A.",
+      "يجب كتابة اسم الخيار A.",
       "error"
     );
 
@@ -1591,7 +2125,7 @@ async function publishVote(){
   if(!options[1].name){
 
     showMessage(
-      "يجب إدخال اسم الخيار B.",
+      "يجب كتابة اسم الخيار B.",
       "error"
     );
 
@@ -1599,6 +2133,75 @@ async function publishVote(){
 
   }
 
+
+  /*
+    منع وجود خيارات فارغة
+    بين الخيارات المستخدمة
+  */
+
+  const optionElements =
+    document.querySelectorAll(
+      "#options .option"
+    );
+
+
+  for(
+    let i = 0;
+    i < optionElements.length;
+    i++
+  ){
+
+    const input =
+      optionElements[i]
+        .querySelector(
+          ".option-name"
+        );
+
+
+    const fileInput =
+      optionElements[i]
+        .querySelector(
+          'input[type="file"]'
+        );
+
+
+    const hasName =
+      input &&
+      input.value.trim();
+
+
+    const hasImage =
+      fileInput &&
+      fileInput.files &&
+      fileInput.files.length > 0;
+
+
+    /*
+      C/D/... إذا تم فتحها
+      يمكن أن تكون فارغة تمامًا،
+      وسيتم تجاهلها.
+    */
+
+    if(
+      i < 2 &&
+      !hasName
+    ){
+
+      showMessage(
+        "يجب كتابة أسماء الخيارين A وB.",
+        "error"
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  /*
+    تعطيل زر النشر
+  */
 
   publishButton.disabled =
     true;
@@ -1609,45 +2212,25 @@ async function publishVote(){
 
   try{
 
-    /* ======================================
-       الحصول على الجلسة
-    ====================================== */
+    /*
+      إعدادات التصويت
+    */
 
-    const {
-      data:sessionData,
-      error:sessionError
-    } =
-    await supabaseClient.auth.getSession();
-
-
-    if(sessionError){
-
-      throw sessionError;
-
-    }
+    const publicVote =
+      document
+        .getElementById("publicVote")
+        .checked;
 
 
-    const session =
-      sessionData.session;
+    const oneVote =
+      document
+        .getElementById("oneVote")
+        .checked;
 
 
-    if(!session){
-
-      throw new Error(
-        "انتهت جلسة تسجيل الدخول. سجل الدخول مرة أخرى."
-      );
-
-    }
-
-
-    /* ======================================
-       إنشاء بيانات التصويت
-       
-       ملاحظة مهمة:
-       لا نرسل image_a أو image_b
-       لأن هذه الأعمدة غير موجودة
-       في جدول votes.
-    ====================================== */
+    /*
+      البيانات الأساسية
+    */
 
     const voteData = {
 
@@ -1660,73 +2243,47 @@ async function publishVote(){
       category:
         selectedCategory,
 
-      option_a:
-        options[0]?.name || null,
-
-      option_b:
-        options[1]?.name || null,
-
-      option_c:
-        options[2]?.name || null,
-
-      option_d:
-        options[3]?.name || null,
-
-      option_e:
-        options[4]?.name || null,
-
-      option_f:
-        options[5]?.name || null,
-
-      option_g:
-        options[6]?.name || null,
-
-      option_h:
-        options[7]?.name || null,
-
-      option_i:
-        options[8]?.name || null,
-
-      option_j:
-        options[9]?.name || null,
-
-      option_k:
-        options[10]?.name || null,
-
-      option_l:
-        options[11]?.name || null,
-
-      option_m:
-        options[12]?.name || null,
-
-      option_n:
-        options[13]?.name || null,
-
-      option_o:
-        options[14]?.name || null,
-
-      votes_a:0,
-      votes_b:0,
-      votes_c:0,
-      votes_d:0,
-      votes_e:0,
-      votes_f:0,
-      votes_g:0,
-      votes_h:0,
-      votes_i:0,
-      votes_j:0,
-      votes_k:0,
-      votes_l:0,
-      votes_m:0,
-      votes_n:0,
-      votes_o:0
+      options:
+        options
 
     };
 
 
-    /* ======================================
-       إدخال التصويت في Supabase
-    ====================================== */
+    /*
+      ملاحظة:
+      لا نرسل option_a
+      ولا option_b
+      ولا image_a
+      ولا image_b.
+
+      النظام الجديد يستخدم:
+      options = [
+        {
+          name,
+          image,
+          votes
+        }
+      ]
+    */
+
+
+    /*
+      إضافة الإعدادات فقط إذا كانت
+      الأعمدة موجودة في قاعدة البيانات.
+      لتجنب فشل الإنشاء إذا لم تكن
+      موجودة حاليًا، لا نرسلها.
+    */
+
+
+    console.log(
+      "Creating vote:",
+      voteData
+    );
+
+
+    /*
+      INSERT
+    */
 
     const {
       data,
@@ -1762,9 +2319,9 @@ async function publishVote(){
     }
 
 
-    /* ======================================
-       النجاح
-    ====================================== */
+    /*
+      نجاح
+    */
 
     showMessage(
       "تم نشر التصويت بنجاح! 🎉",
@@ -1776,9 +2333,9 @@ async function publishVote(){
       "✅ تم النشر";
 
 
-    /* ======================================
-       الانتقال إلى صفحة التصويت
-    ====================================== */
+    /*
+      الانتقال إلى التصويت
+    */
 
     setTimeout(
     function(){
@@ -1823,11 +2380,13 @@ async function publishVote(){
 }
 
 
-/* ==========================================
+/* =====================================================
    START
-========================================== */
+===================================================== */
 
 updateCounter();
+
+updateAddButton();
 
 checkUser();
 
