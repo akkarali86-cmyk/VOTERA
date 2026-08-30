@@ -219,7 +219,7 @@ input:focus{
   color:var(--muted);
   font-size:10px;
   font-weight:800;
-  background:#eeeeF5;
+  background:#eeeef5;
   padding:5px 8px;
   border-radius:8px;
 }
@@ -604,67 +604,35 @@ id="counter"
 
 <div class="category-grid">
 
-<button
-class="category active"
-data-category="عام"
-type="button"
->
+<button class="category active" data-category="عام" type="button">
 🌐 عام
 </button>
 
-<button
-class="category"
-data-category="تقنية"
-type="button"
->
+<button class="category" data-category="تقنية" type="button">
 📱 تقنية
 </button>
 
-<button
-class="category"
-data-category="ألعاب"
-type="button"
->
+<button class="category" data-category="ألعاب" type="button">
 🎮 ألعاب
 </button>
 
-<button
-class="category"
-data-category="رياضة"
-type="button"
->
+<button class="category" data-category="رياضة" type="button">
 ⚽ رياضة
 </button>
 
-<button
-class="category"
-data-category="أفلام"
-type="button"
->
+<button class="category" data-category="أفلام" type="button">
 🎬 أفلام
 </button>
 
-<button
-class="category"
-data-category="موسيقى"
-type="button"
->
+<button class="category" data-category="موسيقى" type="button">
 🎵 موسيقى
 </button>
 
-<button
-class="category"
-data-category="طعام"
-type="button"
->
+<button class="category" data-category="طعام" type="button">
 🍔 طعام
 </button>
 
-<button
-class="category"
-data-category="ترفيه"
-type="button"
->
+<button class="category" data-category="ترفيه" type="button">
 😂 ترفيه
 </button>
 
@@ -704,9 +672,7 @@ type="button"
 
 <div class="image-upload">
 
-<span>
-🖼️
-</span>
+<span>🖼️</span>
 
 <p>
 اضغط لإضافة صورة — اختياري
@@ -759,9 +725,7 @@ maxlength="80"
 
 <div class="image-upload">
 
-<span>
-🖼️
-</span>
+<span>🖼️</span>
 
 <p>
 اضغط لإضافة صورة — اختياري
@@ -1181,21 +1145,15 @@ function previewImage(input){
 
 
   const preview =
-    container.querySelector(
-      ".preview"
-    );
+    container.querySelector(".preview");
 
 
   const icon =
-    container.querySelector(
-      "span"
-    );
+    container.querySelector("span");
 
 
   const text =
-    container.querySelector(
-      "p"
-    );
+    container.querySelector("p");
 
 
   const reader =
@@ -1266,9 +1224,7 @@ function addOption(){
 
 
   const option =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
 
   option.className =
@@ -1336,7 +1292,6 @@ function addOption(){
       اسم الخيار
     </label>
 
-
     <input
       type="text"
       class="option-name"
@@ -1366,14 +1321,11 @@ function addOption(){
   ){
 
     const addButton =
-      document.querySelector(
-        ".add-option"
-      );
+      document.querySelector(".add-option");
 
 
     addButton.disabled =
       true;
-
 
     addButton.textContent =
       "✅ وصلت إلى 15 خيارًا";
@@ -1400,7 +1352,7 @@ function removeOption(button){
   ){
 
     showMessage(
-      "لا يمكن حذف A أو B. يجب وجود خيارين على الأقل.",
+      "يجب وجود خيارين على الأقل.",
       "error"
     );
 
@@ -1418,14 +1370,11 @@ function removeOption(button){
 
 
   const addButton =
-    document.querySelector(
-      ".add-option"
-    );
+    document.querySelector(".add-option");
 
 
   addButton.disabled =
     false;
-
 
   addButton.textContent =
     "➕ إضافة خيار";
@@ -1455,17 +1404,13 @@ function updateOptionLetters(){
 
 
     option
-      .querySelector(
-        ".option-number"
-      )
+      .querySelector(".option-number")
       .textContent =
         "الخيار " + letter;
 
 
     const input =
-      option.querySelector(
-        ".option-name"
-      );
+      option.querySelector(".option-name");
 
 
     if(
@@ -1523,14 +1468,50 @@ function(button){
 
 
 /* ==========================================
+   BUILD OPTION DATA
+========================================== */
+
+function getOptionData(){
+
+  const optionElements =
+    document.querySelectorAll(
+      "#options .option"
+    );
+
+
+  const result = [];
+
+
+  optionElements.forEach(
+  function(option,index){
+
+    const input =
+      option.querySelector(
+        ".option-name"
+      );
+
+
+    result.push({
+      index:index,
+      letter:String.fromCharCode(65 + index),
+      name:input
+        ? input.value.trim()
+        : ""
+    });
+
+  });
+
+
+  return result;
+
+}
+
+
+/* ==========================================
    PUBLISH VOTE
 ========================================== */
 
 async function publishVote(){
-
-  /* ===============================
-     تسجيل الدخول
-  =============================== */
 
   if(!currentUser){
 
@@ -1543,10 +1524,6 @@ async function publishVote(){
 
   }
 
-
-  /* ===============================
-     السؤال
-  =============================== */
 
   const question =
     document
@@ -1583,19 +1560,11 @@ async function publishVote(){
   }
 
 
-  /* ===============================
-     الخيارات
-  =============================== */
-
-  const optionElements =
-    document.querySelectorAll(
-      "#options .option"
-    );
+  const options =
+    getOptionData();
 
 
-  if(
-    optionElements.length < 2
-  ){
+  if(options.length < 2){
 
     showMessage(
       "يجب وجود الخيار A والخيار B.",
@@ -1607,30 +1576,7 @@ async function publishVote(){
   }
 
 
-  const optionNames = [];
-
-
-  optionElements.forEach(
-  function(option,index){
-
-    const input =
-      option.querySelector(
-        ".option-name"
-      );
-
-
-    optionNames[index] =
-      input.value.trim() ||
-      null;
-
-  });
-
-
-  /* ===============================
-     A و B إجباريان
-  =============================== */
-
-  if(!optionNames[0]){
+  if(!options[0].name){
 
     showMessage(
       "يجب إدخال اسم الخيار A.",
@@ -1642,7 +1588,7 @@ async function publishVote(){
   }
 
 
-  if(!optionNames[1]){
+  if(!options[1].name){
 
     showMessage(
       "يجب إدخال اسم الخيار B.",
@@ -1654,49 +1600,6 @@ async function publishVote(){
   }
 
 
-  /* ===============================
-     C إلى O اختيارية
-  =============================== */
-
-  for(
-    let i = 2;
-    i < optionNames.length;
-    i++
-  ){
-
-    if(!optionNames[i]){
-
-      optionNames[i] =
-        null;
-
-    }
-
-  }
-
-
-  /* ===============================
-     الحد الأقصى
-  =============================== */
-
-  if(
-    optionNames.length >
-    MAX_OPTIONS
-  ){
-
-    showMessage(
-      "الحد الأقصى هو 15 خيارًا.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  /* ===============================
-     تعطيل زر النشر
-  =============================== */
-
   publishButton.disabled =
     true;
 
@@ -1706,9 +1609,9 @@ async function publishVote(){
 
   try{
 
-    /* ===============================
+    /* ======================================
        الحصول على الجلسة
-    =============================== */
+    ====================================== */
 
     const {
       data:sessionData,
@@ -1737,17 +1640,14 @@ async function publishVote(){
     }
 
 
-    /* ===============================
-       بيانات التصويت
+    /* ======================================
+       إنشاء بيانات التصويت
        
-       مهم جدًا:
-       لا نرسل image_a
-       ولا image_b
-       ولا أي أعمدة صور.
-       
+       ملاحظة مهمة:
+       لا نرسل image_a أو image_b
        لأن هذه الأعمدة غير موجودة
-       حاليًا في جدول votes.
-    =============================== */
+       في جدول votes.
+    ====================================== */
 
     const voteData = {
 
@@ -1760,100 +1660,50 @@ async function publishVote(){
       category:
         selectedCategory,
 
-
-      /* الخيار A */
-
       option_a:
-        optionNames[0] || null,
-
-
-      /* الخيار B */
+        options[0]?.name || null,
 
       option_b:
-        optionNames[1] || null,
-
-
-      /* الخيار C */
+        options[1]?.name || null,
 
       option_c:
-        optionNames[2] || null,
-
-
-      /* الخيار D */
+        options[2]?.name || null,
 
       option_d:
-        optionNames[3] || null,
-
-
-      /* الخيار E */
+        options[3]?.name || null,
 
       option_e:
-        optionNames[4] || null,
-
-
-      /* الخيار F */
+        options[4]?.name || null,
 
       option_f:
-        optionNames[5] || null,
-
-
-      /* الخيار G */
+        options[5]?.name || null,
 
       option_g:
-        optionNames[6] || null,
-
-
-      /* الخيار H */
+        options[6]?.name || null,
 
       option_h:
-        optionNames[7] || null,
-
-
-      /* الخيار I */
+        options[7]?.name || null,
 
       option_i:
-        optionNames[8] || null,
-
-
-      /* الخيار J */
+        options[8]?.name || null,
 
       option_j:
-        optionNames[9] || null,
-
-
-      /* الخيار K */
+        options[9]?.name || null,
 
       option_k:
-        optionNames[10] || null,
-
-
-      /* الخيار L */
+        options[10]?.name || null,
 
       option_l:
-        optionNames[11] || null,
-
-
-      /* الخيار M */
+        options[11]?.name || null,
 
       option_m:
-        optionNames[12] || null,
-
-
-      /* الخيار N */
+        options[12]?.name || null,
 
       option_n:
-        optionNames[13] || null,
-
-
-      /* الخيار O */
+        options[13]?.name || null,
 
       option_o:
-        optionNames[14] || null,
-
-
-      /* =========================
-         الأصوات
-      ========================= */
+        options[14]?.name || null,
 
       votes_a:0,
       votes_b:0,
@@ -1874,13 +1724,9 @@ async function publishVote(){
     };
 
 
-    /* ===============================
+    /* ======================================
        إدخال التصويت في Supabase
-    =============================== */
-
-    publishButton.textContent =
-      "⏳ جارٍ نشر التصويت...";
-
+    ====================================== */
 
     const {
       data,
@@ -1893,17 +1739,12 @@ async function publishVote(){
       .single();
 
 
-    /* ===============================
-       التحقق من الخطأ
-    =============================== */
-
     if(error){
 
       console.error(
         "Supabase insert error:",
         error
       );
-
 
       throw new Error(
         error.message
@@ -1921,9 +1762,9 @@ async function publishVote(){
     }
 
 
-    /* ===============================
+    /* ======================================
        النجاح
-    =============================== */
+    ====================================== */
 
     showMessage(
       "تم نشر التصويت بنجاح! 🎉",
@@ -1935,9 +1776,9 @@ async function publishVote(){
       "✅ تم النشر";
 
 
-    /* ===============================
+    /* ======================================
        الانتقال إلى صفحة التصويت
-    =============================== */
+    ====================================== */
 
     setTimeout(
     function(){
@@ -1973,7 +1814,6 @@ async function publishVote(){
 
     publishButton.disabled =
       false;
-
 
     publishButton.textContent =
       "🚀 نشر التصويت";
