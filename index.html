@@ -13,6 +13,10 @@
 
 <style>
 
+/* ==================================================
+   VARIABLES
+================================================== */
+
 :root{
   --primary:#6c5ce7;
   --primary-dark:#5848d6;
@@ -24,6 +28,11 @@
   --soft:#f0eeff;
   --success:#16a34a;
 }
+
+
+/* ==================================================
+   RESET
+================================================== */
 
 *{
   margin:0;
@@ -59,7 +68,9 @@ a{
 }
 
 
-/* ================= HEADER ================= */
+/* ==================================================
+   HEADER
+================================================== */
 
 header{
   height:68px;
@@ -121,7 +132,9 @@ header{
 }
 
 
-/* ================= HERO ================= */
+/* ==================================================
+   HERO
+================================================== */
 
 .hero{
   width:100%;
@@ -190,7 +203,9 @@ header{
 }
 
 
-/* ================= MAIN ================= */
+/* ==================================================
+   MAIN
+================================================== */
 
 .main{
   width:100%;
@@ -200,7 +215,9 @@ header{
 }
 
 
-/* ================= SEARCH ================= */
+/* ==================================================
+   SEARCH
+================================================== */
 
 .search-box{
   background:white;
@@ -243,7 +260,9 @@ header{
 }
 
 
-/* ================= CATEGORIES ================= */
+/* ==================================================
+   CATEGORIES
+================================================== */
 
 .categories{
   display:flex;
@@ -276,7 +295,9 @@ header{
 }
 
 
-/* ================= SECTION ================= */
+/* ==================================================
+   SECTION
+================================================== */
 
 .section{
   margin-bottom:35px;
@@ -309,7 +330,9 @@ header{
 }
 
 
-/* ================= GRID ================= */
+/* ==================================================
+   GRID
+================================================== */
 
 .votes-grid{
   display:grid;
@@ -318,7 +341,9 @@ header{
 }
 
 
-/* ================= CARD ================= */
+/* ==================================================
+   CARD
+================================================== */
 
 .vote-item{
   background:white;
@@ -352,7 +377,9 @@ header{
 }
 
 
-/* ================= OPTIONS ================= */
+/* ==================================================
+   OPTIONS
+================================================== */
 
 .vote-options{
   display:grid;
@@ -369,19 +396,17 @@ header{
 }
 
 .option-content{
-  padding:12px 10px;
+  padding:12px;
 
   display:flex;
   align-items:center;
   gap:8px;
-
-  min-height:52px;
 }
 
 .option-letter{
-  width:27px;
-  height:27px;
-  min-width:27px;
+  width:29px;
+  height:29px;
+  min-width:29px;
 
   background:#ece9ff;
   color:var(--primary);
@@ -406,7 +431,9 @@ header{
 }
 
 
-/* ================= BOTTOM ================= */
+/* ==================================================
+   BOTTOM
+================================================== */
 
 .vote-bottom{
   margin-top:14px;
@@ -446,7 +473,9 @@ header{
 }
 
 
-/* ================= EMPTY ================= */
+/* ==================================================
+   EMPTY
+================================================== */
 
 .empty{
   background:white;
@@ -474,7 +503,9 @@ header{
 }
 
 
-/* ================= LOADING ================= */
+/* ==================================================
+   LOADING
+================================================== */
 
 .loading{
   text-align:center;
@@ -504,7 +535,9 @@ header{
 }
 
 
-/* ================= MESSAGE ================= */
+/* ==================================================
+   MESSAGE
+================================================== */
 
 .message{
   display:none;
@@ -514,6 +547,7 @@ header{
   text-align:center;
   font-size:12px;
   font-weight:800;
+  white-space:pre-line;
 }
 
 .message.success{
@@ -529,7 +563,9 @@ header{
 }
 
 
-/* ================= FOOTER ================= */
+/* ==================================================
+   FOOTER
+================================================== */
 
 footer{
   border-top:1px solid var(--border);
@@ -555,7 +591,9 @@ footer p{
 }
 
 
-/* ================= BOTTOM NAV ================= */
+/* ==================================================
+   BOTTOM NAV
+================================================== */
 
 .bottom-nav{
   position:fixed;
@@ -637,7 +675,6 @@ footer p{
   justify-content:center;
 
   font-size:29px;
-  font-weight:400;
 
   box-shadow:0 8px 22px rgba(108,92,231,.32);
 
@@ -652,7 +689,9 @@ footer p{
 }
 
 
-/* ================= DESKTOP ================= */
+/* ==================================================
+   DESKTOP
+================================================== */
 
 @media(min-width:700px){
 
@@ -676,7 +715,9 @@ footer p{
 }
 
 
-/* ================= MOBILE ================= */
+/* ==================================================
+   MOBILE
+================================================== */
 
 @media(max-width:500px){
 
@@ -708,7 +749,9 @@ footer p{
 }
 
 
-/* ================= SMALL PHONES ================= */
+/* ==================================================
+   SMALL PHONES
+================================================== */
 
 @media(max-width:360px){
 
@@ -736,7 +779,9 @@ footer p{
 <body>
 
 
-<!-- ================= HEADER ================= -->
+<!-- ==================================================
+     HEADER
+================================================== -->
 
 <header>
 
@@ -769,7 +814,10 @@ class="nav-button create-button"
 </header>
 
 
-<!-- ================= HERO ================= -->
+
+<!-- ==================================================
+     HERO
+================================================== -->
 
 <section class="hero">
 
@@ -809,9 +857,13 @@ class="hero-button hero-secondary"
 </section>
 
 
-<!-- ================= MAIN ================= -->
+
+<!-- ==================================================
+     MAIN
+================================================== -->
 
 <main class="main">
+
 
 <div
 id="message"
@@ -820,7 +872,8 @@ class="message"
 </div>
 
 
-<!-- ================= SEARCH ================= -->
+
+<!-- SEARCH -->
 
 <div class="search-box">
 
@@ -845,12 +898,14 @@ onclick="searchVotes()"
 </div>
 
 
-<!-- ================= CATEGORIES ================= -->
+
+<!-- CATEGORIES -->
 
 <div class="categories">
 
 <button
 class="category active"
+data-category="الكل"
 onclick="filterCategory('الكل',this)"
 >
 🌐 الكل
@@ -858,6 +913,7 @@ onclick="filterCategory('الكل',this)"
 
 <button
 class="category"
+data-category="عام"
 onclick="filterCategory('عام',this)"
 >
 🌐 عام
@@ -865,6 +921,7 @@ onclick="filterCategory('عام',this)"
 
 <button
 class="category"
+data-category="تقنية"
 onclick="filterCategory('تقنية',this)"
 >
 📱 تقنية
@@ -872,6 +929,7 @@ onclick="filterCategory('تقنية',this)"
 
 <button
 class="category"
+data-category="ألعاب"
 onclick="filterCategory('ألعاب',this)"
 >
 🎮 ألعاب
@@ -879,6 +937,7 @@ onclick="filterCategory('ألعاب',this)"
 
 <button
 class="category"
+data-category="رياضة"
 onclick="filterCategory('رياضة',this)"
 >
 ⚽ رياضة
@@ -886,6 +945,7 @@ onclick="filterCategory('رياضة',this)"
 
 <button
 class="category"
+data-category="أفلام"
 onclick="filterCategory('أفلام',this)"
 >
 🎬 أفلام
@@ -893,6 +953,7 @@ onclick="filterCategory('أفلام',this)"
 
 <button
 class="category"
+data-category="موسيقى"
 onclick="filterCategory('موسيقى',this)"
 >
 🎵 موسيقى
@@ -900,6 +961,7 @@ onclick="filterCategory('موسيقى',this)"
 
 <button
 class="category"
+data-category="طعام"
 onclick="filterCategory('طعام',this)"
 >
 🍔 طعام
@@ -907,6 +969,7 @@ onclick="filterCategory('طعام',this)"
 
 <button
 class="category"
+data-category="ترفيه"
 onclick="filterCategory('ترفيه',this)"
 >
 😂 ترفيه
@@ -915,7 +978,10 @@ onclick="filterCategory('ترفيه',this)"
 </div>
 
 
-<!-- ================= TRENDING ================= -->
+
+<!-- ==================================================
+     TRENDING
+================================================== -->
 
 <section
 class="section"
@@ -942,6 +1008,7 @@ onclick="loadVotes()"
 
 </div>
 
+
 <div
 id="trendingVotes"
 class="votes-grid"
@@ -960,7 +1027,10 @@ class="votes-grid"
 </section>
 
 
-<!-- ================= LATEST ================= -->
+
+<!-- ==================================================
+     LATEST
+================================================== -->
 
 <section class="section">
 
@@ -971,6 +1041,7 @@ class="votes-grid"
 </h2>
 
 </div>
+
 
 <div
 id="latestVotes"
@@ -989,10 +1060,14 @@ class="votes-grid"
 
 </section>
 
+
 </main>
 
 
-<!-- ================= FOOTER ================= -->
+
+<!-- ==================================================
+     FOOTER
+================================================== -->
 
 <footer>
 
@@ -1008,7 +1083,10 @@ VOTE<span>RA</span>
 </footer>
 
 
-<!-- ================= BOTTOM NAV ================= -->
+
+<!-- ==================================================
+     BOTTOM NAVIGATION
+================================================== -->
 
 <nav
 class="bottom-nav"
@@ -1103,7 +1181,10 @@ class="bottom-item"
 </nav>
 
 
-<!-- ================= JAVASCRIPT ================= -->
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
 
 <script>
 
@@ -1139,24 +1220,16 @@ let selectedCategory = "الكل";
 ================================================== */
 
 const trendingVotes =
-document.getElementById(
-  "trendingVotes"
-);
+document.getElementById("trendingVotes");
 
 const latestVotes =
-document.getElementById(
-  "latestVotes"
-);
+document.getElementById("latestVotes");
 
 const searchInput =
-document.getElementById(
-  "searchInput"
-);
+document.getElementById("searchInput");
 
 const message =
-document.getElementById(
-  "message"
-);
+document.getElementById("message");
 
 
 /* ==================================================
@@ -1165,21 +1238,17 @@ document.getElementById(
 
 function showMessage(text,type){
 
-  message.textContent =
-    text;
+  message.textContent = text;
 
   message.className =
     "message " + type;
 
-  setTimeout(
-    function(){
+  setTimeout(function(){
 
-      message.className =
-        "message";
+    message.className =
+      "message";
 
-    },
-    3000
-  );
+  },4000);
 
 }
 
@@ -1200,20 +1269,19 @@ async function signInWithGoogle(){
       provider:"google",
 
       options:{
-
-        redirectTo:
-          window.location.href
-
+        redirectTo:window.location.href
       }
 
     });
+
 
     if(error){
 
       console.error(error);
 
       showMessage(
-        "حدث خطأ أثناء تسجيل الدخول.",
+        "حدث خطأ أثناء تسجيل الدخول:\n" +
+        error.message,
         "error"
       );
 
@@ -1224,7 +1292,7 @@ async function signInWithGoogle(){
     console.error(error);
 
     showMessage(
-      "تعذر الاتصال.",
+      "تعذر الاتصال بخدمة تسجيل الدخول.",
       "error"
     );
 
@@ -1251,6 +1319,7 @@ async function loadVotes(){
 
   `;
 
+
   latestVotes.innerHTML = `
 
     <div class="loading">
@@ -1269,12 +1338,12 @@ async function loadVotes(){
     /*
       مهم جدًا:
 
-      نحن الآن نحدد الأعمدة الموجودة
-      التي يحتاجها الموقع فقط.
-
-      لا نطلب image_a
+      لا نستخدم image_a
       ولا image_b
-      ولا أي image column.
+      ولا أي أعمدة صور.
+
+      نطلب فقط الأعمدة الأساسية
+      الموجودة في جدول votes.
     */
 
     const {
@@ -1336,11 +1405,13 @@ async function loadVotes(){
         error
       );
 
+
       showEmpty(
         trendingVotes,
         "تعذر تحميل التصويتات.",
         error.message
       );
+
 
       showEmpty(
         latestVotes,
@@ -1348,19 +1419,22 @@ async function loadVotes(){
         error.message
       );
 
+
       return;
 
     }
 
 
-    allVotes =
-      data || [];
-
-
     console.log(
-      "Votes loaded:",
-      allVotes
+      "VOTERA votes:",
+      data
     );
+
+
+    allVotes =
+      Array.isArray(data)
+      ? data
+      : [];
 
 
     renderVotes();
@@ -1373,10 +1447,13 @@ async function loadVotes(){
       error
     );
 
+
     showEmpty(
       trendingVotes,
-      "حدث خطأ أثناء تحميل التصويتات."
+      "حدث خطأ أثناء تحميل التصويتات.",
+      error.message
     );
+
 
     showEmpty(
       latestVotes,
@@ -1389,7 +1466,7 @@ async function loadVotes(){
 
 
 /* ==================================================
-   RENDER VOTES
+   RENDER
 ================================================== */
 
 function renderVotes(){
@@ -1401,20 +1478,17 @@ function renderVotes(){
   /* CATEGORY */
 
   if(
-    selectedCategory !==
-    "الكل"
+    selectedCategory !== "الكل"
   ){
 
     filtered =
       filtered.filter(
       function(vote){
 
-        return (
-          String(
-            vote.category || ""
-          ) ===
-          selectedCategory
-        );
+        return String(
+          vote.category || "عام"
+        ) ===
+        selectedCategory;
 
       });
 
@@ -1442,16 +1516,18 @@ function renderVotes(){
           .toLowerCase();
 
 
-        const category =
-          String(
-            vote.category || ""
-          )
-          .toLowerCase();
+        const optionText =
+          getVoteOptions(vote)
+            .map(function(option){
+              return option.name;
+            })
+            .join(" ")
+            .toLowerCase();
 
 
         return (
           question.includes(search) ||
-          category.includes(search)
+          optionText.includes(search)
         );
 
       });
@@ -1462,29 +1538,27 @@ function renderVotes(){
   /* LATEST */
 
   const latest =
-    filtered.slice(
-      0,
-      10
-    );
+    [...filtered]
+      .sort(function(a,b){
+
+        return getTime(b) -
+               getTime(a);
+
+      })
+      .slice(0,10);
 
 
   /* TRENDING */
 
   const trending =
     [...filtered]
-      .sort(
-      function(a,b){
+      .sort(function(a,b){
 
-        return (
-          calculateTotal(b) -
-          calculateTotal(a)
-        );
+        return calculateTotal(b) -
+               calculateTotal(a);
 
       })
-      .slice(
-        0,
-        10
-      );
+      .slice(0,10);
 
 
   renderVoteList(
@@ -1502,6 +1576,25 @@ function renderVotes(){
 
 
 /* ==================================================
+   DATE
+================================================== */
+
+function getTime(vote){
+
+  const time =
+    new Date(
+      vote.created_at || 0
+    ).getTime();
+
+
+  return isNaN(time)
+    ? 0
+    : time;
+
+}
+
+
+/* ==================================================
    RENDER LIST
 ================================================== */
 
@@ -1510,8 +1603,7 @@ function renderVoteList(
   votes
 ){
 
-  container.innerHTML =
-    "";
+  container.innerHTML = "";
 
 
   if(!votes.length){
@@ -1528,14 +1620,13 @@ function renderVoteList(
 
 
   votes.forEach(
-    function(vote){
+  function(vote){
 
-      container.appendChild(
-        createVoteCard(vote)
-      );
+    container.appendChild(
+      createVoteCard(vote)
+    );
 
-    }
-  );
+  });
 
 }
 
@@ -1547,9 +1638,8 @@ function renderVoteList(
 function createVoteCard(vote){
 
   const card =
-    document.createElement(
-      "article"
-    );
+    document.createElement("article");
+
 
   card.className =
     "vote-item";
@@ -1563,8 +1653,7 @@ function createVoteCard(vote){
     calculateTotal(vote);
 
 
-  let optionsHTML =
-    "";
+  let optionsHTML = "";
 
 
   options
@@ -1579,7 +1668,7 @@ function createVoteCard(vote){
           <div class="option-content">
 
             <div class="option-letter">
-              ${option.letter}
+              ${escapeHtml(option.letter)}
             </div>
 
             <div class="option-name">
@@ -1593,6 +1682,31 @@ function createVoteCard(vote){
       `;
 
     });
+
+
+  /*
+    إذا لم نجد خيارات
+  */
+
+  if(!optionsHTML){
+
+    optionsHTML = `
+
+      <div
+        style="
+          grid-column:1/-1;
+          padding:15px;
+          text-align:center;
+          color:#777783;
+          font-size:11px;
+        "
+      >
+        لا توجد خيارات لهذا التصويت.
+      </div>
+
+    `;
+
+  }
 
 
   card.innerHTML = `
@@ -1642,6 +1756,7 @@ function createVoteCard(vote){
 
         <button
           class="share-small"
+          type="button"
           onclick="shareVote('${escapeAttribute(vote.id)}')"
         >
           📤 مشاركة
@@ -1650,6 +1765,7 @@ function createVoteCard(vote){
 
         <button
           class="vote-now"
+          type="button"
           onclick="openVote('${escapeAttribute(vote.id)}')"
         >
           صوّت الآن →
@@ -1693,25 +1809,21 @@ function getVoteOptions(vote){
       letter.toLowerCase();
 
 
-    const name =
+    const value =
       vote[field];
 
 
-    /*
-      لا نستخدم image_a
-      ولا أي صورة هنا.
-    */
-
     if(
-      name &&
-      String(name).trim()
+      value !== null &&
+      value !== undefined &&
+      String(value).trim() !== ""
     ){
 
       options.push({
 
         letter:letter,
 
-        name:String(name).trim()
+        name:String(value).trim()
 
       });
 
@@ -1751,10 +1863,19 @@ function calculateTotal(vote){
       letter.toLowerCase();
 
 
-    total +=
+    const value =
       Number(
         vote[field] || 0
       );
+
+
+    if(
+      !isNaN(value)
+    ){
+
+      total += value;
+
+    }
 
   }
 
@@ -1773,28 +1894,18 @@ function getCategoryEmoji(category){
   const emojis = {
 
     "عام":"🌐",
-
     "تقنية":"📱",
-
     "ألعاب":"🎮",
-
     "رياضة":"⚽",
-
     "أفلام":"🎬",
-
     "موسيقى":"🎵",
-
     "طعام":"🍔",
-
     "ترفيه":"😂"
 
   };
 
 
-  return (
-    emojis[category] ||
-    "🌐"
-  );
+  return emojis[category] || "🌐";
 
 }
 
@@ -1813,9 +1924,7 @@ function filterCategory(
 
 
   document
-    .querySelectorAll(
-      ".category"
-    )
+    .querySelectorAll(".category")
     .forEach(
     function(item){
 
@@ -1853,6 +1962,13 @@ function searchVotes(){
 
 function openVote(id){
 
+  if(!id){
+
+    return;
+
+  }
+
+
   window.location.href =
     "vote.html?id=" +
     encodeURIComponent(id);
@@ -1867,27 +1983,22 @@ function openVote(id){
 async function shareVote(id){
 
   const link =
-    window.location.origin +
-    window.location.pathname
-      .replace(
-        "index.html",
-        "vote.html"
-      ) +
+    new URL(
+      "vote.html",
+      window.location.href
+    ).href +
     "?id=" +
     encodeURIComponent(id);
 
 
   const vote =
     allVotes.find(
-      function(item){
+    function(item){
 
-        return String(
-          item.id
-        ) ===
-        String(id);
+      return String(item.id) ===
+             String(id);
 
-      }
-    );
+    });
 
 
   const text =
@@ -1915,6 +2026,7 @@ async function shareVote(id){
         url:link
 
       });
+
 
       return;
 
@@ -1945,7 +2057,7 @@ async function shareVote(id){
   }catch(error){
 
     showMessage(
-      "انسخ الرابط:\n" +
+      "تعذر نسخ الرابط:\n" +
       link,
       "error"
     );
@@ -1977,15 +2089,17 @@ function showEmpty(
         ${escapeHtml(title)}
       </h3>
 
-      <p>
-        ${
-          description
-          ?
-          escapeHtml(description)
-          :
-          ""
-        }
-      </p>
+      ${
+        description
+        ?
+        `
+        <p>
+          ${escapeHtml(description)}
+        </p>
+        `
+        :
+        ""
+      }
 
     </div>
 
@@ -2001,14 +2115,14 @@ function showEmpty(
 function escapeHtml(text){
 
   const div =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
+
 
   div.textContent =
     text == null
     ? ""
     : String(text);
+
 
   return div.innerHTML;
 
@@ -2023,30 +2137,11 @@ function escapeAttribute(text){
 
   return String(text)
 
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    );
+    .replace(/&/g,"&amp;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
 
 }
 
@@ -2057,6 +2152,20 @@ function escapeAttribute(text){
 
 loadVotes();
 
+
+/* ==================================================
+   AUTO REFRESH
+   كل 15 ثانية
+================================================== */
+
+setInterval(
+  function(){
+
+    loadVotes();
+
+  },
+  15000
+);
 
 </script>
 
