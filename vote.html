@@ -23,6 +23,7 @@
   --border:#e8e8ef;
   --success:#16a34a;
   --danger:#e74c3c;
+  --danger-dark:#c0392b;
 }
 
 *{
@@ -351,6 +352,33 @@ header{
 }
 
 
+/* ================= DELETE ================= */
+
+.delete-section{
+  margin-top:12px;
+}
+
+.delete-button{
+  width:100%;
+  padding:13px;
+  border-radius:13px;
+  background:#fff0f0;
+  color:var(--danger);
+  border:1px solid #ffd0d0;
+  font-size:12px;
+  font-weight:900;
+}
+
+.delete-button:hover{
+  background:#ffe5e5;
+  color:var(--danger-dark);
+}
+
+.delete-button:disabled{
+  opacity:.6;
+}
+
+
 /* ================= SHARE PANEL ================= */
 
 .share-panel{
@@ -558,6 +586,24 @@ onclick="copyVoteLink()"
 </div>
 
 
+<!-- DELETE BUTTON -->
+<div
+id="deleteSection"
+class="delete-section"
+style="display:none;"
+>
+
+<button
+id="deleteButton"
+class="delete-button"
+onclick="deleteVote()"
+>
+🗑️ حذف هذا التصويت
+</button>
+
+</div>
+
+
 <!-- SHARE PANEL -->
 
 <div id="sharePanel" class="share-panel">
@@ -617,7 +663,6 @@ const SUPABASE_URL =
 const SUPABASE_ANON_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
 
-
 const supabaseClient =
 window.supabase.createClient(
   SUPABASE_URL,
@@ -668,6 +713,12 @@ document.getElementById("meta");
 
 const optionsElement =
 document.getElementById("options");
+
+const deleteSection =
+document.getElementById("deleteSection");
+
+const deleteButton =
+document.getElementById("deleteButton");
 
 
 /* ==========================================
@@ -783,6 +834,8 @@ async function loadVote(){
 
     displayVote();
 
+    await checkVoteOwner();
+
 
   }catch(error){
 
@@ -845,19 +898,12 @@ function getCategoryEmoji(category){
   const emojis = {
 
     "عام":"🌐",
-
     "تقنية":"📱",
-
     "ألعاب":"🎮",
-
     "رياضة":"⚽",
-
     "أفلام":"🎬",
-
     "موسيقى":"🎵",
-
     "طعام":"🍔",
-
     "ترفيه":"😂"
 
   };
@@ -891,7 +937,7 @@ function formatVotes(number){
 
 
 /* ==========================================
-   GET OPTIONS FROM JSONB
+   GET OPTIONS
 ========================================== */
 
 function getOptions(){
@@ -906,11 +952,6 @@ function getOptions(){
   let rawOptions =
     vote.options;
 
-
-  /*
-    Supabase يعيد jsonb عادةً كـ Array.
-    لكن إذا عاد كنص نحاول تحويله.
-  */
 
   if(typeof rawOptions === "string"){
 
@@ -988,40 +1029,6 @@ function getOptions(){
 
     })
     .filter(Boolean);
-
-}
-
-
-/* ==========================================
-   GET VOTE COUNT
-========================================== */
-
-function getVoteCount(letter){
-
-  const options =
-    getOptions();
-
-
-  const option =
-    options.find(
-      function(item){
-
-        return item.letter === letter;
-
-      }
-    );
-
-
-  if(!option){
-
-    return 0;
-
-  }
-
-
-  return Number(
-    option.votes || 0
-  );
 
 }
 
@@ -1126,10 +1133,6 @@ function renderOptions(){
         option.letter;
 
 
-      /*
-        صورة الخيار
-      */
-
       let imageHTML =
         "";
 
@@ -1232,7 +1235,9 @@ function escapeHtml(text){
 
 
   div.textContent =
-    text;
+    text == null
+    ? ""
+    : String(text);
 
 
   return div.innerHTML;
@@ -1249,6 +1254,7 @@ function escapeAttribute(text){
   return String(text)
     .replace(/&/g,"&amp;")
     .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;");
 
@@ -1333,14 +1339,74 @@ async function getCurrentSession(){
 
 
 /* ==========================================
+   CHECK VOTE OWNER
+========================================== */
+
+async function checkVoteOwner(){
+
+  /*
+    في البداية نخفي زر الحذف
+  */
+
+  deleteSection.style.display =
+    "none";
+
+
+  if(!vote){
+
+    return;
+
+  }
+
+
+  /*
+    التأكد من المستخدم الحالي
+  */
+
+  const session =
+    await getCurrentSession();
+
+
+  if(!session){
+
+    return;
+
+  }
+
+
+  /*
+    نتحقق أن user_id الخاص
+    بالتصويت هو نفس المستخدم
+  */
+
+  const currentUserId =
+    session.user.id;
+
+
+  const voteOwnerId =
+    vote.user_id;
+
+
+  if(
+    currentUserId &&
+    voteOwnerId &&
+    String(currentUserId) ===
+    String(voteOwnerId)
+  ){
+
+    deleteSection.style.display =
+      "block";
+
+  }
+
+}
+
+
+/* ==========================================
    VOTE
 ========================================== */
 
 async function voteFor(letter){
-
-  /*
-    التأكد من وجود التصويت
-  */
 
   if(!vote || !voteId){
 
@@ -1353,10 +1419,6 @@ async function voteFor(letter){
 
   }
 
-
-  /*
-    منع التصويت مرة ثانية
-  */
 
   if(hasVoted){
 
@@ -1371,10 +1433,6 @@ async function voteFor(letter){
 
   }
 
-
-  /*
-    التأكد من تسجيل الدخول
-  */
 
   const session =
     await getCurrentSession();
@@ -1406,10 +1464,6 @@ async function voteFor(letter){
   }
 
 
-  /*
-    البحث عن الخيار
-  */
-
   const options =
     getOptions();
 
@@ -1436,17 +1490,9 @@ async function voteFor(letter){
   }
 
 
-  /*
-    رقم الخيار في JSON
-  */
-
   const optionIndex =
     selected.index;
 
-
-  /*
-    تعطيل الأزرار
-  */
 
   disableVoteButtons();
 
@@ -1458,10 +1504,6 @@ async function voteFor(letter){
 
 
   try{
-
-    /*
-      استدعاء دالة Supabase
-    */
 
     const {
       data,
@@ -1478,10 +1520,6 @@ async function voteFor(letter){
       }
     );
 
-
-    /*
-      خطأ
-    */
 
     if(error){
 
@@ -1544,10 +1582,6 @@ async function voteFor(letter){
     }
 
 
-    /*
-      التأكد من النجاح
-    */
-
     if(
       !data ||
       data.success !== true
@@ -1567,10 +1601,6 @@ async function voteFor(letter){
     }
 
 
-    /*
-      حفظ الاختيار محليًا
-    */
-
     localStorage.setItem(
       "votera_vote_" + voteId,
       letter
@@ -1583,10 +1613,6 @@ async function voteFor(letter){
     selectedOption =
       letter;
 
-
-    /*
-      إعادة تحميل البيانات
-    */
 
     await reloadVote();
 
@@ -1725,6 +1751,9 @@ async function reloadVote(){
 
       showResults();
 
+
+      await checkVoteOwner();
+
     }
 
   }catch(error){
@@ -1860,6 +1889,206 @@ function showResults(){
 
       }
     );
+
+}
+
+
+/* ==========================================
+   DELETE VOTE
+========================================== */
+
+async function deleteVote(){
+
+  /*
+    التأكد من وجود التصويت
+  */
+
+  if(!vote || !voteId){
+
+    showMessage(
+      "التصويت غير متوفر.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /*
+    التأكد من تسجيل الدخول
+  */
+
+  const session =
+    await getCurrentSession();
+
+
+  if(!session){
+
+    showMessage(
+      "يجب تسجيل الدخول لحذف التصويت.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /*
+    حماية إضافية:
+    لا نسمح إلا لصاحب التصويت
+  */
+
+  if(
+    String(session.user.id) !==
+    String(vote.user_id)
+  ){
+
+    showMessage(
+      "ليس لديك صلاحية حذف هذا التصويت.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /*
+    تأكيد الحذف
+  */
+
+  const confirmed =
+    confirm(
+      "⚠️ هل أنت متأكد من حذف هذا التصويت؟\n\nسيتم حذف التصويت نهائيًا ولا يمكن التراجع عن ذلك."
+    );
+
+
+  if(!confirmed){
+
+    return;
+
+  }
+
+
+  /*
+    تعطيل الزر
+  */
+
+  deleteButton.disabled =
+    true;
+
+  deleteButton.textContent =
+    "⏳ جارٍ الحذف...";
+
+
+  showMessage(
+    "⏳ جارٍ حذف التصويت...",
+    "success"
+  );
+
+
+  try{
+
+    /*
+      حذف التصويت من جدول votes
+    */
+
+    const {
+      error
+    } =
+    await supabaseClient
+      .from("votes")
+      .delete()
+      .eq("id",voteId)
+      .eq("user_id",session.user.id);
+
+
+    if(error){
+
+      console.error(
+        "Delete vote error:",
+        error
+      );
+
+
+      deleteButton.disabled =
+        false;
+
+      deleteButton.textContent =
+        "🗑️ حذف هذا التصويت";
+
+
+      showMessage(
+        "فشل حذف التصويت:\n" +
+        error.message,
+        "error"
+      );
+
+
+      return;
+
+    }
+
+
+    /*
+      حذف التصويت من التخزين المحلي
+    */
+
+    localStorage.removeItem(
+      "votera_vote_" + voteId
+    );
+
+
+    /*
+      نجاح
+    */
+
+    showMessage(
+      "تم حذف التصويت بنجاح. 🗑️",
+      "success"
+    );
+
+
+    /*
+      العودة للرئيسية
+      بعد وقت قصير
+    */
+
+    setTimeout(
+      function(){
+
+        window.location.href =
+          "index.html";
+
+      },
+      1200
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Delete error:",
+      error
+    );
+
+
+    deleteButton.disabled =
+      false;
+
+    deleteButton.textContent =
+      "🗑️ حذف هذا التصويت";
+
+
+    showMessage(
+      "حدث خطأ أثناء حذف التصويت:\n" +
+      error.message,
+      "error"
+    );
+
+  }
 
 }
 
@@ -2048,10 +2277,6 @@ async function copyVoteLink(){
 
   }catch(error){
 
-    /*
-      طريقة احتياطية
-    */
-
     const textarea =
       document.createElement(
         "textarea"
@@ -2139,6 +2364,28 @@ supabaseClient.auth.onAuthStateChange(
       "Auth event:",
       event
     );
+
+
+    /*
+      إذا سجل المستخدم الدخول
+      نتحقق هل هو صاحب التصويت
+    */
+
+    if(
+      event === "SIGNED_IN" ||
+      event === "INITIAL_SESSION"
+    ){
+
+      setTimeout(
+        function(){
+
+          checkVoteOwner();
+
+        },
+        100
+      );
+
+    }
 
   }
 );
