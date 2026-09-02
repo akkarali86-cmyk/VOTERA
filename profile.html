@@ -23,6 +23,7 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   --muted:#777783;
   --border:#e8e8ef;
   --danger:#d93025;
+  --success:#16a34a;
 }
 
 *{
@@ -146,7 +147,7 @@ header{
 
 
 /* =========================================
-   LOGIN CARD
+   LOGIN
 ========================================= */
 
 .login-card{
@@ -179,13 +180,9 @@ header{
   font-size:13px;
 }
 
-.google-btn:hover{
-  border-color:var(--primary);
-}
-
 
 /* =========================================
-   PROFILE CARD
+   PROFILE
 ========================================= */
 
 .profile-card{
@@ -229,7 +226,74 @@ header{
   color:var(--muted);
   font-size:12px;
   direction:ltr;
-  margin-bottom:20px;
+  margin-bottom:18px;
+}
+
+
+/* =========================================
+   FOLLOW BUTTON
+========================================= */
+
+.follow-button{
+  width:100%;
+  max-width:260px;
+  padding:13px 20px;
+  border-radius:13px;
+  background:var(--primary);
+  color:white;
+  font-size:13px;
+  font-weight:950;
+  margin:0 auto 18px;
+  display:block;
+  transition:.2s;
+}
+
+.follow-button:hover{
+  background:var(--primary-dark);
+}
+
+.follow-button.following{
+  background:#f0eeff;
+  color:var(--primary);
+  border:1px solid #dcd6ff;
+}
+
+.follow-button.following:hover{
+  background:#ffecec;
+  color:var(--danger);
+  border-color:#ffd0d0;
+}
+
+
+/* =========================================
+   FOLLOW STATS
+========================================= */
+
+.follow-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:8px;
+}
+
+.follow-stat{
+  background:#fafafd;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:13px 5px;
+}
+
+.follow-stat strong{
+  display:block;
+  color:var(--primary);
+  font-size:19px;
+  margin-bottom:4px;
+}
+
+.follow-stat span{
+  color:var(--muted);
+  font-size:10px;
+  font-weight:800;
 }
 
 
@@ -265,7 +329,7 @@ header{
 
 
 /* =========================================
-   SECTION HEADER
+   SECTION
 ========================================= */
 
 .section-header{
@@ -367,13 +431,9 @@ header{
   border:1px solid #ffd5d5;
 }
 
-.logout:hover{
-  background:#ffe5e5;
-}
-
 
 /* =========================================
-   BOTTOM NAVIGATION
+   BOTTOM NAV
 ========================================= */
 
 .bottom-nav{
@@ -388,8 +448,6 @@ header{
   border-top:1px solid #e8e8ef !important;
   box-shadow:0 -6px 25px rgba(0,0,0,.10) !important;
   z-index:2147483647 !important;
-  visibility:visible !important;
-  opacity:1 !important;
 }
 
 .bottom-nav-inner{
@@ -414,11 +472,6 @@ header{
   font-size:10px;
   font-weight:900;
   position:relative;
-  -webkit-tap-highlight-color:transparent;
-}
-
-.bottom-item:active{
-  background:#faf9ff;
 }
 
 .bottom-item.active{
@@ -432,18 +485,12 @@ header{
   align-items:center;
   justify-content:center;
   font-size:21px;
-  line-height:1;
 }
 
 .bottom-label{
   font-size:10px;
   white-space:nowrap;
 }
-
-
-/* =========================================
-   CREATE BUTTON
-========================================= */
 
 .bottom-create{
   width:52px;
@@ -455,13 +502,8 @@ header{
   align-items:center;
   justify-content:center;
   font-size:28px;
-  font-weight:400;
-  box-shadow:0 8px 22px rgba(108,92,231,.32);
   margin-top:-22px;
-}
-
-.bottom-create:active{
-  transform:scale(.94);
+  box-shadow:0 8px 22px rgba(108,92,231,.32);
 }
 
 
@@ -484,20 +526,7 @@ header{
 
 
 /* =========================================
-   DESKTOP
-========================================= */
-
-@media(min-width:700px){
-
-  .container{
-    padding-top:50px;
-  }
-
-}
-
-
-/* =========================================
-   SMALL PHONES
+   MOBILE
 ========================================= */
 
 @media(max-width:360px){
@@ -526,10 +555,6 @@ header{
 <body>
 
 
-<!-- =====================================
-     HEADER
-===================================== -->
-
 <header>
 
 <nav class="nav">
@@ -547,10 +572,6 @@ VOTE<span>RA</span>
 </header>
 
 
-<!-- =====================================
-     MAIN
-===================================== -->
-
 <main class="container">
 
 
@@ -560,9 +581,7 @@ class="message">
 </div>
 
 
-<!-- =====================================
-     LOGIN
-===================================== -->
+<!-- LOGIN -->
 
 <div
 id="loginCard"
@@ -588,9 +607,7 @@ onclick="signInWithGoogle()"
 </div>
 
 
-<!-- =====================================
-     PROFILE
-===================================== -->
+<!-- PROFILE -->
 
 <div
 id="profileContent"
@@ -624,6 +641,54 @@ id="profileEmail"
 -
 </div>
 
+
+<!-- FOLLOW BUTTON -->
+
+<button
+id="followButton"
+class="follow-button"
+onclick="toggleFollow()"
+style="display:none;"
+>
+➕ متابعة
+</button>
+
+
+<!-- FOLLOW STATS -->
+
+<div class="follow-stats">
+
+
+<div class="follow-stat">
+
+<strong id="followersCount">
+0
+</strong>
+
+<span>
+المتابعون
+</span>
+
+</div>
+
+
+<div class="follow-stat">
+
+<strong id="followingCount">
+0
+</strong>
+
+<span>
+يتابع
+</span>
+
+</div>
+
+
+</div>
+
+
+<!-- VOTE STATS -->
 
 <div class="stats">
 
@@ -669,12 +734,11 @@ id="profileEmail"
 
 </div>
 
+
 </section>
 
 
-<!-- =====================================
-     MY VOTES
-===================================== -->
+<!-- MY VOTES -->
 
 <div class="section-header">
 
@@ -691,9 +755,7 @@ id="profileEmail"
 
 <div
 id="votesList"
-class="votes"
->
-
+class="votes">
 </div>
 
 
@@ -712,9 +774,7 @@ onclick="logout()"
 </main>
 
 
-<!-- =====================================
-     BOTTOM NAVIGATION
-===================================== -->
+<!-- BOTTOM NAV -->
 
 <nav
 class="bottom-nav"
@@ -834,6 +894,8 @@ window.supabase.createClient(
 ========================================= */
 
 let currentUser = null;
+let profileUserId = null;
+let isFollowing = false;
 
 
 /* =========================================
@@ -848,6 +910,9 @@ document.getElementById("profileContent");
 
 const message =
 document.getElementById("message");
+
+const followButton =
+document.getElementById("followButton");
 
 
 /* =========================================
@@ -883,8 +948,8 @@ async function signInWithGoogle(){
       options:{
 
         redirectTo:
-        window.location.origin +
-        "/VOTERA/profile.html"
+          window.location.origin +
+          "/VOTERA/profile.html"
 
       }
 
@@ -892,11 +957,6 @@ async function signInWithGoogle(){
 
 
     if(error){
-
-      console.error(
-        "Google login error:",
-        error
-      );
 
       showMessage(
         "حدث خطأ أثناء تسجيل الدخول:\n" +
@@ -940,15 +1000,30 @@ async function checkUser(){
       session?.user || null;
 
 
+    /*
+      إذا كان هناك id في الرابط،
+      نحاول فتح ملف ذلك المستخدم.
+    */
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    profileUserId =
+      params.get("id") ||
+      (currentUser
+        ? currentUser.id
+        : null);
+
+
     updatePage();
 
 
   }catch(error){
 
-    console.error(
-      "Session error:",
-      error
-    );
+    console.error(error);
 
     showMessage(
       "تعذر التحقق من تسجيل الدخول.",
@@ -1042,6 +1117,19 @@ async function loadProfile(){
   }
 
 
+  /*
+    في الصفحة الشخصية العادية،
+    profileUserId = المستخدم الحالي.
+  */
+
+  if(!profileUserId){
+
+    profileUserId =
+      currentUser.id;
+
+  }
+
+
   const metadata =
     currentUser.user_metadata || {};
 
@@ -1069,9 +1157,7 @@ async function loadProfile(){
     email;
 
 
-  /* =====================================
-     AVATAR
-  ===================================== */
+  /* الصورة */
 
   const avatarUrl =
     metadata.avatar_url ||
@@ -1116,9 +1202,7 @@ async function loadProfile(){
   }
 
 
-  /* =====================================
-     ACCOUNT DATE
-  ===================================== */
+  /* تاريخ الحساب */
 
   if(currentUser.created_at){
 
@@ -1142,7 +1226,400 @@ async function loadProfile(){
   }
 
 
+  /*
+    إذا كان الملف الشخصي
+    للمستخدم الحالي لا نعرض
+    زر متابعة لنفسه.
+  */
+
+  if(profileUserId === currentUser.id){
+
+    followButton.style.display =
+      "none";
+
+  }else{
+
+    followButton.style.display =
+      "block";
+
+    await checkFollowStatus();
+
+  }
+
+
+  await loadFollowStats();
+
   await loadMyVotes();
+
+}
+
+
+/* =========================================
+   CHECK FOLLOW STATUS
+========================================= */
+
+async function checkFollowStatus(){
+
+  if(
+    !currentUser ||
+    !profileUserId
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+    await supabaseClient
+      .from("follows")
+      .select("id")
+      .eq(
+        "follower_id",
+        currentUser.id
+      )
+      .eq(
+        "following_id",
+        profileUserId
+      )
+      .maybeSingle();
+
+
+    if(error){
+
+      console.error(
+        "Follow status error:",
+        error
+      );
+
+      return;
+
+    }
+
+
+    isFollowing =
+      !!data;
+
+
+    updateFollowButton();
+
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* =========================================
+   UPDATE FOLLOW BUTTON
+========================================= */
+
+function updateFollowButton(){
+
+  if(!followButton){
+
+    return;
+
+  }
+
+
+  if(isFollowing){
+
+    followButton.classList.add(
+      "following"
+    );
+
+    followButton.textContent =
+      "✓ متابَع";
+
+    followButton.title =
+      "اضغط لإلغاء المتابعة";
+
+  }else{
+
+    followButton.classList.remove(
+      "following"
+    );
+
+    followButton.textContent =
+      "➕ متابعة";
+
+    followButton.title =
+      "متابعة هذا المستخدم";
+
+  }
+
+}
+
+
+/* =========================================
+   TOGGLE FOLLOW
+========================================= */
+
+async function toggleFollow(){
+
+  if(!currentUser){
+
+    showMessage(
+      "يجب تسجيل الدخول أولًا.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!profileUserId){
+
+    return;
+
+  }
+
+
+  if(
+    currentUser.id ===
+    profileUserId
+  ){
+
+    return;
+
+  }
+
+
+  followButton.disabled =
+    true;
+
+
+  try{
+
+    if(isFollowing){
+
+      /*
+        إلغاء المتابعة
+      */
+
+      const {
+        error
+      } =
+      await supabaseClient
+        .from("follows")
+        .delete()
+        .eq(
+          "follower_id",
+          currentUser.id
+        )
+        .eq(
+          "following_id",
+          profileUserId
+        );
+
+
+      if(error){
+
+        throw error;
+
+      }
+
+
+      isFollowing =
+        false;
+
+
+      showMessage(
+        "تم إلغاء المتابعة.",
+        "success"
+      );
+
+
+    }else{
+
+      /*
+        متابعة
+      */
+
+      const {
+        error
+      } =
+      await supabaseClient
+        .from("follows")
+        .insert({
+
+          follower_id:
+            currentUser.id,
+
+          following_id:
+            profileUserId
+
+        });
+
+
+      if(error){
+
+        /*
+          إذا كان يتابع بالفعل
+        */
+
+        if(
+          error.code === "23505"
+        ){
+
+          isFollowing =
+            true;
+
+        }else{
+
+          throw error;
+
+        }
+
+      }else{
+
+        isFollowing =
+          true;
+
+      }
+
+
+      showMessage(
+        "تمت المتابعة بنجاح! 🎉",
+        "success"
+      );
+
+    }
+
+
+    updateFollowButton();
+
+    await loadFollowStats();
+
+
+  }catch(error){
+
+    console.error(
+      "Toggle follow error:",
+      error
+    );
+
+
+    showMessage(
+      "تعذر تنفيذ العملية:\n" +
+      error.message,
+      "error"
+    );
+
+  }
+
+
+  followButton.disabled =
+    false;
+
+}
+
+
+/* =========================================
+   FOLLOW STATS
+========================================= */
+
+async function loadFollowStats(){
+
+  if(!profileUserId){
+
+    return;
+
+  }
+
+
+  try{
+
+    /*
+      عدد المتابعين
+    */
+
+    const {
+      count:followers,
+      error:followersError
+    } =
+    await supabaseClient
+      .from("follows")
+      .select(
+        "*",
+        {
+          count:"exact",
+          head:true
+        }
+      )
+      .eq(
+        "following_id",
+        profileUserId
+      );
+
+
+    if(followersError){
+
+      throw followersError;
+
+    }
+
+
+    /*
+      عدد الأشخاص الذين يتابعهم
+    */
+
+    const {
+      count:following,
+      error:followingError
+    } =
+    await supabaseClient
+      .from("follows")
+      .select(
+        "*",
+        {
+          count:"exact",
+          head:true
+        }
+      )
+      .eq(
+        "follower_id",
+        profileUserId
+      );
+
+
+    if(followingError){
+
+      throw followingError;
+
+    }
+
+
+    document.getElementById(
+      "followersCount"
+    ).textContent =
+      followers || 0;
+
+
+    document.getElementById(
+      "followingCount"
+    ).textContent =
+      following || 0;
+
+
+  }catch(error){
+
+    console.error(
+      "Follow stats error:",
+      error
+    );
+
+  }
 
 }
 
@@ -1164,10 +1641,6 @@ function getVoteOptions(vote){
     vote.options;
 
 
-  /*
-    إذا كان JSONB عاد كنص
-  */
-
   if(typeof options === "string"){
 
     try{
@@ -1176,11 +1649,6 @@ function getVoteOptions(vote){
         JSON.parse(options);
 
     }catch(error){
-
-      console.error(
-        "Options JSON error:",
-        error
-      );
 
       return [];
 
@@ -1202,7 +1670,7 @@ function getVoteOptions(vote){
 
 
 /* =========================================
-   CALCULATE TOTAL VOTES
+   CALCULATE TOTAL
 ========================================= */
 
 function calculateVoteTotal(vote){
@@ -1264,11 +1732,6 @@ async function loadMyVotes(){
 
   try{
 
-    /*
-      جلب التصويتات التي أنشأها
-      المستخدم الحالي
-    */
-
     const {
       data,
       error
@@ -1278,7 +1741,7 @@ async function loadMyVotes(){
       .select("*")
       .eq(
         "user_id",
-        currentUser.id
+        profileUserId
       )
       .order(
         "created_at",
@@ -1299,10 +1762,6 @@ async function loadMyVotes(){
       data || [];
 
 
-    /* =================================
-       COUNT
-    ================================= */
-
     document.getElementById(
       "votesCount"
     ).textContent =
@@ -1315,10 +1774,6 @@ async function loadMyVotes(){
       votes.length +
       " تصويت";
 
-
-    /* =================================
-       EMPTY
-    ================================= */
 
     if(votes.length === 0){
 
@@ -1336,11 +1791,11 @@ async function loadMyVotes(){
 
           <br><br>
 
-          لم تنشئ أي تصويت بعد.
+          لا توجد تصويتات بعد.
 
           <br>
 
-          ابدأ بإنشاء أول تصويت لك! 🚀
+          ابدأ بإنشاء أول تصويت! 🚀
 
         </div>
 
@@ -1350,10 +1805,6 @@ async function loadMyVotes(){
 
     }
 
-
-    /* =================================
-       RENDER
-    ================================= */
 
     votesList.innerHTML =
       "";
@@ -1366,10 +1817,6 @@ async function loadMyVotes(){
     votes.forEach(
     function(vote){
 
-      /*
-        حساب عدد الأصوات من options
-      */
-
       const total =
         calculateVoteTotal(vote);
 
@@ -1377,10 +1824,6 @@ async function loadMyVotes(){
       totalVotesNumber +=
         total;
 
-
-      /* =================================
-         DATE
-      ================================= */
 
       let dateText =
         "";
@@ -1398,10 +1841,6 @@ async function loadMyVotes(){
       }
 
 
-      /* =================================
-         CARD
-      ================================= */
-
       const card =
         document.createElement("a");
 
@@ -1417,20 +1856,12 @@ async function loadMyVotes(){
         );
 
 
-      /* =================================
-         CATEGORY
-      ================================= */
-
       const category =
         escapeHtml(
           vote.category ||
           "عام"
         );
 
-
-      /* =================================
-         QUESTION
-      ================================= */
 
       const question =
         escapeHtml(
@@ -1475,10 +1906,6 @@ async function loadMyVotes(){
     });
 
 
-    /* =================================
-       TOTAL
-    ================================= */
-
     document.getElementById(
       "totalVotes"
     ).textContent =
@@ -1491,18 +1918,6 @@ async function loadMyVotes(){
       "Load votes error:",
       error
     );
-
-
-    document.getElementById(
-      "votesCount"
-    ).textContent =
-      "0";
-
-
-    document.getElementById(
-      "totalVotes"
-    ).textContent =
-      "0";
 
 
     votesList.innerHTML = `
@@ -1585,11 +2000,7 @@ async function logout(){
 
   }catch(error){
 
-    console.error(
-      "Logout error:",
-      error
-    );
-
+    console.error(error);
 
     showMessage(
       "تعذر تسجيل الخروج:\n" +
