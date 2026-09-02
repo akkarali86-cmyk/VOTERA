@@ -23,7 +23,6 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   --muted:#777783;
   --border:#e8e8ef;
   --danger:#d93025;
-  --success:#16a34a;
 }
 
 *{
@@ -61,9 +60,9 @@ a{
 }
 
 
-/* ================================
+/* =========================================
    HEADER
-================================ */
+========================================= */
 
 header{
   height:68px;
@@ -104,9 +103,9 @@ header{
 }
 
 
-/* ================================
+/* =========================================
    CONTAINER
-================================ */
+========================================= */
 
 .container{
   width:100%;
@@ -116,9 +115,9 @@ header{
 }
 
 
-/* ================================
+/* =========================================
    MESSAGE
-================================ */
+========================================= */
 
 .message{
   display:none;
@@ -146,9 +145,9 @@ header{
 }
 
 
-/* ================================
+/* =========================================
    LOGIN
-================================ */
+========================================= */
 
 .login-card{
   background:white;
@@ -181,9 +180,9 @@ header{
 }
 
 
-/* ================================
+/* =========================================
    PROFILE CARD
-================================ */
+========================================= */
 
 .profile-card{
   background:var(--card);
@@ -205,7 +204,7 @@ header{
   align-items:center;
   justify-content:center;
   margin:0 auto 14px;
-  font-size:35px;
+  font-size:38px;
   font-weight:950;
   overflow:hidden;
 }
@@ -216,55 +215,58 @@ header{
   object-fit:cover;
 }
 
-.profile-name{
-  font-size:22px;
-  font-weight:950;
-  margin-bottom:5px;
-}
-
 .profile-username{
   color:var(--primary);
   font-size:13px;
   font-weight:900;
   direction:ltr;
-  margin-bottom:10px;
+  margin-bottom:5px;
+}
+
+.profile-name{
+  font-size:22px;
+  font-weight:950;
+  margin-bottom:8px;
 }
 
 .profile-bio{
   color:var(--muted);
   font-size:13px;
   line-height:1.7;
-  margin:0 auto 15px;
   max-width:500px;
+  margin:0 auto 16px;
 }
 
-.profile-age{
-  color:var(--muted);
-  font-size:12px;
+.profile-points{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  background:#f0eeff;
+  color:var(--primary);
+  padding:7px 12px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:900;
   margin-bottom:18px;
 }
 
 
-/* ================================
+/* =========================================
    FOLLOW BUTTON
-================================ */
+========================================= */
 
 .follow-button{
   width:100%;
-  max-width:280px;
-  padding:14px 20px;
-  border-radius:14px;
+  max-width:260px;
+  padding:13px 20px;
+  border-radius:13px;
   background:var(--primary);
   color:white;
-  font-size:14px;
+  font-size:13px;
   font-weight:950;
   margin:0 auto 18px;
   display:block;
   transition:.2s;
-}
-
-.follow-button:hover{
-  background:var(--primary-dark);
 }
 
 .follow-button:disabled{
@@ -285,9 +287,9 @@ header{
 }
 
 
-/* ================================
+/* =========================================
    FOLLOW STATS
-================================ */
+========================================= */
 
 .follow-stats{
   display:grid;
@@ -317,15 +319,46 @@ header{
 }
 
 
-/* ================================
-   MAIN STATS
-================================ */
+/* =========================================
+   PROFILE INFO
+========================================= */
+
+.profile-info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:8px;
+}
+
+.info-box{
+  background:#fafafd;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:13px 7px;
+}
+
+.info-box strong{
+  display:block;
+  color:var(--primary);
+  font-size:15px;
+  margin-bottom:5px;
+}
+
+.info-box span{
+  color:var(--muted);
+  font-size:10px;
+  font-weight:800;
+}
+
+
+/* =========================================
+   VOTE STATS
+========================================= */
 
 .stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:8px;
-  margin-top:8px;
 }
 
 .stat{
@@ -349,25 +382,9 @@ header{
 }
 
 
-/* ================================
-   POINTS
-================================ */
-
-.points-box{
-  margin:15px 0 18px;
-  padding:12px;
-  background:#f7f5ff;
-  border:1px solid #e2ddff;
-  border-radius:14px;
-  color:var(--primary);
-  font-size:13px;
-  font-weight:900;
-}
-
-
-/* ================================
+/* =========================================
    SECTION
-================================ */
+========================================= */
 
 .section-header{
   display:flex;
@@ -388,9 +405,9 @@ header{
 }
 
 
-/* ================================
+/* =========================================
    VOTES
-================================ */
+========================================= */
 
 .votes{
   display:flex;
@@ -411,10 +428,6 @@ header{
 .vote-card:hover{
   border-color:#d4cffd;
   transform:translateY(-1px);
-}
-
-.vote-card:active{
-  transform:scale(.98);
 }
 
 .vote-category{
@@ -452,9 +465,9 @@ header{
 }
 
 
-/* ================================
+/* =========================================
    LOGOUT
-================================ */
+========================================= */
 
 .logout{
   width:100%;
@@ -469,9 +482,9 @@ header{
 }
 
 
-/* ================================
+/* =========================================
    BOTTOM NAV
-================================ */
+========================================= */
 
 .bottom-nav{
   position:fixed !important;
@@ -544,9 +557,9 @@ header{
 }
 
 
-/* ================================
+/* =========================================
    SAFE AREA
-================================ */
+========================================= */
 
 @supports(padding-bottom:env(safe-area-inset-bottom)){
 
@@ -562,9 +575,9 @@ header{
 }
 
 
-/* ================================
+/* =========================================
    MOBILE
-================================ */
+========================================= */
 
 @media(max-width:360px){
 
@@ -592,6 +605,10 @@ header{
 <body>
 
 
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <header>
 
 <nav class="nav">
@@ -609,15 +626,20 @@ VOTE<span>RA</span>
 </header>
 
 
+<!-- =========================================
+     MAIN
+========================================= -->
+
 <main class="container">
 
 
-<div id="message" class="message"></div>
+<div
+id="message"
+class="message">
+</div>
 
 
-<!-- ================================
-     LOGIN CARD
-================================ -->
+<!-- LOGIN -->
 
 <div
 id="loginCard"
@@ -630,7 +652,7 @@ style="display:none;"
 </h2>
 
 <p>
-سجل الدخول بحساب Google للمتابعة والتفاعل مع المستخدمين.
+سجل الدخول بحساب Google لإنشاء التصويتات ومتابعة المستخدمين.
 </p>
 
 <button
@@ -643,9 +665,7 @@ onclick="signInWithGoogle()"
 </div>
 
 
-<!-- ================================
-     PROFILE
-================================ -->
+<!-- PROFILE -->
 
 <div
 id="profileContent"
@@ -658,51 +678,40 @@ style="display:none;"
 
 <div
 class="avatar"
-id="avatar"
->
+id="avatar">
 👤
 </div>
 
 
 <div
-class="profile-name"
-id="profileName"
->
-مستخدم VOTERA
-</div>
-
-
-<div
 class="profile-username"
-id="profileUsername"
->
+id="profileUsername">
 @username
 </div>
 
 
 <div
+class="profile-name"
+id="profileName">
+مستخدم VOTERA
+</div>
+
+
+<div
 class="profile-bio"
-id="profileBio"
->
+id="profileBio">
+لا توجد نبذة بعد.
 </div>
 
 
 <div
-class="profile-age"
-id="profileAge"
->
+class="profile-points"
+id="profilePoints">
+⭐ 0 نقطة
 </div>
 
 
-<div
-class="points-box"
-id="pointsBox"
->
-⭐ النقاط: <span id="points">0</span>
-</div>
-
-
-<!-- FOLLOW -->
+<!-- FOLLOW BUTTON -->
 
 <button
 id="followButton"
@@ -717,7 +726,6 @@ style="display:none;"
 <!-- FOLLOW STATS -->
 
 <div class="follow-stats">
-
 
 <div class="follow-stat">
 
@@ -744,6 +752,37 @@ style="display:none;"
 
 </div>
 
+</div>
+
+
+<!-- AGE + DATE -->
+
+<div class="profile-info">
+
+<div class="info-box">
+
+<strong id="profileAge">
+-
+</strong>
+
+<span>
+العمر
+</span>
+
+</div>
+
+
+<div class="info-box">
+
+<strong id="accountDate">
+-
+</strong>
+
+<span>
+تاريخ الإنشاء
+</span>
+
+</div>
 
 </div>
 
@@ -751,7 +790,6 @@ style="display:none;"
 <!-- VOTE STATS -->
 
 <div class="stats">
-
 
 <div class="stat">
 
@@ -781,16 +819,15 @@ style="display:none;"
 
 <div class="stat">
 
-<strong id="accountDate">
--
+<strong id="pointsStat">
+0
 </strong>
 
 <span>
-عضو منذ
+النقاط
 </span>
 
 </div>
-
 
 </div>
 
@@ -798,14 +835,12 @@ style="display:none;"
 </section>
 
 
-<!-- ================================
-     VOTES
-================================ -->
+<!-- VOTES -->
 
 <div class="section-header">
 
 <h2>
-🗳️ تصويتات المستخدم
+🗳️ تصويتات <span id="votesOwnerName"></span>
 </h2>
 
 <span id="votesTitleCount">
@@ -817,8 +852,7 @@ style="display:none;"
 
 <div
 id="votesList"
-class="votes"
->
+class="votes">
 </div>
 
 
@@ -829,7 +863,6 @@ type="button"
 class="logout"
 onclick="logout()"
 id="logoutButton"
-style="display:none;"
 >
 🚪 تسجيل الخروج
 </button>
@@ -841,9 +874,9 @@ style="display:none;"
 </main>
 
 
-<!-- ================================
+<!-- =========================================
      BOTTOM NAV
-================================ -->
+========================================= -->
 
 <nav
 class="bottom-nav"
@@ -855,8 +888,7 @@ id="bottomNav"
 
 <a
 href="index.html"
-class="bottom-item"
->
+class="bottom-item">
 
 <div class="bottom-icon">
 🏠
@@ -871,8 +903,7 @@ class="bottom-item"
 
 <a
 href="index.html#votes"
-class="bottom-item"
->
+class="bottom-item">
 
 <div class="bottom-icon">
 🌎
@@ -887,8 +918,7 @@ class="bottom-item"
 
 <a
 href="create.html"
-class="bottom-item"
->
+class="bottom-item">
 
 <div class="bottom-create">
 ＋
@@ -903,8 +933,7 @@ class="bottom-item"
 
 <a
 href="index.html#votes"
-class="bottom-item"
->
+class="bottom-item">
 
 <div class="bottom-icon">
 🗳️
@@ -919,8 +948,7 @@ class="bottom-item"
 
 <a
 href="profile.html"
-class="bottom-item active"
->
+class="bottom-item active">
 
 <div class="bottom-icon">
 👤
@@ -949,7 +977,6 @@ const SUPABASE_URL =
 
 const SUPABASE_ANON_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
-
 
 const supabaseClient =
 window.supabase.createClient(
@@ -986,9 +1013,6 @@ document.getElementById("message");
 
 const followButton =
 document.getElementById("followButton");
-
-const logoutButton =
-document.getElementById("logoutButton");
 
 
 /* =========================================
@@ -1064,10 +1088,25 @@ function getProfileIdFromUrl(){
     );
 
 
-  return (
-    params.get("id") ||
-    params.get("user_id")
-  );
+  /*
+    يدعم:
+
+    profile.html?id=USER_ID
+
+    وأيضًا:
+
+    profile.html?username=USERNAME
+  */
+
+  return {
+
+    id:
+      params.get("id"),
+
+    username:
+      params.get("username")
+
+  };
 
 }
 
@@ -1092,37 +1131,21 @@ async function checkUser(){
       session?.user || null;
 
 
-    /*
-      إذا كان هناك id في الرابط
-      نفتح ملف هذا المستخدم.
-
-      إذا لم يوجد id
-      نفتح ملف المستخدم الحالي.
-    */
-
-    const urlProfileId =
+    const urlProfile =
       getProfileIdFromUrl();
 
 
-    profileUserId =
-      urlProfileId ||
-      currentUser?.id ||
-      null;
-
-
     /*
-      إذا لا يوجد مستخدم مسجل
-      ولا يوجد id في الرابط،
-      نعرض تسجيل الدخول.
+      إذا يوجد ID في الرابط
+      نفتح هذا الملف.
     */
 
-    if(!profileUserId){
+    if(urlProfile.id){
 
-      loginCard.style.display =
-        "block";
+      profileUserId =
+        urlProfile.id;
 
-      profileContent.style.display =
-        "none";
+      await loadPublicProfile();
 
       return;
 
@@ -1130,10 +1153,38 @@ async function checkUser(){
 
 
     /*
-      تحميل الملف الشخصي
+      إذا يوجد username في الرابط
+      نبحث عنه في profiles.
     */
 
-    await loadProfile();
+    if(urlProfile.username){
+
+      await loadProfileByUsername(
+        urlProfile.username
+      );
+
+      return;
+
+    }
+
+
+    /*
+      لا يوجد رابط لملف شخص آخر،
+      إذًا نفتح ملف المستخدم الحالي.
+    */
+
+    if(currentUser){
+
+      profileUserId =
+        currentUser.id;
+
+      await loadPublicProfile();
+
+    }else{
+
+      showLogin();
+
+    }
 
   }catch(error){
 
@@ -1143,7 +1194,7 @@ async function checkUser(){
     );
 
     showMessage(
-      "حدث خطأ:\n" +
+      "تعذر تحميل الملف الشخصي:\n" +
       error.message,
       "error"
     );
@@ -1154,23 +1205,75 @@ async function checkUser(){
 
 
 /* =========================================
-   AUTH STATE
+   LOAD PROFILE BY USERNAME
 ========================================= */
 
-supabaseClient.auth.onAuthStateChange(
-function(event,session){
+async function loadProfileByUsername(username){
 
-  currentUser =
-    session?.user || null;
+  try{
 
-});
+    const {
+      data,
+      error
+    } =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq(
+        "username",
+        username
+      )
+      .maybeSingle();
+
+
+    if(error){
+
+      throw error;
+
+    }
+
+
+    if(!data){
+
+      showMessage(
+        "لم يتم العثور على هذا المستخدم.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    profileUserId =
+      data.id;
+
+
+    await displayProfile(
+      data
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "تعذر تحميل الملف الشخصي:\n" +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
 
 
 /* =========================================
-   LOAD PROFILE
+   LOAD PUBLIC PROFILE
 ========================================= */
 
-async function loadProfile(){
+async function loadPublicProfile(){
 
   if(!profileUserId){
 
@@ -1181,13 +1284,7 @@ async function loadProfile(){
 
   try{
 
-    /*
-      نستخدم select("*")
-      حتى يعمل الكود مع أعمدة
-      جدول profiles الموجودة لديك.
-    */
-
-    let {
+    const {
       data,
       error
     } =
@@ -1201,39 +1298,6 @@ async function loadProfile(){
       .maybeSingle();
 
 
-    /*
-      في حالة كان العمود اسمه user_id
-      بدل id.
-    */
-
-    if(error){
-
-      console.warn(
-        "profiles.id failed:",
-        error
-      );
-
-
-      const result =
-      await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq(
-          "user_id",
-          profileUserId
-        )
-        .maybeSingle();
-
-
-      data =
-        result.data;
-
-      error =
-        result.error;
-
-    }
-
-
     if(error){
 
       throw error;
@@ -1243,102 +1307,27 @@ async function loadProfile(){
 
     if(!data){
 
-      throw new Error(
-        "لم يتم العثور على هذا الملف الشخصي."
+      showMessage(
+        "لم يتم العثور على الملف الشخصي.",
+        "error"
       );
 
+      return;
+
     }
 
 
-    profileData =
-      data;
-
-
-    /*
-      عرض البيانات
-    */
-
-    displayProfile(
+    await displayProfile(
       data
     );
-
-
-    /*
-      إظهار الصفحة
-    */
-
-    loginCard.style.display =
-      "none";
-
-    profileContent.style.display =
-      "block";
-
-
-    /*
-      زر تسجيل الخروج
-      يظهر فقط في ملفي الشخصي.
-    */
-
-    if(
-      currentUser &&
-      profileUserId ===
-      currentUser.id
-    ){
-
-      logoutButton.style.display =
-        "block";
-
-    }else{
-
-      logoutButton.style.display =
-        "none";
-
-    }
-
-
-    /*
-      زر المتابعة
-    */
-
-    if(
-      currentUser &&
-      profileUserId !==
-      currentUser.id
-    ){
-
-      followButton.style.display =
-        "block";
-
-      await checkFollowStatus();
-
-    }else{
-
-      followButton.style.display =
-        "none";
-
-    }
-
-
-    /*
-      الإحصائيات
-    */
-
-    await loadFollowStats();
-
-    await loadUserVotes();
 
 
   }catch(error){
 
     console.error(
-      "Load profile error:",
+      "Profile load error:",
       error
     );
-
-
-    profileContent.style.display =
-      "none";
-
 
     showMessage(
       "تعذر تحميل الملف الشخصي:\n" +
@@ -1355,32 +1344,25 @@ async function loadProfile(){
    DISPLAY PROFILE
 ========================================= */
 
-function displayProfile(profile){
+async function displayProfile(profile){
 
-  /*
-    اسم العرض
-  */
-
-  const displayName =
-    profile.display_name ||
-    profile.name ||
-    profile.full_name ||
-    "مستخدم VOTERA";
+  profileData =
+    profile;
 
 
-  document.getElementById(
-    "profileName"
-  ).textContent =
-    displayName;
+  loginCard.style.display =
+    "none";
+
+  profileContent.style.display =
+    "block";
 
 
   /*
-    اسم المستخدم
+    USERNAME
   */
 
   const username =
     profile.username ||
-    profile.user_name ||
     "user";
 
 
@@ -1391,81 +1373,86 @@ function displayProfile(profile){
 
 
   /*
-    البيولوجيا
-  */
-
-  const bio =
-    profile.bio ||
-    "";
-
-
-  const bioElement =
-    document.getElementById(
-      "profileBio"
-    );
-
-
-  if(bio){
-
-    bioElement.textContent =
-      bio;
-
-    bioElement.style.display =
-      "block";
-
-  }else{
-
-    bioElement.style.display =
-      "none";
-
-  }
-
-
-  /*
-    العمر
-  */
-
-  const ageElement =
-    document.getElementById(
-      "profileAge"
-    );
-
-
-  if(
-    profile.age !== null &&
-    profile.age !== undefined &&
-    profile.age !== ""
-  ){
-
-    ageElement.textContent =
-      "🎂 العمر: " +
-      profile.age;
-
-    ageElement.style.display =
-      "block";
-
-  }else{
-
-    ageElement.style.display =
-      "none";
-
-  }
-
-
-  /*
-    النقاط
+    DISPLAY NAME
   */
 
   document.getElementById(
-    "points"
+    "profileName"
   ).textContent =
+    profile.display_name ||
+    profile.username ||
+    "مستخدم VOTERA";
+
+
+  /*
+    BIO
+  */
+
+  document.getElementById(
+    "profileBio"
+  ).textContent =
+    profile.bio ||
+    "لا توجد نبذة بعد.";
+
+
+  /*
+    POINTS
+  */
+
+  const points =
     Number(
       profile.points || 0
     );
 
 
+  document.getElementById(
+    "profilePoints"
+  ).textContent =
+    "⭐ " + points + " نقطة";
+
+
+  document.getElementById(
+    "pointsStat"
+  ).textContent =
+    points;
+
+
   /*
-    الصورة
+    AGE
+  */
+
+  document.getElementById(
+    "profileAge"
+  ).textContent =
+    profile.age
+      ? profile.age + " سنة"
+      : "-";
+
+
+  /*
+    CREATED AT
+  */
+
+  if(profile.created_at){
+
+    document.getElementById(
+      "accountDate"
+    ).textContent =
+      new Date(
+        profile.created_at
+      ).toLocaleDateString(
+        "ar-DZ",
+        {
+          month:"short",
+          year:"numeric"
+        }
+      );
+
+  }
+
+
+  /*
+    AVATAR
   */
 
   const avatar =
@@ -1474,26 +1461,18 @@ function displayProfile(profile){
     );
 
 
-  const avatarUrl =
-    profile.avatar_url ||
-    profile.avatar ||
-    null;
+  avatar.innerHTML =
+    "👤";
 
 
-  if(avatarUrl){
-
-    avatar.innerHTML =
-      "";
-
+  if(profile.avatar_url){
 
     const img =
-      document.createElement(
-        "img"
-      );
+      document.createElement("img");
 
 
     img.src =
-      avatarUrl;
+      profile.avatar_url;
 
 
     img.alt =
@@ -1509,51 +1488,88 @@ function displayProfile(profile){
     };
 
 
+    avatar.innerHTML =
+      "";
+
+
     avatar.appendChild(
       img
     );
-
-  }else{
-
-    avatar.innerHTML =
-      "👤";
 
   }
 
 
   /*
-    تاريخ إنشاء الحساب
+    OWNER NAME
   */
 
-  const createdAt =
-    profile.created_at;
+  document.getElementById(
+    "votesOwnerName"
+  ).textContent =
+    profile.display_name ||
+    profile.username ||
+    "";
 
 
-  if(createdAt){
+  /*
+    FOLLOW
+  */
 
-    const date =
-      new Date(
-        createdAt
-      );
+  if(
+    currentUser &&
+    currentUser.id !== profileUserId
+  ){
 
+    followButton.style.display =
+      "block";
+
+
+    await checkFollowStatus();
+
+  }else{
+
+    followButton.style.display =
+      "none";
+
+  }
+
+
+  /*
+    FOLLOW COUNTS
+  */
+
+  await loadFollowStats();
+
+
+  /*
+    USER VOTES
+  */
+
+  await loadUserVotes();
+
+
+  /*
+    LOGOUT
+
+    يظهر فقط في ملفي الشخصي
+  */
+
+  if(
+    currentUser &&
+    currentUser.id === profileUserId
+  ){
 
     document.getElementById(
-      "accountDate"
-    ).textContent =
-      date.toLocaleDateString(
-        "ar-DZ",
-        {
-          month:"short",
-          year:"numeric"
-        }
-      );
+      "logoutButton"
+    ).style.display =
+      "block";
 
   }else{
 
     document.getElementById(
-      "accountDate"
-    ).textContent =
-      "-";
+      "logoutButton"
+    ).style.display =
+      "none";
 
   }
 
@@ -1568,7 +1584,8 @@ async function checkFollowStatus(){
 
   if(
     !currentUser ||
-    !profileUserId
+    !profileUserId ||
+    currentUser.id === profileUserId
   ){
 
     return;
@@ -1598,7 +1615,12 @@ async function checkFollowStatus(){
 
     if(error){
 
-      throw error;
+      console.error(
+        "Follow status error:",
+        error
+      );
+
+      return;
 
     }
 
@@ -1612,17 +1634,7 @@ async function checkFollowStatus(){
 
   }catch(error){
 
-    console.error(
-      "Check follow error:",
-      error
-    );
-
-
-    showMessage(
-      "تعذر التحقق من حالة المتابعة:\n" +
-      error.message,
-      "error"
-    );
+    console.error(error);
 
   }
 
@@ -1680,7 +1692,7 @@ async function toggleFollow(){
   if(!currentUser){
 
     showMessage(
-      "يجب تسجيل الدخول أولًا للمتابعة.",
+      "يجب تسجيل الدخول أولًا لمتابعة المستخدمين.",
       "error"
     );
 
@@ -1697,8 +1709,7 @@ async function toggleFollow(){
 
 
   if(
-    currentUser.id ===
-    profileUserId
+    currentUser.id === profileUserId
   ){
 
     return;
@@ -1777,12 +1788,12 @@ async function toggleFollow(){
       if(error){
 
         /*
-          23505 = العلاقة موجودة
+          23505 =
+          المتابعة موجودة أصلًا
         */
 
         if(
-          error.code ===
-          "23505"
+          error.code === "23505"
         ){
 
           isFollowing =
@@ -1812,6 +1823,7 @@ async function toggleFollow(){
 
     updateFollowButton();
 
+
     await loadFollowStats();
 
 
@@ -1824,7 +1836,7 @@ async function toggleFollow(){
 
 
     showMessage(
-      "تعذر تنفيذ المتابعة:\n" +
+      "تعذر تنفيذ العملية:\n" +
       error.message,
       "error"
     );
@@ -1864,7 +1876,7 @@ async function loadFollowStats(){
     await supabaseClient
       .from("follows")
       .select(
-        "*",
+        "id",
         {
           count:"exact",
           head:true
@@ -1884,7 +1896,7 @@ async function loadFollowStats(){
 
 
     /*
-      الأشخاص الذين يتابعهم
+      الذين يتابعهم
     */
 
     const {
@@ -1894,7 +1906,7 @@ async function loadFollowStats(){
     await supabaseClient
       .from("follows")
       .select(
-        "*",
+        "id",
         {
           count:"exact",
           head:true
@@ -1954,7 +1966,9 @@ function getVoteOptions(vote){
     vote.options;
 
 
-  if(typeof options === "string"){
+  if(
+    typeof options === "string"
+  ){
 
     try{
 
@@ -1970,7 +1984,9 @@ function getVoteOptions(vote){
   }
 
 
-  if(!Array.isArray(options)){
+  if(
+    !Array.isArray(options)
+  ){
 
     return [];
 
@@ -1983,21 +1999,21 @@ function getVoteOptions(vote){
 
 
 /* =========================================
-   CALCULATE VOTE TOTAL
+   CALCULATE TOTAL VOTES
 ========================================= */
 
 function calculateVoteTotal(vote){
 
   /*
-    الطريقة الأولى:
-    options
+    النظام الجديد:
+    إذا كان التصويت يستخدم options
   */
 
   const options =
     getVoteOptions(vote);
 
 
-  if(options.length > 0){
+  if(options.length){
 
     let total =
       0;
@@ -2027,31 +2043,38 @@ function calculateVoteTotal(vote){
 
 
   /*
-    الطريقة القديمة:
-    votes_a إلى votes_o
+    دعم النظام القديم
   */
+
+  const columns = [
+    "votes_a",
+    "votes_b",
+    "votes_c",
+    "votes_d",
+    "votes_e",
+    "votes_f",
+    "votes_g",
+    "votes_h",
+    "votes_i",
+    "votes_j",
+    "votes_k",
+    "votes_l",
+    "votes_m",
+    "votes_n",
+    "votes_o"
+  ];
+
 
   let total =
     0;
 
 
-  const letters =
-    [
-      "a","b","c","d","e",
-      "f","g","h","i","j",
-      "k","l","m","n","o"
-    ];
-
-
-  letters.forEach(
-  function(letter){
+  columns.forEach(
+  function(column){
 
     total +=
       Number(
-        vote[
-          "votes_" +
-          letter
-        ] || 0
+        vote[column] || 0
       );
 
   });
@@ -2275,18 +2298,6 @@ async function loadUserVotes(){
     );
 
 
-    document.getElementById(
-      "votesCount"
-    ).textContent =
-      "0";
-
-
-    document.getElementById(
-      "totalVotes"
-    ).textContent =
-      "0";
-
-
     votesList.innerHTML = `
 
       <div class="empty">
@@ -2325,6 +2336,21 @@ function escapeHtml(text){
 
 
   return div.innerHTML;
+
+}
+
+
+/* =========================================
+   SHOW LOGIN
+========================================= */
+
+function showLogin(){
+
+  loginCard.style.display =
+    "block";
+
+  profileContent.style.display =
+    "none";
 
 }
 
@@ -2369,10 +2395,7 @@ async function logout(){
 
   }catch(error){
 
-    console.error(
-      "Logout error:",
-      error
-    );
+    console.error(error);
 
 
     showMessage(
@@ -2387,6 +2410,19 @@ async function logout(){
 
 
 /* =========================================
+   AUTH STATE
+========================================= */
+
+supabaseClient.auth.onAuthStateChange(
+function(event,session){
+
+  currentUser =
+    session?.user || null;
+
+});
+
+
+/* =========================================
    START
 ========================================= */
 
@@ -2396,4 +2432,4 @@ checkUser();
 
 </body>
 
-  </html>
+</html>
