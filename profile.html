@@ -14,10 +14,6 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <style>
 
-/* =========================================
-   VARIABLES
-========================================= */
-
 :root{
   --primary:#6c5ce7;
   --primary-dark:#5848d6;
@@ -26,12 +22,8 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   --text:#17171c;
   --muted:#777783;
   --border:#e8e8ef;
+  --danger:#d93025;
 }
-
-
-/* =========================================
-   RESET
-========================================= */
 
 *{
   margin:0;
@@ -45,18 +37,11 @@ html{
 }
 
 body{
-
   font-family:Arial,Helvetica,sans-serif;
-
   background:var(--bg);
-
   color:var(--text);
-
   min-height:100vh;
-
-  /* مساحة للقائمة السفلية */
   padding-bottom:110px;
-
 }
 
 button,
@@ -80,53 +65,31 @@ a{
 ========================================= */
 
 header{
-
   height:68px;
-
   background:rgba(255,255,255,.98);
-
   border-bottom:1px solid var(--border);
-
   display:flex;
-
   align-items:center;
-
   position:sticky;
-
   top:0;
-
   z-index:100;
-
 }
 
 .nav{
-
   width:100%;
-
   max-width:900px;
-
   margin:auto;
-
   padding:0 18px;
-
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
 }
 
 .logo{
-
   font-size:25px;
-
   font-weight:950;
-
   letter-spacing:-1px;
-
   direction:ltr;
-
 }
 
 .logo span{
@@ -134,13 +97,9 @@ header{
 }
 
 .home-link{
-
   color:var(--muted);
-
   font-size:13px;
-
   font-weight:900;
-
 }
 
 
@@ -149,15 +108,10 @@ header{
 ========================================= */
 
 .container{
-
   width:100%;
-
   max-width:700px;
-
   margin:auto;
-
   padding:35px 18px 30px;
-
 }
 
 
@@ -166,47 +120,28 @@ header{
 ========================================= */
 
 .message{
-
   display:none;
-
   margin-bottom:15px;
-
   padding:13px;
-
   border-radius:13px;
-
   text-align:center;
-
   font-size:12px;
-
   font-weight:800;
-
   white-space:pre-line;
-
 }
 
 .message.error{
-
   display:block;
-
   background:#fff0f0;
-
   color:#b42318;
-
   border:1px solid #ffd0d0;
-
 }
 
 .message.success{
-
   display:block;
-
   background:#ecfdf3;
-
   color:#166534;
-
   border:1px solid #bbf7d0;
-
 }
 
 
@@ -215,56 +150,37 @@ header{
 ========================================= */
 
 .login-card{
-
   background:white;
-
   border:1px solid var(--border);
-
   border-radius:22px;
-
   padding:30px 20px;
-
   text-align:center;
-
-  box-shadow:
-  0 8px 25px rgba(0,0,0,.035);
-
+  box-shadow:0 8px 25px rgba(0,0,0,.035);
 }
 
 .login-card h2{
-
   font-size:21px;
-
   margin-bottom:10px;
-
 }
 
 .login-card p{
-
   color:var(--muted);
-
   font-size:13px;
-
   line-height:1.7;
-
   margin-bottom:18px;
-
 }
 
 .google-btn{
-
   background:white;
-
   border:1px solid var(--border);
-
   border-radius:13px;
-
   padding:13px 20px;
-
   font-weight:900;
-
   font-size:13px;
+}
 
+.google-btn:hover{
+  border-color:var(--primary);
 }
 
 
@@ -273,82 +189,47 @@ header{
 ========================================= */
 
 .profile-card{
-
   background:var(--card);
-
   border:1px solid var(--border);
-
   border-radius:24px;
-
   padding:28px 20px;
-
   text-align:center;
-
-  box-shadow:
-  0 8px 25px rgba(0,0,0,.035);
-
+  box-shadow:0 8px 25px rgba(0,0,0,.035);
   margin-bottom:18px;
-
 }
 
 .avatar{
-
   width:82px;
-
   height:82px;
-
   border-radius:50%;
-
   background:#ece9ff;
-
   color:var(--primary);
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   margin:0 auto 14px;
-
   font-size:35px;
-
   font-weight:950;
-
   overflow:hidden;
-
 }
 
 .avatar img{
-
   width:100%;
-
   height:100%;
-
   object-fit:cover;
-
 }
 
 .profile-name{
-
   font-size:22px;
-
   font-weight:950;
-
   margin-bottom:6px;
-
 }
 
 .profile-email{
-
   color:var(--muted);
-
   font-size:12px;
-
   direction:ltr;
-
   margin-bottom:20px;
-
 }
 
 
@@ -357,47 +238,29 @@ header{
 ========================================= */
 
 .stats{
-
   display:grid;
-
   grid-template-columns:repeat(3,1fr);
-
   gap:8px;
-
 }
 
 .stat{
-
   background:#fafafd;
-
   border:1px solid var(--border);
-
   border-radius:15px;
-
   padding:13px 5px;
-
 }
 
 .stat strong{
-
   display:block;
-
   color:var(--primary);
-
   font-size:19px;
-
   margin-bottom:4px;
-
 }
 
 .stat span{
-
   color:var(--muted);
-
   font-size:10px;
-
   font-weight:800;
-
 }
 
 
@@ -406,33 +269,21 @@ header{
 ========================================= */
 
 .section-header{
-
   display:flex;
-
   justify-content:space-between;
-
   align-items:center;
-
   margin:25px 2px 14px;
-
 }
 
 .section-header h2{
-
   font-size:21px;
-
   font-weight:950;
-
 }
 
 .section-header span{
-
   color:var(--primary);
-
   font-size:12px;
-
   font-weight:900;
-
 }
 
 
@@ -441,98 +292,62 @@ header{
 ========================================= */
 
 .votes{
-
   display:flex;
-
   flex-direction:column;
-
   gap:12px;
-
 }
 
 .vote-card{
-
   display:block;
-
   background:white;
-
   border:1px solid var(--border);
-
   border-radius:19px;
-
   padding:17px;
-
-  box-shadow:
-  0 5px 18px rgba(0,0,0,.025);
-
+  box-shadow:0 5px 18px rgba(0,0,0,.025);
   transition:.2s;
+}
 
+.vote-card:hover{
+  border-color:#d4cffd;
+  transform:translateY(-1px);
 }
 
 .vote-card:active{
-
   transform:scale(.98);
-
 }
 
 .vote-category{
-
   display:inline-block;
-
   background:#f0eeff;
-
   color:var(--primary);
-
   border-radius:20px;
-
   padding:6px 10px;
-
   font-size:10px;
-
   font-weight:900;
-
   margin-bottom:10px;
-
 }
 
 .vote-question{
-
   font-size:16px;
-
   font-weight:900;
-
   line-height:1.6;
-
   margin-bottom:12px;
-
 }
 
 .vote-date{
-
   color:var(--muted);
-
   font-size:10px;
-
 }
 
 .empty{
-
   background:white;
-
   border:1px solid var(--border);
-
   border-radius:20px;
-
   padding:30px 15px;
-
   text-align:center;
-
   color:var(--muted);
-
   font-size:13px;
-
   line-height:1.7;
-
 }
 
 
@@ -541,157 +356,88 @@ header{
 ========================================= */
 
 .logout{
-
   width:100%;
-
   margin-top:20px;
-
   padding:14px;
-
   border-radius:14px;
-
   background:#fff0f0;
-
-  color:#d93025;
-
+  color:var(--danger);
   font-size:14px;
-
   font-weight:950;
-
   border:1px solid #ffd5d5;
+}
 
+.logout:hover{
+  background:#ffe5e5;
 }
 
 
 /* =========================================
    BOTTOM NAVIGATION
-   نسخة قوية وثابتة
 ========================================= */
 
 .bottom-nav{
-
   position:fixed !important;
-
   left:0 !important;
-
   right:0 !important;
-
   bottom:0 !important;
-
   width:100% !important;
-
   height:82px !important;
-
   display:block !important;
-
   background:#ffffff !important;
-
   border-top:1px solid #e8e8ef !important;
-
-  box-shadow:
-  0 -6px 25px rgba(0,0,0,.10) !important;
-
+  box-shadow:0 -6px 25px rgba(0,0,0,.10) !important;
   z-index:2147483647 !important;
-
   visibility:visible !important;
-
   opacity:1 !important;
-
 }
 
 .bottom-nav-inner{
-
   width:100%;
-
   max-width:650px;
-
   height:100%;
-
   margin:auto;
-
   display:grid;
-
-  grid-template-columns:
-  repeat(5,1fr);
-
+  grid-template-columns:repeat(5,1fr);
   align-items:center;
-
 }
 
-
-/* =========================================
-   BOTTOM ITEM
-========================================= */
-
 .bottom-item{
-
   height:82px;
-
   display:flex !important;
-
   flex-direction:column;
-
   align-items:center;
-
   justify-content:center;
-
   gap:5px;
-
   background:transparent;
-
   color:#858592;
-
   font-size:10px;
-
   font-weight:900;
-
   position:relative;
-
   -webkit-tap-highlight-color:transparent;
-
 }
 
 .bottom-item:active{
-
   background:#faf9ff;
-
 }
 
 .bottom-item.active{
-
   color:var(--primary);
-
 }
 
-
-/* =========================================
-   ICON
-========================================= */
-
 .bottom-icon{
-
   width:28px;
-
   height:28px;
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   font-size:21px;
-
   line-height:1;
-
 }
 
 .bottom-label{
-
   font-size:10px;
-
   white-space:nowrap;
-
 }
 
 
@@ -700,63 +446,38 @@ header{
 ========================================= */
 
 .bottom-create{
-
   width:52px;
-
   height:52px;
-
   border-radius:17px;
-
   background:var(--primary);
-
   color:white;
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   font-size:28px;
-
   font-weight:400;
-
-  box-shadow:
-  0 8px 22px rgba(108,92,231,.32);
-
+  box-shadow:0 8px 22px rgba(108,92,231,.32);
   margin-top:-22px;
-
 }
 
 .bottom-create:active{
-
   transform:scale(.94);
-
 }
 
 
 /* =========================================
-   MOBILE SAFE AREA
+   SAFE AREA
 ========================================= */
 
 @supports(padding-bottom:env(safe-area-inset-bottom)){
 
   .bottom-nav{
-
-    height:
-    calc(82px + env(safe-area-inset-bottom))
-    !important;
-
-    padding-bottom:
-    env(safe-area-inset-bottom);
-
+    height:calc(82px + env(safe-area-inset-bottom)) !important;
+    padding-bottom:env(safe-area-inset-bottom);
   }
 
   body{
-
-    padding-bottom:
-    calc(110px + env(safe-area-inset-bottom));
-
+    padding-bottom:calc(110px + env(safe-area-inset-bottom));
   }
 
 }
@@ -769,15 +490,7 @@ header{
 @media(min-width:700px){
 
   .container{
-
     padding-top:50px;
-
-  }
-
-  .bottom-nav{
-
-    height:82px !important;
-
   }
 
 }
@@ -790,25 +503,17 @@ header{
 @media(max-width:360px){
 
   .bottom-icon{
-
     font-size:19px;
-
   }
 
   .bottom-label{
-
     font-size:9px;
-
   }
 
   .bottom-create{
-
     width:47px;
-
     height:47px;
-
     font-size:25px;
-
   }
 
 }
@@ -851,8 +556,8 @@ VOTE<span>RA</span>
 
 <div
 id="message"
-class="message"
-></div>
+class="message">
+</div>
 
 
 <!-- =====================================
@@ -1019,8 +724,6 @@ id="bottomNav"
 <div class="bottom-nav-inner">
 
 
-<!-- الرئيسية -->
-
 <a
 href="index.html"
 class="bottom-item"
@@ -1036,8 +739,6 @@ class="bottom-item"
 
 </a>
 
-
-<!-- استكشاف -->
 
 <a
 href="index.html#votes"
@@ -1055,8 +756,6 @@ class="bottom-item"
 </a>
 
 
-<!-- إنشاء -->
-
 <a
 href="create.html"
 class="bottom-item"
@@ -1073,8 +772,6 @@ class="bottom-item"
 </a>
 
 
-<!-- التصويتات -->
-
 <a
 href="index.html#votes"
 class="bottom-item"
@@ -1090,8 +787,6 @@ class="bottom-item"
 
 </a>
 
-
-<!-- حسابي -->
 
 <a
 href="profile.html"
@@ -1198,7 +893,10 @@ async function signInWithGoogle(){
 
     if(error){
 
-      console.error(error);
+      console.error(
+        "Google login error:",
+        error
+      );
 
       showMessage(
         "حدث خطأ أثناء تسجيل الدخول:\n" +
@@ -1268,10 +966,9 @@ async function checkUser(){
 
 function updatePage(){
 
-  /* القائمة السفلية تظهر دائمًا */
-
   const bottomNav =
     document.getElementById("bottomNav");
+
 
   if(bottomNav){
 
@@ -1372,7 +1069,9 @@ async function loadProfile(){
     email;
 
 
-  /* صورة الحساب */
+  /* =====================================
+     AVATAR
+  ===================================== */
 
   const avatarUrl =
     metadata.avatar_url ||
@@ -1402,7 +1101,7 @@ async function loadProfile(){
     img.onerror =
     function(){
 
-      avatar.textContent =
+      avatar.innerHTML =
         "👤";
 
     };
@@ -1411,13 +1110,15 @@ async function loadProfile(){
 
   }else{
 
-    avatar.textContent =
+    avatar.innerHTML =
       "👤";
 
   }
 
 
-  /* تاريخ الحساب */
+  /* =====================================
+     ACCOUNT DATE
+  ===================================== */
 
   if(currentUser.created_at){
 
@@ -1447,6 +1148,98 @@ async function loadProfile(){
 
 
 /* =========================================
+   GET OPTIONS
+========================================= */
+
+function getVoteOptions(vote){
+
+  if(!vote){
+
+    return [];
+
+  }
+
+
+  let options =
+    vote.options;
+
+
+  /*
+    إذا كان JSONB عاد كنص
+  */
+
+  if(typeof options === "string"){
+
+    try{
+
+      options =
+        JSON.parse(options);
+
+    }catch(error){
+
+      console.error(
+        "Options JSON error:",
+        error
+      );
+
+      return [];
+
+    }
+
+  }
+
+
+  if(!Array.isArray(options)){
+
+    return [];
+
+  }
+
+
+  return options;
+
+}
+
+
+/* =========================================
+   CALCULATE TOTAL VOTES
+========================================= */
+
+function calculateVoteTotal(vote){
+
+  const options =
+    getVoteOptions(vote);
+
+
+  let total =
+    0;
+
+
+  options.forEach(
+    function(option){
+
+      if(!option){
+
+        return;
+
+      }
+
+
+      total +=
+        Number(
+          option.votes || 0
+        );
+
+    }
+  );
+
+
+  return total;
+
+}
+
+
+/* =========================================
    LOAD MY VOTES
 ========================================= */
 
@@ -1459,15 +1252,22 @@ async function loadMyVotes(){
 
 
   votesList.innerHTML = `
-  
+
     <div class="empty">
+
       ⏳ جارٍ تحميل تصويتاتك...
+
     </div>
 
   `;
 
 
   try{
+
+    /*
+      جلب التصويتات التي أنشأها
+      المستخدم الحالي
+    */
 
     const {
       data,
@@ -1499,7 +1299,9 @@ async function loadMyVotes(){
       data || [];
 
 
-    /* العدد */
+    /* =================================
+       COUNT
+    ================================= */
 
     document.getElementById(
       "votesCount"
@@ -1514,7 +1316,9 @@ async function loadMyVotes(){
       " تصويت";
 
 
-    /* لا توجد تصويتات */
+    /* =================================
+       EMPTY
+    ================================= */
 
     if(votes.length === 0){
 
@@ -1547,6 +1351,10 @@ async function loadMyVotes(){
     }
 
 
+    /* =================================
+       RENDER
+    ================================= */
+
     votesList.innerHTML =
       "";
 
@@ -1558,42 +1366,21 @@ async function loadMyVotes(){
     votes.forEach(
     function(vote){
 
+      /*
+        حساب عدد الأصوات من options
+      */
+
       const total =
-
-        Number(vote.votes_a || 0) +
-
-        Number(vote.votes_b || 0) +
-
-        Number(vote.votes_c || 0) +
-
-        Number(vote.votes_d || 0) +
-
-        Number(vote.votes_e || 0) +
-
-        Number(vote.votes_f || 0) +
-
-        Number(vote.votes_g || 0) +
-
-        Number(vote.votes_h || 0) +
-
-        Number(vote.votes_i || 0) +
-
-        Number(vote.votes_j || 0) +
-
-        Number(vote.votes_k || 0) +
-
-        Number(vote.votes_l || 0) +
-
-        Number(vote.votes_m || 0) +
-
-        Number(vote.votes_n || 0) +
-
-        Number(vote.votes_o || 0);
+        calculateVoteTotal(vote);
 
 
       totalVotesNumber +=
         total;
 
+
+      /* =================================
+         DATE
+      ================================= */
 
       let dateText =
         "";
@@ -1611,6 +1398,10 @@ async function loadMyVotes(){
       }
 
 
+      /* =================================
+         CARD
+      ================================= */
+
       const card =
         document.createElement("a");
 
@@ -1626,12 +1417,20 @@ async function loadMyVotes(){
         );
 
 
+      /* =================================
+         CATEGORY
+      ================================= */
+
       const category =
         escapeHtml(
           vote.category ||
           "عام"
         );
 
+
+      /* =================================
+         QUESTION
+      ================================= */
 
       const question =
         escapeHtml(
@@ -1643,12 +1442,18 @@ async function loadMyVotes(){
       card.innerHTML = `
 
         <div class="vote-category">
+
           ${category}
+
         </div>
 
+
         <div class="vote-question">
+
           ${question}
+
         </div>
+
 
         <div class="vote-date">
 
@@ -1670,6 +1475,10 @@ async function loadMyVotes(){
     });
 
 
+    /* =================================
+       TOTAL
+    ================================= */
+
     document.getElementById(
       "totalVotes"
     ).textContent =
@@ -1682,6 +1491,18 @@ async function loadMyVotes(){
       "Load votes error:",
       error
     );
+
+
+    document.getElementById(
+      "votesCount"
+    ).textContent =
+      "0";
+
+
+    document.getElementById(
+      "totalVotes"
+    ).textContent =
+      "0";
 
 
     votesList.innerHTML = `
@@ -1714,8 +1535,10 @@ function escapeHtml(text){
   const div =
     document.createElement("div");
 
+
   div.textContent =
     String(text);
+
 
   return div.innerHTML;
 
