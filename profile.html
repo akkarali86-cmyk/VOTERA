@@ -14,6 +14,10 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <style>
 
+/* =========================================
+   VARIABLES
+========================================= */
+
 :root{
   --primary:#6c5ce7;
   --primary-dark:#5848d6;
@@ -25,6 +29,11 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   --danger:#d93025;
   --success:#16a34a;
 }
+
+
+/* =========================================
+   RESET
+========================================= */
 
 *{
   margin:0;
@@ -38,11 +47,17 @@ html{
 }
 
 body{
+
   font-family:Arial,Helvetica,sans-serif;
+
   background:var(--bg);
+
   color:var(--text);
+
   min-height:100vh;
+
   padding-bottom:110px;
+
 }
 
 button,
@@ -66,31 +81,53 @@ a{
 ========================================= */
 
 header{
+
   height:68px;
+
   background:rgba(255,255,255,.98);
+
   border-bottom:1px solid var(--border);
+
   display:flex;
+
   align-items:center;
+
   position:sticky;
+
   top:0;
+
   z-index:100;
+
 }
 
 .nav{
+
   width:100%;
+
   max-width:900px;
+
   margin:auto;
+
   padding:0 18px;
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
 }
 
 .logo{
+
   font-size:25px;
+
   font-weight:950;
+
   letter-spacing:-1px;
+
   direction:ltr;
+
 }
 
 .logo span{
@@ -98,9 +135,13 @@ header{
 }
 
 .home-link{
+
   color:var(--muted);
+
   font-size:13px;
+
   font-weight:900;
+
 }
 
 
@@ -109,10 +150,15 @@ header{
 ========================================= */
 
 .container{
+
   width:100%;
+
   max-width:700px;
+
   margin:auto;
+
   padding:35px 18px 30px;
+
 }
 
 
@@ -121,112 +167,239 @@ header{
 ========================================= */
 
 .message{
+
   display:none;
+
   margin-bottom:15px;
+
   padding:13px;
+
   border-radius:13px;
+
   text-align:center;
+
   font-size:12px;
+
   font-weight:800;
+
   white-space:pre-line;
+
 }
 
 .message.error{
+
   display:block;
+
   background:#fff0f0;
+
   color:#b42318;
+
   border:1px solid #ffd0d0;
+
 }
 
 .message.success{
+
   display:block;
+
   background:#ecfdf3;
+
   color:#166534;
+
   border:1px solid #bbf7d0;
+
 }
 
 
 /* =========================================
-   LOGIN
+   LOGIN CARD
 ========================================= */
 
 .login-card{
+
   background:white;
+
   border:1px solid var(--border);
+
   border-radius:22px;
+
   padding:30px 20px;
+
   text-align:center;
-  box-shadow:0 8px 25px rgba(0,0,0,.035);
+
+  box-shadow:
+  0 8px 25px rgba(0,0,0,.035);
+
 }
 
 .login-card h2{
+
   font-size:21px;
+
   margin-bottom:10px;
+
 }
 
 .login-card p{
+
   color:var(--muted);
+
   font-size:13px;
+
   line-height:1.7;
+
   margin-bottom:18px;
+
 }
 
 .google-btn{
+
   background:white;
+
   border:1px solid var(--border);
+
   border-radius:13px;
+
   padding:13px 20px;
+
   font-weight:900;
+
   font-size:13px;
+
 }
 
 
 /* =========================================
-   PROFILE
+   PROFILE CARD
 ========================================= */
 
 .profile-card{
+
   background:var(--card);
+
   border:1px solid var(--border);
+
   border-radius:24px;
+
   padding:28px 20px;
+
   text-align:center;
-  box-shadow:0 8px 25px rgba(0,0,0,.035);
+
+  box-shadow:
+  0 8px 25px rgba(0,0,0,.035);
+
   margin-bottom:18px;
+
 }
 
 .avatar{
-  width:82px;
-  height:82px;
+
+  width:92px;
+
+  height:92px;
+
   border-radius:50%;
+
   background:#ece9ff;
+
   color:var(--primary);
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   margin:0 auto 14px;
-  font-size:35px;
+
+  font-size:38px;
+
   font-weight:950;
+
   overflow:hidden;
+
+  border:3px solid #f0eeff;
+
 }
 
 .avatar img{
+
   width:100%;
+
   height:100%;
+
   object-fit:cover;
+
 }
 
 .profile-name{
+
   font-size:22px;
+
   font-weight:950;
-  margin-bottom:6px;
+
+  margin-bottom:5px;
+
+}
+
+.profile-username{
+
+  color:var(--primary);
+
+  direction:ltr;
+
+  font-size:13px;
+
+  font-weight:900;
+
+  margin-bottom:10px;
+
 }
 
 .profile-email{
+
   color:var(--muted);
+
   font-size:12px;
+
   direction:ltr;
-  margin-bottom:18px;
+
+  margin-bottom:12px;
+
+}
+
+.profile-bio{
+
+  color:#555560;
+
+  font-size:13px;
+
+  line-height:1.7;
+
+  margin:0 auto 15px;
+
+  max-width:500px;
+
+}
+
+.profile-age{
+
+  display:inline-block;
+
+  background:#f5f3ff;
+
+  color:var(--primary);
+
+  border-radius:20px;
+
+  padding:6px 11px;
+
+  font-size:11px;
+
+  font-weight:900;
+
+  margin-bottom:16px;
+
 }
 
 
@@ -235,33 +408,63 @@ header{
 ========================================= */
 
 .follow-button{
+
   width:100%;
-  max-width:260px;
+
+  max-width:280px;
+
   padding:13px 20px;
+
   border-radius:13px;
+
   background:var(--primary);
+
   color:white;
+
   font-size:13px;
+
   font-weight:950;
+
   margin:0 auto 18px;
+
   display:block;
+
   transition:.2s;
+
 }
 
 .follow-button:hover{
+
   background:var(--primary-dark);
+
+}
+
+.follow-button:disabled{
+
+  opacity:.65;
+
+  cursor:not-allowed;
+
 }
 
 .follow-button.following{
+
   background:#f0eeff;
+
   color:var(--primary);
+
   border:1px solid #dcd6ff;
+
 }
 
 .follow-button.following:hover{
+
   background:#ffecec;
+
   color:var(--danger);
+
   border-color:#ffd0d0;
+
 }
 
 
@@ -270,84 +473,135 @@ header{
 ========================================= */
 
 .follow-stats{
+
   display:grid;
+
   grid-template-columns:1fr 1fr;
+
   gap:8px;
+
   margin-bottom:8px;
+
 }
 
 .follow-stat{
+
   background:#fafafd;
+
   border:1px solid var(--border);
+
   border-radius:15px;
+
   padding:13px 5px;
+
 }
 
 .follow-stat strong{
+
   display:block;
+
   color:var(--primary);
+
   font-size:19px;
+
   margin-bottom:4px;
+
 }
 
 .follow-stat span{
+
   color:var(--muted);
+
   font-size:10px;
+
   font-weight:800;
+
 }
 
 
 /* =========================================
-   STATS
+   PROFILE STATS
 ========================================= */
 
 .stats{
+
   display:grid;
+
   grid-template-columns:repeat(3,1fr);
+
   gap:8px;
+
+  margin-top:8px;
+
 }
 
 .stat{
+
   background:#fafafd;
+
   border:1px solid var(--border);
+
   border-radius:15px;
+
   padding:13px 5px;
+
 }
 
 .stat strong{
+
   display:block;
+
   color:var(--primary);
+
   font-size:19px;
+
   margin-bottom:4px;
+
 }
 
 .stat span{
+
   color:var(--muted);
+
   font-size:10px;
+
   font-weight:800;
+
 }
 
 
 /* =========================================
-   SECTION
+   SECTION HEADER
 ========================================= */
 
 .section-header{
+
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
   margin:25px 2px 14px;
+
 }
 
 .section-header h2{
+
   font-size:21px;
+
   font-weight:950;
+
 }
 
 .section-header span{
+
   color:var(--primary);
+
   font-size:12px;
+
   font-weight:900;
+
 }
 
 
@@ -356,62 +610,106 @@ header{
 ========================================= */
 
 .votes{
+
   display:flex;
+
   flex-direction:column;
+
   gap:12px;
+
 }
 
 .vote-card{
+
   display:block;
+
   background:white;
+
   border:1px solid var(--border);
+
   border-radius:19px;
+
   padding:17px;
-  box-shadow:0 5px 18px rgba(0,0,0,.025);
+
+  box-shadow:
+  0 5px 18px rgba(0,0,0,.025);
+
   transition:.2s;
+
 }
 
 .vote-card:hover{
+
   border-color:#d4cffd;
+
   transform:translateY(-1px);
+
 }
 
 .vote-card:active{
+
   transform:scale(.98);
+
 }
 
 .vote-category{
+
   display:inline-block;
+
   background:#f0eeff;
+
   color:var(--primary);
+
   border-radius:20px;
+
   padding:6px 10px;
+
   font-size:10px;
+
   font-weight:900;
+
   margin-bottom:10px;
+
 }
 
 .vote-question{
+
   font-size:16px;
+
   font-weight:900;
+
   line-height:1.6;
+
   margin-bottom:12px;
+
 }
 
 .vote-date{
+
   color:var(--muted);
+
   font-size:10px;
+
 }
 
 .empty{
+
   background:white;
+
   border:1px solid var(--border);
+
   border-radius:20px;
+
   padding:30px 15px;
+
   text-align:center;
+
   color:var(--muted);
+
   font-size:13px;
+
   line-height:1.7;
+
 }
 
 
@@ -420,90 +718,166 @@ header{
 ========================================= */
 
 .logout{
+
   width:100%;
+
   margin-top:20px;
+
   padding:14px;
+
   border-radius:14px;
+
   background:#fff0f0;
+
   color:var(--danger);
+
   font-size:14px;
+
   font-weight:950;
+
   border:1px solid #ffd5d5;
+
 }
 
 
 /* =========================================
-   BOTTOM NAV
+   BOTTOM NAVIGATION
 ========================================= */
 
 .bottom-nav{
+
   position:fixed !important;
+
   left:0 !important;
+
   right:0 !important;
+
   bottom:0 !important;
+
   width:100% !important;
+
   height:82px !important;
+
   display:block !important;
+
   background:#ffffff !important;
+
   border-top:1px solid #e8e8ef !important;
-  box-shadow:0 -6px 25px rgba(0,0,0,.10) !important;
+
+  box-shadow:
+  0 -6px 25px rgba(0,0,0,.10) !important;
+
   z-index:2147483647 !important;
+
 }
 
 .bottom-nav-inner{
+
   width:100%;
+
   max-width:650px;
+
   height:100%;
+
   margin:auto;
+
   display:grid;
+
   grid-template-columns:repeat(5,1fr);
+
   align-items:center;
+
 }
 
 .bottom-item{
+
   height:82px;
+
   display:flex !important;
+
   flex-direction:column;
+
   align-items:center;
+
   justify-content:center;
+
   gap:5px;
+
   background:transparent;
+
   color:#858592;
+
   font-size:10px;
+
   font-weight:900;
+
   position:relative;
+
+  -webkit-tap-highlight-color:transparent;
+
 }
 
 .bottom-item.active{
+
   color:var(--primary);
+
 }
 
 .bottom-icon{
+
   width:28px;
+
   height:28px;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   font-size:21px;
+
 }
 
 .bottom-label{
+
   font-size:10px;
+
   white-space:nowrap;
+
 }
 
 .bottom-create{
+
   width:52px;
+
   height:52px;
+
   border-radius:17px;
+
   background:var(--primary);
+
   color:white;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
   font-size:28px;
+
   margin-top:-22px;
-  box-shadow:0 8px 22px rgba(108,92,231,.32);
+
+  box-shadow:
+  0 8px 22px rgba(108,92,231,.32);
+
+}
+
+.bottom-create:active{
+
+  transform:scale(.94);
+
 }
 
 
@@ -514,35 +888,52 @@ header{
 @supports(padding-bottom:env(safe-area-inset-bottom)){
 
   .bottom-nav{
-    height:calc(82px + env(safe-area-inset-bottom)) !important;
-    padding-bottom:env(safe-area-inset-bottom);
+
+    height:
+    calc(82px + env(safe-area-inset-bottom))
+    !important;
+
+    padding-bottom:
+    env(safe-area-inset-bottom);
+
   }
 
   body{
-    padding-bottom:calc(110px + env(safe-area-inset-bottom));
+
+    padding-bottom:
+    calc(110px + env(safe-area-inset-bottom));
+
   }
 
 }
 
 
 /* =========================================
-   MOBILE
+   SMALL PHONES
 ========================================= */
 
 @media(max-width:360px){
 
   .bottom-icon{
+
     font-size:19px;
+
   }
 
   .bottom-label{
+
     font-size:9px;
+
   }
 
   .bottom-create{
+
     width:47px;
+
     height:47px;
+
     font-size:25px;
+
   }
 
 }
@@ -554,6 +945,10 @@ header{
 
 <body>
 
+
+<!-- =========================================
+     HEADER
+========================================= -->
 
 <header>
 
@@ -572,6 +967,10 @@ VOTE<span>RA</span>
 </header>
 
 
+<!-- =========================================
+     MAIN
+========================================= -->
+
 <main class="container">
 
 
@@ -581,7 +980,9 @@ class="message">
 </div>
 
 
-<!-- LOGIN -->
+<!-- =========================================
+     LOGIN
+========================================= -->
 
 <div
 id="loginCard"
@@ -594,7 +995,7 @@ style="display:none;"
 </h2>
 
 <p>
-سجل الدخول بحساب Google لرؤية ملفك الشخصي وتصويتاتك.
+سجل الدخول بحساب Google حتى تتمكن من متابعة المستخدمين والتفاعل معهم.
 </p>
 
 <button
@@ -607,7 +1008,9 @@ onclick="signInWithGoogle()"
 </div>
 
 
-<!-- PROFILE -->
+<!-- =========================================
+     PROFILE
+========================================= -->
 
 <div
 id="profileContent"
@@ -635,14 +1038,36 @@ id="profileName"
 
 
 <div
-class="profile-email"
-id="profileEmail"
+class="profile-username"
+id="profileUsername"
 >
--
+@username
 </div>
 
 
-<!-- FOLLOW BUTTON -->
+<div
+class="profile-email"
+id="profileEmail"
+>
+</div>
+
+
+<div
+class="profile-bio"
+id="profileBio"
+>
+</div>
+
+
+<div
+class="profile-age"
+id="profileAge"
+style="display:none;"
+>
+</div>
+
+
+<!-- FOLLOW -->
 
 <button
 id="followButton"
@@ -688,7 +1113,7 @@ style="display:none;"
 </div>
 
 
-<!-- VOTE STATS -->
+<!-- PROFILE STATS -->
 
 <div class="stats">
 
@@ -721,6 +1146,25 @@ style="display:none;"
 
 <div class="stat">
 
+<strong id="pointsCount">
+0
+</strong>
+
+<span>
+النقاط
+</span>
+
+</div>
+
+
+</div>
+
+
+<div class="stats">
+
+
+<div class="stat">
+
 <strong id="accountDate">
 -
 </strong>
@@ -732,18 +1176,46 @@ style="display:none;"
 </div>
 
 
+<div class="stat">
+
+<strong id="ageCount">
+-
+</strong>
+
+<span>
+العمر
+</span>
+
+</div>
+
+
+<div class="stat">
+
+<strong id="profileUsernameStat">
+-
+</strong>
+
+<span>
+اسم المستخدم
+</span>
+
+</div>
+
+
 </div>
 
 
 </section>
 
 
-<!-- MY VOTES -->
+<!-- =========================================
+     VOTES
+========================================= -->
 
 <div class="section-header">
 
 <h2>
-🗳️ تصويتاتي
+🗳️ التصويتات
 </h2>
 
 <span id="votesTitleCount">
@@ -759,10 +1231,13 @@ class="votes">
 </div>
 
 
+<!-- LOGOUT -->
+
 <button
 type="button"
 class="logout"
 onclick="logout()"
+id="logoutButton"
 >
 🚪 تسجيل الخروج
 </button>
@@ -774,7 +1249,9 @@ onclick="logout()"
 </main>
 
 
-<!-- BOTTOM NAV -->
+<!-- =========================================
+     BOTTOM NAVIGATION
+========================================= -->
 
 <nav
 class="bottom-nav"
@@ -881,7 +1358,6 @@ const SUPABASE_URL =
 const SUPABASE_ANON_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
 
-
 const supabaseClient =
 window.supabase.createClient(
   SUPABASE_URL,
@@ -894,7 +1370,11 @@ window.supabase.createClient(
 ========================================= */
 
 let currentUser = null;
+
 let profileUserId = null;
+
+let profileData = null;
+
 let isFollowing = false;
 
 
@@ -948,8 +1428,7 @@ async function signInWithGoogle(){
       options:{
 
         redirectTo:
-          window.location.origin +
-          "/VOTERA/profile.html"
+          window.location.href
 
       }
 
@@ -957,6 +1436,8 @@ async function signInWithGoogle(){
 
 
     if(error){
+
+      console.error(error);
 
       showMessage(
         "حدث خطأ أثناء تسجيل الدخول:\n" +
@@ -976,6 +1457,22 @@ async function signInWithGoogle(){
     );
 
   }
+
+}
+
+
+/* =========================================
+   GET PROFILE ID
+========================================= */
+
+function getProfileIdFromUrl(){
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  return params.get("id");
 
 }
 
@@ -1001,32 +1498,48 @@ async function checkUser(){
 
 
     /*
-      إذا كان هناك id في الرابط،
-      نحاول فتح ملف ذلك المستخدم.
+      إذا كان هناك id في الرابط
+      نفتح ملف ذلك المستخدم.
+
+      إذا لم يوجد id:
+      نفتح ملف المستخدم الحالي.
     */
 
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
+    const urlProfileId =
+      getProfileIdFromUrl();
 
 
-    profileUserId =
-      params.get("id") ||
-      (currentUser
-        ? currentUser.id
-        : null);
+    if(urlProfileId){
+
+      profileUserId =
+        urlProfileId;
+
+    }else if(currentUser){
+
+      profileUserId =
+        currentUser.id;
+
+    }else{
+
+      profileUserId =
+        null;
+
+    }
 
 
-    updatePage();
+    await updatePage();
 
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Check user error:",
+      error
+    );
 
     showMessage(
-      "تعذر التحقق من تسجيل الدخول.",
+      "تعذر تحميل الصفحة:\n" +
+      error.message,
       "error"
     );
 
@@ -1039,10 +1552,12 @@ async function checkUser(){
    UPDATE PAGE
 ========================================= */
 
-function updatePage(){
+async function updatePage(){
 
   const bottomNav =
-    document.getElementById("bottomNav");
+    document.getElementById(
+      "bottomNav"
+    );
 
 
   if(bottomNav){
@@ -1059,58 +1574,18 @@ function updatePage(){
   }
 
 
-  if(currentUser){
+  /*
+    لا يوجد مستخدم مسجل
+    ولا يوجد id في الرابط
+  */
 
-    loginCard.style.display =
-      "none";
-
-    profileContent.style.display =
-      "block";
-
-    loadProfile();
-
-  }else{
+  if(!profileUserId){
 
     loginCard.style.display =
       "block";
 
     profileContent.style.display =
       "none";
-
-  }
-
-}
-
-
-/* =========================================
-   AUTH STATE
-========================================= */
-
-supabaseClient.auth.onAuthStateChange(
-function(event,session){
-
-  currentUser =
-    session?.user || null;
-
-  setTimeout(
-    function(){
-
-      updatePage();
-
-    },
-    0
-  );
-
-});
-
-
-/* =========================================
-   LOAD PROFILE
-========================================= */
-
-async function loadProfile(){
-
-  if(!currentUser){
 
     return;
 
@@ -1118,138 +1593,369 @@ async function loadProfile(){
 
 
   /*
-    في الصفحة الشخصية العادية،
-    profileUserId = المستخدم الحالي.
+    لدينا profileUserId،
+    لذلك يمكن عرض الملف حتى
+    لو لم يكن الزائر مسجلًا.
   */
+
+  loginCard.style.display =
+    "none";
+
+  profileContent.style.display =
+    "block";
+
+
+  await loadProfile();
+
+
+}
+
+
+/* =========================================
+   LOAD PROFILE FROM DATABASE
+========================================= */
+
+async function loadProfile(){
 
   if(!profileUserId){
 
-    profileUserId =
-      currentUser.id;
+    return;
 
   }
 
 
-  const metadata =
-    currentUser.user_metadata || {};
+  try{
+
+    /*
+      نحصل على بيانات صاحب الملف
+      من جدول profiles
+    */
+
+    const {
+      data,
+      error
+    } =
+    await supabaseClient
+      .from("profiles")
+      .select(`
+        id,
+        username,
+        display_name,
+        avatar_url,
+        bio,
+        points,
+        created_at,
+        age
+      `)
+      .eq(
+        "id",
+        profileUserId
+      )
+      .maybeSingle();
 
 
-  const name =
-    metadata.full_name ||
-    metadata.name ||
-    "مستخدم VOTERA";
+    if(error){
+
+      throw error;
+
+    }
 
 
-  const email =
-    currentUser.email ||
-    "-";
+    if(!data){
+
+      profileContent.style.display =
+        "none";
+
+      showMessage(
+        "لم يتم العثور على هذا الملف الشخصي.",
+        "error"
+      );
+
+      return;
+
+    }
 
 
-  document.getElementById(
-    "profileName"
-  ).textContent =
-    name;
+    profileData =
+      data;
 
 
-  document.getElementById(
-    "profileEmail"
-  ).textContent =
-    email;
+    /*
+      الاسم
+    */
+
+    const displayName =
+      data.display_name ||
+      data.username ||
+      "مستخدم VOTERA";
 
 
-  /* الصورة */
-
-  const avatarUrl =
-    metadata.avatar_url ||
-    metadata.picture ||
-    null;
-
-
-  const avatar =
     document.getElementById(
-      "avatar"
-    );
+      "profileName"
+    ).textContent =
+      displayName;
 
 
-  if(avatarUrl){
+    /*
+      اسم المستخدم
+    */
 
-    avatar.innerHTML = "";
+    const username =
+      data.username ||
+      "";
 
-    const img =
-      document.createElement("img");
 
-    img.src =
-      avatarUrl;
+    document.getElementById(
+      "profileUsername"
+    ).textContent =
+      username
+      ? "@" + username
+      : "";
 
-    img.alt =
-      "الصورة الشخصية";
 
-    img.onerror =
-    function(){
+    document.getElementById(
+      "profileUsernameStat"
+    ).textContent =
+      username
+      ? "@" + username
+      : "-";
 
-      avatar.innerHTML =
-        "👤";
 
-    };
+    /*
+      النبذة
+    */
 
-    avatar.appendChild(img);
+    const bioElement =
+      document.getElementById(
+        "profileBio"
+      );
 
-  }else{
+
+    if(data.bio){
+
+      bioElement.textContent =
+        data.bio;
+
+      bioElement.style.display =
+        "block";
+
+    }else{
+
+      bioElement.style.display =
+        "none";
+
+    }
+
+
+    /*
+      العمر
+    */
+
+    const ageElement =
+      document.getElementById(
+        "profileAge"
+      );
+
+
+    if(data.age){
+
+      ageElement.textContent =
+        "🎂 " +
+        data.age +
+        " سنة";
+
+      ageElement.style.display =
+        "inline-block";
+
+      document.getElementById(
+        "ageCount"
+      ).textContent =
+        data.age;
+
+    }else{
+
+      ageElement.style.display =
+        "none";
+
+      document.getElementById(
+        "ageCount"
+      ).textContent =
+        "-";
+
+    }
+
+
+    /*
+      النقاط
+    */
+
+    document.getElementById(
+      "pointsCount"
+    ).textContent =
+      Number(data.points || 0);
+
+
+    /*
+      تاريخ إنشاء الحساب
+    */
+
+    if(data.created_at){
+
+      const date =
+        new Date(
+          data.created_at
+        );
+
+
+      document.getElementById(
+        "accountDate"
+      ).textContent =
+        date.toLocaleDateString(
+          "ar-DZ",
+          {
+            month:"short",
+            year:"numeric"
+          }
+        );
+
+    }else{
+
+      document.getElementById(
+        "accountDate"
+      ).textContent =
+        "-";
+
+    }
+
+
+    /*
+      الصورة الشخصية
+    */
+
+    const avatar =
+      document.getElementById(
+        "avatar"
+      );
+
 
     avatar.innerHTML =
       "👤";
 
-  }
+
+    if(data.avatar_url){
+
+      const img =
+        document.createElement("img");
+
+      img.src =
+        data.avatar_url;
+
+      img.alt =
+        "الصورة الشخصية";
+
+      img.onerror =
+      function(){
+
+        avatar.innerHTML =
+          "👤";
+
+      };
 
 
-  /* تاريخ الحساب */
+      avatar.innerHTML =
+        "";
 
-  if(currentUser.created_at){
-
-    const date =
-      new Date(
-        currentUser.created_at
+      avatar.appendChild(
+        img
       );
 
-
-    document.getElementById(
-      "accountDate"
-    ).textContent =
-      date.toLocaleDateString(
-        "ar-DZ",
-        {
-          month:"short",
-          year:"numeric"
-        }
-      );
-
-  }
+    }
 
 
-  /*
-    إذا كان الملف الشخصي
-    للمستخدم الحالي لا نعرض
-    زر متابعة لنفسه.
-  */
+    /*
+      هل الملف الحالي هو ملف المستخدم نفسه؟
+    */
 
-  if(profileUserId === currentUser.id){
+    if(
+      currentUser &&
+      currentUser.id === profileUserId
+    ){
 
-    followButton.style.display =
+      followButton.style.display =
+        "none";
+
+      document.getElementById(
+        "logoutButton"
+      ).style.display =
+        "block";
+
+    }else{
+
+      /*
+        عند زيارة ملف شخص آخر
+      */
+
+      document.getElementById(
+        "logoutButton"
+      ).style.display =
+        currentUser
+        ? "block"
+        : "none";
+
+
+      followButton.style.display =
+        "block";
+
+
+      if(currentUser){
+
+        await checkFollowStatus();
+
+      }else{
+
+        isFollowing =
+          false;
+
+        updateFollowButton();
+
+      }
+
+    }
+
+
+    /*
+      إحصائيات المتابعة
+    */
+
+    await loadFollowStats();
+
+
+    /*
+      تصويتات المستخدم
+    */
+
+    await loadUserVotes();
+
+
+  }catch(error){
+
+    console.error(
+      "Load profile error:",
+      error
+    );
+
+
+    profileContent.style.display =
       "none";
 
-  }else{
 
-    followButton.style.display =
-      "block";
-
-    await checkFollowStatus();
+    showMessage(
+      "تعذر تحميل الملف الشخصي:\n" +
+      error.message,
+      "error"
+    );
 
   }
-
-
-  await loadFollowStats();
-
-  await loadMyVotes();
 
 }
 
@@ -1262,7 +1968,8 @@ async function checkFollowStatus(){
 
   if(
     !currentUser ||
-    !profileUserId
+    !profileUserId ||
+    currentUser.id === profileUserId
   ){
 
     return;
@@ -1293,7 +2000,7 @@ async function checkFollowStatus(){
     if(error){
 
       console.error(
-        "Follow status error:",
+        "Check follow error:",
         error
       );
 
@@ -1366,10 +2073,14 @@ function updateFollowButton(){
 
 async function toggleFollow(){
 
+  /*
+    يجب تسجيل الدخول
+  */
+
   if(!currentUser){
 
     showMessage(
-      "يجب تسجيل الدخول أولًا.",
+      "يجب تسجيل الدخول أولًا حتى تتمكن من متابعة المستخدمين.",
       "error"
     );
 
@@ -1384,6 +2095,10 @@ async function toggleFollow(){
 
   }
 
+
+  /*
+    لا يمكن متابعة نفسك
+  */
 
   if(
     currentUser.id ===
@@ -1401,11 +2116,11 @@ async function toggleFollow(){
 
   try{
 
-    if(isFollowing){
+    /*
+      إلغاء المتابعة
+    */
 
-      /*
-        إلغاء المتابعة
-      */
+    if(isFollowing){
 
       const {
         error
@@ -1443,7 +2158,7 @@ async function toggleFollow(){
     }else{
 
       /*
-        متابعة
+        متابعة المستخدم
       */
 
       const {
@@ -1465,7 +2180,7 @@ async function toggleFollow(){
       if(error){
 
         /*
-          إذا كان يتابع بالفعل
+          23505 = موجود مسبقًا
         */
 
         if(
@@ -1498,6 +2213,11 @@ async function toggleFollow(){
 
 
     updateFollowButton();
+
+
+    /*
+      تحديث عدد المتابعين
+    */
 
     await loadFollowStats();
 
@@ -1625,7 +2345,7 @@ async function loadFollowStats(){
 
 
 /* =========================================
-   GET OPTIONS
+   VOTE OPTIONS
 ========================================= */
 
 function getVoteOptions(vote){
@@ -1670,20 +2390,27 @@ function getVoteOptions(vote){
 
 
 /* =========================================
-   CALCULATE TOTAL
+   CALCULATE VOTE TOTAL
 ========================================= */
 
 function calculateVoteTotal(vote){
+
+  /*
+    النظام الجديد:
+    options = array
+  */
 
   const options =
     getVoteOptions(vote);
 
 
-  let total =
-    0;
+  if(options.length){
+
+    let total =
+      0;
 
 
-  options.forEach(
+    options.forEach(
     function(option){
 
       if(!option){
@@ -1698,8 +2425,41 @@ function calculateVoteTotal(vote){
           option.votes || 0
         );
 
-    }
-  );
+    });
+
+
+    return total;
+
+  }
+
+
+  /*
+    دعم النظام القديم
+    إذا كانت الأصوات مخزنة
+    في votes_a ... votes_o
+  */
+
+  let total =
+    0;
+
+
+  const letters =
+    [
+      "a","b","c","d","e",
+      "f","g","h","i","j",
+      "k","l","m","n","o"
+    ];
+
+
+  letters.forEach(
+  function(letter){
+
+    total +=
+      Number(
+        vote["votes_" + letter] || 0
+      );
+
+  });
 
 
   return total;
@@ -1708,10 +2468,10 @@ function calculateVoteTotal(vote){
 
 
 /* =========================================
-   LOAD MY VOTES
+   LOAD USER VOTES
 ========================================= */
 
-async function loadMyVotes(){
+async function loadUserVotes(){
 
   const votesList =
     document.getElementById(
@@ -1723,7 +2483,7 @@ async function loadMyVotes(){
 
     <div class="empty">
 
-      ⏳ جارٍ تحميل تصويتاتك...
+      ⏳ جارٍ تحميل التصويتات...
 
     </div>
 
@@ -1793,10 +2553,6 @@ async function loadMyVotes(){
 
           لا توجد تصويتات بعد.
 
-          <br>
-
-          ابدأ بإنشاء أول تصويت! 🚀
-
         </div>
 
       `;
@@ -1818,7 +2574,9 @@ async function loadMyVotes(){
     function(vote){
 
       const total =
-        calculateVoteTotal(vote);
+        calculateVoteTotal(
+          vote
+        );
 
 
       totalVotesNumber +=
@@ -1948,7 +2706,9 @@ async function loadMyVotes(){
 function escapeHtml(text){
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
 
   div.textContent =
@@ -2000,7 +2760,11 @@ async function logout(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Logout error:",
+      error
+    );
+
 
     showMessage(
       "تعذر تسجيل الخروج:\n" +
@@ -2011,6 +2775,42 @@ async function logout(){
   }
 
 }
+
+
+/* =========================================
+   AUTH STATE
+========================================= */
+
+supabaseClient.auth.onAuthStateChange(
+function(event,session){
+
+  currentUser =
+    session?.user || null;
+
+
+  /*
+    إذا لم يكن هناك id في الرابط،
+    اجعل الملف الشخصي للمستخدم الحالي.
+  */
+
+  if(!getProfileIdFromUrl() && currentUser){
+
+    profileUserId =
+      currentUser.id;
+
+  }
+
+
+  setTimeout(
+    function(){
+
+      updatePage();
+
+    },
+    0
+  );
+
+});
 
 
 /* =========================================
