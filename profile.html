@@ -8,7 +8,7 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-<title>الملف الشخصي — VOTERA</title>
+<title>VOTERA — الملف الشخصي</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -23,6 +23,7 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   --muted:#777783;
   --border:#e8e8ef;
   --danger:#d93025;
+  --success:#16a34a;
 }
 
 *{
@@ -66,7 +67,7 @@ a{
 
 header{
   height:68px;
-  background:rgba(255,255,255,.98);
+  background:#fff;
   border-bottom:1px solid var(--border);
   display:flex;
   align-items:center;
@@ -111,7 +112,7 @@ header{
   width:100%;
   max-width:700px;
   margin:auto;
-  padding:35px 18px 30px;
+  padding:25px 18px 30px;
 }
 
 
@@ -142,6 +143,130 @@ header{
   background:#ecfdf3;
   color:#166534;
   border:1px solid #bbf7d0;
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.search-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:18px;
+  margin-bottom:18px;
+  box-shadow:0 7px 22px rgba(0,0,0,.035);
+}
+
+.search-title{
+  font-size:18px;
+  font-weight:950;
+  margin-bottom:13px;
+}
+
+.search-box{
+  display:flex;
+  gap:8px;
+}
+
+.search-box input{
+  flex:1;
+  min-width:0;
+  height:48px;
+  padding:0 14px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  outline:none;
+  background:#fafafd;
+  color:var(--text);
+  font-size:13px;
+}
+
+.search-box input:focus{
+  border-color:var(--primary);
+  background:#fff;
+}
+
+.search-button{
+  height:48px;
+  padding:0 18px;
+  border-radius:13px;
+  background:var(--primary);
+  color:white;
+  font-size:13px;
+  font-weight:950;
+}
+
+.search-results{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-top:12px;
+}
+
+.search-user{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:11px;
+  background:#fafafd;
+  border:1px solid var(--border);
+  border-radius:15px;
+  transition:.2s;
+}
+
+.search-user:hover{
+  background:#fff;
+  border-color:#d4cffd;
+  transform:translateY(-1px);
+}
+
+.search-avatar{
+  width:48px;
+  height:48px;
+  min-width:48px;
+  border-radius:50%;
+  overflow:hidden;
+  background:#ece9ff;
+  color:var(--primary);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+  font-weight:950;
+}
+
+.search-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.search-info{
+  flex:1;
+  min-width:0;
+}
+
+.search-name{
+  font-size:14px;
+  font-weight:950;
+  margin-bottom:4px;
+}
+
+.search-username{
+  color:var(--primary);
+  direction:ltr;
+  text-align:right;
+  font-size:11px;
+  font-weight:800;
+}
+
+.search-empty{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  padding:14px 5px;
 }
 
 
@@ -181,7 +306,7 @@ header{
 
 
 /* =========================================
-   PROFILE CARD
+   PROFILE
 ========================================= */
 
 .profile-card{
@@ -252,7 +377,7 @@ header{
 
 
 /* =========================================
-   FOLLOW BUTTON
+   FOLLOW
 ========================================= */
 
 .follow-button{
@@ -352,7 +477,7 @@ header{
 
 
 /* =========================================
-   VOTE STATS
+   STATS
 ========================================= */
 
 .stats{
@@ -394,7 +519,7 @@ header{
 }
 
 .section-header h2{
-  font-size:21px;
+  font-size:20px;
   font-weight:950;
 }
 
@@ -494,7 +619,7 @@ header{
   width:100% !important;
   height:82px !important;
   display:block !important;
-  background:#ffffff !important;
+  background:#fff !important;
   border-top:1px solid #e8e8ef !important;
   box-shadow:0 -6px 25px rgba(0,0,0,.10) !important;
   z-index:2147483647 !important;
@@ -521,7 +646,6 @@ header{
   color:#858592;
   font-size:10px;
   font-weight:900;
-  position:relative;
 }
 
 .bottom-item.active{
@@ -556,11 +680,6 @@ header{
   box-shadow:0 8px 22px rgba(108,92,231,.32);
 }
 
-
-/* =========================================
-   SAFE AREA
-========================================= */
-
 @supports(padding-bottom:env(safe-area-inset-bottom)){
 
   .bottom-nav{
@@ -578,6 +697,14 @@ header{
 /* =========================================
    MOBILE
 ========================================= */
+
+@media(max-width:400px){
+
+  .search-box button{
+    padding:0 14px;
+  }
+
+}
 
 @media(max-width:360px){
 
@@ -601,13 +728,8 @@ header{
 
 </head>
 
-
 <body>
 
-
-<!-- =========================================
-     HEADER
-========================================= -->
 
 <header>
 
@@ -626,10 +748,6 @@ VOTE<span>RA</span>
 </header>
 
 
-<!-- =========================================
-     MAIN
-========================================= -->
-
 <main class="container">
 
 
@@ -639,7 +757,46 @@ class="message">
 </div>
 
 
-<!-- LOGIN -->
+<!-- =========================================
+     SEARCH USERS
+========================================= -->
+
+<div class="search-card">
+
+  <div class="search-title">
+    🔎 البحث عن مستخدم
+  </div>
+
+  <div class="search-box">
+
+    <input
+      type="text"
+      id="userSearch"
+      placeholder="ابحث باسم المستخدم أو اسم العرض..."
+      autocomplete="off"
+    >
+
+    <button
+      type="button"
+      class="search-button"
+      onclick="searchUsers()"
+    >
+      بحث
+    </button>
+
+  </div>
+
+  <div
+    id="searchResults"
+    class="search-results">
+  </div>
+
+</div>
+
+
+<!-- =========================================
+     LOGIN
+========================================= -->
 
 <div
 id="loginCard"
@@ -665,7 +822,9 @@ onclick="signInWithGoogle()"
 </div>
 
 
-<!-- PROFILE -->
+<!-- =========================================
+     PROFILE
+========================================= -->
 
 <div
 id="profileContent"
@@ -755,7 +914,7 @@ style="display:none;"
 </div>
 
 
-<!-- AGE + DATE -->
+<!-- AGE + CREATED -->
 
 <div class="profile-info">
 
@@ -787,7 +946,7 @@ style="display:none;"
 </div>
 
 
-<!-- VOTE STATS -->
+<!-- STATS -->
 
 <div class="stats">
 
@@ -835,7 +994,9 @@ style="display:none;"
 </section>
 
 
-<!-- VOTES -->
+<!-- =========================================
+     VOTES
+========================================= -->
 
 <div class="section-header">
 
@@ -1014,6 +1175,12 @@ document.getElementById("message");
 const followButton =
 document.getElementById("followButton");
 
+const userSearch =
+document.getElementById("userSearch");
+
+const searchResults =
+document.getElementById("searchResults");
+
 
 /* =========================================
    MESSAGE
@@ -1026,6 +1193,11 @@ function showMessage(text,type){
 
   message.className =
     "message " + type;
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
@@ -1080,23 +1252,12 @@ async function signInWithGoogle(){
    GET PROFILE ID
 ========================================= */
 
-function getProfileIdFromUrl(){
+function getProfileFromUrl(){
 
   const params =
     new URLSearchParams(
       window.location.search
     );
-
-
-  /*
-    يدعم:
-
-    profile.html?id=USER_ID
-
-    وأيضًا:
-
-    profile.html?username=USERNAME
-  */
 
   return {
 
@@ -1132,12 +1293,11 @@ async function checkUser(){
 
 
     const urlProfile =
-      getProfileIdFromUrl();
+      getProfileFromUrl();
 
 
     /*
-      إذا يوجد ID في الرابط
-      نفتح هذا الملف.
+      profile.html?id=...
     */
 
     if(urlProfile.id){
@@ -1153,8 +1313,7 @@ async function checkUser(){
 
 
     /*
-      إذا يوجد username في الرابط
-      نبحث عنه في profiles.
+      profile.html?username=...
     */
 
     if(urlProfile.username){
@@ -1169,8 +1328,7 @@ async function checkUser(){
 
 
     /*
-      لا يوجد رابط لملف شخص آخر،
-      إذًا نفتح ملف المستخدم الحالي.
+      الملف الشخصي الحالي
     */
 
     if(currentUser){
@@ -1186,6 +1344,7 @@ async function checkUser(){
 
     }
 
+
   }catch(error){
 
     console.error(
@@ -1194,7 +1353,7 @@ async function checkUser(){
     );
 
     showMessage(
-      "تعذر تحميل الملف الشخصي:\n" +
+      "تعذر تحميل الصفحة:\n" +
       error.message,
       "error"
     );
@@ -1361,15 +1520,14 @@ async function displayProfile(profile){
     USERNAME
   */
 
-  const username =
-    profile.username ||
-    "user";
-
-
   document.getElementById(
     "profileUsername"
   ).textContent =
-    "@" + username;
+    "@" +
+    (
+      profile.username ||
+      "username"
+    );
 
 
   /*
@@ -1408,7 +1566,9 @@ async function displayProfile(profile){
   document.getElementById(
     "profilePoints"
   ).textContent =
-    "⭐ " + points + " نقطة";
+    "⭐ " +
+    points +
+    " نقطة";
 
 
   document.getElementById(
@@ -1443,10 +1603,18 @@ async function displayProfile(profile){
       ).toLocaleDateString(
         "ar-DZ",
         {
+          day:"numeric",
           month:"short",
           year:"numeric"
         }
       );
+
+  }else{
+
+    document.getElementById(
+      "accountDate"
+    ).textContent =
+      "-";
 
   }
 
@@ -1476,7 +1644,7 @@ async function displayProfile(profile){
 
 
     img.alt =
-      "الصورة الشخصية";
+      "";
 
 
     img.onerror =
@@ -1512,8 +1680,12 @@ async function displayProfile(profile){
 
 
   /*
-    FOLLOW
+    FOLLOW BUTTON
   */
+
+  isFollowing =
+    false;
+
 
   if(
     currentUser &&
@@ -1550,8 +1722,6 @@ async function displayProfile(profile){
 
   /*
     LOGOUT
-
-    يظهر فقط في ملفي الشخصي
   */
 
   if(
@@ -1574,6 +1744,332 @@ async function displayProfile(profile){
   }
 
 }
+
+
+/* =========================================
+   SEARCH USERS
+========================================= */
+
+async function searchUsers(){
+
+  const search =
+    userSearch.value.trim();
+
+
+  if(!search){
+
+    searchResults.innerHTML = `
+      <div class="search-empty">
+        🔎 اكتب اسم المستخدم للبحث.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  searchResults.innerHTML = `
+    <div class="search-empty">
+      ⏳ جارٍ البحث...
+    </div>
+  `;
+
+
+  try{
+
+    /*
+      البحث في username
+    */
+
+    const {
+      data:usernameData,
+      error:usernameError
+    } =
+    await supabaseClient
+      .from("profiles")
+      .select(
+        "id,username,display_name,avatar_url,bio,points"
+      )
+      .ilike(
+        "username",
+        "%" + search + "%"
+      )
+      .limit(10);
+
+
+    if(usernameError){
+
+      throw usernameError;
+
+    }
+
+
+    /*
+      البحث في display_name
+    */
+
+    const {
+      data:nameData,
+      error:nameError
+    } =
+    await supabaseClient
+      .from("profiles")
+      .select(
+        "id,username,display_name,avatar_url,bio,points"
+      )
+      .ilike(
+        "display_name",
+        "%" + search + "%"
+      )
+      .limit(10);
+
+
+    if(nameError){
+
+      throw nameError;
+
+    }
+
+
+    /*
+      دمج النتائج
+      وإزالة التكرار
+    */
+
+    const users = [];
+
+    const ids =
+      new Set();
+
+
+    [
+      ...(usernameData || []),
+      ...(nameData || [])
+    ]
+    .forEach(function(user){
+
+      if(
+        !user ||
+        !user.id
+      ){
+
+        return;
+
+      }
+
+
+      if(
+        ids.has(user.id)
+      ){
+
+        return;
+
+      }
+
+
+      ids.add(user.id);
+
+      users.push(user);
+
+    });
+
+
+    if(users.length === 0){
+
+      searchResults.innerHTML = `
+        <div class="search-empty">
+          😕 لم يتم العثور على أي مستخدم.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    searchResults.innerHTML =
+      "";
+
+
+    users.forEach(function(user){
+
+      const link =
+        document.createElement("a");
+
+
+      link.className =
+        "search-user";
+
+
+      /*
+        فتح ملف المستخدم
+      */
+
+      link.href =
+        "profile.html?id=" +
+        encodeURIComponent(
+          user.id
+        );
+
+
+      /*
+        AVATAR
+      */
+
+      const avatar =
+        document.createElement("div");
+
+
+      avatar.className =
+        "search-avatar";
+
+
+      if(user.avatar_url){
+
+        const img =
+          document.createElement("img");
+
+
+        img.src =
+          user.avatar_url;
+
+
+        img.alt =
+          "";
+
+
+        img.onerror =
+        function(){
+
+          avatar.innerHTML =
+            "👤";
+
+        };
+
+
+        avatar.appendChild(
+          img
+        );
+
+      }else{
+
+        avatar.textContent =
+          "👤";
+
+      }
+
+
+      /*
+        INFO
+      */
+
+      const info =
+        document.createElement("div");
+
+
+      info.className =
+        "search-info";
+
+
+      const name =
+        document.createElement("div");
+
+
+      name.className =
+        "search-name";
+
+
+      name.textContent =
+        user.display_name ||
+        user.username ||
+        "مستخدم VOTERA";
+
+
+      const username =
+        document.createElement("div");
+
+
+      username.className =
+        "search-username";
+
+
+      username.textContent =
+        "@" +
+        (
+          user.username ||
+          "username"
+        );
+
+
+      info.appendChild(
+        name
+      );
+
+
+      info.appendChild(
+        username
+      );
+
+
+      link.appendChild(
+        avatar
+      );
+
+
+      link.appendChild(
+        info
+      );
+
+
+      searchResults.appendChild(
+        link
+      );
+
+    });
+
+
+  }catch(error){
+
+    console.error(
+      "Search error:",
+      error
+    );
+
+
+    searchResults.innerHTML = `
+      <div class="search-empty">
+        ❌ تعذر تنفيذ البحث.
+        <br><br>
+        ${escapeHtml(
+          error.message || ""
+        )}
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =========================================
+   SEARCH WITH ENTER
+========================================= */
+
+userSearch.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Enter"
+    ){
+
+      searchUsers();
+
+    }
+
+  }
+);
 
 
 /* =========================================
@@ -1689,6 +2185,10 @@ function updateFollowButton(){
 
 async function toggleFollow(){
 
+  /*
+    يجب تسجيل الدخول
+  */
+
   if(!currentUser){
 
     showMessage(
@@ -1708,8 +2208,13 @@ async function toggleFollow(){
   }
 
 
+  /*
+    لا يمكن متابعة نفسك
+  */
+
   if(
-    currentUser.id === profileUserId
+    currentUser.id ===
+    profileUserId
   ){
 
     return;
@@ -1724,7 +2229,7 @@ async function toggleFollow(){
   try{
 
     /*
-      إلغاء المتابعة
+      UNFOLLOW
     */
 
     if(isFollowing){
@@ -1763,8 +2268,9 @@ async function toggleFollow(){
 
     }
 
+
     /*
-      متابعة
+      FOLLOW
     */
 
     else{
@@ -1788,8 +2294,7 @@ async function toggleFollow(){
       if(error){
 
         /*
-          23505 =
-          المتابعة موجودة أصلًا
+          المتابعة موجودة مسبقًا
         */
 
         if(
@@ -1836,7 +2341,7 @@ async function toggleFollow(){
 
 
     showMessage(
-      "تعذر تنفيذ العملية:\n" +
+      "تعذر تنفيذ المتابعة:\n" +
       error.message,
       "error"
     );
@@ -1866,7 +2371,7 @@ async function loadFollowStats(){
   try{
 
     /*
-      المتابعون
+      عدد المتابعين
     */
 
     const {
@@ -1896,7 +2401,7 @@ async function loadFollowStats(){
 
 
     /*
-      الذين يتابعهم
+      عدد الذين يتابعهم
     */
 
     const {
@@ -1950,7 +2455,7 @@ async function loadFollowStats(){
 
 
 /* =========================================
-   GET VOTE OPTIONS
+   VOTE OPTIONS
 ========================================= */
 
 function getVoteOptions(vote){
@@ -1999,19 +2504,18 @@ function getVoteOptions(vote){
 
 
 /* =========================================
-   CALCULATE TOTAL VOTES
+   TOTAL VOTES
 ========================================= */
 
 function calculateVoteTotal(vote){
 
-  /*
-    النظام الجديد:
-    إذا كان التصويت يستخدم options
-  */
-
   const options =
     getVoteOptions(vote);
 
+
+  /*
+    النظام الجديد
+  */
 
   if(options.length){
 
@@ -2043,10 +2547,11 @@ function calculateVoteTotal(vote){
 
 
   /*
-    دعم النظام القديم
+    النظام القديم
   */
 
   const columns = [
+
     "votes_a",
     "votes_b",
     "votes_c",
@@ -2062,6 +2567,7 @@ function calculateVoteTotal(vote){
     "votes_m",
     "votes_n",
     "votes_o"
+
   ];
 
 
@@ -2256,13 +2762,11 @@ async function loadUserVotes(){
 
         </div>
 
-
         <div class="vote-question">
 
           ${question}
 
         </div>
-
 
         <div class="vote-date">
 
@@ -2418,6 +2922,31 @@ function(event,session){
 
   currentUser =
     session?.user || null;
+
+
+  /*
+    إذا فتح المستخدم ملفه الشخصي
+    بعد تسجيل الدخول، نعيد تحميل
+    حالة المتابعة.
+  */
+
+  if(
+    profileUserId &&
+    profileData
+  ){
+
+    setTimeout(
+      function(){
+
+        displayProfile(
+          profileData
+        );
+
+      },
+      0
+    );
+
+  }
 
 });
 
