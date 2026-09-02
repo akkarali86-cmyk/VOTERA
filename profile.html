@@ -2,8 +2,11 @@
 <html lang="ar" dir="rtl">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <title>الملف الشخصي — VOTERA</title>
 
@@ -42,7 +45,8 @@ body{
   padding-bottom:110px;
 }
 
-button,input{
+button,
+input{
   font-family:inherit;
 }
 
@@ -57,7 +61,9 @@ a{
 }
 
 
-/* HEADER */
+/* ================================
+   HEADER
+================================ */
 
 header{
   height:68px;
@@ -98,7 +104,9 @@ header{
 }
 
 
-/* CONTAINER */
+/* ================================
+   CONTAINER
+================================ */
 
 .container{
   width:100%;
@@ -108,7 +116,9 @@ header{
 }
 
 
-/* MESSAGE */
+/* ================================
+   MESSAGE
+================================ */
 
 .message{
   display:none;
@@ -136,7 +146,9 @@ header{
 }
 
 
-/* LOGIN */
+/* ================================
+   LOGIN
+================================ */
 
 .login-card{
   background:white;
@@ -169,7 +181,9 @@ header{
 }
 
 
-/* PROFILE CARD */
+/* ================================
+   PROFILE CARD
+================================ */
 
 .profile-card{
   background:var(--card);
@@ -202,46 +216,47 @@ header{
   object-fit:cover;
 }
 
+.profile-name{
+  font-size:22px;
+  font-weight:950;
+  margin-bottom:5px;
+}
+
 .profile-username{
   color:var(--primary);
   font-size:13px;
   font-weight:900;
   direction:ltr;
-  margin-bottom:5px;
-}
-
-.profile-name{
-  font-size:22px;
-  font-weight:950;
-  margin-bottom:7px;
-}
-
-.profile-email{
-  color:var(--muted);
-  font-size:12px;
-  direction:ltr;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 
 .profile-bio{
   color:var(--muted);
   font-size:13px;
   line-height:1.7;
-  margin:0 auto 18px;
+  margin:0 auto 15px;
   max-width:500px;
 }
 
+.profile-age{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:18px;
+}
 
-/* FOLLOW */
+
+/* ================================
+   FOLLOW BUTTON
+================================ */
 
 .follow-button{
   width:100%;
-  max-width:260px;
-  padding:13px 20px;
-  border-radius:13px;
+  max-width:280px;
+  padding:14px 20px;
+  border-radius:14px;
   background:var(--primary);
   color:white;
-  font-size:13px;
+  font-size:14px;
   font-weight:950;
   margin:0 auto 18px;
   display:block;
@@ -250,6 +265,11 @@ header{
 
 .follow-button:hover{
   background:var(--primary-dark);
+}
+
+.follow-button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 .follow-button.following{
@@ -264,13 +284,10 @@ header{
   border-color:#ffd0d0;
 }
 
-.follow-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
 
-
-/* FOLLOW STATS */
+/* ================================
+   FOLLOW STATS
+================================ */
 
 .follow-stats{
   display:grid;
@@ -300,42 +317,15 @@ header{
 }
 
 
-/* USER INFO */
-
-.user-info{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-  margin-bottom:8px;
-}
-
-.info-box{
-  background:#fafafd;
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:12px 6px;
-}
-
-.info-box strong{
-  display:block;
-  color:var(--primary);
-  font-size:17px;
-  margin-bottom:4px;
-}
-
-.info-box span{
-  color:var(--muted);
-  font-size:10px;
-  font-weight:800;
-}
-
-
-/* VOTE STATS */
+/* ================================
+   MAIN STATS
+================================ */
 
 .stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:8px;
+  margin-top:8px;
 }
 
 .stat{
@@ -359,7 +349,25 @@ header{
 }
 
 
-/* SECTION */
+/* ================================
+   POINTS
+================================ */
+
+.points-box{
+  margin:15px 0 18px;
+  padding:12px;
+  background:#f7f5ff;
+  border:1px solid #e2ddff;
+  border-radius:14px;
+  color:var(--primary);
+  font-size:13px;
+  font-weight:900;
+}
+
+
+/* ================================
+   SECTION
+================================ */
 
 .section-header{
   display:flex;
@@ -380,7 +388,9 @@ header{
 }
 
 
-/* VOTES */
+/* ================================
+   VOTES
+================================ */
 
 .votes{
   display:flex;
@@ -442,7 +452,9 @@ header{
 }
 
 
-/* LOGOUT */
+/* ================================
+   LOGOUT
+================================ */
 
 .logout{
   width:100%;
@@ -457,7 +469,9 @@ header{
 }
 
 
-/* BOTTOM NAV */
+/* ================================
+   BOTTOM NAV
+================================ */
 
 .bottom-nav{
   position:fixed !important;
@@ -467,7 +481,7 @@ header{
   width:100% !important;
   height:82px !important;
   display:block !important;
-  background:#fff !important;
+  background:#ffffff !important;
   border-top:1px solid #e8e8ef !important;
   box-shadow:0 -6px 25px rgba(0,0,0,.10) !important;
   z-index:2147483647 !important;
@@ -530,7 +544,27 @@ header{
 }
 
 
-/* MOBILE */
+/* ================================
+   SAFE AREA
+================================ */
+
+@supports(padding-bottom:env(safe-area-inset-bottom)){
+
+  .bottom-nav{
+    height:calc(82px + env(safe-area-inset-bottom)) !important;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+
+  body{
+    padding-bottom:calc(110px + env(safe-area-inset-bottom));
+  }
+
+}
+
+
+/* ================================
+   MOBILE
+================================ */
 
 @media(max-width:360px){
 
@@ -548,13 +582,10 @@ header{
     font-size:25px;
   }
 
-  .profile-name{
-    font-size:20px;
-  }
-
 }
 
 </style>
+
 </head>
 
 
@@ -584,55 +615,94 @@ VOTE<span>RA</span>
 <div id="message" class="message"></div>
 
 
-<!-- LOGIN -->
+<!-- ================================
+     LOGIN CARD
+================================ -->
 
-<div id="loginCard" class="login-card" style="display:none;">
+<div
+id="loginCard"
+class="login-card"
+style="display:none;"
+>
 
-<h2>🔐 تسجيل الدخول</h2>
+<h2>
+🔐 تسجيل الدخول
+</h2>
 
 <p>
-سجل الدخول بحساب Google لرؤية الملف الشخصي واستخدام المتابعة.
+سجل الدخول بحساب Google للمتابعة والتفاعل مع المستخدمين.
 </p>
 
-<button class="google-btn" onclick="signInWithGoogle()">
+<button
+class="google-btn"
+onclick="signInWithGoogle()"
+>
 🔵 تسجيل الدخول بـ Google
 </button>
 
 </div>
 
 
-<!-- PROFILE -->
+<!-- ================================
+     PROFILE
+================================ -->
 
-<div id="profileContent" style="display:none;">
+<div
+id="profileContent"
+style="display:none;"
+>
 
 
 <section class="profile-card">
 
 
-<div class="avatar" id="avatar">
+<div
+class="avatar"
+id="avatar"
+>
 👤
 </div>
 
 
-<div class="profile-username" id="profileUsername">
-@username
-</div>
-
-
-<div class="profile-name" id="profileName">
+<div
+class="profile-name"
+id="profileName"
+>
 مستخدم VOTERA
 </div>
 
 
-<div class="profile-email" id="profileEmail">
--
+<div
+class="profile-username"
+id="profileUsername"
+>
+@username
 </div>
 
 
-<div class="profile-bio" id="profileBio">
-لا توجد نبذة بعد.
+<div
+class="profile-bio"
+id="profileBio"
+>
 </div>
 
+
+<div
+class="profile-age"
+id="profileAge"
+>
+</div>
+
+
+<div
+class="points-box"
+id="pointsBox"
+>
+⭐ النقاط: <span id="points">0</span>
+</div>
+
+
+<!-- FOLLOW -->
 
 <button
 id="followButton"
@@ -644,81 +714,83 @@ style="display:none;"
 </button>
 
 
+<!-- FOLLOW STATS -->
+
 <div class="follow-stats">
 
-<div class="follow-stat">
-
-<strong id="followersCount">0</strong>
-
-<span>المتابعون</span>
-
-</div>
-
 
 <div class="follow-stat">
 
-<strong id="followingCount">0</strong>
-
-<span>يتابع</span>
-
-</div>
-
-</div>
-
-
-<div class="user-info">
-
-<div class="info-box">
-
-<strong id="pointsCount">
+<strong id="followersCount">
 0
 </strong>
 
-<span>النقاط</span>
+<span>
+المتابعون
+</span>
 
 </div>
 
 
-<div class="info-box">
+<div class="follow-stat">
 
-<strong id="ageValue">
--
+<strong id="followingCount">
+0
 </strong>
 
-<span>العمر</span>
+<span>
+يتابع
+</span>
 
 </div>
 
+
 </div>
 
+
+<!-- VOTE STATS -->
 
 <div class="stats">
 
+
 <div class="stat">
 
-<strong id="votesCount">0</strong>
+<strong id="votesCount">
+0
+</strong>
 
-<span>التصويتات</span>
+<span>
+التصويتات
+</span>
 
 </div>
 
 
 <div class="stat">
 
-<strong id="totalVotes">0</strong>
+<strong id="totalVotes">
+0
+</strong>
 
-<span>إجمالي الأصوات</span>
+<span>
+إجمالي الأصوات
+</span>
 
 </div>
 
 
 <div class="stat">
 
-<strong id="accountDate">-</strong>
+<strong id="accountDate">
+-
+</strong>
 
-<span>عضو منذ</span>
+<span>
+عضو منذ
+</span>
 
 </div>
+
 
 </div>
 
@@ -726,23 +798,38 @@ style="display:none;"
 </section>
 
 
+<!-- ================================
+     VOTES
+================================ -->
+
 <div class="section-header">
 
-<h2>🗳️ تصويتات <span id="votesOwnerName"></span></h2>
+<h2>
+🗳️ تصويتات المستخدم
+</h2>
 
-<span id="votesTitleCount">0 تصويت</span>
+<span id="votesTitleCount">
+0 تصويت
+</span>
 
 </div>
 
 
-<div id="votesList" class="votes"></div>
+<div
+id="votesList"
+class="votes"
+>
+</div>
 
+
+<!-- LOGOUT -->
 
 <button
-id="logoutButton"
 type="button"
 class="logout"
 onclick="logout()"
+id="logoutButton"
+style="display:none;"
 >
 🚪 تسجيل الخروج
 </button>
@@ -754,14 +841,22 @@ onclick="logout()"
 </main>
 
 
-<!-- BOTTOM NAV -->
+<!-- ================================
+     BOTTOM NAV
+================================ -->
 
-<nav class="bottom-nav" id="bottomNav">
+<nav
+class="bottom-nav"
+id="bottomNav"
+>
 
 <div class="bottom-nav-inner">
 
 
-<a href="index.html" class="bottom-item">
+<a
+href="index.html"
+class="bottom-item"
+>
 
 <div class="bottom-icon">
 🏠
@@ -774,7 +869,10 @@ onclick="logout()"
 </a>
 
 
-<a href="index.html#votes" class="bottom-item">
+<a
+href="index.html#votes"
+class="bottom-item"
+>
 
 <div class="bottom-icon">
 🌎
@@ -787,7 +885,10 @@ onclick="logout()"
 </a>
 
 
-<a href="create.html" class="bottom-item">
+<a
+href="create.html"
+class="bottom-item"
+>
 
 <div class="bottom-create">
 ＋
@@ -800,7 +901,10 @@ onclick="logout()"
 </a>
 
 
-<a href="index.html#votes" class="bottom-item">
+<a
+href="index.html#votes"
+class="bottom-item"
+>
 
 <div class="bottom-icon">
 🗳️
@@ -813,7 +917,10 @@ onclick="logout()"
 </a>
 
 
-<a href="profile.html" class="bottom-item active">
+<a
+href="profile.html"
+class="bottom-item active"
+>
 
 <div class="bottom-icon">
 👤
@@ -843,6 +950,7 @@ const SUPABASE_URL =
 const SUPABASE_ANON_KEY =
 "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
 
+
 const supabaseClient =
 window.supabase.createClient(
   SUPABASE_URL,
@@ -855,8 +963,11 @@ window.supabase.createClient(
 ========================================= */
 
 let currentUser = null;
+
 let profileUserId = null;
+
 let profileData = null;
+
 let isFollowing = false;
 
 
@@ -876,6 +987,9 @@ document.getElementById("message");
 const followButton =
 document.getElementById("followButton");
 
+const logoutButton =
+document.getElementById("logoutButton");
+
 
 /* =========================================
    MESSAGE
@@ -883,7 +997,8 @@ document.getElementById("followButton");
 
 function showMessage(text,type){
 
-  message.textContent = text;
+  message.textContent =
+    text;
 
   message.className =
     "message " + type;
@@ -899,29 +1014,26 @@ async function signInWithGoogle(){
 
   try{
 
-    const { error } =
-      await supabaseClient.auth.signInWithOAuth({
+    const {
+      error
+    } =
+    await supabaseClient.auth.signInWithOAuth({
 
-        provider:"google",
+      provider:"google",
 
-        options:{
-          redirectTo:
-            window.location.origin +
-            "/VOTERA/profile.html"
-        }
+      options:{
 
-      });
+        redirectTo:
+          window.location.href
+
+      }
+
+    });
 
 
     if(error){
 
-      console.error(error);
-
-      showMessage(
-        "حدث خطأ أثناء تسجيل الدخول:\n" +
-        error.message,
-        "error"
-      );
+      throw error;
 
     }
 
@@ -930,7 +1042,8 @@ async function signInWithGoogle(){
     console.error(error);
 
     showMessage(
-      "حدث خطأ أثناء الاتصال.",
+      "حدث خطأ أثناء تسجيل الدخول:\n" +
+      error.message,
       "error"
     );
 
@@ -950,7 +1063,11 @@ function getProfileIdFromUrl(){
       window.location.search
     );
 
-  return params.get("id");
+
+  return (
+    params.get("id") ||
+    params.get("user_id")
+  );
 
 }
 
@@ -963,121 +1080,75 @@ async function checkUser(){
 
   try{
 
-    const { data, error } =
-      await supabaseClient.auth.getSession();
-
-
-    if(error){
-
-      throw error;
-
-    }
+    const {
+      data:{
+        session
+      }
+    } =
+    await supabaseClient.auth.getSession();
 
 
     currentUser =
-      data.session?.user || null;
+      session?.user || null;
 
+
+    /*
+      إذا كان هناك id في الرابط
+      نفتح ملف هذا المستخدم.
+
+      إذا لم يوجد id
+      نفتح ملف المستخدم الحالي.
+    */
 
     const urlProfileId =
       getProfileIdFromUrl();
 
 
-    /*
-      إذا كان هناك id في الرابط
-      نستخدمه.
+    profileUserId =
+      urlProfileId ||
+      currentUser?.id ||
+      null;
 
-      إذا لم يوجد id:
-      نفتح ملف المستخدم الحالي.
+
+    /*
+      إذا لا يوجد مستخدم مسجل
+      ولا يوجد id في الرابط،
+      نعرض تسجيل الدخول.
     */
 
-    if(urlProfileId){
+    if(!profileUserId){
 
-      profileUserId =
-        urlProfileId;
+      loginCard.style.display =
+        "block";
 
-    }else if(currentUser){
+      profileContent.style.display =
+        "none";
 
-      profileUserId =
-        currentUser.id;
-
-    }else{
-
-      profileUserId =
-        null;
+      return;
 
     }
 
 
-    updatePage();
+    /*
+      تحميل الملف الشخصي
+    */
+
+    await loadProfile();
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Check user error:",
+      error
+    );
 
     showMessage(
-      "تعذر التحقق من تسجيل الدخول.",
+      "حدث خطأ:\n" +
+      error.message,
       "error"
     );
 
   }
-
-}
-
-
-/* =========================================
-   UPDATE PAGE
-========================================= */
-
-function updatePage(){
-
-  const bottomNav =
-    document.getElementById("bottomNav");
-
-
-  if(bottomNav){
-
-    bottomNav.style.display = "block";
-
-    bottomNav.style.visibility = "visible";
-
-    bottomNav.style.opacity = "1";
-
-  }
-
-
-  /*
-    إذا لم يكن هناك مستخدم
-    والصفحة ليست مرتبطة بملف عام،
-    نطلب تسجيل الدخول.
-  */
-
-  if(!currentUser && !profileUserId){
-
-    loginCard.style.display =
-      "block";
-
-    profileContent.style.display =
-      "none";
-
-    return;
-
-  }
-
-
-  /*
-    إذا كان المستخدم غير مسجل
-    ولكن لديه رابط ملف شخص آخر،
-    نسمح بعرض الملف.
-  */
-
-  loginCard.style.display =
-    "none";
-
-  profileContent.style.display =
-    "block";
-
-
-  loadProfile();
 
 }
 
@@ -1092,37 +1163,11 @@ function(event,session){
   currentUser =
     session?.user || null;
 
-
-  /*
-    إذا لم يوجد id في الرابط
-    نستخدم المستخدم الحالي.
-  */
-
-  if(
-    !getProfileIdFromUrl() &&
-    currentUser
-  ){
-
-    profileUserId =
-      currentUser.id;
-
-  }
-
-
-  setTimeout(
-    function(){
-
-      updatePage();
-
-    },
-    0
-  );
-
 });
 
 
 /* =========================================
-   LOAD PROFILE FROM PROFAILes
+   LOAD PROFILE
 ========================================= */
 
 async function loadProfile(){
@@ -1137,22 +1182,56 @@ async function loadProfile(){
   try{
 
     /*
-      جلب بطاقة المستخدم
-      من جدول Profailes
+      نستخدم select("*")
+      حتى يعمل الكود مع أعمدة
+      جدول profiles الموجودة لديك.
     */
 
-    const {
+    let {
       data,
       error
     } =
     await supabaseClient
-      .from("Profailes")
+      .from("profiles")
       .select("*")
       .eq(
         "id",
         profileUserId
       )
       .maybeSingle();
+
+
+    /*
+      في حالة كان العمود اسمه user_id
+      بدل id.
+    */
+
+    if(error){
+
+      console.warn(
+        "profiles.id failed:",
+        error
+      );
+
+
+      const result =
+      await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq(
+          "user_id",
+          profileUserId
+        )
+        .maybeSingle();
+
+
+      data =
+        result.data;
+
+      error =
+        result.error;
+
+    }
 
 
     if(error){
@@ -1164,21 +1243,9 @@ async function loadProfile(){
 
     if(!data){
 
-      profileContent.innerHTML = `
-
-        <div class="empty">
-
-          ❌ لم يتم العثور على هذا الملف الشخصي.
-
-          <br><br>
-
-          ربما الرابط غير صحيح.
-
-        </div>
-
-      `;
-
-      return;
+      throw new Error(
+        "لم يتم العثور على هذا الملف الشخصي."
+      );
 
     }
 
@@ -1187,7 +1254,78 @@ async function loadProfile(){
       data;
 
 
-    renderProfile();
+    /*
+      عرض البيانات
+    */
+
+    displayProfile(
+      data
+    );
+
+
+    /*
+      إظهار الصفحة
+    */
+
+    loginCard.style.display =
+      "none";
+
+    profileContent.style.display =
+      "block";
+
+
+    /*
+      زر تسجيل الخروج
+      يظهر فقط في ملفي الشخصي.
+    */
+
+    if(
+      currentUser &&
+      profileUserId ===
+      currentUser.id
+    ){
+
+      logoutButton.style.display =
+        "block";
+
+    }else{
+
+      logoutButton.style.display =
+        "none";
+
+    }
+
+
+    /*
+      زر المتابعة
+    */
+
+    if(
+      currentUser &&
+      profileUserId !==
+      currentUser.id
+    ){
+
+      followButton.style.display =
+        "block";
+
+      await checkFollowStatus();
+
+    }else{
+
+      followButton.style.display =
+        "none";
+
+    }
+
+
+    /*
+      الإحصائيات
+    */
+
+    await loadFollowStats();
+
+    await loadUserVotes();
 
 
   }catch(error){
@@ -1196,6 +1334,10 @@ async function loadProfile(){
       "Load profile error:",
       error
     );
+
+
+    profileContent.style.display =
+      "none";
 
 
     showMessage(
@@ -1210,49 +1352,20 @@ async function loadProfile(){
 
 
 /* =========================================
-   RENDER PROFILE
+   DISPLAY PROFILE
 ========================================= */
 
-function renderProfile(){
+function displayProfile(profile){
 
-  if(!profileData){
-
-    return;
-
-  }
-
-
-  const username =
-    profileData.username ||
-    "username";
-
+  /*
+    اسم العرض
+  */
 
   const displayName =
-    profileData.display_name ||
-    username ||
+    profile.display_name ||
+    profile.name ||
+    profile.full_name ||
     "مستخدم VOTERA";
-
-
-  const bio =
-    profileData.bio ||
-    "لا توجد نبذة بعد.";
-
-
-  const points =
-    Number(
-      profileData.points || 0
-    );
-
-
-  const age =
-    profileData.age ||
-    "-";
-
-
-  document.getElementById(
-    "profileUsername"
-  ).textContent =
-    "@" + username;
 
 
   document.getElementById(
@@ -1261,63 +1374,94 @@ function renderProfile(){
     displayName;
 
 
-  document.getElementById(
-    "profileBio"
-  ).textContent =
-    bio;
+  /*
+    اسم المستخدم
+  */
+
+  const username =
+    profile.username ||
+    profile.user_name ||
+    "user";
 
 
   document.getElementById(
-    "pointsCount"
+    "profileUsername"
   ).textContent =
-    points;
-
-
-  document.getElementById(
-    "ageValue"
-  ).textContent =
-    age;
-
-
-  document.getElementById(
-    "votesOwnerName"
-  ).textContent =
-    displayName;
+    "@" + username;
 
 
   /*
-    البريد الإلكتروني يظهر فقط
-    عندما يكون الملف للمستخدم الحالي.
+    البيولوجيا
   */
 
-  if(
-    currentUser &&
-    profileUserId === currentUser.id
-  ){
+  const bio =
+    profile.bio ||
+    "";
 
-    document.getElementById(
-      "profileEmail"
-    ).textContent =
-      currentUser.email || "-";
 
+  const bioElement =
     document.getElementById(
-      "logoutButton"
-    ).style.display =
+      "profileBio"
+    );
+
+
+  if(bio){
+
+    bioElement.textContent =
+      bio;
+
+    bioElement.style.display =
       "block";
 
   }else{
 
-    document.getElementById(
-      "profileEmail"
-    ).textContent =
-      "";
-
-    document.getElementById(
-      "logoutButton"
-    ).style.display =
+    bioElement.style.display =
       "none";
 
   }
+
+
+  /*
+    العمر
+  */
+
+  const ageElement =
+    document.getElementById(
+      "profileAge"
+    );
+
+
+  if(
+    profile.age !== null &&
+    profile.age !== undefined &&
+    profile.age !== ""
+  ){
+
+    ageElement.textContent =
+      "🎂 العمر: " +
+      profile.age;
+
+    ageElement.style.display =
+      "block";
+
+  }else{
+
+    ageElement.style.display =
+      "none";
+
+  }
+
+
+  /*
+    النقاط
+  */
+
+  document.getElementById(
+    "points"
+  ).textContent =
+    Number(
+      profile.points || 0
+    );
 
 
   /*
@@ -1325,22 +1469,27 @@ function renderProfile(){
   */
 
   const avatar =
-    document.getElementById("avatar");
+    document.getElementById(
+      "avatar"
+    );
 
 
   const avatarUrl =
-    profileData.avatar_url ||
+    profile.avatar_url ||
+    profile.avatar ||
     null;
-
-
-  avatar.innerHTML =
-    "";
 
 
   if(avatarUrl){
 
+    avatar.innerHTML =
+      "";
+
+
     const img =
-      document.createElement("img");
+      document.createElement(
+        "img"
+      );
 
 
     img.src =
@@ -1360,25 +1509,31 @@ function renderProfile(){
     };
 
 
-    avatar.appendChild(img);
+    avatar.appendChild(
+      img
+    );
 
   }else{
 
-    avatar.textContent =
+    avatar.innerHTML =
       "👤";
 
   }
 
 
   /*
-    تاريخ الإنشاء
+    تاريخ إنشاء الحساب
   */
 
-  if(profileData.created_at){
+  const createdAt =
+    profile.created_at;
+
+
+  if(createdAt){
 
     const date =
       new Date(
-        profileData.created_at
+        createdAt
       );
 
 
@@ -1402,33 +1557,6 @@ function renderProfile(){
 
   }
 
-
-  /*
-    زر المتابعة
-  */
-
-  if(
-    currentUser &&
-    profileUserId !== currentUser.id
-  ){
-
-    followButton.style.display =
-      "block";
-
-    checkFollowStatus();
-
-  }else{
-
-    followButton.style.display =
-      "none";
-
-  }
-
-
-  loadFollowStats();
-
-  loadMyVotes();
-
 }
 
 
@@ -1440,8 +1568,7 @@ async function checkFollowStatus(){
 
   if(
     !currentUser ||
-    !profileUserId ||
-    currentUser.id === profileUserId
+    !profileUserId
   ){
 
     return;
@@ -1471,12 +1598,7 @@ async function checkFollowStatus(){
 
     if(error){
 
-      console.error(
-        "Check follow error:",
-        error
-      );
-
-      return;
+      throw error;
 
     }
 
@@ -1490,7 +1612,17 @@ async function checkFollowStatus(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Check follow error:",
+      error
+    );
+
+
+    showMessage(
+      "تعذر التحقق من حالة المتابعة:\n" +
+      error.message,
+      "error"
+    );
 
   }
 
@@ -1498,7 +1630,7 @@ async function checkFollowStatus(){
 
 
 /* =========================================
-   FOLLOW BUTTON
+   UPDATE FOLLOW BUTTON
 ========================================= */
 
 function updateFollowButton(){
@@ -1532,7 +1664,7 @@ function updateFollowButton(){
       "➕ متابعة";
 
     followButton.title =
-      "متابعة المستخدم";
+      "متابعة هذا المستخدم";
 
   }
 
@@ -1548,7 +1680,7 @@ async function toggleFollow(){
   if(!currentUser){
 
     showMessage(
-      "يجب تسجيل الدخول أولًا حتى تتمكن من متابعة المستخدمين.",
+      "يجب تسجيل الدخول أولًا للمتابعة.",
       "error"
     );
 
@@ -1564,7 +1696,10 @@ async function toggleFollow(){
   }
 
 
-  if(currentUser.id === profileUserId){
+  if(
+    currentUser.id ===
+    profileUserId
+  ){
 
     return;
 
@@ -1577,11 +1712,11 @@ async function toggleFollow(){
 
   try{
 
-    if(isFollowing){
+    /*
+      إلغاء المتابعة
+    */
 
-      /*
-        إلغاء المتابعة
-      */
+    if(isFollowing){
 
       const {
         error
@@ -1615,12 +1750,13 @@ async function toggleFollow(){
         "success"
       );
 
+    }
 
-    }else{
+    /*
+      متابعة
+    */
 
-      /*
-        متابعة
-      */
+    else{
 
       const {
         error
@@ -1641,11 +1777,12 @@ async function toggleFollow(){
       if(error){
 
         /*
-          إذا كان يتابع بالفعل
+          23505 = العلاقة موجودة
         */
 
         if(
-          error.code === "23505"
+          error.code ===
+          "23505"
         ){
 
           isFollowing =
@@ -1727,7 +1864,7 @@ async function loadFollowStats(){
     await supabaseClient
       .from("follows")
       .select(
-        "id",
+        "*",
         {
           count:"exact",
           head:true
@@ -1747,7 +1884,7 @@ async function loadFollowStats(){
 
 
     /*
-      الأشخاص الذين يتابعهم المستخدم
+      الأشخاص الذين يتابعهم
     */
 
     const {
@@ -1757,7 +1894,7 @@ async function loadFollowStats(){
     await supabaseClient
       .from("follows")
       .select(
-        "id",
+        "*",
         {
           count:"exact",
           head:true
@@ -1846,17 +1983,14 @@ function getVoteOptions(vote){
 
 
 /* =========================================
-   CALCULATE VOTES
+   CALCULATE VOTE TOTAL
 ========================================= */
 
 function calculateVoteTotal(vote){
 
   /*
-    الطريقة الجديدة:
-    options = [
-      { text:"...", votes:10 },
-      { text:"...", votes:5 }
-    ]
+    الطريقة الأولى:
+    options
   */
 
   const options =
@@ -1865,26 +1999,26 @@ function calculateVoteTotal(vote){
 
   if(options.length > 0){
 
-    let total = 0;
+    let total =
+      0;
 
 
     options.forEach(
-      function(option){
+    function(option){
 
-        if(!option){
+      if(!option){
 
-          return;
-
-        }
-
-
-        total +=
-          Number(
-            option.votes || 0
-          );
+        return;
 
       }
-    );
+
+
+      total +=
+        Number(
+          option.votes || 0
+        );
+
+    });
 
 
     return total;
@@ -1893,43 +2027,34 @@ function calculateVoteTotal(vote){
 
 
   /*
-    دعم النظام القديم
+    الطريقة القديمة:
+    votes_a إلى votes_o
   */
 
-  const oldColumns = [
-
-    "votes_a",
-    "votes_b",
-    "votes_c",
-    "votes_d",
-    "votes_e",
-    "votes_f",
-    "votes_g",
-    "votes_h",
-    "votes_i",
-    "votes_j",
-    "votes_k",
-    "votes_l",
-    "votes_m",
-    "votes_n",
-    "votes_o"
-
-  ];
+  let total =
+    0;
 
 
-  let total = 0;
+  const letters =
+    [
+      "a","b","c","d","e",
+      "f","g","h","i","j",
+      "k","l","m","n","o"
+    ];
 
 
-  oldColumns.forEach(
-    function(column){
+  letters.forEach(
+  function(letter){
 
-      total +=
-        Number(
-          vote[column] || 0
-        );
+    total +=
+      Number(
+        vote[
+          "votes_" +
+          letter
+        ] || 0
+      );
 
-    }
-  );
+  });
 
 
   return total;
@@ -1941,7 +2066,7 @@ function calculateVoteTotal(vote){
    LOAD USER VOTES
 ========================================= */
 
-async function loadMyVotes(){
+async function loadUserVotes(){
 
   const votesList =
     document.getElementById(
@@ -2041,96 +2166,99 @@ async function loadMyVotes(){
 
 
     votes.forEach(
-      function(vote){
+    function(vote){
 
-        const total =
-          calculateVoteTotal(vote);
-
-
-        totalVotesNumber +=
-          total;
-
-
-        let dateText =
-          "";
-
-
-        if(vote.created_at){
-
-          dateText =
-            new Date(
-              vote.created_at
-            ).toLocaleDateString(
-              "ar-DZ"
-            );
-
-        }
-
-
-        const card =
-          document.createElement("a");
-
-
-        card.className =
-          "vote-card";
-
-
-        card.href =
-          "vote.html?id=" +
-          encodeURIComponent(
-            vote.id
-          );
-
-
-        const category =
-          escapeHtml(
-            vote.category ||
-            "عام"
-          );
-
-
-        const question =
-          escapeHtml(
-            vote.question ||
-            "تصويت بدون عنوان"
-          );
-
-
-        card.innerHTML = `
-
-          <div class="vote-category">
-
-            ${category}
-
-          </div>
-
-
-          <div class="vote-question">
-
-            ${question}
-
-          </div>
-
-
-          <div class="vote-date">
-
-            🗳️ ${total} أصوات
-
-            &nbsp;&nbsp; • &nbsp;&nbsp;
-
-            📅 ${dateText}
-
-          </div>
-
-        `;
-
-
-        votesList.appendChild(
-          card
+      const total =
+        calculateVoteTotal(
+          vote
         );
 
+
+      totalVotesNumber +=
+        total;
+
+
+      let dateText =
+        "";
+
+
+      if(vote.created_at){
+
+        dateText =
+          new Date(
+            vote.created_at
+          ).toLocaleDateString(
+            "ar-DZ"
+          );
+
       }
-    );
+
+
+      const card =
+        document.createElement(
+          "a"
+        );
+
+
+      card.className =
+        "vote-card";
+
+
+      card.href =
+        "vote.html?id=" +
+        encodeURIComponent(
+          vote.id
+        );
+
+
+      const category =
+        escapeHtml(
+          vote.category ||
+          "عام"
+        );
+
+
+      const question =
+        escapeHtml(
+          vote.question ||
+          "تصويت بدون عنوان"
+        );
+
+
+      card.innerHTML = `
+
+        <div class="vote-category">
+
+          ${category}
+
+        </div>
+
+
+        <div class="vote-question">
+
+          ${question}
+
+        </div>
+
+
+        <div class="vote-date">
+
+          🗳️ ${total} أصوات
+
+          &nbsp;&nbsp; • &nbsp;&nbsp;
+
+          📅 ${dateText}
+
+        </div>
+
+      `;
+
+
+      votesList.appendChild(
+        card
+      );
+
+    });
 
 
     document.getElementById(
@@ -2145,6 +2273,18 @@ async function loadMyVotes(){
       "Load votes error:",
       error
     );
+
+
+    document.getElementById(
+      "votesCount"
+    ).textContent =
+      "0";
+
+
+    document.getElementById(
+      "totalVotes"
+    ).textContent =
+      "0";
 
 
     votesList.innerHTML = `
@@ -2175,7 +2315,9 @@ async function loadMyVotes(){
 function escapeHtml(text){
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
 
   div.textContent =
@@ -2227,7 +2369,11 @@ async function logout(){
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "Logout error:",
+      error
+    );
+
 
     showMessage(
       "تعذر تسجيل الخروج:\n" +
@@ -2250,4 +2396,4 @@ checkUser();
 
 </body>
 
-</html>
+  </html>
