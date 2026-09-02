@@ -2,21 +2,14 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>الملف الشخصي — VOTERA</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-/* =========================================
-   VARIABLES
-========================================= */
 
 :root{
   --primary:#6c5ce7;
@@ -30,11 +23,6 @@ content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   --success:#16a34a;
 }
 
-
-/* =========================================
-   RESET
-========================================= */
-
 *{
   margin:0;
   padding:0;
@@ -47,21 +35,14 @@ html{
 }
 
 body{
-
   font-family:Arial,Helvetica,sans-serif;
-
   background:var(--bg);
-
   color:var(--text);
-
   min-height:100vh;
-
   padding-bottom:110px;
-
 }
 
-button,
-input{
+button,input{
   font-family:inherit;
 }
 
@@ -76,58 +57,34 @@ a{
 }
 
 
-/* =========================================
-   HEADER
-========================================= */
+/* HEADER */
 
 header{
-
   height:68px;
-
   background:rgba(255,255,255,.98);
-
   border-bottom:1px solid var(--border);
-
   display:flex;
-
   align-items:center;
-
   position:sticky;
-
   top:0;
-
   z-index:100;
-
 }
 
 .nav{
-
   width:100%;
-
   max-width:900px;
-
   margin:auto;
-
   padding:0 18px;
-
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
 }
 
 .logo{
-
   font-size:25px;
-
   font-weight:950;
-
   letter-spacing:-1px;
-
   direction:ltr;
-
 }
 
 .logo span{
@@ -135,820 +92,474 @@ header{
 }
 
 .home-link{
-
   color:var(--muted);
-
   font-size:13px;
-
   font-weight:900;
-
 }
 
 
-/* =========================================
-   CONTAINER
-========================================= */
+/* CONTAINER */
 
 .container{
-
   width:100%;
-
   max-width:700px;
-
   margin:auto;
-
   padding:35px 18px 30px;
-
 }
 
 
-/* =========================================
-   MESSAGE
-========================================= */
+/* MESSAGE */
 
 .message{
-
   display:none;
-
   margin-bottom:15px;
-
   padding:13px;
-
   border-radius:13px;
-
   text-align:center;
-
   font-size:12px;
-
   font-weight:800;
-
   white-space:pre-line;
-
 }
 
 .message.error{
-
   display:block;
-
   background:#fff0f0;
-
   color:#b42318;
-
   border:1px solid #ffd0d0;
-
 }
 
 .message.success{
-
   display:block;
-
   background:#ecfdf3;
-
   color:#166534;
-
   border:1px solid #bbf7d0;
-
 }
 
 
-/* =========================================
-   LOGIN CARD
-========================================= */
+/* LOGIN */
 
 .login-card{
-
   background:white;
-
   border:1px solid var(--border);
-
   border-radius:22px;
-
   padding:30px 20px;
-
   text-align:center;
-
-  box-shadow:
-  0 8px 25px rgba(0,0,0,.035);
-
+  box-shadow:0 8px 25px rgba(0,0,0,.035);
 }
 
 .login-card h2{
-
   font-size:21px;
-
   margin-bottom:10px;
-
 }
 
 .login-card p{
-
   color:var(--muted);
-
   font-size:13px;
-
   line-height:1.7;
-
   margin-bottom:18px;
-
 }
 
 .google-btn{
-
   background:white;
-
   border:1px solid var(--border);
-
   border-radius:13px;
-
   padding:13px 20px;
-
   font-weight:900;
-
   font-size:13px;
-
 }
 
 
-/* =========================================
-   PROFILE CARD
-========================================= */
+/* PROFILE CARD */
 
 .profile-card{
-
   background:var(--card);
-
   border:1px solid var(--border);
-
   border-radius:24px;
-
   padding:28px 20px;
-
   text-align:center;
-
-  box-shadow:
-  0 8px 25px rgba(0,0,0,.035);
-
+  box-shadow:0 8px 25px rgba(0,0,0,.035);
   margin-bottom:18px;
-
 }
 
 .avatar{
-
-  width:92px;
-
-  height:92px;
-
+  width:90px;
+  height:90px;
   border-radius:50%;
-
   background:#ece9ff;
-
   color:var(--primary);
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   margin:0 auto 14px;
-
-  font-size:38px;
-
+  font-size:35px;
   font-weight:950;
-
   overflow:hidden;
-
-  border:3px solid #f0eeff;
-
 }
 
 .avatar img{
-
   width:100%;
-
   height:100%;
-
   object-fit:cover;
-
-}
-
-.profile-name{
-
-  font-size:22px;
-
-  font-weight:950;
-
-  margin-bottom:5px;
-
 }
 
 .profile-username{
-
   color:var(--primary);
-
-  direction:ltr;
-
   font-size:13px;
-
   font-weight:900;
+  direction:ltr;
+  margin-bottom:5px;
+}
 
-  margin-bottom:10px;
-
+.profile-name{
+  font-size:22px;
+  font-weight:950;
+  margin-bottom:7px;
 }
 
 .profile-email{
-
   color:var(--muted);
-
   font-size:12px;
-
   direction:ltr;
-
   margin-bottom:12px;
-
 }
 
 .profile-bio{
-
-  color:#555560;
-
+  color:var(--muted);
   font-size:13px;
-
   line-height:1.7;
-
-  margin:0 auto 15px;
-
+  margin:0 auto 18px;
   max-width:500px;
-
-}
-
-.profile-age{
-
-  display:inline-block;
-
-  background:#f5f3ff;
-
-  color:var(--primary);
-
-  border-radius:20px;
-
-  padding:6px 11px;
-
-  font-size:11px;
-
-  font-weight:900;
-
-  margin-bottom:16px;
-
 }
 
 
-/* =========================================
-   FOLLOW BUTTON
-========================================= */
+/* FOLLOW */
 
 .follow-button{
-
   width:100%;
-
-  max-width:280px;
-
+  max-width:260px;
   padding:13px 20px;
-
   border-radius:13px;
-
   background:var(--primary);
-
   color:white;
-
   font-size:13px;
-
   font-weight:950;
-
   margin:0 auto 18px;
-
   display:block;
-
   transition:.2s;
-
 }
 
 .follow-button:hover{
-
   background:var(--primary-dark);
-
-}
-
-.follow-button:disabled{
-
-  opacity:.65;
-
-  cursor:not-allowed;
-
 }
 
 .follow-button.following{
-
   background:#f0eeff;
-
   color:var(--primary);
-
   border:1px solid #dcd6ff;
-
 }
 
 .follow-button.following:hover{
-
-  background:#ffecec;
-
+  background:#fff0f0;
   color:var(--danger);
-
   border-color:#ffd0d0;
+}
 
+.follow-button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 
-/* =========================================
-   FOLLOW STATS
-========================================= */
+/* FOLLOW STATS */
 
 .follow-stats{
-
   display:grid;
-
   grid-template-columns:1fr 1fr;
-
   gap:8px;
-
   margin-bottom:8px;
-
 }
 
 .follow-stat{
-
   background:#fafafd;
-
   border:1px solid var(--border);
-
   border-radius:15px;
-
   padding:13px 5px;
-
 }
 
 .follow-stat strong{
-
   display:block;
-
   color:var(--primary);
-
   font-size:19px;
-
   margin-bottom:4px;
-
 }
 
 .follow-stat span{
-
   color:var(--muted);
-
   font-size:10px;
-
   font-weight:800;
-
 }
 
 
-/* =========================================
-   PROFILE STATS
-========================================= */
+/* USER INFO */
+
+.user-info{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-bottom:8px;
+}
+
+.info-box{
+  background:#fafafd;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:12px 6px;
+}
+
+.info-box strong{
+  display:block;
+  color:var(--primary);
+  font-size:17px;
+  margin-bottom:4px;
+}
+
+.info-box span{
+  color:var(--muted);
+  font-size:10px;
+  font-weight:800;
+}
+
+
+/* VOTE STATS */
 
 .stats{
-
   display:grid;
-
   grid-template-columns:repeat(3,1fr);
-
   gap:8px;
-
-  margin-top:8px;
-
 }
 
 .stat{
-
   background:#fafafd;
-
   border:1px solid var(--border);
-
   border-radius:15px;
-
   padding:13px 5px;
-
 }
 
 .stat strong{
-
   display:block;
-
   color:var(--primary);
-
   font-size:19px;
-
   margin-bottom:4px;
-
 }
 
 .stat span{
-
   color:var(--muted);
-
   font-size:10px;
-
   font-weight:800;
-
 }
 
 
-/* =========================================
-   SECTION HEADER
-========================================= */
+/* SECTION */
 
 .section-header{
-
   display:flex;
-
   justify-content:space-between;
-
   align-items:center;
-
   margin:25px 2px 14px;
-
 }
 
 .section-header h2{
-
   font-size:21px;
-
   font-weight:950;
-
 }
 
 .section-header span{
-
   color:var(--primary);
-
   font-size:12px;
-
   font-weight:900;
-
 }
 
 
-/* =========================================
-   VOTES
-========================================= */
+/* VOTES */
 
 .votes{
-
   display:flex;
-
   flex-direction:column;
-
   gap:12px;
-
 }
 
 .vote-card{
-
   display:block;
-
   background:white;
-
   border:1px solid var(--border);
-
   border-radius:19px;
-
   padding:17px;
-
-  box-shadow:
-  0 5px 18px rgba(0,0,0,.025);
-
+  box-shadow:0 5px 18px rgba(0,0,0,.025);
   transition:.2s;
-
 }
 
 .vote-card:hover{
-
   border-color:#d4cffd;
-
   transform:translateY(-1px);
-
 }
 
 .vote-card:active{
-
   transform:scale(.98);
-
 }
 
 .vote-category{
-
   display:inline-block;
-
   background:#f0eeff;
-
   color:var(--primary);
-
   border-radius:20px;
-
   padding:6px 10px;
-
   font-size:10px;
-
   font-weight:900;
-
   margin-bottom:10px;
-
 }
 
 .vote-question{
-
   font-size:16px;
-
   font-weight:900;
-
   line-height:1.6;
-
   margin-bottom:12px;
-
 }
 
 .vote-date{
-
   color:var(--muted);
-
   font-size:10px;
-
 }
 
 .empty{
-
   background:white;
-
   border:1px solid var(--border);
-
   border-radius:20px;
-
   padding:30px 15px;
-
   text-align:center;
-
   color:var(--muted);
-
   font-size:13px;
-
   line-height:1.7;
-
 }
 
 
-/* =========================================
-   LOGOUT
-========================================= */
+/* LOGOUT */
 
 .logout{
-
   width:100%;
-
   margin-top:20px;
-
   padding:14px;
-
   border-radius:14px;
-
   background:#fff0f0;
-
   color:var(--danger);
-
   font-size:14px;
-
   font-weight:950;
-
   border:1px solid #ffd5d5;
-
 }
 
 
-/* =========================================
-   BOTTOM NAVIGATION
-========================================= */
+/* BOTTOM NAV */
 
 .bottom-nav{
-
   position:fixed !important;
-
   left:0 !important;
-
   right:0 !important;
-
   bottom:0 !important;
-
   width:100% !important;
-
   height:82px !important;
-
   display:block !important;
-
-  background:#ffffff !important;
-
+  background:#fff !important;
   border-top:1px solid #e8e8ef !important;
-
-  box-shadow:
-  0 -6px 25px rgba(0,0,0,.10) !important;
-
+  box-shadow:0 -6px 25px rgba(0,0,0,.10) !important;
   z-index:2147483647 !important;
-
 }
 
 .bottom-nav-inner{
-
   width:100%;
-
   max-width:650px;
-
   height:100%;
-
   margin:auto;
-
   display:grid;
-
   grid-template-columns:repeat(5,1fr);
-
   align-items:center;
-
 }
 
 .bottom-item{
-
   height:82px;
-
   display:flex !important;
-
   flex-direction:column;
-
   align-items:center;
-
   justify-content:center;
-
   gap:5px;
-
   background:transparent;
-
   color:#858592;
-
   font-size:10px;
-
   font-weight:900;
-
   position:relative;
-
-  -webkit-tap-highlight-color:transparent;
-
 }
 
 .bottom-item.active{
-
   color:var(--primary);
-
 }
 
 .bottom-icon{
-
   width:28px;
-
   height:28px;
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   font-size:21px;
-
 }
 
 .bottom-label{
-
   font-size:10px;
-
   white-space:nowrap;
-
 }
 
 .bottom-create{
-
   width:52px;
-
   height:52px;
-
   border-radius:17px;
-
   background:var(--primary);
-
   color:white;
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   font-size:28px;
-
   margin-top:-22px;
-
-  box-shadow:
-  0 8px 22px rgba(108,92,231,.32);
-
-}
-
-.bottom-create:active{
-
-  transform:scale(.94);
-
+  box-shadow:0 8px 22px rgba(108,92,231,.32);
 }
 
 
-/* =========================================
-   SAFE AREA
-========================================= */
-
-@supports(padding-bottom:env(safe-area-inset-bottom)){
-
-  .bottom-nav{
-
-    height:
-    calc(82px + env(safe-area-inset-bottom))
-    !important;
-
-    padding-bottom:
-    env(safe-area-inset-bottom);
-
-  }
-
-  body{
-
-    padding-bottom:
-    calc(110px + env(safe-area-inset-bottom));
-
-  }
-
-}
-
-
-/* =========================================
-   SMALL PHONES
-========================================= */
+/* MOBILE */
 
 @media(max-width:360px){
 
   .bottom-icon{
-
     font-size:19px;
-
   }
 
   .bottom-label{
-
     font-size:9px;
-
   }
 
   .bottom-create{
-
     width:47px;
-
     height:47px;
-
     font-size:25px;
+  }
 
+  .profile-name{
+    font-size:20px;
   }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
-
-<!-- =========================================
-     HEADER
-========================================= -->
 
 <header>
 
@@ -967,107 +578,61 @@ VOTE<span>RA</span>
 </header>
 
 
-<!-- =========================================
-     MAIN
-========================================= -->
-
 <main class="container">
 
 
-<div
-id="message"
-class="message">
-</div>
+<div id="message" class="message"></div>
 
 
-<!-- =========================================
-     LOGIN
-========================================= -->
+<!-- LOGIN -->
 
-<div
-id="loginCard"
-class="login-card"
-style="display:none;"
->
+<div id="loginCard" class="login-card" style="display:none;">
 
-<h2>
-🔐 تسجيل الدخول
-</h2>
+<h2>🔐 تسجيل الدخول</h2>
 
 <p>
-سجل الدخول بحساب Google حتى تتمكن من متابعة المستخدمين والتفاعل معهم.
+سجل الدخول بحساب Google لرؤية الملف الشخصي واستخدام المتابعة.
 </p>
 
-<button
-class="google-btn"
-onclick="signInWithGoogle()"
->
+<button class="google-btn" onclick="signInWithGoogle()">
 🔵 تسجيل الدخول بـ Google
 </button>
 
 </div>
 
 
-<!-- =========================================
-     PROFILE
-========================================= -->
+<!-- PROFILE -->
 
-<div
-id="profileContent"
-style="display:none;"
->
+<div id="profileContent" style="display:none;">
 
 
 <section class="profile-card">
 
 
-<div
-class="avatar"
-id="avatar"
->
+<div class="avatar" id="avatar">
 👤
 </div>
 
 
-<div
-class="profile-name"
-id="profileName"
->
-مستخدم VOTERA
-</div>
-
-
-<div
-class="profile-username"
-id="profileUsername"
->
+<div class="profile-username" id="profileUsername">
 @username
 </div>
 
 
-<div
-class="profile-email"
-id="profileEmail"
->
+<div class="profile-name" id="profileName">
+مستخدم VOTERA
 </div>
 
 
-<div
-class="profile-bio"
-id="profileBio"
->
+<div class="profile-email" id="profileEmail">
+-
 </div>
 
 
-<div
-class="profile-age"
-id="profileAge"
-style="display:none;"
->
+<div class="profile-bio" id="profileBio">
+لا توجد نبذة بعد.
 </div>
 
-
-<!-- FOLLOW -->
 
 <button
 id="followButton"
@@ -1079,128 +644,81 @@ style="display:none;"
 </button>
 
 
-<!-- FOLLOW STATS -->
-
 <div class="follow-stats">
 
-
 <div class="follow-stat">
 
-<strong id="followersCount">
-0
-</strong>
+<strong id="followersCount">0</strong>
 
-<span>
-المتابعون
-</span>
+<span>المتابعون</span>
 
 </div>
 
 
 <div class="follow-stat">
 
-<strong id="followingCount">
-0
-</strong>
+<strong id="followingCount">0</strong>
 
-<span>
-يتابع
-</span>
+<span>يتابع</span>
+
+</div>
 
 </div>
 
 
-</div>
+<div class="user-info">
 
-
-<!-- PROFILE STATS -->
-
-<div class="stats">
-
-
-<div class="stat">
-
-<strong id="votesCount">
-0
-</strong>
-
-<span>
-التصويتات
-</span>
-
-</div>
-
-
-<div class="stat">
-
-<strong id="totalVotes">
-0
-</strong>
-
-<span>
-إجمالي الأصوات
-</span>
-
-</div>
-
-
-<div class="stat">
+<div class="info-box">
 
 <strong id="pointsCount">
 0
 </strong>
 
-<span>
-النقاط
-</span>
+<span>النقاط</span>
 
 </div>
 
+
+<div class="info-box">
+
+<strong id="ageValue">
+-
+</strong>
+
+<span>العمر</span>
+
+</div>
 
 </div>
 
 
 <div class="stats">
 
-
 <div class="stat">
 
-<strong id="accountDate">
--
-</strong>
+<strong id="votesCount">0</strong>
 
-<span>
-عضو منذ
-</span>
+<span>التصويتات</span>
 
 </div>
 
 
 <div class="stat">
 
-<strong id="ageCount">
--
-</strong>
+<strong id="totalVotes">0</strong>
 
-<span>
-العمر
-</span>
+<span>إجمالي الأصوات</span>
 
 </div>
 
 
 <div class="stat">
 
-<strong id="profileUsernameStat">
--
-</strong>
+<strong id="accountDate">-</strong>
 
-<span>
-اسم المستخدم
-</span>
+<span>عضو منذ</span>
 
 </div>
-
 
 </div>
 
@@ -1208,36 +726,23 @@ style="display:none;"
 </section>
 
 
-<!-- =========================================
-     VOTES
-========================================= -->
-
 <div class="section-header">
 
-<h2>
-🗳️ التصويتات
-</h2>
+<h2>🗳️ تصويتات <span id="votesOwnerName"></span></h2>
 
-<span id="votesTitleCount">
-0 تصويت
-</span>
+<span id="votesTitleCount">0 تصويت</span>
 
 </div>
 
 
-<div
-id="votesList"
-class="votes">
-</div>
+<div id="votesList" class="votes"></div>
 
-
-<!-- LOGOUT -->
 
 <button
+id="logoutButton"
 type="button"
 class="logout"
 onclick="logout()"
-id="logoutButton"
 >
 🚪 تسجيل الخروج
 </button>
@@ -1249,22 +754,14 @@ id="logoutButton"
 </main>
 
 
-<!-- =========================================
-     BOTTOM NAVIGATION
-========================================= -->
+<!-- BOTTOM NAV -->
 
-<nav
-class="bottom-nav"
-id="bottomNav"
->
+<nav class="bottom-nav" id="bottomNav">
 
 <div class="bottom-nav-inner">
 
 
-<a
-href="index.html"
-class="bottom-item"
->
+<a href="index.html" class="bottom-item">
 
 <div class="bottom-icon">
 🏠
@@ -1277,10 +774,7 @@ class="bottom-item"
 </a>
 
 
-<a
-href="index.html#votes"
-class="bottom-item"
->
+<a href="index.html#votes" class="bottom-item">
 
 <div class="bottom-icon">
 🌎
@@ -1293,10 +787,7 @@ class="bottom-item"
 </a>
 
 
-<a
-href="create.html"
-class="bottom-item"
->
+<a href="create.html" class="bottom-item">
 
 <div class="bottom-create">
 ＋
@@ -1309,10 +800,7 @@ class="bottom-item"
 </a>
 
 
-<a
-href="index.html#votes"
-class="bottom-item"
->
+<a href="index.html#votes" class="bottom-item">
 
 <div class="bottom-icon">
 🗳️
@@ -1325,10 +813,7 @@ class="bottom-item"
 </a>
 
 
-<a
-href="profile.html"
-class="bottom-item active"
->
+<a href="profile.html" class="bottom-item active">
 
 <div class="bottom-icon">
 👤
@@ -1370,11 +855,8 @@ window.supabase.createClient(
 ========================================= */
 
 let currentUser = null;
-
 let profileUserId = null;
-
 let profileData = null;
-
 let isFollowing = false;
 
 
@@ -1401,8 +883,7 @@ document.getElementById("followButton");
 
 function showMessage(text,type){
 
-  message.textContent =
-    text;
+  message.textContent = text;
 
   message.className =
     "message " + type;
@@ -1418,21 +899,18 @@ async function signInWithGoogle(){
 
   try{
 
-    const {
-      error
-    } =
-    await supabaseClient.auth.signInWithOAuth({
+    const { error } =
+      await supabaseClient.auth.signInWithOAuth({
 
-      provider:"google",
+        provider:"google",
 
-      options:{
+        options:{
+          redirectTo:
+            window.location.origin +
+            "/VOTERA/profile.html"
+        }
 
-        redirectTo:
-          window.location.href
-
-      }
-
-    });
+      });
 
 
     if(error){
@@ -1485,29 +963,32 @@ async function checkUser(){
 
   try{
 
-    const {
-      data:{
-        session
-      }
-    } =
-    await supabaseClient.auth.getSession();
+    const { data, error } =
+      await supabaseClient.auth.getSession();
+
+
+    if(error){
+
+      throw error;
+
+    }
 
 
     currentUser =
-      session?.user || null;
+      data.session?.user || null;
 
-
-    /*
-      إذا كان هناك id في الرابط
-      نفتح ملف ذلك المستخدم.
-
-      إذا لم يوجد id:
-      نفتح ملف المستخدم الحالي.
-    */
 
     const urlProfileId =
       getProfileIdFromUrl();
 
+
+    /*
+      إذا كان هناك id في الرابط
+      نستخدمه.
+
+      إذا لم يوجد id:
+      نفتح ملف المستخدم الحالي.
+    */
 
     if(urlProfileId){
 
@@ -1527,19 +1008,14 @@ async function checkUser(){
     }
 
 
-    await updatePage();
-
+    updatePage();
 
   }catch(error){
 
-    console.error(
-      "Check user error:",
-      error
-    );
+    console.error(error);
 
     showMessage(
-      "تعذر تحميل الصفحة:\n" +
-      error.message,
+      "تعذر التحقق من تسجيل الدخول.",
       "error"
     );
 
@@ -1552,34 +1028,30 @@ async function checkUser(){
    UPDATE PAGE
 ========================================= */
 
-async function updatePage(){
+function updatePage(){
 
   const bottomNav =
-    document.getElementById(
-      "bottomNav"
-    );
+    document.getElementById("bottomNav");
 
 
   if(bottomNav){
 
-    bottomNav.style.display =
-      "block";
+    bottomNav.style.display = "block";
 
-    bottomNav.style.visibility =
-      "visible";
+    bottomNav.style.visibility = "visible";
 
-    bottomNav.style.opacity =
-      "1";
+    bottomNav.style.opacity = "1";
 
   }
 
 
   /*
-    لا يوجد مستخدم مسجل
-    ولا يوجد id في الرابط
+    إذا لم يكن هناك مستخدم
+    والصفحة ليست مرتبطة بملف عام،
+    نطلب تسجيل الدخول.
   */
 
-  if(!profileUserId){
+  if(!currentUser && !profileUserId){
 
     loginCard.style.display =
       "block";
@@ -1593,9 +1065,9 @@ async function updatePage(){
 
 
   /*
-    لدينا profileUserId،
-    لذلك يمكن عرض الملف حتى
-    لو لم يكن الزائر مسجلًا.
+    إذا كان المستخدم غير مسجل
+    ولكن لديه رابط ملف شخص آخر،
+    نسمح بعرض الملف.
   */
 
   loginCard.style.display =
@@ -1605,14 +1077,52 @@ async function updatePage(){
     "block";
 
 
-  await loadProfile();
-
+  loadProfile();
 
 }
 
 
 /* =========================================
-   LOAD PROFILE FROM DATABASE
+   AUTH STATE
+========================================= */
+
+supabaseClient.auth.onAuthStateChange(
+function(event,session){
+
+  currentUser =
+    session?.user || null;
+
+
+  /*
+    إذا لم يوجد id في الرابط
+    نستخدم المستخدم الحالي.
+  */
+
+  if(
+    !getProfileIdFromUrl() &&
+    currentUser
+  ){
+
+    profileUserId =
+      currentUser.id;
+
+  }
+
+
+  setTimeout(
+    function(){
+
+      updatePage();
+
+    },
+    0
+  );
+
+});
+
+
+/* =========================================
+   LOAD PROFILE FROM PROFAILes
 ========================================= */
 
 async function loadProfile(){
@@ -1627,8 +1137,8 @@ async function loadProfile(){
   try{
 
     /*
-      نحصل على بيانات صاحب الملف
-      من جدول profiles
+      جلب بطاقة المستخدم
+      من جدول Profailes
     */
 
     const {
@@ -1636,17 +1146,8 @@ async function loadProfile(){
       error
     } =
     await supabaseClient
-      .from("profiles")
-      .select(`
-        id,
-        username,
-        display_name,
-        avatar_url,
-        bio,
-        points,
-        created_at,
-        age
-      `)
+      .from("Profailes")
+      .select("*")
       .eq(
         "id",
         profileUserId
@@ -1663,13 +1164,19 @@ async function loadProfile(){
 
     if(!data){
 
-      profileContent.style.display =
-        "none";
+      profileContent.innerHTML = `
 
-      showMessage(
-        "لم يتم العثور على هذا الملف الشخصي.",
-        "error"
-      );
+        <div class="empty">
+
+          ❌ لم يتم العثور على هذا الملف الشخصي.
+
+          <br><br>
+
+          ربما الرابط غير صحيح.
+
+        </div>
+
+      `;
 
       return;
 
@@ -1680,261 +1187,7 @@ async function loadProfile(){
       data;
 
 
-    /*
-      الاسم
-    */
-
-    const displayName =
-      data.display_name ||
-      data.username ||
-      "مستخدم VOTERA";
-
-
-    document.getElementById(
-      "profileName"
-    ).textContent =
-      displayName;
-
-
-    /*
-      اسم المستخدم
-    */
-
-    const username =
-      data.username ||
-      "";
-
-
-    document.getElementById(
-      "profileUsername"
-    ).textContent =
-      username
-      ? "@" + username
-      : "";
-
-
-    document.getElementById(
-      "profileUsernameStat"
-    ).textContent =
-      username
-      ? "@" + username
-      : "-";
-
-
-    /*
-      النبذة
-    */
-
-    const bioElement =
-      document.getElementById(
-        "profileBio"
-      );
-
-
-    if(data.bio){
-
-      bioElement.textContent =
-        data.bio;
-
-      bioElement.style.display =
-        "block";
-
-    }else{
-
-      bioElement.style.display =
-        "none";
-
-    }
-
-
-    /*
-      العمر
-    */
-
-    const ageElement =
-      document.getElementById(
-        "profileAge"
-      );
-
-
-    if(data.age){
-
-      ageElement.textContent =
-        "🎂 " +
-        data.age +
-        " سنة";
-
-      ageElement.style.display =
-        "inline-block";
-
-      document.getElementById(
-        "ageCount"
-      ).textContent =
-        data.age;
-
-    }else{
-
-      ageElement.style.display =
-        "none";
-
-      document.getElementById(
-        "ageCount"
-      ).textContent =
-        "-";
-
-    }
-
-
-    /*
-      النقاط
-    */
-
-    document.getElementById(
-      "pointsCount"
-    ).textContent =
-      Number(data.points || 0);
-
-
-    /*
-      تاريخ إنشاء الحساب
-    */
-
-    if(data.created_at){
-
-      const date =
-        new Date(
-          data.created_at
-        );
-
-
-      document.getElementById(
-        "accountDate"
-      ).textContent =
-        date.toLocaleDateString(
-          "ar-DZ",
-          {
-            month:"short",
-            year:"numeric"
-          }
-        );
-
-    }else{
-
-      document.getElementById(
-        "accountDate"
-      ).textContent =
-        "-";
-
-    }
-
-
-    /*
-      الصورة الشخصية
-    */
-
-    const avatar =
-      document.getElementById(
-        "avatar"
-      );
-
-
-    avatar.innerHTML =
-      "👤";
-
-
-    if(data.avatar_url){
-
-      const img =
-        document.createElement("img");
-
-      img.src =
-        data.avatar_url;
-
-      img.alt =
-        "الصورة الشخصية";
-
-      img.onerror =
-      function(){
-
-        avatar.innerHTML =
-          "👤";
-
-      };
-
-
-      avatar.innerHTML =
-        "";
-
-      avatar.appendChild(
-        img
-      );
-
-    }
-
-
-    /*
-      هل الملف الحالي هو ملف المستخدم نفسه؟
-    */
-
-    if(
-      currentUser &&
-      currentUser.id === profileUserId
-    ){
-
-      followButton.style.display =
-        "none";
-
-      document.getElementById(
-        "logoutButton"
-      ).style.display =
-        "block";
-
-    }else{
-
-      /*
-        عند زيارة ملف شخص آخر
-      */
-
-      document.getElementById(
-        "logoutButton"
-      ).style.display =
-        currentUser
-        ? "block"
-        : "none";
-
-
-      followButton.style.display =
-        "block";
-
-
-      if(currentUser){
-
-        await checkFollowStatus();
-
-      }else{
-
-        isFollowing =
-          false;
-
-        updateFollowButton();
-
-      }
-
-    }
-
-
-    /*
-      إحصائيات المتابعة
-    */
-
-    await loadFollowStats();
-
-
-    /*
-      تصويتات المستخدم
-    */
-
-    await loadUserVotes();
+    renderProfile();
 
 
   }catch(error){
@@ -1945,10 +1198,6 @@ async function loadProfile(){
     );
 
 
-    profileContent.style.display =
-      "none";
-
-
     showMessage(
       "تعذر تحميل الملف الشخصي:\n" +
       error.message,
@@ -1956,6 +1205,229 @@ async function loadProfile(){
     );
 
   }
+
+}
+
+
+/* =========================================
+   RENDER PROFILE
+========================================= */
+
+function renderProfile(){
+
+  if(!profileData){
+
+    return;
+
+  }
+
+
+  const username =
+    profileData.username ||
+    "username";
+
+
+  const displayName =
+    profileData.display_name ||
+    username ||
+    "مستخدم VOTERA";
+
+
+  const bio =
+    profileData.bio ||
+    "لا توجد نبذة بعد.";
+
+
+  const points =
+    Number(
+      profileData.points || 0
+    );
+
+
+  const age =
+    profileData.age ||
+    "-";
+
+
+  document.getElementById(
+    "profileUsername"
+  ).textContent =
+    "@" + username;
+
+
+  document.getElementById(
+    "profileName"
+  ).textContent =
+    displayName;
+
+
+  document.getElementById(
+    "profileBio"
+  ).textContent =
+    bio;
+
+
+  document.getElementById(
+    "pointsCount"
+  ).textContent =
+    points;
+
+
+  document.getElementById(
+    "ageValue"
+  ).textContent =
+    age;
+
+
+  document.getElementById(
+    "votesOwnerName"
+  ).textContent =
+    displayName;
+
+
+  /*
+    البريد الإلكتروني يظهر فقط
+    عندما يكون الملف للمستخدم الحالي.
+  */
+
+  if(
+    currentUser &&
+    profileUserId === currentUser.id
+  ){
+
+    document.getElementById(
+      "profileEmail"
+    ).textContent =
+      currentUser.email || "-";
+
+    document.getElementById(
+      "logoutButton"
+    ).style.display =
+      "block";
+
+  }else{
+
+    document.getElementById(
+      "profileEmail"
+    ).textContent =
+      "";
+
+    document.getElementById(
+      "logoutButton"
+    ).style.display =
+      "none";
+
+  }
+
+
+  /*
+    الصورة
+  */
+
+  const avatar =
+    document.getElementById("avatar");
+
+
+  const avatarUrl =
+    profileData.avatar_url ||
+    null;
+
+
+  avatar.innerHTML =
+    "";
+
+
+  if(avatarUrl){
+
+    const img =
+      document.createElement("img");
+
+
+    img.src =
+      avatarUrl;
+
+
+    img.alt =
+      "الصورة الشخصية";
+
+
+    img.onerror =
+    function(){
+
+      avatar.innerHTML =
+        "👤";
+
+    };
+
+
+    avatar.appendChild(img);
+
+  }else{
+
+    avatar.textContent =
+      "👤";
+
+  }
+
+
+  /*
+    تاريخ الإنشاء
+  */
+
+  if(profileData.created_at){
+
+    const date =
+      new Date(
+        profileData.created_at
+      );
+
+
+    document.getElementById(
+      "accountDate"
+    ).textContent =
+      date.toLocaleDateString(
+        "ar-DZ",
+        {
+          month:"short",
+          year:"numeric"
+        }
+      );
+
+  }else{
+
+    document.getElementById(
+      "accountDate"
+    ).textContent =
+      "-";
+
+  }
+
+
+  /*
+    زر المتابعة
+  */
+
+  if(
+    currentUser &&
+    profileUserId !== currentUser.id
+  ){
+
+    followButton.style.display =
+      "block";
+
+    checkFollowStatus();
+
+  }else{
+
+    followButton.style.display =
+      "none";
+
+  }
+
+
+  loadFollowStats();
+
+  loadMyVotes();
 
 }
 
@@ -2026,7 +1498,7 @@ async function checkFollowStatus(){
 
 
 /* =========================================
-   UPDATE FOLLOW BUTTON
+   FOLLOW BUTTON
 ========================================= */
 
 function updateFollowButton(){
@@ -2060,7 +1532,7 @@ function updateFollowButton(){
       "➕ متابعة";
 
     followButton.title =
-      "متابعة هذا المستخدم";
+      "متابعة المستخدم";
 
   }
 
@@ -2072,10 +1544,6 @@ function updateFollowButton(){
 ========================================= */
 
 async function toggleFollow(){
-
-  /*
-    يجب تسجيل الدخول
-  */
 
   if(!currentUser){
 
@@ -2096,14 +1564,7 @@ async function toggleFollow(){
   }
 
 
-  /*
-    لا يمكن متابعة نفسك
-  */
-
-  if(
-    currentUser.id ===
-    profileUserId
-  ){
+  if(currentUser.id === profileUserId){
 
     return;
 
@@ -2116,11 +1577,11 @@ async function toggleFollow(){
 
   try{
 
-    /*
-      إلغاء المتابعة
-    */
-
     if(isFollowing){
+
+      /*
+        إلغاء المتابعة
+      */
 
       const {
         error
@@ -2158,7 +1619,7 @@ async function toggleFollow(){
     }else{
 
       /*
-        متابعة المستخدم
+        متابعة
       */
 
       const {
@@ -2180,7 +1641,7 @@ async function toggleFollow(){
       if(error){
 
         /*
-          23505 = موجود مسبقًا
+          إذا كان يتابع بالفعل
         */
 
         if(
@@ -2214,11 +1675,6 @@ async function toggleFollow(){
 
     updateFollowButton();
 
-
-    /*
-      تحديث عدد المتابعين
-    */
-
     await loadFollowStats();
 
 
@@ -2231,7 +1687,7 @@ async function toggleFollow(){
 
 
     showMessage(
-      "تعذر تنفيذ العملية:\n" +
+      "تعذر تنفيذ المتابعة:\n" +
       error.message,
       "error"
     );
@@ -2261,7 +1717,7 @@ async function loadFollowStats(){
   try{
 
     /*
-      عدد المتابعين
+      المتابعون
     */
 
     const {
@@ -2271,7 +1727,7 @@ async function loadFollowStats(){
     await supabaseClient
       .from("follows")
       .select(
-        "*",
+        "id",
         {
           count:"exact",
           head:true
@@ -2291,7 +1747,7 @@ async function loadFollowStats(){
 
 
     /*
-      عدد الأشخاص الذين يتابعهم
+      الأشخاص الذين يتابعهم المستخدم
     */
 
     const {
@@ -2301,7 +1757,7 @@ async function loadFollowStats(){
     await supabaseClient
       .from("follows")
       .select(
-        "*",
+        "id",
         {
           count:"exact",
           head:true
@@ -2345,7 +1801,7 @@ async function loadFollowStats(){
 
 
 /* =========================================
-   VOTE OPTIONS
+   GET VOTE OPTIONS
 ========================================= */
 
 function getVoteOptions(vote){
@@ -2390,42 +1846,45 @@ function getVoteOptions(vote){
 
 
 /* =========================================
-   CALCULATE VOTE TOTAL
+   CALCULATE VOTES
 ========================================= */
 
 function calculateVoteTotal(vote){
 
   /*
-    النظام الجديد:
-    options = array
+    الطريقة الجديدة:
+    options = [
+      { text:"...", votes:10 },
+      { text:"...", votes:5 }
+    ]
   */
 
   const options =
     getVoteOptions(vote);
 
 
-  if(options.length){
+  if(options.length > 0){
 
-    let total =
-      0;
+    let total = 0;
 
 
     options.forEach(
-    function(option){
+      function(option){
 
-      if(!option){
+        if(!option){
 
-        return;
+          return;
+
+        }
+
+
+        total +=
+          Number(
+            option.votes || 0
+          );
 
       }
-
-
-      total +=
-        Number(
-          option.votes || 0
-        );
-
-    });
+    );
 
 
     return total;
@@ -2435,31 +1894,42 @@ function calculateVoteTotal(vote){
 
   /*
     دعم النظام القديم
-    إذا كانت الأصوات مخزنة
-    في votes_a ... votes_o
   */
 
-  let total =
-    0;
+  const oldColumns = [
+
+    "votes_a",
+    "votes_b",
+    "votes_c",
+    "votes_d",
+    "votes_e",
+    "votes_f",
+    "votes_g",
+    "votes_h",
+    "votes_i",
+    "votes_j",
+    "votes_k",
+    "votes_l",
+    "votes_m",
+    "votes_n",
+    "votes_o"
+
+  ];
 
 
-  const letters =
-    [
-      "a","b","c","d","e",
-      "f","g","h","i","j",
-      "k","l","m","n","o"
-    ];
+  let total = 0;
 
 
-  letters.forEach(
-  function(letter){
+  oldColumns.forEach(
+    function(column){
 
-    total +=
-      Number(
-        vote["votes_" + letter] || 0
-      );
+      total +=
+        Number(
+          vote[column] || 0
+        );
 
-  });
+    }
+  );
 
 
   return total;
@@ -2471,7 +1941,7 @@ function calculateVoteTotal(vote){
    LOAD USER VOTES
 ========================================= */
 
-async function loadUserVotes(){
+async function loadMyVotes(){
 
   const votesList =
     document.getElementById(
@@ -2571,97 +2041,96 @@ async function loadUserVotes(){
 
 
     votes.forEach(
-    function(vote){
+      function(vote){
 
-      const total =
-        calculateVoteTotal(
-          vote
-        );
+        const total =
+          calculateVoteTotal(vote);
 
 
-      totalVotesNumber +=
-        total;
+        totalVotesNumber +=
+          total;
 
 
-      let dateText =
-        "";
+        let dateText =
+          "";
 
 
-      if(vote.created_at){
+        if(vote.created_at){
 
-        dateText =
-          new Date(
-            vote.created_at
-          ).toLocaleDateString(
-            "ar-DZ"
+          dateText =
+            new Date(
+              vote.created_at
+            ).toLocaleDateString(
+              "ar-DZ"
+            );
+
+        }
+
+
+        const card =
+          document.createElement("a");
+
+
+        card.className =
+          "vote-card";
+
+
+        card.href =
+          "vote.html?id=" +
+          encodeURIComponent(
+            vote.id
           );
 
+
+        const category =
+          escapeHtml(
+            vote.category ||
+            "عام"
+          );
+
+
+        const question =
+          escapeHtml(
+            vote.question ||
+            "تصويت بدون عنوان"
+          );
+
+
+        card.innerHTML = `
+
+          <div class="vote-category">
+
+            ${category}
+
+          </div>
+
+
+          <div class="vote-question">
+
+            ${question}
+
+          </div>
+
+
+          <div class="vote-date">
+
+            🗳️ ${total} أصوات
+
+            &nbsp;&nbsp; • &nbsp;&nbsp;
+
+            📅 ${dateText}
+
+          </div>
+
+        `;
+
+
+        votesList.appendChild(
+          card
+        );
+
       }
-
-
-      const card =
-        document.createElement("a");
-
-
-      card.className =
-        "vote-card";
-
-
-      card.href =
-        "vote.html?id=" +
-        encodeURIComponent(
-          vote.id
-        );
-
-
-      const category =
-        escapeHtml(
-          vote.category ||
-          "عام"
-        );
-
-
-      const question =
-        escapeHtml(
-          vote.question ||
-          "تصويت بدون عنوان"
-        );
-
-
-      card.innerHTML = `
-
-        <div class="vote-category">
-
-          ${category}
-
-        </div>
-
-
-        <div class="vote-question">
-
-          ${question}
-
-        </div>
-
-
-        <div class="vote-date">
-
-          🗳️ ${total} أصوات
-
-          &nbsp;&nbsp; • &nbsp;&nbsp;
-
-          📅 ${dateText}
-
-        </div>
-
-      `;
-
-
-      votesList.appendChild(
-        card
-      );
-
-    });
+    );
 
 
     document.getElementById(
@@ -2706,9 +2175,7 @@ async function loadUserVotes(){
 function escapeHtml(text){
 
   const div =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
 
   div.textContent =
@@ -2760,11 +2227,7 @@ async function logout(){
 
   }catch(error){
 
-    console.error(
-      "Logout error:",
-      error
-    );
-
+    console.error(error);
 
     showMessage(
       "تعذر تسجيل الخروج:\n" +
@@ -2775,42 +2238,6 @@ async function logout(){
   }
 
 }
-
-
-/* =========================================
-   AUTH STATE
-========================================= */
-
-supabaseClient.auth.onAuthStateChange(
-function(event,session){
-
-  currentUser =
-    session?.user || null;
-
-
-  /*
-    إذا لم يكن هناك id في الرابط،
-    اجعل الملف الشخصي للمستخدم الحالي.
-  */
-
-  if(!getProfileIdFromUrl() && currentUser){
-
-    profileUserId =
-      currentUser.id;
-
-  }
-
-
-  setTimeout(
-    function(){
-
-      updatePage();
-
-    },
-    0
-  );
-
-});
 
 
 /* =========================================
