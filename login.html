@@ -1,541 +1,866 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>تسجيل الدخول — VOTERA</title>
+<meta charset="UTF-8">
 
-  <style>
-    :root {
-      --primary: #6c5ce7;
-      --primary-dark: #5848d6;
-      --bg: #f7f7fb;
-      --card: #ffffff;
-      --text: #17171c;
-      --muted: #777783;
-      --border: #e8e8ef;
-      --danger: #e74c3c;
-      --success: #159957;
-    }
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<title>تسجيل الدخول — VOTERA</title>
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    header {
-      height: 68px;
-      background: rgba(255,255,255,.95);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-    }
+<style>
 
-    .nav {
-      width: 100%;
-      max-width: 1000px;
-      margin: auto;
-      padding: 0 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+:root{
+  --primary:#6c5ce7;
+  --primary-dark:#5848d6;
+  --bg:#f7f7fb;
+  --card:#ffffff;
+  --text:#17171c;
+  --muted:#777783;
+  --border:#e8e8ef;
+  --danger:#e74c3c;
+  --success:#159957;
+}
 
-    .logo {
-      text-decoration: none;
-      color: var(--text);
-      font-size: 26px;
-      font-weight: 900;
-      letter-spacing: -1px;
-    }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-    .logo span {
-      color: var(--primary);
-    }
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
 
-    .home {
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 800;
-    }
+header{
+  height:68px;
+  background:rgba(255,255,255,.95);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+}
 
-    .container {
-      width: 100%;
-      max-width: 450px;
-      margin: auto;
-      padding: 55px 18px;
-    }
+.nav{
+  width:100%;
+  max-width:1000px;
+  margin:auto;
+  padding:0 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    .header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
+.logo{
+  text-decoration:none;
+  color:var(--text);
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
 
-    .icon {
-      width: 70px;
-      height: 70px;
-      margin: 0 auto 18px;
-      border-radius: 20px;
-      background: #ece9ff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 35px;
-    }
+.logo span{
+  color:var(--primary);
+}
 
-    .header h1 {
-      font-size: 30px;
-      margin-bottom: 8px;
-    }
+.home{
+  text-decoration:none;
+  color:var(--muted);
+  font-size:14px;
+  font-weight:800;
+}
 
-    .header p {
-      color: var(--muted);
-      font-size: 14px;
-    }
+.container{
+  width:100%;
+  max-width:450px;
+  margin:auto;
+  padding:45px 18px;
+}
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 24px;
-      box-shadow: 0 8px 30px rgba(0,0,0,.04);
-    }
+.header{
+  text-align:center;
+  margin-bottom:25px;
+}
 
-    .tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      background: #f1f1f6;
-      border-radius: 12px;
-      padding: 4px;
-      margin-bottom: 24px;
-    }
+.icon{
+  width:70px;
+  height:70px;
+  margin:0 auto 18px;
+  border-radius:20px;
+  background:#ece9ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:35px;
+}
 
-    .tab {
-      border: none;
-      background: transparent;
-      padding: 12px;
-      border-radius: 9px;
-      font-weight: 800;
-      cursor: pointer;
-      color: var(--muted);
-    }
+.header h1{
+  font-size:28px;
+  margin-bottom:8px;
+}
 
-    .tab.active {
-      background: white;
-      color: var(--primary);
-      box-shadow: 0 2px 8px rgba(0,0,0,.06);
-    }
+.header p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
+}
 
-    .form-group {
-      margin-bottom: 16px;
-    }
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:24px;
+  box-shadow:0 8px 30px rgba(0,0,0,.04);
+}
 
-    label {
-      display: block;
-      margin-bottom: 7px;
-      font-size: 13px;
-      font-weight: 800;
-    }
+.tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  background:#f1f1f6;
+  border-radius:12px;
+  padding:4px;
+  margin-bottom:24px;
+}
 
-    input {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid var(--border);
-      background: #fafafd;
-      border-radius: 12px;
-      outline: none;
-      font-size: 15px;
-      direction: ltr;
-      text-align: left;
-    }
+.tab{
+  border:none;
+  background:transparent;
+  padding:12px;
+  border-radius:9px;
+  font-weight:800;
+  cursor:pointer;
+  color:var(--muted);
+}
 
-    input:focus {
-      border-color: var(--primary);
-      background: white;
-    }
+.tab.active{
+  background:white;
+  color:var(--primary);
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
 
-    .password-wrapper {
-      position: relative;
-    }
+.form-group{
+  margin-bottom:16px;
+}
 
-    .password-wrapper input {
-      padding-left: 45px;
-    }
+label{
+  display:block;
+  margin-bottom:7px;
+  font-size:13px;
+  font-weight:800;
+}
 
-    .show-password {
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      font-size: 18px;
-    }
+input,
+select,
+textarea{
+  width:100%;
+  padding:14px;
+  border:1px solid var(--border);
+  background:#fafafd;
+  border-radius:12px;
+  outline:none;
+  font-size:15px;
+  font-family:inherit;
+}
 
-    .submit {
-      width: 100%;
-      padding: 15px;
-      margin-top: 5px;
-      border: none;
-      border-radius: 13px;
-      background: var(--primary);
-      color: white;
-      font-size: 16px;
-      font-weight: 900;
-      cursor: pointer;
-      transition: .2s;
-    }
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--primary);
+  background:white;
+}
 
-    .submit:hover {
-      background: var(--primary-dark);
-    }
+input{
+  direction:ltr;
+  text-align:left;
+}
 
-    .submit:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
+textarea{
+  resize:vertical;
+  min-height:90px;
+  direction:rtl;
+  text-align:right;
+}
 
-    .message {
-      display: none;
-      padding: 12px;
-      margin-bottom: 16px;
-      border-radius: 11px;
-      font-size: 13px;
-      line-height: 1.5;
-      text-align: center;
-    }
+.submit{
+  width:100%;
+  padding:15px;
+  margin-top:5px;
+  border:none;
+  border-radius:13px;
+  background:var(--primary);
+  color:white;
+  font-size:16px;
+  font-weight:900;
+  cursor:pointer;
+  transition:.2s;
+}
 
-    .message.error {
-      display: block;
-      background: #fff0ee;
-      color: var(--danger);
-    }
+.submit:hover{
+  background:var(--primary-dark);
+}
 
-    .message.success {
-      display: block;
-      background: #edfff5;
-      color: var(--success);
-    }
+.submit:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
 
-    .switch-text {
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 18px;
-    }
+.message{
+  display:none;
+  padding:12px;
+  margin-bottom:16px;
+  border-radius:11px;
+  font-size:13px;
+  line-height:1.5;
+  text-align:center;
+  white-space:pre-line;
+}
 
-    .switch-text button {
-      border: none;
-      background: transparent;
-      color: var(--primary);
-      font-weight: 900;
-      cursor: pointer;
-    }
+.message.error{
+  display:block;
+  background:#fff0ee;
+  color:var(--danger);
+}
 
-    .note {
-      text-align: center;
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.6;
-      margin-top: 18px;
-    }
+.message.success{
+  display:block;
+  background:#edfff5;
+  color:var(--success);
+}
 
-    .profile-field {
-      display: none;
-    }
+.switch-text{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:18px;
+}
 
-    @media (max-width: 500px) {
-      .container {
-        padding-top: 35px;
-      }
+.switch-text button{
+  border:none;
+  background:transparent;
+  color:var(--primary);
+  font-weight:900;
+  cursor:pointer;
+}
 
-      .card {
-        padding: 20px;
-      }
-    }
-  </style>
+.note{
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+  margin-top:18px;
+}
+
+
+/* =========================================
+   إكمال الملف الشخصي
+========================================= */
+
+#completeProfile{
+  display:none;
+}
+
+.profile-title{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+.profile-title .profile-icon{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
+.profile-title h2{
+  font-size:22px;
+  margin-bottom:7px;
+}
+
+.profile-title p{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+.profile-required{
+  color:#d93025;
+}
+
+.profile-hint{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:5px;
+  line-height:1.5;
+}
+
+.avatar-preview{
+  width:85px;
+  height:85px;
+  border-radius:50%;
+  margin:0 auto 15px;
+  background:#ece9ff;
+  color:var(--primary);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:35px;
+  overflow:hidden;
+}
+
+.avatar-preview img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.profile-actions{
+  margin-top:20px;
+}
+
+.logout-small{
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #ffd5d5;
+  background:#fff0f0;
+  color:var(--danger);
+  font-weight:800;
+  cursor:pointer;
+}
+
+
+/* =========================================
+   إخفاء تسجيل الدخول أثناء الإكمال
+========================================= */
+
+#authCard{
+  display:block;
+}
+
+@media(max-width:500px){
+
+  .container{
+    padding-top:30px;
+  }
+
+  .card{
+    padding:20px;
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
+
 <header>
 
-  <nav class="nav">
+<nav class="nav">
 
-    <a href="index.html" class="logo">
-      VOTE<span>RA</span>
-    </a>
+<a href="index.html" class="logo">
+VOTE<span>RA</span>
+</a>
 
-    <a href="index.html" class="home">
-      الرئيسية ←
-    </a>
+<a href="index.html" class="home">
+الرئيسية ←
+</a>
 
-  </nav>
+</nav>
 
 </header>
 
 
 <main class="container">
 
-  <section class="header">
 
-    <div class="icon">
-      👤
-    </div>
+<section class="header">
 
-    <h1 id="pageTitle">
-      مرحبًا بك في VOTERA
-    </h1>
+<div class="icon">
+👤
+</div>
 
-    <p id="pageDescription">
-      سجّل دخولك وابدأ التصويت وإنشاء التصويتات.
-    </p>
+<h1 id="pageTitle">
+مرحبًا بك في VOTERA
+</h1>
 
-  </section>
+<p id="pageDescription">
+سجّل دخولك وابدأ التصويت وإنشاء التصويتات.
+</p>
 
-
-  <section class="card">
-
-    <div class="tabs">
-
-      <button
-        type="button"
-        class="tab active"
-        id="loginTab"
-        onclick="showLogin()"
-      >
-        تسجيل الدخول
-      </button>
-
-      <button
-        type="button"
-        class="tab"
-        id="signupTab"
-        onclick="showSignup()"
-      >
-        إنشاء حساب
-      </button>
-
-    </div>
+</section>
 
 
-    <div id="message" class="message"></div>
+<!-- =========================================
+     AUTH CARD
+========================================= -->
+
+<section class="card" id="authCard">
+
+<div class="tabs">
+
+<button
+type="button"
+class="tab active"
+id="loginTab"
+onclick="showLogin()"
+>
+تسجيل الدخول
+</button>
+
+<button
+type="button"
+class="tab"
+id="signupTab"
+onclick="showSignup()"
+>
+إنشاء حساب
+</button>
+
+</div>
 
 
-    <form id="authForm">
-
-      <div
-        class="form-group profile-field"
-        id="usernameGroup"
-      >
-
-        <label for="username">
-          اسم المستخدم
-        </label>
-
-        <input
-          type="text"
-          id="username"
-          placeholder="مثال: ayoub123"
-          maxlength="30"
-          autocomplete="username"
-        >
-
-      </div>
+<div
+id="message"
+class="message">
+</div>
 
 
-      <div
-        class="form-group profile-field"
-        id="displayNameGroup"
-      >
-
-        <label for="displayName">
-          الاسم الظاهر
-        </label>
-
-        <input
-          type="text"
-          id="displayName"
-          placeholder="مثال: Ayoub"
-          maxlength="50"
-        >
-
-      </div>
+<form id="authForm">
 
 
-      <div class="form-group">
+<!-- USERNAME -->
 
-        <label for="email">
-          البريد الإلكتروني
-        </label>
+<div
+class="form-group"
+id="usernameGroup"
+style="display:none;"
+>
 
-        <input
-          type="email"
-          id="email"
-          placeholder="example@email.com"
-          autocomplete="email"
-          required
-        >
+<label for="username">
+اسم المستخدم
+<span class="profile-required">*</span>
+</label>
 
-      </div>
+<input
+type="text"
+id="username"
+placeholder="مثال: ayoub123"
+maxlength="30"
+autocomplete="username"
+>
 
+<div class="profile-hint">
+أحرف إنجليزية صغيرة وأرقام و _ فقط
+</div>
 
-      <div class="form-group">
-
-        <label for="password">
-          كلمة المرور
-        </label>
-
-        <div class="password-wrapper">
-
-          <input
-            type="password"
-            id="password"
-            placeholder="6 أحرف على الأقل"
-            minlength="6"
-            autocomplete="current-password"
-            required
-          >
-
-          <button
-            type="button"
-            class="show-password"
-            onclick="togglePassword()"
-          >
-            👁️
-          </button>
-
-        </div>
-
-      </div>
+</div>
 
 
-      <button
-        type="submit"
-        class="submit"
-        id="submitButton"
-      >
-        تسجيل الدخول
-      </button>
+<!-- DISPLAY NAME -->
 
-    </form>
+<div
+class="form-group"
+id="displayNameGroup"
+style="display:none;"
+>
 
+<label for="displayName">
+الاسم الظاهر
+</label>
 
-    <div class="switch-text" id="switchText">
+<input
+type="text"
+id="displayName"
+placeholder="مثال: Ayoub"
+maxlength="50"
+>
 
-      ليس لديك حساب؟
-
-      <button
-        type="button"
-        onclick="showSignup()"
-      >
-        إنشاء حساب
-      </button>
-
-    </div>
-
-  </section>
+</div>
 
 
-  <div class="note">
-    باستخدام VOTERA أنت توافق على شروط الاستخدام وإرشادات المجتمع.
-  </div>
+<!-- EMAIL -->
+
+<div class="form-group">
+
+<label for="email">
+البريد الإلكتروني
+</label>
+
+<input
+type="email"
+id="email"
+placeholder="example@email.com"
+autocomplete="email"
+required
+>
+
+</div>
+
+
+<!-- PASSWORD -->
+
+<div class="form-group">
+
+<label for="password">
+كلمة المرور
+</label>
+
+<input
+type="password"
+id="password"
+placeholder="6 أحرف على الأقل"
+minlength="6"
+autocomplete="current-password"
+required
+>
+
+</div>
+
+
+<button
+type="submit"
+class="submit"
+id="submitButton"
+>
+تسجيل الدخول
+</button>
+
+</form>
+
+
+<div
+class="switch-text"
+id="switchText"
+>
+
+ليس لديك حساب؟
+
+<button
+type="button"
+onclick="showSignup()"
+>
+إنشاء حساب
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =========================================
+     COMPLETE PROFILE
+========================================= -->
+
+<section
+class="card"
+id="completeProfile"
+>
+
+<div class="profile-title">
+
+<div class="profile-icon">
+✨
+</div>
+
+<h2>
+أكمل ملفك الشخصي
+</h2>
+
+<p>
+بقيت بعض المعلومات البسيطة قبل أن تبدأ استخدام VOTERA.
+</p>
+
+</div>
+
+
+<div
+id="profileMessage"
+class="message">
+</div>
+
+
+<!-- AVATAR -->
+
+<div class="avatar-preview" id="avatarPreview">
+👤
+</div>
+
+
+<!-- AVATAR URL -->
+
+<div class="form-group">
+
+<label for="avatarUrl">
+رابط الصورة الشخصية
+</label>
+
+<input
+type="url"
+id="avatarUrl"
+placeholder="https://example.com/image.jpg"
+dir="ltr"
+>
+
+<div class="profile-hint">
+يمكنك تركه فارغًا إذا لم تكن لديك صورة.
+</div>
+
+</div>
+
+
+<!-- USERNAME -->
+
+<div class="form-group">
+
+<label for="profileUsername">
+اسم المستخدم
+<span class="profile-required">*</span>
+</label>
+
+<input
+type="text"
+id="profileUsername"
+placeholder="مثال: ayoub123"
+maxlength="30"
+dir="ltr"
+>
+
+<div class="profile-hint">
+هذا الاسم سيستخدمه الآخرون للعثور عليك ومتابعتك.
+</div>
+
+</div>
+
+
+<!-- DISPLAY NAME -->
+
+<div class="form-group">
+
+<label for="profileDisplayName">
+اسم العرض
+<span class="profile-required">*</span>
+</label>
+
+<input
+type="text"
+id="profileDisplayName"
+placeholder="مثال: Ayoub Amine"
+maxlength="50"
+>
+
+</div>
+
+
+<!-- AGE -->
+
+<div class="form-group">
+
+<label for="profileAge">
+العمر
+<span class="profile-required">*</span>
+</label>
+
+<select id="profileAge">
+
+<option value="">
+اختر عمرك
+</option>
+
+</select>
+
+</div>
+
+
+<!-- BIO -->
+
+<div class="form-group">
+
+<label for="profileBio">
+النبذة الشخصية
+</label>
+
+<textarea
+id="profileBio"
+maxlength="160"
+placeholder="اكتب نبذة قصيرة عنك..."
+></textarea>
+
+<div class="profile-hint">
+اختياري — بحد أقصى 160 حرفًا.
+</div>
+
+</div>
+
+
+<button
+type="button"
+class="submit"
+id="saveProfileButton"
+onclick="saveProfile()"
+>
+حفظ الملف الشخصي 🚀
+</button>
+
+
+<button
+type="button"
+class="logout-small"
+onclick="logout()"
+>
+تسجيل الخروج
+</button>
+
+</section>
+
+
+<div class="note">
+باستخدام VOTERA أنت توافق على شروط الاستخدام وإرشادات المجتمع.
+</div>
+
 
 </main>
 
 
 <script>
 
-/* =================================
+/* =========================================
    SUPABASE
-================================= */
+========================================= */
 
 const SUPABASE_URL =
-  "https://vatlwkuagxyrvwclttfz.supabase.co";
+"https://vatlwkuagxyrvwclttfz.supabase.co";
 
 const SUPABASE_KEY =
-  "sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
+"sb_publishable_7zlCZUTtFzvs_Ytv5XnvEg_y6tOWY94";
 
 
-/* =================================
-   MODE
-================================= */
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+/* =========================================
+   VARIABLES
+========================================= */
 
 let mode = "login";
 
+let currentUser = null;
 
-/* =================================
+
+/* =========================================
    ELEMENTS
-================================= */
+========================================= */
 
 const form =
-  document.getElementById("authForm");
+document.getElementById("authForm");
 
 const submitButton =
-  document.getElementById("submitButton");
+document.getElementById("submitButton");
 
 const message =
-  document.getElementById("message");
+document.getElementById("message");
 
-const usernameGroup =
-  document.getElementById("usernameGroup");
+const authCard =
+document.getElementById("authCard");
 
-const displayNameGroup =
-  document.getElementById("displayNameGroup");
+const completeProfile =
+document.getElementById("completeProfile");
 
-const loginTab =
-  document.getElementById("loginTab");
-
-const signupTab =
-  document.getElementById("signupTab");
-
-const pageTitle =
-  document.getElementById("pageTitle");
-
-const pageDescription =
-  document.getElementById("pageDescription");
-
-const switchText =
-  document.getElementById("switchText");
+const profileMessage =
+document.getElementById("profileMessage");
 
 
-/* =================================
+/* =========================================
+   CREATE AGE OPTIONS
+========================================= */
+
+function createAgeOptions(){
+
+  const ageSelect =
+    document.getElementById("profileAge");
+
+
+  for(let age = 13; age <= 100; age++){
+
+    const option =
+      document.createElement("option");
+
+    option.value =
+      age;
+
+    option.textContent =
+      age + " سنة";
+
+    ageSelect.appendChild(option);
+
+  }
+
+}
+
+
+/* =========================================
    LOGIN MODE
-================================= */
+========================================= */
 
-function showLogin() {
+function showLogin(){
 
   mode = "login";
 
-  loginTab.classList.add("active");
-  signupTab.classList.remove("active");
+  document
+    .getElementById("loginTab")
+    .classList.add("active");
 
-  usernameGroup.style.display = "none";
-  displayNameGroup.style.display = "none";
+  document
+    .getElementById("signupTab")
+    .classList.remove("active");
 
-  pageTitle.textContent =
-    "مرحبًا بك في VOTERA";
 
-  pageDescription.textContent =
-    "سجّل دخولك وابدأ التصويت وإنشاء التصويتات.";
+  document
+    .getElementById("usernameGroup")
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById("displayNameGroup")
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById("pageTitle")
+    .textContent =
+      "مرحبًا بك في VOTERA";
+
+
+  document
+    .getElementById("pageDescription")
+    .textContent =
+      "سجّل دخولك وابدأ التصويت وإنشاء التصويتات.";
+
 
   submitButton.textContent =
     "تسجيل الدخول";
 
-  switchText.innerHTML =
+
+  document
+    .getElementById("switchText")
+    .innerHTML =
     `
       ليس لديك حساب؟
+
       <button
         type="button"
         onclick="showSignup()"
@@ -544,37 +869,63 @@ function showLogin() {
       </button>
     `;
 
+
   clearMessage();
 
 }
 
 
-/* =================================
+/* =========================================
    SIGNUP MODE
-================================= */
+========================================= */
 
-function showSignup() {
+function showSignup(){
 
   mode = "signup";
 
-  signupTab.classList.add("active");
-  loginTab.classList.remove("active");
+  document
+    .getElementById("signupTab")
+    .classList.add("active");
 
-  usernameGroup.style.display = "block";
-  displayNameGroup.style.display = "block";
+  document
+    .getElementById("loginTab")
+    .classList.remove("active");
 
-  pageTitle.textContent =
-    "إنشاء حساب في VOTERA";
 
-  pageDescription.textContent =
-    "أنشئ حسابك وابدأ ببناء مجتمعك.";
+  document
+    .getElementById("usernameGroup")
+    .style.display =
+      "block";
+
+
+  document
+    .getElementById("displayNameGroup")
+    .style.display =
+      "block";
+
+
+  document
+    .getElementById("pageTitle")
+    .textContent =
+      "إنشاء حساب في VOTERA";
+
+
+  document
+    .getElementById("pageDescription")
+    .textContent =
+      "أنشئ حسابك وابدأ ببناء مجتمعك.";
+
 
   submitButton.textContent =
     "إنشاء الحساب";
 
-  switchText.innerHTML =
+
+  document
+    .getElementById("switchText")
+    .innerHTML =
     `
       لديك حساب بالفعل؟
+
       <button
         type="button"
         onclick="showLogin()"
@@ -583,49 +934,31 @@ function showSignup() {
       </button>
     `;
 
+
   clearMessage();
 
 }
 
 
-/* =================================
-   PASSWORD
-================================= */
-
-function togglePassword() {
-
-  const password =
-    document.getElementById("password");
-
-  if (password.type === "password") {
-
-    password.type = "text";
-
-  } else {
-
-    password.type = "password";
-
-  }
-
-}
-
-
-/* =================================
+/* =========================================
    MESSAGE
-================================= */
+========================================= */
 
-function showMessage(text, type) {
+function showMessage(text,type){
 
-  message.textContent = text;
+  message.textContent =
+    text;
 
   message.className =
     "message " + type;
 
 }
 
-function clearMessage() {
 
-  message.textContent = "";
+function clearMessage(){
+
+  message.textContent =
+    "";
 
   message.className =
     "message";
@@ -633,175 +966,169 @@ function clearMessage() {
 }
 
 
-/* =================================
-   AUTH
-================================= */
+function showProfileMessage(text,type){
 
-form.addEventListener(
-  "submit",
-  async function(event) {
+  profileMessage.textContent =
+    text;
 
-    event.preventDefault();
-
-    clearMessage();
-
-    const email =
-      document
-        .getElementById("email")
-        .value
-        .trim();
-
-    const password =
-      document
-        .getElementById("password")
-        .value;
-
-    if (!email || !password) {
-
-      showMessage(
-        "يرجى إدخال البريد الإلكتروني وكلمة المرور.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    submitButton.disabled = true;
-
-    submitButton.textContent =
-      mode === "login"
-      ? "جاري تسجيل الدخول..."
-      : "جاري إنشاء الحساب...";
-
-
-    try {
-
-      if (mode === "login") {
-
-        await loginUser(
-          email,
-          password
-        );
-
-      } else {
-
-        await signupUser(
-          email,
-          password
-        );
-
-      }
-
-    }
-
-    catch(error) {
-
-      console.error(error);
-
-      showMessage(
-        getArabicError(error),
-        "error"
-      );
-
-      submitButton.disabled = false;
-
-      submitButton.textContent =
-        mode === "login"
-        ? "تسجيل الدخول"
-        : "إنشاء الحساب";
-
-    }
-
-  }
-);
-
-
-/* =================================
-   LOGIN USER
-================================= */
-
-async function loginUser(
-  email,
-  password
-) {
-
-  const response =
-    await fetch(
-      SUPABASE_URL +
-      "/auth/v1/token?grant_type=password",
-      {
-
-        method: "POST",
-
-        headers: {
-
-          "Content-Type":
-            "application/json",
-
-          "apikey":
-            SUPABASE_KEY
-
-        },
-
-        body: JSON.stringify({
-
-          email: email,
-
-          password: password
-
-        })
-
-      }
-    );
-
-
-  const data =
-    await response.json();
-
-
-  if (!response.ok) {
-
-    throw new Error(
-      data.error_description ||
-      data.msg ||
-      data.message ||
-      "فشل تسجيل الدخول."
-    );
-
-  }
-
-
-  saveSession(data);
-
-  showMessage(
-    "تم تسجيل الدخول بنجاح! جاري الانتقال...",
-    "success"
-  );
-
-
-  setTimeout(
-    function() {
-
-      window.location.href =
-        "index.html";
-
-    },
-    800
-  );
+  profileMessage.className =
+    "message " + type;
 
 }
 
 
-/* =================================
-   SIGNUP USER
-================================= */
+/* =========================================
+   AUTH FORM
+========================================= */
+
+form.addEventListener(
+"submit",
+async function(event){
+
+  event.preventDefault();
+
+  clearMessage();
+
+
+  const email =
+    document
+      .getElementById("email")
+      .value
+      .trim();
+
+
+  const password =
+    document
+      .getElementById("password")
+      .value;
+
+
+  if(!email || !password){
+
+    showMessage(
+      "يرجى إدخال البريد الإلكتروني وكلمة المرور.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  submitButton.disabled =
+    true;
+
+
+  submitButton.textContent =
+    mode === "login"
+      ? "جاري تسجيل الدخول..."
+      : "جاري إنشاء الحساب...";
+
+
+  try{
+
+    if(mode === "login"){
+
+      await loginUser(
+        email,
+        password
+      );
+
+    }else{
+
+      await signupUser(
+        email,
+        password
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      getArabicError(error),
+      "error"
+    );
+
+
+    submitButton.disabled =
+      false;
+
+
+    submitButton.textContent =
+      mode === "login"
+        ? "تسجيل الدخول"
+        : "إنشاء الحساب";
+
+  }
+
+});
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+async function loginUser(
+  email,
+  password
+){
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient.auth.signInWithPassword({
+
+    email:email,
+
+    password:password
+
+  });
+
+
+  if(error){
+
+    throw error;
+
+  }
+
+
+  if(!data.session || !data.user){
+
+    throw new Error(
+      "تعذر إنشاء جلسة تسجيل الدخول."
+    );
+
+  }
+
+
+  currentUser =
+    data.user;
+
+
+  /*
+    أهم خطوة:
+
+    بعد تسجيل الدخول نتحقق
+    من ملف profiles.
+  */
+
+  await checkProfileAfterLogin();
+
+}
+
+
+/* =========================================
+   SIGNUP
+========================================= */
 
 async function signupUser(
   email,
   password
-) {
+){
 
   const username =
     document
@@ -810,6 +1137,7 @@ async function signupUser(
       .trim()
       .toLowerCase();
 
+
   const displayName =
     document
       .getElementById("displayName")
@@ -817,7 +1145,7 @@ async function signupUser(
       .trim();
 
 
-  if (!username) {
+  if(!username){
 
     throw new Error(
       "يرجى اختيار اسم مستخدم."
@@ -826,7 +1154,7 @@ async function signupUser(
   }
 
 
-  if (!/^[a-z0-9_]+$/.test(username)) {
+  if(!/^[a-z0-9_]+$/.test(username)){
 
     throw new Error(
       "اسم المستخدم يجب أن يحتوي على أحرف إنجليزية وأرقام و _ فقط."
@@ -835,7 +1163,7 @@ async function signupUser(
   }
 
 
-  if (password.length < 6) {
+  if(password.length < 6){
 
     throw new Error(
       "كلمة المرور يجب أن تحتوي على 6 أحرف على الأقل."
@@ -844,219 +1172,847 @@ async function signupUser(
   }
 
 
-  /* Create account */
+  const {
+    data,
+    error
+  } =
+  await supabaseClient.auth.signUp({
 
-  const response =
-    await fetch(
-      SUPABASE_URL +
-      "/auth/v1/signup",
-      {
+    email:email,
 
-        method: "POST",
+    password:password,
 
-        headers: {
+    options:{
+      data:{
+        username:username,
 
-          "Content-Type":
-            "application/json",
-
-          "apikey":
-            SUPABASE_KEY
-
-        },
-
-        body: JSON.stringify({
-
-          email: email,
-
-          password: password,
-
-          data: {
-
-            username: username,
-
-            display_name:
-              displayName || username
-
-          }
-
-        })
-
+        display_name:
+          displayName || username
       }
-    );
+    }
+
+  });
 
 
-  const data =
-    await response.json();
+  if(error){
 
-
-  if (!response.ok) {
-
-    throw new Error(
-      data.msg ||
-      data.message ||
-      data.error_description ||
-      "فشل إنشاء الحساب."
-    );
+    throw error;
 
   }
 
 
   /*
-    If email confirmation is enabled,
-    Supabase may not return a session.
+    إذا كان تأكيد البريد الإلكتروني
+    مفعلًا فلن تكون هناك جلسة.
   */
 
-  if (
-    data.access_token &&
-    data.user
-  ) {
-
-    saveSession(data);
+  if(!data.session || !data.user){
 
     showMessage(
-      "تم إنشاء الحساب بنجاح! جاري الانتقال...",
+      "تم إنشاء الحساب بنجاح.\nتحقق من بريدك الإلكتروني لتأكيد الحساب.",
       "success"
     );
 
 
-    setTimeout(
-      function() {
+    submitButton.disabled =
+      false;
 
-        window.location.href =
-          "index.html";
-
-      },
-      800
-    );
-
-  } else {
-
-    showMessage(
-      "تم إنشاء الحساب! تحقق من بريدك الإلكتروني لتأكيد الحساب.",
-      "success"
-    );
-
-    submitButton.disabled = false;
 
     submitButton.textContent =
       "إنشاء الحساب";
+
+
+    return;
+
+  }
+
+
+  currentUser =
+    data.user;
+
+
+  /*
+    محاولة إنشاء profile
+    إذا كان Trigger موجودًا في Supabase
+    فسيكون موجودًا بالفعل.
+
+    وإذا لم يكن موجودًا، سنعرض
+    شاشة إكمال الملف.
+  */
+
+  await checkProfileAfterLogin();
+
+}
+
+
+/* =========================================
+   CHECK PROFILE
+========================================= */
+
+async function checkProfileAfterLogin(){
+
+  if(!currentUser){
+
+    throw new Error(
+      "لم يتم العثور على المستخدم."
+    );
+
+  }
+
+
+  showMessage(
+    "تم تسجيل الدخول بنجاح.\nجاري التحقق من ملفك...",
+    "success"
+  );
+
+
+  try{
+
+    const {
+      data:profile,
+      error
+    } =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq(
+        "id",
+        currentUser.id
+      )
+      .maybeSingle();
+
+
+    if(error){
+
+      /*
+        إذا كان الجدول غير موجود
+        أو هناك مشكلة في RLS
+      */
+
+      console.error(
+        "Profile check error:",
+        error
+      );
+
+
+      throw new Error(
+        "تعذر التحقق من ملفك الشخصي:\n" +
+        error.message
+      );
+
+    }
+
+
+    /*
+      لا يوجد profile
+    */
+
+    if(!profile){
+
+      openCompleteProfile(null);
+
+      return;
+
+    }
+
+
+    /*
+      يوجد profile ولكن نتحقق
+      هل البيانات الأساسية مكتملة.
+    */
+
+    const username =
+      String(
+        profile.username || ""
+      ).trim();
+
+
+    const displayName =
+      String(
+        profile.display_name || ""
+      ).trim();
+
+
+    const age =
+      profile.age;
+
+
+    /*
+      إذا كان هناك نقص
+      نظهر شاشة الإكمال.
+    */
+
+    if(
+      !username ||
+      !displayName ||
+      age === null ||
+      age === undefined ||
+      age === ""
+    ){
+
+      openCompleteProfile(
+        profile
+      );
+
+      return;
+
+    }
+
+
+    /*
+      الملف مكتمل
+      ندخل مباشرة.
+    */
+
+    goToHome();
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      error.message ||
+      "تعذر التحقق من الملف الشخصي.",
+      "error"
+    );
+
+
+    submitButton.disabled =
+      false;
+
+
+    submitButton.textContent =
+      "تسجيل الدخول";
 
   }
 
 }
 
 
-/* =================================
-   SAVE SESSION
-================================= */
+/* =========================================
+   OPEN COMPLETE PROFILE
+========================================= */
 
-function saveSession(data) {
+function openCompleteProfile(profile){
 
-  localStorage.setItem(
-    "votera_access_token",
-    data.access_token || ""
-  );
+  authCard.style.display =
+    "none";
 
-  localStorage.setItem(
-    "votera_refresh_token",
-    data.refresh_token || ""
-  );
 
-  localStorage.setItem(
-    "votera_user",
-    JSON.stringify(
-      data.user || {}
-    )
+  completeProfile.style.display =
+    "block";
+
+
+  document
+    .getElementById("pageTitle")
+    .textContent =
+      "أكمل ملفك الشخصي";
+
+
+  document
+    .getElementById("pageDescription")
+    .textContent =
+      "أكمل بياناتك مرة واحدة فقط.";
+
+
+  /*
+    إذا كان profile موجودًا
+    نملأ البيانات القديمة.
+  */
+
+  if(profile){
+
+    document
+      .getElementById("profileUsername")
+      .value =
+        profile.username || "";
+
+
+    document
+      .getElementById("profileDisplayName")
+      .value =
+        profile.display_name || "";
+
+
+    document
+      .getElementById("profileAge")
+      .value =
+        profile.age || "";
+
+
+    document
+      .getElementById("profileBio")
+      .value =
+        profile.bio || "";
+
+
+    document
+      .getElementById("avatarUrl")
+      .value =
+        profile.avatar_url || "";
+
+
+    updateAvatarPreview(
+      profile.avatar_url
+    );
+
+  }else{
+
+    /*
+      نأخذ البيانات التي وضعها
+      المستخدم عند إنشاء الحساب
+      من user_metadata.
+    */
+
+    const metadata =
+      currentUser.user_metadata || {};
+
+
+    document
+      .getElementById("profileUsername")
+      .value =
+        metadata.username || "";
+
+
+    document
+      .getElementById("profileDisplayName")
+      .value =
+        metadata.display_name ||
+        metadata.full_name ||
+        metadata.name ||
+        "";
+
+
+    document
+      .getElementById("profileAge")
+      .value =
+        "";
+
+
+    document
+      .getElementById("profileBio")
+      .value =
+        "";
+
+
+    document
+      .getElementById("avatarUrl")
+      .value =
+        metadata.avatar_url ||
+        metadata.picture ||
+        "";
+
+
+    updateAvatarPreview(
+      metadata.avatar_url ||
+      metadata.picture ||
+      ""
+    );
+
+  }
+
+
+  showProfileMessage(
+    "أكمل البيانات المطلوبة ثم اضغط حفظ.",
+    "success"
   );
 
 }
 
 
-/* =================================
-   ARABIC ERRORS
-================================= */
+/* =========================================
+   AVATAR PREVIEW
+========================================= */
 
-function getArabicError(error) {
+function updateAvatarPreview(url){
+
+  const preview =
+    document.getElementById(
+      "avatarPreview"
+    );
+
+
+  preview.innerHTML =
+    "👤";
+
+
+  if(!url){
+
+    return;
+
+  }
+
+
+  const img =
+    document.createElement("img");
+
+
+  img.src =
+    url;
+
+
+  img.alt =
+    "الصورة الشخصية";
+
+
+  img.onload =
+    function(){
+
+      preview.innerHTML =
+        "";
+
+      preview.appendChild(
+        img
+      );
+
+    };
+
+
+  img.onerror =
+    function(){
+
+      preview.innerHTML =
+        "👤";
+
+    };
+
+}
+
+
+document
+  .getElementById("avatarUrl")
+  .addEventListener(
+    "input",
+    function(){
+
+      updateAvatarPreview(
+        this.value.trim()
+      );
+
+    }
+  );
+
+
+/* =========================================
+   SAVE PROFILE
+========================================= */
+
+async function saveProfile(){
+
+  if(!currentUser){
+
+    showProfileMessage(
+      "جلسة المستخدم غير موجودة. سجل الدخول مرة أخرى.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const username =
+    document
+      .getElementById("profileUsername")
+      .value
+      .trim()
+      .toLowerCase();
+
+
+  const displayName =
+    document
+      .getElementById("profileDisplayName")
+      .value
+      .trim();
+
+
+  const age =
+    document
+      .getElementById("profileAge")
+      .value;
+
+
+  const bio =
+    document
+      .getElementById("profileBio")
+      .value
+      .trim();
+
+
+  const avatarUrl =
+    document
+      .getElementById("avatarUrl")
+      .value
+      .trim();
+
+
+  /*
+    التحقق
+  */
+
+  if(!username){
+
+    showProfileMessage(
+      "يرجى إدخال اسم المستخدم.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!/^[a-z0-9_]+$/.test(username)){
+
+    showProfileMessage(
+      "اسم المستخدم يجب أن يحتوي على أحرف إنجليزية وأرقام و _ فقط.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!displayName){
+
+    showProfileMessage(
+      "يرجى إدخال اسم العرض.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!age){
+
+    showProfileMessage(
+      "يرجى اختيار عمرك.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const saveButton =
+    document.getElementById(
+      "saveProfileButton"
+    );
+
+
+  saveButton.disabled =
+    true;
+
+
+  saveButton.textContent =
+    "جاري حفظ الملف...";
+
+
+  try{
+
+    /*
+      البيانات التي سنضعها
+      في جدول profiles.
+    */
+
+    const profileData = {
+
+      id:
+        currentUser.id,
+
+      username:
+        username,
+
+      display_name:
+        displayName,
+
+      avatar_url:
+        avatarUrl || null,
+
+      bio:
+        bio || null,
+
+      age:
+        Number(age)
+
+    };
+
+
+    /*
+      upsert:
+
+      إذا كان profile غير موجود
+      ينشئه.
+
+      إذا كان موجودًا
+      يحدثه.
+    */
+
+    const {
+      error
+    } =
+    await supabaseClient
+      .from("profiles")
+      .upsert(
+        profileData,
+        {
+          onConflict:"id"
+        }
+      );
+
+
+    if(error){
+
+      throw error;
+
+    }
+
+
+    /*
+      تم الحفظ
+    */
+
+    showProfileMessage(
+      "تم حفظ ملفك الشخصي بنجاح! 🎉",
+      "success"
+    );
+
+
+    saveButton.textContent =
+      "تم الحفظ ✓";
+
+
+    setTimeout(
+      function(){
+
+        goToHome();
+
+      },
+      700
+    );
+
+
+  }catch(error){
+
+    console.error(
+      "Save profile error:",
+      error
+    );
+
+
+    let errorMessage =
+      error.message ||
+      "تعذر حفظ الملف الشخصي.";
+
+
+    /*
+      username duplicate
+    */
+
+    if(
+      error.code === "23505"
+    ){
+
+      errorMessage =
+        "اسم المستخدم هذا مستخدم بالفعل. اختر اسمًا آخر.";
+
+    }
+
+
+    showProfileMessage(
+      errorMessage,
+      "error"
+    );
+
+
+    saveButton.disabled =
+      false;
+
+
+    saveButton.textContent =
+      "حفظ الملف الشخصي 🚀";
+
+  }
+
+}
+
+
+/* =========================================
+   GO HOME
+========================================= */
+
+function goToHome(){
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+async function logout(){
+
+  try{
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href =
+      "login.html";
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* =========================================
+   ARABIC ERRORS
+========================================= */
+
+function getArabicError(error){
 
   const text =
-    String(error.message || error);
+    String(
+      error.message ||
+      error
+    );
 
 
-  if (
-    text.toLowerCase()
-      .includes("invalid login credentials")
-  ) {
+  const lower =
+    text.toLowerCase();
+
+
+  if(
+    lower.includes(
+      "invalid login credentials"
+    )
+  ){
 
     return "البريد الإلكتروني أو كلمة المرور غير صحيحة.";
 
   }
 
 
-  if (
-    text.toLowerCase()
-      .includes("user already registered")
-  ) {
+  if(
+    lower.includes(
+      "user already registered"
+    )
+  ){
 
     return "هذا البريد الإلكتروني مستخدم بالفعل.";
 
   }
 
 
-  if (
-    text.toLowerCase()
-      .includes("email not confirmed")
-  ) {
+  if(
+    lower.includes(
+      "email not confirmed"
+    )
+  ){
 
     return "يجب تأكيد بريدك الإلكتروني أولًا.";
 
   }
 
 
-  if (
-    text.toLowerCase()
-      .includes("password")
-  ) {
+  if(
+    lower.includes("password")
+  ){
 
     return "كلمة المرور غير صحيحة أو قصيرة جدًا.";
 
   }
 
 
-  if (
-    text.toLowerCase()
-      .includes("username")
-  ) {
+  if(
+    lower.includes("username")
+  ){
 
     return "اسم المستخدم غير متاح أو مستخدم بالفعل.";
 
   }
 
 
-  return text || "حدث خطأ غير معروف.";
+  return text ||
+    "حدث خطأ غير معروف.";
 
 }
 
 
-/* =================================
-   CHECK EXISTING SESSION
-================================= */
+/* =========================================
+   START
+========================================= */
 
-const existingToken =
-  localStorage.getItem(
-    "votera_access_token"
-  );
+createAgeOptions();
 
 
-if (existingToken) {
+/*
+  إذا كانت هناك جلسة موجودة
+  نتحقق منها بدلًا من ترك المستخدم
+  يدخل بدون إكمال ملفه.
+*/
 
-  showMessage(
-    "أنت مسجل الدخول بالفعل.",
-    "success"
-  );
+async function checkExistingSession(){
+
+  try{
+
+    const {
+      data:{
+        session
+      }
+    } =
+    await supabaseClient.auth.getSession();
+
+
+    if(session && session.user){
+
+      currentUser =
+        session.user;
+
+
+      await checkProfileAfterLogin();
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Existing session error:",
+      error
+    );
+
+  }
 
 }
+
+
+checkExistingSession();
+
+
+/* =========================================
+   AUTH STATE
+========================================= */
+
+supabaseClient.auth.onAuthStateChange(
+function(event,session){
+
+  currentUser =
+    session?.user || null;
+
+});
 
 </script>
 
 </body>
+
 </html>
