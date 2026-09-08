@@ -119,6 +119,52 @@ header{
   border:1px solid #bbf7d0;
 }
 
+/* USER SEARCH */
+
+.user-search{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:18px;
+  box-shadow:0 5px 18px rgba(0,0,0,.025);
+}
+
+.user-search-icon{
+  font-size:18px;
+  padding-right:5px;
+}
+
+.user-search input{
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:none;
+  background:transparent;
+  font-size:13px;
+  color:var(--text);
+}
+
+.user-search input::placeholder{
+  color:#9999a4;
+}
+
+.user-search button{
+  background:var(--primary);
+  color:white;
+  padding:10px 14px;
+  border-radius:10px;
+  font-size:11px;
+  font-weight:900;
+}
+
+.user-search button:hover{
+  background:var(--primary-dark);
+}
+
 /* LOGIN */
 
 .login-card,
@@ -516,33 +562,94 @@ header{
 .hidden{
   display:none !important;
 }
+
+/* MOBILE */
+
+@media(max-width:480px){
+
+  .container{
+    padding:20px 13px 30px;
+  }
+
+  .user-search{
+    padding:8px;
+  }
+
+  .user-search button{
+    padding:10px 12px;
+  }
+
+}
 </style>
 </head>
 
 <body>
 
 <header>
+
 <nav class="nav">
-<a href="index.html" class="logo">VOTE<span>RA</span></a>
-<a href="index.html" class="home-link">الرئيسية 🏠</a>
+
+<a href="index.html" class="logo">
+VOTE<span>RA</span>
+</a>
+
+<a href="index.html" class="home-link">
+الرئيسية 🏠
+</a>
+
 </nav>
+
 </header>
+
 
 <main class="container">
 
+
+<!-- USER SEARCH -->
+
+<div class="user-search">
+
+<div class="user-search-icon">
+🔍
+</div>
+
+<input
+type="text"
+id="userSearchInput"
+placeholder="ابحث عن مستخدم..."
+maxlength="30"
+onkeydown="handleUserSearchKey(event)"
+>
+
+<button
+type="button"
+onclick="searchUser()"
+>
+بحث
+</button>
+
+</div>
+
+
 <div id="message" class="message"></div>
+
 
 <!-- LOGIN -->
 
 <div id="loginCard" class="login-card hidden">
 
-<h2>🔐 تسجيل الدخول</h2>
+<h2>
+🔐 تسجيل الدخول
+</h2>
 
 <p>
 سجل الدخول بحساب Google للبدء باستخدام VOTERA.
 </p>
 
-<button class="google-btn" onclick="signInWithGoogle()">
+<button
+class="google-btn"
+onclick="signInWithGoogle()"
+>
 🔵 تسجيل الدخول بـ Google
 </button>
 
@@ -553,11 +660,15 @@ header{
 
 <div id="setupCard" class="setup-card hidden">
 
-<h2>👋 أكمل ملفك الشخصي</h2>
+<h2>
+👋 أكمل ملفك الشخصي
+</h2>
 
 <div class="setup-description">
+
 هذه أول مرة تستخدم فيها VOTERA.
 أكمل معلوماتك حتى يستطيع الآخرون العثور عليك ومتابعتك.
+
 </div>
 
 <div class="setup-avatar" id="setupAvatar">
@@ -676,13 +787,27 @@ onclick="toggleFollow()"
 <div class="follow-stats">
 
 <div class="follow-stat">
-<strong id="followersCount">0</strong>
-<span>المتابعون</span>
+
+<strong id="followersCount">
+0
+</strong>
+
+<span>
+المتابعون
+</span>
+
 </div>
 
 <div class="follow-stat">
-<strong id="followingCount">0</strong>
-<span>يتابع</span>
+
+<strong id="followingCount">
+0
+</strong>
+
+<span>
+يتابع
+</span>
+
 </div>
 
 </div>
@@ -690,13 +815,27 @@ onclick="toggleFollow()"
 <div class="profile-info">
 
 <div class="info-box">
-<strong id="profileAge">-</strong>
-<span>العمر</span>
+
+<strong id="profileAge">
+-
+</strong>
+
+<span>
+العمر
+</span>
+
 </div>
 
 <div class="info-box">
-<strong id="accountDate">-</strong>
-<span>تاريخ الإنشاء</span>
+
+<strong id="accountDate">
+-
+</strong>
+
+<span>
+تاريخ الإنشاء
+</span>
+
 </div>
 
 </div>
@@ -704,18 +843,39 @@ onclick="toggleFollow()"
 <div class="stats">
 
 <div class="stat">
-<strong id="votesCount">0</strong>
-<span>التصويتات</span>
+
+<strong id="votesCount">
+0
+</strong>
+
+<span>
+التصويتات
+</span>
+
 </div>
 
 <div class="stat">
-<strong id="totalVotes">0</strong>
-<span>إجمالي الأصوات</span>
+
+<strong id="totalVotes">
+0
+</strong>
+
+<span>
+إجمالي الأصوات
+</span>
+
 </div>
 
 <div class="stat">
-<strong id="pointsStat">0</strong>
-<span>النقاط</span>
+
+<strong id="pointsStat">
+0
+</strong>
+
+<span>
+النقاط
+</span>
+
 </div>
 
 </div>
@@ -754,29 +914,83 @@ onclick="logout()"
 
 <div class="bottom-nav-inner">
 
-<a href="index.html" class="bottom-item">
-<div class="bottom-icon">🏠</div>
-<div>الرئيسية</div>
+<a
+href="index.html"
+class="bottom-item"
+>
+
+<div class="bottom-icon">
+🏠
+</div>
+
+<div>
+الرئيسية
+</div>
+
 </a>
 
-<a href="index.html#votes" class="bottom-item">
-<div class="bottom-icon">🌎</div>
-<div>استكشاف</div>
+
+<a
+href="search.html"
+class="bottom-item"
+>
+
+<div class="bottom-icon">
+🌎
+</div>
+
+<div>
+استكشاف
+</div>
+
 </a>
 
-<a href="create.html" class="bottom-item">
-<div class="bottom-create">＋</div>
-<div>إنشاء</div>
+
+<a
+href="create.html"
+class="bottom-item"
+>
+
+<div class="bottom-create">
+＋
+</div>
+
+<div>
+إنشاء
+</div>
+
 </a>
 
-<a href="index.html#votes" class="bottom-item">
-<div class="bottom-icon">🗳️</div>
-<div>التصويتات</div>
+
+<a
+href="index.html#votes"
+class="bottom-item"
+>
+
+<div class="bottom-icon">
+🗳️
+</div>
+
+<div>
+التصويتات
+</div>
+
 </a>
 
-<a href="profile.html" class="bottom-item active">
-<div class="bottom-icon">👤</div>
-<div>حسابي</div>
+
+<a
+href="profile.html"
+class="bottom-item active"
+>
+
+<div class="bottom-icon">
+👤
+</div>
+
+<div>
+حسابي
+</div>
+
 </a>
 
 </div>
@@ -839,7 +1053,8 @@ document.getElementById("followButton");
 
 function showMessage(text,type){
 
-  message.textContent = text;
+  message.textContent =
+    text;
 
   message.className =
     "message " + type;
@@ -858,6 +1073,128 @@ function hideAll(){
   setupCard.classList.add("hidden");
 
   profileContent.classList.add("hidden");
+
+}
+
+
+/* =========================================
+   SEARCH USER
+========================================= */
+
+async function searchUser(){
+
+  const input =
+    document.getElementById(
+      "userSearchInput"
+    );
+
+  const username =
+    input.value
+      .trim()
+      .toLowerCase()
+      .replace(/^@/,"");
+
+
+  if(!username){
+
+    showMessage(
+      "اكتب اسم المستخدم أولًا.",
+      "error"
+    );
+
+    input.focus();
+
+    return;
+
+  }
+
+
+  if(
+    !/^[a-z0-9_]{3,30}$/.test(username)
+  ){
+
+    showMessage(
+      "اسم المستخدم يجب أن يحتوي على 3 إلى 30 حرفًا، ويستعمل الحروف الإنجليزية والأرقام و _ فقط.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    const {data,error} =
+      await supabaseClient
+      .from("profiles")
+      .select("id,username")
+      .eq(
+        "username",
+        username
+      )
+      .maybeSingle();
+
+
+    if(error){
+
+      throw error;
+
+    }
+
+
+    if(!data){
+
+      showMessage(
+        "لم يتم العثور على المستخدم @" +
+        username,
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    window.location.href =
+      "profile.html?username=" +
+      encodeURIComponent(
+        data.username
+      );
+
+
+  }catch(error){
+
+    console.error(
+      "User search error:",
+      error
+    );
+
+
+    showMessage(
+      "تعذر البحث عن المستخدم:\n" +
+      error.message,
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   ENTER SEARCH
+========================================= */
+
+function handleUserSearchKey(event){
+
+  if(
+    event.key === "Enter"
+  ){
+
+    searchUser();
+
+  }
 
 }
 
@@ -948,9 +1285,40 @@ async function start(){
 
     if(!currentUser){
 
+      /*
+        إذا كان هناك username
+        نستطيع البحث وعرض الملف
+        حتى بدون تسجيل الدخول.
+      */
+
+      if(url.username){
+
+        await loadProfileByUsername(
+          url.username
+        );
+
+        return;
+
+      }
+
+
+      if(url.id){
+
+        profileUserId =
+          url.id;
+
+        await loadPublicProfile();
+
+        return;
+
+      }
+
+
       hideAll();
 
-      loginCard.classList.remove("hidden");
+      loginCard.classList.remove(
+        "hidden"
+      );
 
       return;
 
@@ -958,8 +1326,8 @@ async function start(){
 
 
     /*
-      إذا يوجد id أو username
-      فهذا ملف مستخدم آخر.
+      إذا يوجد id
+      فهذا ملف مستخدم محدد.
     */
 
     if(url.id){
@@ -1030,11 +1398,6 @@ async function checkOwnProfile(){
     }
 
 
-    /*
-      لا يوجد ملف
-      → شاشة الإعداد
-    */
-
     if(!data){
 
       showSetup();
@@ -1043,11 +1406,6 @@ async function checkOwnProfile(){
 
     }
 
-
-    /*
-      الملف موجود
-      لكن نتأكد من البيانات الأساسية
-    */
 
     if(
       !data.username ||
@@ -1087,7 +1445,9 @@ function showSetup(existingProfile=null){
 
   hideAll();
 
-  setupCard.classList.remove("hidden");
+  setupCard.classList.remove(
+    "hidden"
+  );
 
 
   const metadata =
@@ -1105,11 +1465,6 @@ function showSetup(existingProfile=null){
     metadata.picture ||
     "";
 
-
-  /*
-    إذا كانت هناك بيانات قديمة
-    نضعها في الحقول
-  */
 
   document.getElementById(
     "setupUsername"
@@ -1136,16 +1491,13 @@ function showSetup(existingProfile=null){
     existingProfile?.bio || "";
 
 
-  /*
-    صورة Google
-  */
-
   const avatar =
     document.getElementById(
       "setupAvatar"
     );
 
-  avatar.innerHTML = "👤";
+  avatar.innerHTML =
+    "👤";
 
 
   if(
@@ -1162,12 +1514,18 @@ function showSetup(existingProfile=null){
 
     img.onerror =
       function(){
-        avatar.innerHTML = "👤";
+
+        avatar.innerHTML =
+          "👤";
+
       };
 
-    avatar.innerHTML = "";
+    avatar.innerHTML =
+      "";
 
-    avatar.appendChild(img);
+    avatar.appendChild(
+      img
+    );
 
   }
 
@@ -1213,10 +1571,6 @@ async function saveProfile(){
       "setupBio"
     ).value.trim();
 
-
-  /*
-    VALIDATION
-  */
 
   if(!username){
 
@@ -1277,7 +1631,8 @@ async function saveProfile(){
       "saveProfileButton"
     );
 
-  button.disabled = true;
+  button.disabled =
+    true;
 
   button.textContent =
     "جارٍ الحفظ...";
@@ -1294,11 +1649,6 @@ async function saveProfile(){
       metadata.picture ||
       null;
 
-
-    /*
-      نتأكد أن username
-      غير مستخدم من شخص آخر.
-    */
 
     const {data:existing,error:checkError} =
       await supabaseClient
@@ -1325,7 +1675,8 @@ async function saveProfile(){
         "error"
       );
 
-      button.disabled = false;
+      button.disabled =
+        false;
 
       button.textContent =
         "حفظ الملف الشخصي 🚀";
@@ -1334,10 +1685,6 @@ async function saveProfile(){
 
     }
 
-
-    /*
-      UPSERT
-    */
 
     const {data,error} =
       await supabaseClient
@@ -1396,11 +1743,9 @@ async function saveProfile(){
     );
 
 
-    /*
-      في حالة تعارض username
-    */
-
-    if(error.code === "23505"){
+    if(
+      error.code === "23505"
+    ){
 
       showMessage(
         "اسم المستخدم مستخدم بالفعل. اختر اسمًا آخر.",
@@ -1417,11 +1762,11 @@ async function saveProfile(){
 
     }
 
-
   }
 
 
-  button.disabled = false;
+  button.disabled =
+    false;
 
   button.textContent =
     "حفظ الملف الشخصي 🚀";
@@ -1441,7 +1786,10 @@ async function loadProfileByUsername(username){
       await supabaseClient
       .from("profiles")
       .select("*")
-      .eq("username",username.toLowerCase())
+      .eq(
+        "username",
+        username.toLowerCase()
+      )
       .maybeSingle();
 
 
@@ -1473,6 +1821,8 @@ async function loadProfileByUsername(username){
 
   }catch(error){
 
+    console.error(error);
+
     showMessage(
       "تعذر تحميل الملف الشخصي:\n" +
       error.message,
@@ -1496,7 +1846,10 @@ async function loadPublicProfile(){
       await supabaseClient
       .from("profiles")
       .select("*")
-      .eq("id",profileUserId)
+      .eq(
+        "id",
+        profileUserId
+      )
       .maybeSingle();
 
 
@@ -1547,23 +1900,20 @@ async function displayProfile(profile){
 
   hideAll();
 
-  profileContent.classList.remove("hidden");
+  profileContent.classList.remove(
+    "hidden"
+  );
 
-
-  /*
-    USERNAME
-  */
 
   document.getElementById(
     "profileUsername"
   ).textContent =
     "@" +
-    (profile.username || "user");
+    (
+      profile.username ||
+      "user"
+    );
 
-
-  /*
-    DISPLAY NAME
-  */
 
   document.getElementById(
     "profileName"
@@ -1573,10 +1923,6 @@ async function displayProfile(profile){
     "مستخدم VOTERA";
 
 
-  /*
-    BIO
-  */
-
   document.getElementById(
     "profileBio"
   ).textContent =
@@ -1584,18 +1930,18 @@ async function displayProfile(profile){
     "لا توجد نبذة بعد.";
 
 
-  /*
-    POINTS
-  */
-
   const points =
-    Number(profile.points || 0);
+    Number(
+      profile.points || 0
+    );
 
 
   document.getElementById(
     "profilePoints"
   ).textContent =
-    "⭐ " + points + " نقطة";
+    "⭐ " +
+    points +
+    " نقطة";
 
 
   document.getElementById(
@@ -1604,10 +1950,6 @@ async function displayProfile(profile){
     points;
 
 
-  /*
-    AGE
-  */
-
   document.getElementById(
     "profileAge"
   ).textContent =
@@ -1615,10 +1957,6 @@ async function displayProfile(profile){
       ? profile.age + " سنة"
       : "-";
 
-
-  /*
-    CREATED
-  */
 
   if(profile.created_at){
 
@@ -1636,15 +1974,20 @@ async function displayProfile(profile){
         }
       );
 
+  }else{
+
+    document.getElementById(
+      "accountDate"
+    ).textContent =
+      "-";
+
   }
 
 
-  /*
-    AVATAR
-  */
-
   const avatar =
-    document.getElementById("avatar");
+    document.getElementById(
+      "avatar"
+    );
 
   avatar.innerHTML =
     "👤";
@@ -1663,19 +2006,21 @@ async function displayProfile(profile){
 
     img.onerror =
       function(){
-        avatar.innerHTML = "👤";
+
+        avatar.innerHTML =
+          "👤";
+
       };
 
-    avatar.innerHTML = "";
+    avatar.innerHTML =
+      "";
 
-    avatar.appendChild(img);
+    avatar.appendChild(
+      img
+    );
 
   }
 
-
-  /*
-    OWNER NAME
-  */
 
   document.getElementById(
     "votesOwnerName"
@@ -1698,7 +2043,8 @@ async function displayProfile(profile){
       "hidden"
     );
 
-    isFollowing = false;
+    isFollowing =
+      false;
 
     await checkFollowStatus();
 
@@ -1715,10 +2061,6 @@ async function displayProfile(profile){
 
   await loadUserVotes();
 
-
-  /*
-    LOGOUT
-  */
 
   const logoutButton =
     document.getElementById(
@@ -1887,7 +2229,8 @@ async function toggleFollow(){
       }
 
 
-      isFollowing = false;
+      isFollowing =
+        false;
 
 
       showMessage(
@@ -1913,9 +2256,12 @@ async function toggleFollow(){
 
       if(error){
 
-        if(error.code === "23505"){
+        if(
+          error.code === "23505"
+        ){
 
-          isFollowing = true;
+          isFollowing =
+            true;
 
         }else{
 
@@ -1925,7 +2271,8 @@ async function toggleFollow(){
 
       }else{
 
-        isFollowing = true;
+        isFollowing =
+          true;
 
       }
 
@@ -1981,10 +2328,13 @@ async function loadFollowStats(){
     const {count:followers,error:e1} =
       await supabaseClient
       .from("follows")
-      .select("id",{
-        count:"exact",
-        head:true
-      })
+      .select(
+        "id",
+        {
+          count:"exact",
+          head:true
+        }
+      )
       .eq(
         "following_id",
         profileUserId
@@ -1999,10 +2349,13 @@ async function loadFollowStats(){
     const {count:following,error:e2} =
       await supabaseClient
       .from("follows")
-      .select("id",{
-        count:"exact",
-        head:true
-      })
+      .select(
+        "id",
+        {
+          count:"exact",
+          head:true
+        }
+      )
       .eq(
         "follower_id",
         profileUserId
@@ -2047,13 +2400,19 @@ function getVoteOptions(vote){
     vote?.options;
 
 
-  if(typeof options === "string"){
+  if(
+    typeof options === "string"
+  ){
 
     try{
+
       options =
         JSON.parse(options);
+
     }catch{
+
       return [];
+
     }
 
   }
@@ -2079,9 +2438,14 @@ function calculateVoteTotal(vote){
   if(options.length){
 
     return options.reduce(
-      (total,option) =>
+      (
+        total,
+        option
+      ) =>
         total +
-        Number(option?.votes || 0),
+        Number(
+          option?.votes || 0
+        ),
       0
     );
 
@@ -2089,6 +2453,7 @@ function calculateVoteTotal(vote){
 
 
   const columns = [
+
     "votes_a",
     "votes_b",
     "votes_c",
@@ -2104,13 +2469,19 @@ function calculateVoteTotal(vote){
     "votes_m",
     "votes_n",
     "votes_o"
+
   ];
 
 
   return columns.reduce(
-    (total,column) =>
+    (
+      total,
+      column
+    ) =>
       total +
-      Number(vote[column] || 0),
+      Number(
+        vote[column] || 0
+      ),
     0
   );
 
@@ -2130,7 +2501,9 @@ async function loadUserVotes(){
 
 
   list.innerHTML =
-    `<div class="empty">⏳ جارٍ تحميل التصويتات...</div>`;
+    `<div class="empty">
+      ⏳ جارٍ تحميل التصويتات...
+    </div>`;
 
 
   try{
@@ -2183,8 +2556,13 @@ async function loadUserVotes(){
 
       list.innerHTML =
         `<div class="empty">
-          🗳️<br><br>
+
+          🗳️
+
+          <br><br>
+
           لا توجد تصويتات بعد.
+
         </div>`;
 
       return;
@@ -2192,81 +2570,93 @@ async function loadUserVotes(){
     }
 
 
-    list.innerHTML = "";
+    list.innerHTML =
+      "";
 
 
     let total =
       0;
 
 
-    votes.forEach(vote => {
+    votes.forEach(
+      vote => {
 
-      const voteTotal =
-        calculateVoteTotal(vote);
-
-
-      total +=
-        voteTotal;
-
-
-      const card =
-        document.createElement("a");
+        const voteTotal =
+          calculateVoteTotal(
+            vote
+          );
 
 
-      card.className =
-        "vote-card";
+        total +=
+          voteTotal;
 
 
-      card.href =
-        "vote.html?id=" +
-        encodeURIComponent(vote.id);
+        const card =
+          document.createElement(
+            "a"
+          );
 
 
-      const category =
-        escapeHtml(
-          vote.category || "عام"
+        card.className =
+          "vote-card";
+
+
+        card.href =
+          "vote.html?id=" +
+          encodeURIComponent(
+            vote.id
+          );
+
+
+        const category =
+          escapeHtml(
+            vote.category ||
+            "عام"
+          );
+
+
+        const question =
+          escapeHtml(
+            vote.question ||
+            "تصويت بدون عنوان"
+          );
+
+
+        const date =
+          vote.created_at
+            ? new Date(
+                vote.created_at
+              ).toLocaleDateString(
+                "ar-DZ"
+              )
+            : "";
+
+
+        card.innerHTML = `
+
+          <div class="vote-category">
+            ${category}
+          </div>
+
+          <div class="vote-question">
+            ${question}
+          </div>
+
+          <div class="vote-date">
+            🗳️ ${voteTotal} أصوات
+            &nbsp; • &nbsp;
+            📅 ${date}
+          </div>
+
+        `;
+
+
+        list.appendChild(
+          card
         );
 
-
-      const question =
-        escapeHtml(
-          vote.question ||
-          "تصويت بدون عنوان"
-        );
-
-
-      const date =
-        vote.created_at
-          ? new Date(
-              vote.created_at
-            ).toLocaleDateString(
-              "ar-DZ"
-            )
-          : "";
-
-
-      card.innerHTML = `
-
-        <div class="vote-category">
-          ${category}
-        </div>
-
-        <div class="vote-question">
-          ${question}
-        </div>
-
-        <div class="vote-date">
-          🗳️ ${voteTotal} أصوات
-          &nbsp; • &nbsp;
-          📅 ${date}
-        </div>
-
-      `;
-
-
-      list.appendChild(card);
-
-    });
+      }
+    );
 
 
     document.getElementById(
@@ -2281,9 +2671,15 @@ async function loadUserVotes(){
 
     list.innerHTML =
       `<div class="empty">
+
         ❌ تعذر تحميل التصويتات.
+
         <br><br>
-        ${escapeHtml(error.message)}
+
+        ${escapeHtml(
+          error.message
+        )}
+
       </div>`;
 
   }
@@ -2298,7 +2694,9 @@ async function loadUserVotes(){
 function escapeHtml(text){
 
   const div =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   div.textContent =
     String(text);
@@ -2357,12 +2755,15 @@ async function logout(){
 ========================================= */
 
 supabaseClient.auth.onAuthStateChange(
-(event,session) => {
+  (
+    event,
+    session
+  ) => {
 
-  currentUser =
-    session?.user || null;
+    currentUser =
+      session?.user || null;
 
-}
+  }
 );
 
 
